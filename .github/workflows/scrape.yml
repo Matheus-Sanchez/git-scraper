@@ -1,0 +1,52 @@
+﻿name: Daily Scrape
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run scraper
+        env:
+          DEBUG: ${{ vars.DEBUG }}
+          SCRAPING_API_KEY: ${{ secrets.SCRAPING_API_KEY }}
+          HTTP_TIMEOUT_MS: ${{ vars.HTTP_TIMEOUT_MS }}
+          CONCURRENCY: ${{ vars.CONCURRENCY }}
+          USER_AGENT: ${{ vars.USER_AGENT }}
+          PROXY_URL: ${{ secrets.PROXY_URL }}
+        run: npm run scrape
+
+      - name: Commit data changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "No data changes to commit"
+            exit 0
+          fi
+          RUN_DATE=$(date -u +%F)
+          git commit -m "chore(data): daily scrape ${RUN_DATE}"
+          git push

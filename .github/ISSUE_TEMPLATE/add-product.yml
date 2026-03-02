@@ -1,0 +1,93 @@
+﻿name: Adicionar Produto
+labels: [add-product]
+description: Solicitar monitoramento de um novo produto no scraper.
+title: "[ADD PRODUCT] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Envie os dados abaixo. O bot valida e adiciona automaticamente em `data/products.json`.
+  - type: input
+    id: name
+    attributes:
+      label: Nome do produto
+      description: Nome exibido no dashboard.
+      placeholder: Cafe Torrado e Moido 500g
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL do produto
+      description: URL completa HTTP/HTTPS.
+      placeholder: https://loja.exemplo.com/produto/abc
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: Categoria
+      description: Opcional.
+      placeholder: mercado
+  - type: input
+    id: units_per_package
+    attributes:
+      label: Unidades por pacote
+      description: Opcional. Exemplo: 12
+      placeholder: "1"
+  - type: dropdown
+    id: is_active
+    attributes:
+      label: Ativo para scraping?
+      options:
+        - true
+        - false
+      default: 0
+  - type: textarea
+    id: selectors_price_css
+    attributes:
+      label: Seletores CSS (um por linha)
+      description: Opcional.
+      placeholder: |
+        .price
+        [itemprop="price"]
+  - type: textarea
+    id: selectors_jsonld_paths
+    attributes:
+      label: JSON-LD paths (um por linha)
+      description: Opcional.
+      placeholder: |
+        offers.price
+        offers[0].price
+  - type: textarea
+    id: selectors_regex_hints
+    attributes:
+      label: Regex hints (um por linha)
+      description: Opcional.
+      placeholder: |
+        R\$\s*\d{1,4},\d{2}
+  - type: textarea
+    id: notes
+    attributes:
+      label: Observacoes
+      description: Opcional.
+  - type: textarea
+    id: product_json
+    attributes:
+      label: JSON do produto (opcional)
+      description: Se informado, tem prioridade sobre os campos acima.
+      render: json
+      placeholder: |
+        {
+          "name": "Produto X",
+          "url": "https://site.com/item",
+          "category": "categoria",
+          "units_per_package": 1,
+          "is_active": true,
+          "selectors": {
+            "price_css": [".price"],
+            "jsonld_paths": ["offers.price"],
+            "regex_hints": ["R\\$\\s*\\d{1,4},\\d{2}"]
+          },
+          "notes": "Opcional"
+        }

@@ -1,0 +1,87 @@
+﻿[
+  {
+    "id": "echo-dot-5",
+    "url": "https://www.amazon.com.br/dp/B09B8VGCR8",
+    "name": "Amazon Echo Dot 5a Geracao",
+    "category": "eletronicos",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "#corePriceDisplay_desktop_feature_div .a-offscreen",
+        ".a-price .a-offscreen"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "offers[0].price"
+      ],
+      "regex_hints": [
+        "R\\$\\s*\\d{2,4},\\d{2}"
+      ]
+    },
+    "notes": "Produto em marketplace com alta variacao de preco e promoções relampago."
+  },
+  {
+    "id": "ssd-1tb-kabum",
+    "url": "https://www.kabum.com.br/produto/85197/ssd-kingston-nv2-1tb-m-2-2280-pcie-nvme-leitura-3500mb-s-gravacao-2100mb-s-snv2s-1000g",
+    "name": "SSD Kingston NV2 1TB",
+    "category": "hardware",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "[data-testid='price-current']",
+        ".finalPrice",
+        ".priceCard"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "price"
+      ]
+    },
+    "notes": "Kabum costuma trocar classes com frequencia; JSON-LD tende a ser mais estavel."
+  },
+  {
+    "id": "detergente-ype-500ml",
+    "url": "https://www.carrefour.com.br/detergente-liquido-ype-neutro-500ml/p",
+    "name": "Detergente Liquido Ype Neutro 500ml",
+    "category": "mercado",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "[class*='price']",
+        "[data-testid*='price']",
+        ".vtex-product-price-1-x-sellingPrice"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "offers[0].price"
+      ],
+      "regex_hints": [
+        "\\d{1,2},\\d{2}"
+      ]
+    },
+    "notes": "Exemplo de item de supermercado para acompanhar inflacao de itens basicos."
+  },
+  {
+    "id": "shampoo-dove-400ml",
+    "url": "https://www.drogasil.com.br/shampoo-dove-hidratacao-intensa-400ml.html",
+    "name": "Shampoo Dove Hidratacao Intensa 400ml",
+    "category": "higiene",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        ".price-box .price",
+        "[itemprop='price']",
+        ".special-price .price"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "price"
+      ]
+    },
+    "notes": "Loja com frontend moderno; pode exigir renderizacao em algumas paginas."
+  }
+]

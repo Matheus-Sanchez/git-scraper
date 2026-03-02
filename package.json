@@ -1,0 +1,24 @@
+﻿{
+  "name": "git-scraper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal price scraper with GitHub Actions, GitHub Pages dashboard, and issue-driven product ingestion.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "scrape": "node src/scrape.js",
+    "dev": "cross-env DEBUG=1 node src/scrape.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.4.5",
+    "playwright": "^1.52.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

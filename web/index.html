@@ -1,0 +1,146 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Price Tracker Dashboard</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Git Scraper</p>
+        <h1>Dashboard de Precos</h1>
+        <p class="subtitle">
+          Monitoramento diario com scraping em cascata e publicacao estatica no GitHub Pages.
+        </p>
+        <div class="hero-actions">
+          <button id="open-add-modal" class="btn btn-primary" type="button">Adicionar Produto</button>
+          <a class="btn btn-ghost" href="../data/latest.json" target="_blank" rel="noopener noreferrer">Ver latest.json</a>
+        </div>
+        <p class="warning">
+          Adicionar produto cria uma Issue e o bot adiciona automaticamente.
+        </p>
+      </header>
+
+      <section class="card" aria-labelledby="summary-title">
+        <div class="card-title-row">
+          <h2 id="summary-title">Resumo do Ultimo Run</h2>
+          <span id="generated-at" class="meta-pill">Carregando...</span>
+        </div>
+        <div id="summary-grid" class="summary-grid"></div>
+      </section>
+
+      <section class="card" aria-labelledby="table-title">
+        <div class="card-title-row">
+          <h2 id="table-title">Produtos Monitorados</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Preco Atual</th>
+                <th>Unitario</th>
+                <th>Engine</th>
+                <th>Data/Hora</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <tr>
+                <td colspan="6">Carregando...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="chart-title">
+        <div class="chart-toolbar">
+          <h2 id="chart-title">Historico de Precos</h2>
+          <label class="inline-field" for="product-select">
+            Produto
+            <select id="product-select"></select>
+          </label>
+        </div>
+        <canvas id="history-chart" width="1200" height="420"></canvas>
+      </section>
+    </main>
+
+    <div id="add-modal" class="modal" aria-hidden="true">
+      <div class="modal-overlay" data-close-modal="true"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="add-modal-title">
+        <div class="modal-header">
+          <h2 id="add-modal-title">Adicionar Produto</h2>
+          <button id="close-add-modal" class="icon-btn" type="button" aria-label="Fechar">x</button>
+        </div>
+
+        <form id="add-product-form" class="form-grid">
+          <label>
+            Nome
+            <input type="text" id="ap-name" required>
+          </label>
+
+          <label>
+            URL
+            <input type="url" id="ap-url" required>
+          </label>
+
+          <label>
+            Categoria
+            <input type="text" id="ap-category">
+          </label>
+
+          <label>
+            Unidades por pacote
+            <input type="number" id="ap-units" min="1" step="1">
+          </label>
+
+          <label>
+            Ativo
+            <select id="ap-active">
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </label>
+
+          <label>
+            Repositorio GitHub (owner/repo)
+            <input type="text" id="ap-repo" required>
+          </label>
+
+          <label class="full-width">
+            Seletores CSS (um por linha)
+            <textarea id="ap-price-css" rows="4" placeholder=".price&#10;[itemprop='price']"></textarea>
+          </label>
+
+          <label class="full-width">
+            JSON-LD paths (um por linha)
+            <textarea id="ap-jsonld" rows="3" placeholder="offers.price&#10;offers[0].price"></textarea>
+          </label>
+
+          <label class="full-width">
+            Regex hints (um por linha)
+            <textarea id="ap-regex" rows="2" placeholder="R\$\s*\d{1,4},\d{2}"></textarea>
+          </label>
+
+          <label class="full-width">
+            Observacoes
+            <textarea id="ap-notes" rows="2"></textarea>
+          </label>
+
+          <div class="form-actions full-width">
+            <button type="submit" class="btn btn-primary">Abrir Issue no GitHub</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="./vendor/chart.umd.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

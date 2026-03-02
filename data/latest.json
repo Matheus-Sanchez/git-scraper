@@ -1,0 +1,33 @@
+﻿{
+  "generated_at": null,
+  "currency": "BRL",
+  "summary": {
+    "total_products": 0,
+    "success_count": 0,
+    "failure_count": 0,
+    "run_duration_ms": 0,
+    "engines": {
+      "engine1_http": {
+        "attempted": 0,
+        "success": 0,
+        "failed": 0,
+        "avg_time_ms": 0
+      },
+      "engine2_browser": {
+        "attempted": 0,
+        "success": 0,
+        "failed": 0,
+        "avg_time_ms": 0
+      },
+      "engine3_hardmode": {
+        "attempted": 0,
+        "success": 0,
+        "failed": 0,
+        "avg_time_ms": 0
+      }
+    }
+  },
+  "items": [],
+  "failures": [],
+  "run_file": null
+}
