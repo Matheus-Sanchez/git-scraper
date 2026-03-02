@@ -1,4 +1,4 @@
-﻿import { mkdir, open, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { mkdir, open, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { normalizeUrl } from '../utils/url.js';
 import { sleep } from '../utils/pool.js';

@@ -1,4 +1,4 @@
-﻿import axios from 'axios';
+import axios from 'axios';
 import { chromium } from 'playwright';
 import { mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -9,6 +9,14 @@ import { getAdapterForUrl } from '../adapters/index.js';
 import { roundTo2 } from '../utils/price_parse.js';
 
 const ENGINE_NAME = 'engine3_hardmode';
+
+function compactErrorMessage(error) {
+  const raw = error instanceof Error ? error.message : String(error);
+  return raw
+    .split('\n')[0]
+    .replace(/[^\x20-\x7E]/g, '')
+    .trim();
+}
 
 function buildSnapshot(product, extraction) {
   const units = Number(product.units_per_package);
@@ -174,7 +182,7 @@ export async function runEngine3(products, { env, logger }) {
   try {
     context = await chromium.launchPersistentContext(profileDir, launchOptions);
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = compactErrorMessage(error);
     log.warn('Engine3 persistent context launch failed', { error: message });
     return products.map((product) => ({
       product,

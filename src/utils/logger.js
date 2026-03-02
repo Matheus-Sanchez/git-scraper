@@ -1,4 +1,4 @@
-﻿function nowIso() {
+function nowIso() {
   return new Date().toISOString();
 }
 

@@ -1,4 +1,4 @@
-﻿import { load } from 'cheerio';
+import { load } from 'cheerio';
 import { parseBRLValue } from '../utils/price_parse.js';
 
 const AMAZON_DOMAINS = ['amazon.com.br', 'amazon.com'];
@@ -45,12 +45,24 @@ export const amazonAdapter = {
     const $ = load(String(html || ''));
     const out = [];
 
-    $('.a-price').slice(0, 10).each((_, element) => {
+    const roots = [
+      '#corePriceDisplay_desktop_feature_div',
+      '#corePrice_feature_div',
+      '#apex_desktop',
+      '#apex_offerDisplay_desktop',
+      '#desktop_buybox',
+    ];
+
+    const rootSelection = roots.join(',');
+    const scopedPrices = $(rootSelection).find('.a-price');
+    const priceElements = scopedPrices.length > 0 ? scopedPrices : $('.a-price').slice(0, 6);
+
+    priceElements.each((_, element) => {
       const offscreen = $(element).find('.a-offscreen').first().text().trim();
       if (offscreen) {
         out.push({
           raw: offscreen,
-          context: $(element).text().slice(0, 180),
+          context: `${$(element).closest(rootSelection).attr('id') || 'a-price'} ${$(element).text().slice(0, 180)}`,
         });
       }
 

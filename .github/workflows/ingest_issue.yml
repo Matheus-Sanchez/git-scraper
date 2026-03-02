@@ -1,4 +1,4 @@
-﻿name: Ingest Add-Product Issue
+name: Ingest Add-Product Issue
 
 on:
   issues:
@@ -10,7 +10,12 @@ permissions:
 
 jobs:
   ingest:
-    if: github.event.action == 'opened' && (contains(github.event.issue.labels.*.name, 'add-product') || startsWith(github.event.issue.title, '[ADD PRODUCT]'))
+    if: github.event.action == 'opened' && (
+      contains(github.event.issue.labels.*.name, 'add-product') ||
+      contains(github.event.issue.labels.*.name, 'manage-product') ||
+      startsWith(github.event.issue.title, '[ADD PRODUCT]') ||
+      startsWith(github.event.issue.title, '[MANAGE PRODUCT]')
+      )
     runs-on: ubuntu-latest
 
     steps:
@@ -59,14 +64,14 @@ jobs:
             const productId = process.env.INGEST_PRODUCT_ID || '';
 
             const prefixes = {
-              success: '?',
-              duplicate: '??',
-              invalid: '?',
-              error: '?',
-              skipped: '??',
+              success: '[OK]',
+              duplicate: '[INFO]',
+              invalid: '[ERROR]',
+              error: '[ERROR]',
+              skipped: '[INFO]',
             };
 
-            const prefix = prefixes[status] || '??';
+            const prefix = prefixes[status] || '[INFO]';
             const productLine = productId ? `\n\nID: \`${productId}\`` : '';
             const comment = `${prefix} Status: **${status}**\n\n${message}${productLine}`;
 

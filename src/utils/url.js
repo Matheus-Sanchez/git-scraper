@@ -1,4 +1,4 @@
-﻿const TRACKING_PARAMS = new Set([
+const TRACKING_PARAMS = new Set([
   'fbclid',
   'gclid',
   'igshid',

@@ -1,4 +1,4 @@
-﻿(function (globalScope) {
+(function (globalScope) {
   function getContext(nodeOrContext) {
     if (!nodeOrContext) return null;
     if (typeof nodeOrContext.getContext === 'function') {

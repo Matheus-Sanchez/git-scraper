@@ -1,4 +1,4 @@
-﻿import { env } from './config/env.js';
+import { env } from './config/env.js';
 import { runEngine1 } from './engines/engine1_http.js';
 import { runEngine2 } from './engines/engine2_browser.js';
 import { runEngine3 } from './engines/engine3_hardmode.js';

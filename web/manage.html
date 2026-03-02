@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gerenciar Produtos</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">Git Scraper</p>
+        <h1>Gerenciar Produtos</h1>
+        <p class="subtitle">
+          Esta pagina nao altera o arquivo direto. Cada acao abre uma Issue para o bot aplicar add/edit/remove.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-ghost" href="./index.html">Voltar ao Dashboard</a>
+          <button id="open-add" class="btn btn-primary" type="button">Novo Produto</button>
+        </div>
+      </header>
+
+      <section class="card" aria-labelledby="manage-title">
+        <div class="card-title-row">
+          <h2 id="manage-title">Lista de Produtos</h2>
+          <label class="inline-field" for="repo-input">
+            Repositorio
+            <input id="repo-input" type="text" placeholder="owner/repo">
+          </label>
+        </div>
+
+        <div class="manage-toolbar">
+          <label class="inline-field" for="category-filter">
+            Categoria
+            <select id="category-filter">
+              <option value="__all__">Todas</option>
+            </select>
+          </label>
+
+          <label class="inline-field" for="search-input">
+            Busca
+            <input id="search-input" type="text" placeholder="Nome ou URL">
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>URL</th>
+                <th>Ativo</th>
+                <th>Acoes</th>
+              </tr>
+            </thead>
+            <tbody id="products-manage-tbody">
+              <tr><td colspan="5">Carregando...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="manage-modal" class="modal" aria-hidden="true">
+      <div class="modal-overlay" data-close-modal="true"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="manage-modal-title">
+        <div class="modal-header">
+          <h2 id="manage-modal-title">Produto</h2>
+          <button id="close-manage-modal" class="icon-btn" type="button" aria-label="Fechar">x</button>
+        </div>
+
+        <form id="manage-form" class="form-grid">
+          <input id="mf-product-id" type="hidden">
+
+          <label>
+            Nome
+            <input id="mf-name" type="text" required>
+          </label>
+
+          <label>
+            URL
+            <input id="mf-url" type="url" required>
+          </label>
+
+          <label>
+            Categoria
+            <input id="mf-category" type="text">
+          </label>
+
+          <label>
+            Unidades por pacote
+            <input id="mf-units" type="number" min="1" step="1">
+          </label>
+
+          <label>
+            Ativo
+            <select id="mf-active">
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </label>
+
+          <label class="full-width">
+            Seletores CSS (um por linha)
+            <textarea id="mf-price-css" rows="3"></textarea>
+          </label>
+
+          <label class="full-width">
+            JSON-LD paths (um por linha)
+            <textarea id="mf-jsonld" rows="3"></textarea>
+          </label>
+
+          <label class="full-width">
+            Regex hints (um por linha)
+            <textarea id="mf-regex" rows="2"></textarea>
+          </label>
+
+          <label class="full-width">
+            Observacoes
+            <textarea id="mf-notes" rows="2"></textarea>
+          </label>
+
+          <div class="form-actions full-width">
+            <button type="submit" class="btn btn-primary">Abrir Issue de Alteracao</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="./manage.js"></script>
+  </body>
+</html>

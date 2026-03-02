@@ -1,39 +1,52 @@
-name: Adicionar Produto
-labels: [add-product]
-description: Solicitar monitoramento de um novo produto no scraper.
-title: "[ADD PRODUCT] "
+name: Gerenciar Produto
+labels: [manage-product]
+description: Adicionar, editar ou remover produtos de data/products.json.
+title: "[MANAGE PRODUCT] "
 body:
   - type: markdown
     attributes:
       value: |
-        Envie os dados abaixo. O bot valida e adiciona automaticamente em `data/products.json`.
+        Escolha a acao. O bot valida e aplica a alteracao no arquivo `data/products.json`.
+  - type: dropdown
+    id: action
+    attributes:
+      label: Acao
+      options:
+        - add
+        - edit
+        - remove
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: product_id
+    attributes:
+      label: ID do produto
+      description: Obrigatorio para edit/remove. Em add pode ficar vazio.
+      placeholder: ssd-1tb-kabum
   - type: input
     id: name
     attributes:
       label: Nome do produto
-      description: Nome exibido no dashboard.
-      placeholder: Cafe Torrado e Moido 500g
-    validations:
-      required: true
+      description: Obrigatorio em add. Opcional em edit.
+      placeholder: SSD Kingston NV2 1TB
   - type: input
     id: url
     attributes:
       label: URL do produto
-      description: URL completa HTTP/HTTPS.
+      description: Obrigatorio em add. Em edit use para trocar URL.
       placeholder: https://loja.exemplo.com/produto/abc
-    validations:
-      required: true
   - type: input
     id: category
     attributes:
       label: Categoria
       description: Opcional.
-      placeholder: mercado
+      placeholder: hardware
   - type: input
     id: units_per_package
     attributes:
       label: Unidades por pacote
-      description: Opcional. Exemplo: 12
+      description: Opcional.
       placeholder: "1"
   - type: dropdown
     id: is_active
@@ -48,46 +61,30 @@ body:
     attributes:
       label: Seletores CSS (um por linha)
       description: Opcional.
-      placeholder: |
-        .price
-        [itemprop="price"]
   - type: textarea
     id: selectors_jsonld_paths
     attributes:
       label: JSON-LD paths (um por linha)
       description: Opcional.
-      placeholder: |
-        offers.price
-        offers[0].price
   - type: textarea
     id: selectors_regex_hints
     attributes:
       label: Regex hints (um por linha)
       description: Opcional.
-      placeholder: |
-        R\$\s*\d{1,4},\d{2}
   - type: textarea
     id: notes
     attributes:
       label: Observacoes
       description: Opcional.
   - type: textarea
-    id: product_json
+    id: action_json
     attributes:
-      label: JSON do produto (opcional)
+      label: JSON da acao (opcional)
       description: Se informado, tem prioridade sobre os campos acima.
       render: json
       placeholder: |
         {
-          "name": "Produto X",
-          "url": "https://site.com/item",
-          "category": "categoria",
-          "units_per_package": 1,
-          "is_active": true,
-          "selectors": {
-            "price_css": [".price"],
-            "jsonld_paths": ["offers.price"],
-            "regex_hints": ["R\\$\\s*\\d{1,4},\\d{2}"]
-          },
-          "notes": "Opcional"
+          "action": "edit",
+          "product_id": "ssd-1tb-kabum",
+          "category": "hardware"
         }

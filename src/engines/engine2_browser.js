@@ -1,4 +1,4 @@
-﻿import { chromium } from 'playwright';
+import { chromium } from 'playwright';
 import { extractPriceFromHtml } from '../extract/extract_price.js';
 import { runWithPool, sleep } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';
@@ -6,6 +6,14 @@ import { getAdapterForUrl } from '../adapters/index.js';
 import { roundTo2 } from '../utils/price_parse.js';
 
 const ENGINE_NAME = 'engine2_browser';
+
+function compactErrorMessage(error) {
+  const raw = error instanceof Error ? error.message : String(error);
+  return raw
+    .split('\n')[0]
+    .replace(/[^\x20-\x7E]/g, '')
+    .trim();
+}
 
 function buildSnapshot(product, extraction) {
   const units = Number(product.units_per_package);
@@ -53,7 +61,7 @@ export async function runEngine2(products, { env, logger }) {
       headless: true,
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = compactErrorMessage(error);
     log.warn('Engine2 browser launch failed', { error: message });
     return products.map((product) => ({
       product,

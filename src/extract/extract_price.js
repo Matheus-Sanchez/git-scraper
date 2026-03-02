@@ -1,10 +1,11 @@
-﻿import { load } from 'cheerio';
+import { load } from 'cheerio';
 import { extractNumericTokens, parseBRLValue, roundTo2 } from '../utils/price_parse.js';
 import {
   clampConfidence,
   confidenceBaseBySource,
   contextAdjustment,
   hasCurrentPriceContext,
+  hasDisqualifyingContext,
   hasInstallmentContext,
   hasOldPriceContext,
   isCandidatePricePlausible,
@@ -243,10 +244,15 @@ function scoreCandidate(candidate, candidates) {
   if (hasInstallmentContext(candidate.context)) {
     return Number.NEGATIVE_INFINITY;
   }
+  if (hasDisqualifyingContext(candidate.context)) {
+    return Number.NEGATIVE_INFINITY;
+  }
+  if (hasOldPriceContext(candidate.context) && !hasCurrentPriceContext(candidate.context)) {
+    return Number.NEGATIVE_INFINITY;
+  }
 
   let score = priorityBySource(candidate.source) * 100;
   if (hasCurrentPriceContext(candidate.context)) score += 12;
-  if (hasOldPriceContext(candidate.context) && !hasCurrentPriceContext(candidate.context)) score -= 12;
 
   // If both "de" and "por" appear, favor the lower plausible one.
   if (/(\bde\b).*(\bpor\b)/i.test(candidate.context)) {

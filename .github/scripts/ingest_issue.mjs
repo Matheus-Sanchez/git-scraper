@@ -1,4 +1,4 @@
-﻿import { appendFile, readFile } from 'node:fs/promises';
+import { appendFile, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { readProducts, writeProducts } from '../../src/io/products.js';
@@ -31,7 +31,7 @@ function parseIssueFormFields(body) {
   const text = String(body || '');
   const out = {};
 
-  const pattern = /^###\s+(.+?)\r?\n([\s\S]*?)(?=^###\s+|\Z)/gim;
+  const pattern = /###\s+(.+?)\r?\n([\s\S]*?)(?=\r?\n###\s+|$)/g;
   let match;
 
   while ((match = pattern.exec(text)) !== null) {
@@ -41,7 +41,6 @@ function parseIssueFormFields(body) {
       .trim();
 
     if (!rawValue) continue;
-
     out[heading] = rawValue;
   }
 
@@ -65,24 +64,26 @@ export function parseIssuePayload(body) {
   }
 
   const fields = parseIssueFormFields(text);
+  const embeddedJson = fields['json do produto (opcional)'] || fields['json da acao (opcional)'];
 
-  const embeddedJson = fields['json do produto (opcional)'] || fields['json do produto'];
   if (embeddedJson) {
     try {
       const parsed = JSON.parse(embeddedJson);
       return { ok: true, payload: parsed, source: 'issue_form_json' };
     } catch {
-      return { ok: false, error: 'Invalid JSON in issue form field: JSON do produto' };
+      return { ok: false, error: 'Invalid JSON in issue form field' };
     }
   }
 
   const payload = {
-    name: fields['nome do produto'] || fields.nome,
+    action: fields['acao'] || fields['acao desejada'] || fields.action,
+    product_id: fields['id do produto'] || fields['product id'] || fields.product_id,
+    name: fields['nome do produto'] || fields.nome || fields.name,
     url: fields['url do produto'] || fields.url,
-    category: fields.categoria,
-    units_per_package: fields['unidades por pacote'],
-    is_active: fields['ativo para scraping?'],
-    notes: fields.observacoes || fields['observações'] || fields.notas,
+    category: fields.categoria || fields.category,
+    units_per_package: fields['unidades por pacote'] || fields['units per package'],
+    is_active: fields['ativo para scraping?'] || fields.is_active,
+    notes: fields.observacoes || fields.notas || fields.notes,
     selectors: {
       price_css: splitLines(fields['seletores css (um por linha)'] || fields['seletores css']),
       jsonld_paths: splitLines(fields['json-ld paths (um por linha)'] || fields['json-ld paths']),
@@ -115,6 +116,15 @@ function shortHash(text) {
   return createHash('sha1').update(text).digest('hex').slice(0, 8);
 }
 
+export function normalizeAction(value) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (!raw) return 'add';
+  if (['add', 'novo', 'adicionar'].includes(raw)) return 'add';
+  if (['edit', 'editar', 'update', 'atualizar'].includes(raw)) return 'edit';
+  if (['remove', 'remover', 'delete', 'excluir'].includes(raw)) return 'remove';
+  return 'invalid';
+}
+
 export function validateAndBuildProduct(rawPayload) {
   if (!rawPayload || typeof rawPayload !== 'object') {
     return { ok: false, error: 'Payload must be an object' };
@@ -126,7 +136,6 @@ export function validateAndBuildProduct(rawPayload) {
   if (!name) {
     return { ok: false, error: 'Field "name" is required' };
   }
-
   if (!url || !isValidHttpUrl(url)) {
     return { ok: false, error: 'Field "url" must be a valid HTTP/HTTPS URL' };
   }
@@ -159,10 +168,10 @@ export function validateAndBuildProduct(rawPayload) {
 
   const category = String(rawPayload.category || '').trim() || undefined;
   const notes = String(rawPayload.notes || '').trim() || undefined;
-
   const active = parseBoolean(rawPayload.is_active, true);
+
   const idBase = slugify(name) || 'produto';
-  const id = `${idBase}-${shortHash(normalizedUrl)}`;
+  const id = rawPayload.id || `${idBase}-${shortHash(normalizedUrl)}`;
 
   const product = {
     id,
@@ -178,12 +187,6 @@ export function validateAndBuildProduct(rawPayload) {
   return { ok: true, product };
 }
 
-function decodeTitleFallback(title) {
-  const raw = String(title || '').trim();
-  const withoutPrefix = raw.replace(/^\[ADD PRODUCT\]\s*/i, '').trim();
-  return withoutPrefix;
-}
-
 function setDefaultSelectorsIfMissing(product) {
   if (!product.selectors) {
     product.selectors = {
@@ -196,7 +199,6 @@ function setDefaultSelectorsIfMissing(product) {
   if (!Array.isArray(product.selectors.jsonld_paths) || product.selectors.jsonld_paths.length === 0) {
     product.selectors.jsonld_paths = ['offers.price', 'offers[0].price', 'price'];
   }
-
   if (!Array.isArray(product.selectors.price_css) || product.selectors.price_css.length === 0) {
     product.selectors.price_css = ['[itemprop="price"]', '.price', '.preco'];
   }
@@ -206,6 +208,185 @@ function setDefaultSelectorsIfMissing(product) {
 
 export function detectDuplicate(products, productToInsert) {
   return products.find((existing) => urlsEqualNormalized(existing.url, productToInsert.url));
+}
+
+function decodeTitleFallback(title) {
+  const raw = String(title || '').trim();
+  return raw
+    .replace(/^\[(ADD PRODUCT|MANAGE PRODUCT)\]\s*/i, '')
+    .trim();
+}
+
+function findProductIndex(products, payload) {
+  if (payload.product_id) {
+    return products.findIndex((item) => item.id === String(payload.product_id).trim());
+  }
+
+  if (payload.url && isValidHttpUrl(payload.url)) {
+    const normalized = normalizeUrl(payload.url);
+    return products.findIndex((item) => urlsEqualNormalized(item.url, normalized));
+  }
+
+  return -1;
+}
+
+function sanitizeSelectors(selectors, fallbackSelectors) {
+  if (!selectors || typeof selectors !== 'object') return fallbackSelectors;
+
+  const priceCss = cleanArray(selectors.price_css);
+  const jsonldPaths = cleanArray(selectors.jsonld_paths);
+  const regexHints = cleanArray(selectors.regex_hints);
+
+  const out = {};
+  if (priceCss.length > 0) out.price_css = priceCss;
+  if (jsonldPaths.length > 0) out.jsonld_paths = jsonldPaths;
+  if (regexHints.length > 0) out.regex_hints = regexHints;
+
+  if (Object.keys(out).length === 0) return fallbackSelectors;
+  return out;
+}
+
+function applyEdit(existing, payload) {
+  const draft = { ...existing };
+
+  if (payload.name !== undefined) {
+    const name = String(payload.name).trim();
+    if (!name) return { ok: false, error: 'Field "name" cannot be empty for edit' };
+    draft.name = name;
+  }
+
+  if (payload.url !== undefined) {
+    const url = String(payload.url).trim();
+    if (!isValidHttpUrl(url)) return { ok: false, error: 'Field "url" must be valid for edit' };
+    draft.url = normalizeUrl(url);
+  }
+
+  if (payload.category !== undefined) {
+    const category = String(payload.category || '').trim();
+    if (category) draft.category = category;
+    else delete draft.category;
+  }
+
+  if (payload.units_per_package !== undefined) {
+    if (payload.units_per_package === null || String(payload.units_per_package).trim() === '') {
+      delete draft.units_per_package;
+    } else {
+      const units = Number(payload.units_per_package);
+      if (!Number.isFinite(units) || units <= 0) {
+        return { ok: false, error: 'Field "units_per_package" must be > 0 for edit' };
+      }
+      draft.units_per_package = units;
+    }
+  }
+
+  if (payload.is_active !== undefined) {
+    draft.is_active = parseBoolean(payload.is_active, draft.is_active);
+  }
+
+  if (payload.notes !== undefined) {
+    const notes = String(payload.notes || '').trim();
+    if (notes) draft.notes = notes;
+    else delete draft.notes;
+  }
+
+  if (payload.selectors !== undefined) {
+    draft.selectors = sanitizeSelectors(payload.selectors, draft.selectors);
+  }
+
+  const validated = validateAndBuildProduct({ ...draft, id: existing.id });
+  if (!validated.ok) return validated;
+
+  return { ok: true, product: setDefaultSelectorsIfMissing(validated.product) };
+}
+
+export function mutateProducts(products, rawPayload, issueTitle = '') {
+  const payload = { ...(rawPayload || {}) };
+  const action = normalizeAction(payload.action);
+
+  if (action === 'invalid') {
+    return { ok: false, status: 'invalid', message: 'Field "action" must be add, edit or remove' };
+  }
+
+  if (action === 'add' && !payload.name) {
+    const fallbackName = decodeTitleFallback(issueTitle);
+    if (fallbackName) payload.name = fallbackName;
+  }
+
+  if (action === 'add') {
+    const validated = validateAndBuildProduct(payload);
+    if (!validated.ok) {
+      return { ok: false, status: 'invalid', message: validated.error };
+    }
+
+    const product = setDefaultSelectorsIfMissing(validated.product);
+    const duplicate = detectDuplicate(products, product);
+    if (duplicate) {
+      return {
+        ok: false,
+        status: 'duplicate',
+        message: `Produto ja existente para a URL informada (id: ${duplicate.id}).`,
+        product_id: duplicate.id,
+      };
+    }
+
+    const nextProducts = [...products, product].sort((a, b) => a.name.localeCompare(b.name));
+    return {
+      ok: true,
+      status: 'success',
+      message: `Produto adicionado com sucesso: ${product.name} (${product.id}).`,
+      product_id: product.id,
+      products: nextProducts,
+    };
+  }
+
+  const index = findProductIndex(products, payload);
+  if (index < 0) {
+    return {
+      ok: false,
+      status: 'invalid',
+      message: 'Produto alvo nao encontrado. Informe product_id ou URL existente.',
+    };
+  }
+
+  const target = products[index];
+
+  if (action === 'remove') {
+    const nextProducts = products.filter((item) => item.id !== target.id);
+    return {
+      ok: true,
+      status: 'success',
+      message: `Produto removido com sucesso: ${target.name} (${target.id}).`,
+      product_id: target.id,
+      products: nextProducts,
+    };
+  }
+
+  const edited = applyEdit(target, payload);
+  if (!edited.ok) {
+    return { ok: false, status: 'invalid', message: edited.error };
+  }
+
+  const duplicate = products.find((item) => item.id !== target.id && urlsEqualNormalized(item.url, edited.product.url));
+  if (duplicate) {
+    return {
+      ok: false,
+      status: 'duplicate',
+      message: `Ja existe outro produto com a mesma URL (id: ${duplicate.id}).`,
+      product_id: duplicate.id,
+    };
+  }
+
+  const nextProducts = [...products];
+  nextProducts[index] = edited.product;
+  nextProducts.sort((a, b) => a.name.localeCompare(b.name));
+
+  return {
+    ok: true,
+    status: 'success',
+    message: `Produto atualizado com sucesso: ${edited.product.name} (${edited.product.id}).`,
+    product_id: edited.product.id,
+    products: nextProducts,
+  };
 }
 
 async function writeOutput(key, value) {
@@ -233,37 +414,22 @@ export async function ingestIssueEvent(eventPayload) {
     return { status: 'invalid', message: parse.error, product_id: '' };
   }
 
-  if (!parse.payload?.name) {
-    const fallbackName = decodeTitleFallback(issue.title);
-    if (fallbackName) {
-      parse.payload.name = fallbackName;
-    }
-  }
-
-  const validated = validateAndBuildProduct(parse.payload);
-  if (!validated.ok) {
-    return { status: 'invalid', message: validated.error, product_id: '' };
-  }
-
-  const product = setDefaultSelectorsIfMissing(validated.product);
   const currentProducts = await readProducts();
+  const mutation = mutateProducts(currentProducts, parse.payload, issue.title || '');
 
-  const duplicate = detectDuplicate(currentProducts, product);
-  if (duplicate) {
+  if (!mutation.ok) {
     return {
-      status: 'duplicate',
-      message: `Produto ja existente para a URL informada (id: ${duplicate.id}).`,
-      product_id: duplicate.id,
+      status: mutation.status || 'invalid',
+      message: mutation.message || 'Could not process issue payload',
+      product_id: mutation.product_id || '',
     };
   }
 
-  const nextProducts = [...currentProducts, product].sort((a, b) => a.name.localeCompare(b.name));
-  await writeProducts(nextProducts);
-
+  await writeProducts(mutation.products);
   return {
-    status: 'success',
-    message: `Produto adicionado com sucesso: ${product.name} (${product.id}).`,
-    product_id: product.id,
+    status: mutation.status,
+    message: mutation.message,
+    product_id: mutation.product_id || '',
   };
 }
 
@@ -277,7 +443,6 @@ async function main() {
 
     const raw = await readFile(eventPath, 'utf8');
     const eventPayload = JSON.parse(raw);
-
     const result = await ingestIssueEvent(eventPayload);
     await finish(result.status, result.message, result.product_id || '');
   } catch (error) {

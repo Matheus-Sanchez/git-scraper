@@ -1,9 +1,12 @@
-﻿const RUNS_LIMIT = 30;
+const RUNS_LIMIT = 30;
+const ALL = '__all__';
 
 const els = {
   generatedAt: document.getElementById('generated-at'),
   summaryGrid: document.getElementById('summary-grid'),
   tbody: document.getElementById('products-tbody'),
+  tableCategoryFilter: document.getElementById('table-category-filter'),
+  historyCategoryFilter: document.getElementById('history-category-filter'),
   select: document.getElementById('product-select'),
   canvas: document.getElementById('history-chart'),
   openModal: document.getElementById('open-add-modal'),
@@ -15,9 +18,24 @@ const els = {
 const state = {
   latest: null,
   runs: [],
+  productsById: new Map(),
+  categories: [],
   historyByProduct: new Map(),
   chart: null,
 };
+
+function normalizeCategory(value) {
+  const category = String(value || '').trim();
+  return category || 'sem-categoria';
+}
+
+function formatCategoryLabel(value) {
+  const raw = normalizeCategory(value);
+  return raw
+    .split('-')
+    .join(' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
 
 function formatDateTime(iso) {
   if (!iso) return '-';
@@ -52,6 +70,13 @@ async function fetchJson(path) {
   return response.json();
 }
 
+function setFilterOptions(select, categories) {
+  select.innerHTML = [
+    `<option value="${ALL}">Todas</option>`,
+    ...categories.map((category) => `<option value="${category}">${formatCategoryLabel(category)}</option>`),
+  ].join('');
+}
+
 function renderSummary(latest) {
   const summary = latest?.summary || {};
   const engines = summary.engines || {};
@@ -75,15 +100,17 @@ function renderSummary(latest) {
     : 'Sem execucao registrada';
 }
 
-function renderTable(latest) {
+function buildRows(latest) {
   const successes = Array.isArray(latest?.items) ? latest.items : [];
   const failures = Array.isArray(latest?.failures) ? latest.failures : [];
-
   const rows = [];
 
   for (const item of successes) {
+    const product = state.productsById.get(item.product_id);
     rows.push({
+      product_id: item.product_id,
       name: item.name,
+      category: normalizeCategory(product?.category),
       price: item.price,
       unit_price: item.unit_price,
       engine: item.engine_used,
@@ -93,8 +120,11 @@ function renderTable(latest) {
   }
 
   for (const item of failures) {
+    const product = state.productsById.get(item.product_id);
     rows.push({
+      product_id: item.product_id,
       name: item.name,
+      category: normalizeCategory(product?.category),
       price: null,
       unit_price: null,
       engine: item.attempts?.[item.attempts.length - 1]?.engine || '-',
@@ -103,28 +133,50 @@ function renderTable(latest) {
     });
   }
 
-  rows.sort((a, b) => a.name.localeCompare(b.name));
+  return rows.sort((a, b) => {
+    if (a.category !== b.category) return a.category.localeCompare(b.category);
+    return a.name.localeCompare(b.name);
+  });
+}
+
+function renderTable(latest) {
+  const selectedCategory = els.tableCategoryFilter.value || ALL;
+  const allRows = buildRows(latest);
+  const rows = selectedCategory === ALL
+    ? allRows
+    : allRows.filter((row) => row.category === selectedCategory);
 
   if (rows.length === 0) {
-    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponivel.</td></tr>';
+    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponivel para o filtro atual.</td></tr>';
     return;
   }
 
-  els.tbody.innerHTML = rows
-    .map((row) => {
-      const statusClass = row.status === 'ok' ? 'status-ok' : 'status-failed';
-      return `
-        <tr>
-          <td>${row.name}</td>
-          <td>${formatMoney(row.price)}</td>
-          <td>${formatMoney(row.unit_price)}</td>
-          <td>${row.engine || '-'}</td>
-          <td>${formatDateTime(row.fetched_at)}</td>
-          <td><span class="status-pill ${statusClass}">${row.status}</span></td>
+  const html = [];
+  let lastCategory = '';
+  for (const row of rows) {
+    if (row.category !== lastCategory) {
+      html.push(`
+        <tr class="category-group-row">
+          <td colspan="6">${formatCategoryLabel(row.category)}</td>
         </tr>
-      `;
-    })
-    .join('');
+      `);
+      lastCategory = row.category;
+    }
+
+    const statusClass = row.status === 'ok' ? 'status-ok' : 'status-failed';
+    html.push(`
+      <tr>
+        <td>${row.name}</td>
+        <td>${formatMoney(row.price)}</td>
+        <td>${formatMoney(row.unit_price)}</td>
+        <td>${row.engine || '-'}</td>
+        <td>${formatDateTime(row.fetched_at)}</td>
+        <td><span class="status-pill ${statusClass}">${row.status}</span></td>
+      </tr>
+    `);
+  }
+
+  els.tbody.innerHTML = html.join('');
 }
 
 function buildHistoryMap(runs) {
@@ -135,10 +187,14 @@ function buildHistoryMap(runs) {
     const results = Array.isArray(run.results) ? run.results : [];
 
     for (const item of results) {
+      const product = state.productsById.get(item.product_id);
+      const category = normalizeCategory(product?.category);
+
       if (!history.has(item.product_id)) {
         history.set(item.product_id, {
           product_id: item.product_id,
           name: item.name,
+          category,
           points: [],
         });
       }
@@ -157,8 +213,16 @@ function buildHistoryMap(runs) {
   return history;
 }
 
-function renderProductSelect(historyByProduct) {
-  const options = [...historyByProduct.values()].sort((a, b) => a.name.localeCompare(b.name));
+function getHistoryByCategory() {
+  const selectedCategory = els.historyCategoryFilter.value || ALL;
+  const list = [...state.historyByProduct.values()].sort((a, b) => a.name.localeCompare(b.name));
+
+  if (selectedCategory === ALL) return list;
+  return list.filter((item) => item.category === selectedCategory);
+}
+
+function renderProductSelect() {
+  const options = getHistoryByCategory();
 
   if (options.length === 0) {
     els.select.innerHTML = '<option value="">Sem historico</option>';
@@ -180,7 +244,6 @@ function renderChart(productId) {
   }
 
   const history = productId ? state.historyByProduct.get(productId) : null;
-
   const labels = history?.points.map((p) => p.date) || [];
   const values = history?.points.map((p) => p.price) || [];
 
@@ -246,7 +309,10 @@ function buildIssueBody(payload) {
 }
 
 function parseRepoInput(value) {
-  const cleaned = String(value || '').trim().replace(/^https?:\/\/github\.com\//i, '').replace(/^\/+|\/+$/g, '');
+  const cleaned = String(value || '')
+    .trim()
+    .replace(/^https?:\/\/github\.com\//i, '')
+    .replace(/^\/+|\/+$/g, '');
   const parts = cleaned.split('/').filter(Boolean);
   if (parts.length < 2) return null;
   return `${parts[0]}/${parts[1]}`;
@@ -268,8 +334,8 @@ function onSubmitAddProduct(event) {
   }
 
   const units = unitsRaw ? Number(unitsRaw) : null;
-
   const payload = {
+    action: 'add',
     name,
     url,
     ...(category ? { category } : {}),
@@ -290,9 +356,9 @@ function onSubmitAddProduct(event) {
   if (payload.selectors.regex_hints.length === 0) delete payload.selectors.regex_hints;
   if (Object.keys(payload.selectors).length === 0) delete payload.selectors;
 
-  const title = `[ADD PRODUCT] ${name}`;
+  const title = `[MANAGE PRODUCT] ADD ${name}`;
   const body = buildIssueBody(payload);
-  const issueUrl = `https://github.com/${repoValue}/issues/new?labels=add-product&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+  const issueUrl = `https://github.com/${repoValue}/issues/new?labels=manage-product&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
 
   window.open(issueUrl, '_blank', 'noopener,noreferrer');
   closeModal();
@@ -300,9 +366,10 @@ function onSubmitAddProduct(event) {
 
 async function init() {
   try {
-    const [latest, runsIndex] = await Promise.all([
+    const [latest, runsIndex, products] = await Promise.all([
       fetchJson('../data/latest.json'),
       fetchJson('../data/runs/index.json').catch(() => ({ files: [] })),
+      fetchJson('../data/products.json').catch(() => []),
     ]);
 
     const runFiles = (runsIndex.files || []).slice(0, RUNS_LIMIT);
@@ -310,13 +377,18 @@ async function init() {
       runFiles.map((file) => fetchJson(`../data/runs/${file}`).catch(() => null)),
     );
 
+    state.productsById = new Map((products || []).map((product) => [product.id, product]));
+    state.categories = [...new Set((products || []).map((product) => normalizeCategory(product.category)))].sort();
     state.latest = latest;
     state.runs = runPayloads.filter(Boolean);
     state.historyByProduct = buildHistoryMap(state.runs);
 
+    setFilterOptions(els.tableCategoryFilter, state.categories);
+    setFilterOptions(els.historyCategoryFilter, state.categories);
+
     renderSummary(state.latest);
     renderTable(state.latest);
-    renderProductSelect(state.historyByProduct);
+    renderProductSelect();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     els.summaryGrid.innerHTML = `<div class="summary-item"><span class="k">Erro</span><span class="v">${message}</span></div>`;
@@ -325,9 +397,9 @@ async function init() {
   }
 }
 
-els.select.addEventListener('change', (event) => {
-  renderChart(event.target.value);
-});
+els.tableCategoryFilter.addEventListener('change', () => renderTable(state.latest));
+els.historyCategoryFilter.addEventListener('change', () => renderProductSelect());
+els.select.addEventListener('change', (event) => renderChart(event.target.value));
 
 els.openModal.addEventListener('click', openModal);
 els.closeModal.addEventListener('click', closeModal);

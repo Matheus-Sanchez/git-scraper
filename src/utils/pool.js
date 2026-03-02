@@ -1,4 +1,4 @@
-﻿export async function runWithPool(items, concurrency, worker) {
+export async function runWithPool(items, concurrency, worker) {
   if (!Array.isArray(items)) {
     throw new TypeError('items must be an array');
   }

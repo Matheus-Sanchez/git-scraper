@@ -1,4 +1,4 @@
-﻿import axios from 'axios';
+import axios from 'axios';
 import { extractPriceFromHtml } from '../extract/extract_price.js';
 import { runWithPool } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';

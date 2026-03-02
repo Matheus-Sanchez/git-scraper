@@ -1,4 +1,4 @@
-﻿import { amazonAdapter } from './amazon.js';
+import { amazonAdapter } from './amazon.js';
 import { genericAdapter } from './generic.js';
 import { getDomainFromUrl } from '../utils/url.js';
 

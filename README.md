@@ -31,6 +31,12 @@ Tambem permite adicionar produtos pelo site via GitHub Issue.
 npm ci
 ```
 
+No PowerShell do Windows, se houver bloqueio de `npm`/`npx`:
+
+```powershell
+npm.cmd ci
+```
+
 2. Copie e ajuste variaveis:
 
 ```bash
@@ -43,10 +49,22 @@ cp .env.example .env
 npx playwright install --with-deps chromium
 ```
 
+No PowerShell do Windows:
+
+```powershell
+npx.cmd playwright install chromium
+```
+
 4. Rode scraping local:
 
 ```bash
 npm run scrape
+```
+
+No PowerShell do Windows:
+
+```powershell
+npm.cmd run scrape
 ```
 
 5. Modo debug:
@@ -91,11 +109,12 @@ Permissao necessaria do workflow:
 
 - Trigger: issue `opened`
 - Processa apenas quando:
-  - label `add-product`, ou
-  - titulo com prefixo `[ADD PRODUCT]`
+  - label `add-product` ou `manage-product`, ou
+  - titulo com prefixo `[ADD PRODUCT]` ou `[MANAGE PRODUCT]`
 - Script: `.github/scripts/ingest_issue.mjs`
 - Resultado:
   - valida payload
+  - suporta `action: add|edit|remove`
   - evita duplicidade por URL normalizada
   - atualiza `data/products.json`
   - comenta e fecha issue
@@ -128,6 +147,80 @@ O parser aceita:
 
 - Bloco ` ```json ... ``` ` no corpo da issue (preferencial)
 - Campos do Issue Form (`.github/ISSUE_TEMPLATE/add-product.yml`)
+- Acao de gerenciamento por issue (`add`, `edit`, `remove`) com label `manage-product` e titulo `[MANAGE PRODUCT]`
+
+## Campos do formulario (Adicionar Produto)
+
+- `Nome`: obrigatorio. Nome exibido no dashboard e snapshots.
+- `URL`: obrigatorio. URL HTTP/HTTPS da pagina do produto.
+- `Categoria`: opcional, mas recomendado para filtros e agrupamento.
+- `Unidades por pacote`: opcional (`> 0`). Usado para calcular `unit_price`.
+- `Ativo`: se `false`, o produto fica cadastrado mas nao entra no scraping.
+- `Repositorio (owner/repo)`: obrigatorio para abrir a issue no repositorio correto.
+- `Seletores CSS` (um por linha): opcional. Ajuda em paginas com HTML dificil.
+- `JSON-LD paths` (um por linha): opcional. Preferencial para extracao estavel.
+- `Regex hints` (um por linha): opcional. Ultimo fallback.
+- `Observacoes`: opcional. Campo livre para contexto humano.
+
+### Exemplo de payload gerado pelo formulario
+
+```json
+{
+  "action": "add",
+  "name": "Mouse Logitech G203 Lightsync",
+  "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
+  "category": "perifericos",
+  "units_per_package": 1,
+  "is_active": true,
+  "selectors": {
+    "price_css": [
+      "[data-testid='price-current']",
+      ".finalPrice"
+    ],
+    "jsonld_paths": [
+      "offers.price",
+      "price"
+    ]
+  },
+  "notes": "Exemplo de cadastro"
+}
+```
+
+## Checklist rapido: validar novo produto ponta a ponta
+
+1. Rode scraping local:
+
+```powershell
+npm.cmd run scrape
+```
+
+2. Confirme arquivos gerados/atualizados:
+   - `data/latest.json`
+   - `data/runs/YYYY-MM-DD.json`
+   - `data/errors/YYYY-MM-DD.json`
+
+3. Suba servidor estatico local:
+
+```powershell
+npx.cmd http-server -p 5500 .
+```
+
+4. Abra:
+   - Dashboard: `http://localhost:5500/web/`
+   - Gestao: `http://localhost:5500/web/manage.html`
+
+5. Crie um produto via UI (abre issue), confirme envio no GitHub e aguarde workflow.
+6. Rode `git pull` local para trazer a alteracao de `data/products.json`.
+7. Rode `npm.cmd run scrape` novamente e atualize a tela.
+
+## Por que pode falhar em testes locais
+
+- `npm test` valida funcoes unitarias, nao garante scraping real de sites externos.
+- Se `npx` falhar no PowerShell, use `npx.cmd` (politica de execucao do Windows).
+- Se Chromium nao estiver instalado, engine2/engine3 falham com `Executable doesn't exist`.
+- Alguns sites retornam `403/404` por bloqueio anti-bot, geolocalizacao ou URL expirada.
+- Abrir HTML com `file://` pode bloquear `fetch`; use servidor local (`http://localhost:5500`).
+- Fluxo add/edit/remove via UI abre issue; alteracao real ocorre no workflow remoto, depois exige `git pull`.
 
 ## Estrutura de dados
 
@@ -165,4 +258,3 @@ Cada item suporta:
 - Evite concorrencia alta desnecessaria; o padrao e 4.
 - Use intervalos e lista de produtos razoavel.
 - Para sites mais restritivos, considere `PROXY_URL` e/ou `SCRAPING_API_KEY`.
-

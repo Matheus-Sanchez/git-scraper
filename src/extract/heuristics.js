@@ -1,7 +1,8 @@
-﻿const INSTALLMENT_RE = /(parcela|parcelado|\bx\s*de\b|mensal|assinatura|sem\s+juros|juros|m\u00EAs|m\u00EAses|anual)/i;
+const INSTALLMENT_RE = /(parcela|parcelado|\bx\s*de\b|mensal|assinatura|sem\s+juros|juros|m\u00EAs|m\u00EAses|anual)/i;
 const OLD_PRICE_RE = /(^|\s)(de\s*:?)\s*R?\$?/i;
 const CURRENT_PRICE_RE = /(\bpor\b|\bagora\b|\bpre\u00E7o\s+final\b|\bpre\u00E7o\s+atual\b)/i;
 const PIX_BOLETO_HINT_RE = /(pix|boleto|\u00E0\s+vista|a\s+vista)/i;
+const DISQUALIFY_RE = /(preco\s+list|preco\s+sugerido|a\s+partir\s+de|economize|cupom|cashback|primeira\s+compra)/i;
 
 export const SOURCE_CONFIDENCE = Object.freeze({
   'json-ld': 0.92,
@@ -41,6 +42,11 @@ export function hasCurrentPriceContext(text) {
 export function hasPixBoletoHint(text) {
   if (!text) return false;
   return PIX_BOLETO_HINT_RE.test(String(text));
+}
+
+export function hasDisqualifyingContext(text) {
+  if (!text) return false;
+  return DISQUALIFY_RE.test(String(text));
 }
 
 export function confidenceBaseBySource(source) {

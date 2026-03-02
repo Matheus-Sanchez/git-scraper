@@ -1,4 +1,4 @@
-﻿export function parseBRLValue(value) {
+export function parseBRLValue(value) {
   if (value === null || value === undefined) return null;
 
   if (typeof value === 'number') {

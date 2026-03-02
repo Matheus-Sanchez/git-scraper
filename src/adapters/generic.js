@@ -1,4 +1,4 @@
-﻿const GENERIC_SELECTOR_CANDIDATES = [
+const GENERIC_SELECTOR_CANDIDATES = [
   '[data-testid*="price"]',
   '[class*="price"]',
   '[id*="price"]',
