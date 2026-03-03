@@ -15,7 +15,7 @@
         <p class="eyebrow">Git Scraper</p>
         <h1>Dashboard de Precos</h1>
         <p class="subtitle">
-          Monitoramento diario com scraping em cascata e publicacao estatica no GitHub Pages.
+          Monitoramento diario com scraping em cascata, categorizacao visual e historico por produto/categoria.
         </p>
         <div class="hero-actions">
           <a class="btn btn-ghost" href="./manage.html">Gerenciar Produtos</a>
@@ -27,17 +27,61 @@
         </p>
       </header>
 
-      <section class="card" aria-labelledby="summary-title">
-        <div class="card-title-row">
-          <h2 id="summary-title">Resumo do Ultimo Run</h2>
-          <span id="generated-at" class="meta-pill">Carregando...</span>
+      <section class="overview-grid" aria-label="Visao geral">
+        <article class="card" aria-labelledby="category-pie-title">
+          <div class="card-title-row">
+            <h2 id="category-pie-title">Distribuicao por Categoria</h2>
+          </div>
+          <canvas id="category-pie-chart" width="700" height="320"></canvas>
+        </article>
+
+        <article class="card" aria-labelledby="summary-title">
+          <div class="card-title-row">
+            <h2 id="summary-title">Resumo do Ultimo Run</h2>
+            <span id="generated-at" class="meta-pill">Carregando...</span>
+          </div>
+          <div id="summary-grid" class="summary-grid"></div>
+        </article>
+      </section>
+
+      <section class="card" aria-labelledby="chart-title">
+        <div class="chart-toolbar">
+          <h2 id="chart-title">Historico de Precos</h2>
+          <label class="inline-field" for="chart-scope">
+            Modo
+            <select id="chart-scope">
+              <option value="all-products">Todos os produtos</option>
+              <option value="by-category">Produtos por categoria</option>
+              <option value="single-product">Produto especifico</option>
+            </select>
+          </label>
+          <label class="inline-field" for="history-category-filter">
+            Categoria
+            <select id="history-category-filter">
+              <option value="__all__">Todas</option>
+            </select>
+          </label>
+          <label class="inline-field" for="product-select">
+            Produto
+            <select id="product-select"></select>
+          </label>
         </div>
-        <div id="summary-grid" class="summary-grid"></div>
+
+        <div class="history-layout">
+          <div class="history-main">
+            <canvas id="history-chart" width="1200" height="420"></canvas>
+          </div>
+          <aside class="detail-panel">
+            <h3>Visor Detalhado</h3>
+            <div id="history-detail"></div>
+            <div id="category-legend" class="category-legend"></div>
+          </aside>
+        </div>
       </section>
 
       <section class="card" aria-labelledby="table-title">
         <div class="card-title-row">
-          <h2 id="table-title">Produtos Monitorados</h2>
+          <h2 id="table-title">Lista de Produtos (Atual)</h2>
           <label class="inline-field" for="table-category-filter">
             Categoria
             <select id="table-category-filter">
@@ -64,23 +108,6 @@
             </tbody>
           </table>
         </div>
-      </section>
-
-      <section class="card" aria-labelledby="chart-title">
-        <div class="chart-toolbar">
-          <h2 id="chart-title">Historico de Precos</h2>
-          <label class="inline-field" for="history-category-filter">
-            Categoria
-            <select id="history-category-filter">
-              <option value="__all__">Todas</option>
-            </select>
-          </label>
-          <label class="inline-field" for="product-select">
-            Produto
-            <select id="product-select"></select>
-          </label>
-        </div>
-        <canvas id="history-chart" width="1200" height="420"></canvas>
       </section>
     </main>
 

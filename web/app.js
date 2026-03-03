@@ -1,14 +1,30 @@
 const RUNS_LIMIT = 30;
 const ALL = '__all__';
 
+const CATEGORY_PALETTE = [
+  '#0f7a62',
+  '#b54708',
+  '#7a3ea1',
+  '#0f6cc0',
+  '#b42318',
+  '#1f7a1f',
+  '#8a5a00',
+  '#005f73',
+  '#8b1e3f',
+];
+
 const els = {
   generatedAt: document.getElementById('generated-at'),
   summaryGrid: document.getElementById('summary-grid'),
   tbody: document.getElementById('products-tbody'),
   tableCategoryFilter: document.getElementById('table-category-filter'),
   historyCategoryFilter: document.getElementById('history-category-filter'),
-  select: document.getElementById('product-select'),
-  canvas: document.getElementById('history-chart'),
+  chartScope: document.getElementById('chart-scope'),
+  productSelect: document.getElementById('product-select'),
+  historyCanvas: document.getElementById('history-chart'),
+  pieCanvas: document.getElementById('category-pie-chart'),
+  detail: document.getElementById('history-detail'),
+  categoryLegend: document.getElementById('category-legend'),
   openModal: document.getElementById('open-add-modal'),
   closeModal: document.getElementById('close-add-modal'),
   modal: document.getElementById('add-modal'),
@@ -18,10 +34,15 @@ const els = {
 const state = {
   latest: null,
   runs: [],
+  products: [],
   productsById: new Map(),
   categories: [],
+  colorsByCategory: new Map(),
   historyByProduct: new Map(),
+  historyByCategory: new Map(),
+  allDates: [],
   chart: null,
+  pieChart: null,
 };
 
 function normalizeCategory(value) {
@@ -30,10 +51,8 @@ function normalizeCategory(value) {
 }
 
 function formatCategoryLabel(value) {
-  const raw = normalizeCategory(value);
-  return raw
-    .split('-')
-    .join(' ')
+  return normalizeCategory(value)
+    .replace(/-/g, ' ')
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
@@ -70,6 +89,10 @@ async function fetchJson(path) {
   return response.json();
 }
 
+function colorForCategory(category) {
+  return state.colorsByCategory.get(normalizeCategory(category)) || '#0f7a62';
+}
+
 function setFilterOptions(select, categories) {
   select.innerHTML = [
     `<option value="${ALL}">Todas</option>`,
@@ -77,8 +100,15 @@ function setFilterOptions(select, categories) {
   ].join('');
 }
 
-function renderSummary(latest) {
-  const summary = latest?.summary || {};
+function buildCategoryColors(categories) {
+  state.colorsByCategory = new Map();
+  categories.forEach((category, index) => {
+    state.colorsByCategory.set(category, CATEGORY_PALETTE[index % CATEGORY_PALETTE.length]);
+  });
+}
+
+function renderSummary() {
+  const summary = state.latest?.summary || {};
   const engines = summary.engines || {};
 
   const rows = [
@@ -92,171 +122,50 @@ function renderSummary(latest) {
   ];
 
   els.summaryGrid.innerHTML = rows
-    .map(([k, v]) => `<div class="summary-item"><span class="k">${k}</span><span class="v">${v}</span></div>`)
+    .map(([key, value]) => `<div class="summary-item"><span class="k">${key}</span><span class="v">${value}</span></div>`)
     .join('');
 
-  els.generatedAt.textContent = latest?.generated_at
-    ? `Atualizado: ${formatDateTime(latest.generated_at)}`
+  els.generatedAt.textContent = state.latest?.generated_at
+    ? `Atualizado: ${formatDateTime(state.latest.generated_at)}`
     : 'Sem execucao registrada';
 }
 
-function buildRows(latest) {
-  const successes = Array.isArray(latest?.items) ? latest.items : [];
-  const failures = Array.isArray(latest?.failures) ? latest.failures : [];
-  const rows = [];
+function renderCategoryLegend(categories) {
+  const html = categories.map((category) => `
+    <span class="category-chip">
+      <span class="category-chip-dot" style="background:${colorForCategory(category)}"></span>
+      ${formatCategoryLabel(category)}
+    </span>
+  `).join('');
+  els.categoryLegend.innerHTML = html || '<span class="category-chip">Sem categorias</span>';
+}
 
-  for (const item of successes) {
-    const product = state.productsById.get(item.product_id);
-    rows.push({
-      product_id: item.product_id,
-      name: item.name,
-      category: normalizeCategory(product?.category),
-      price: item.price,
-      unit_price: item.unit_price,
-      engine: item.engine_used,
-      fetched_at: item.fetched_at,
-      status: 'ok',
-    });
+function renderPieChart() {
+  if (state.pieChart) {
+    state.pieChart.destroy();
+    state.pieChart = null;
   }
 
-  for (const item of failures) {
-    const product = state.productsById.get(item.product_id);
-    rows.push({
-      product_id: item.product_id,
-      name: item.name,
-      category: normalizeCategory(product?.category),
-      price: null,
-      unit_price: null,
-      engine: item.attempts?.[item.attempts.length - 1]?.engine || '-',
-      fetched_at: item.fetched_at,
-      status: 'failed',
-    });
-  }
-
-  return rows.sort((a, b) => {
-    if (a.category !== b.category) return a.category.localeCompare(b.category);
-    return a.name.localeCompare(b.name);
+  const counts = new Map();
+  state.products.forEach((product) => {
+    if (!product.is_active) return;
+    const category = normalizeCategory(product.category);
+    counts.set(category, (counts.get(category) || 0) + 1);
   });
-}
 
-function renderTable(latest) {
-  const selectedCategory = els.tableCategoryFilter.value || ALL;
-  const allRows = buildRows(latest);
-  const rows = selectedCategory === ALL
-    ? allRows
-    : allRows.filter((row) => row.category === selectedCategory);
+  const labels = [...counts.keys()].sort();
+  const values = labels.map((label) => counts.get(label));
+  const colors = labels.map((label) => colorForCategory(label));
 
-  if (rows.length === 0) {
-    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponivel para o filtro atual.</td></tr>';
-    return;
-  }
-
-  const html = [];
-  let lastCategory = '';
-  for (const row of rows) {
-    if (row.category !== lastCategory) {
-      html.push(`
-        <tr class="category-group-row">
-          <td colspan="6">${formatCategoryLabel(row.category)}</td>
-        </tr>
-      `);
-      lastCategory = row.category;
-    }
-
-    const statusClass = row.status === 'ok' ? 'status-ok' : 'status-failed';
-    html.push(`
-      <tr>
-        <td>${row.name}</td>
-        <td>${formatMoney(row.price)}</td>
-        <td>${formatMoney(row.unit_price)}</td>
-        <td>${row.engine || '-'}</td>
-        <td>${formatDateTime(row.fetched_at)}</td>
-        <td><span class="status-pill ${statusClass}">${row.status}</span></td>
-      </tr>
-    `);
-  }
-
-  els.tbody.innerHTML = html.join('');
-}
-
-function buildHistoryMap(runs) {
-  const history = new Map();
-
-  for (const run of runs) {
-    const dateLabel = run.run_date || (run.generated_at ? run.generated_at.slice(0, 10) : '-');
-    const results = Array.isArray(run.results) ? run.results : [];
-
-    for (const item of results) {
-      const product = state.productsById.get(item.product_id);
-      const category = normalizeCategory(product?.category);
-
-      if (!history.has(item.product_id)) {
-        history.set(item.product_id, {
-          product_id: item.product_id,
-          name: item.name,
-          category,
-          points: [],
-        });
-      }
-
-      history.get(item.product_id).points.push({
-        date: dateLabel,
-        price: Number(item.price),
-      });
-    }
-  }
-
-  for (const value of history.values()) {
-    value.points.sort((a, b) => a.date.localeCompare(b.date));
-  }
-
-  return history;
-}
-
-function getHistoryByCategory() {
-  const selectedCategory = els.historyCategoryFilter.value || ALL;
-  const list = [...state.historyByProduct.values()].sort((a, b) => a.name.localeCompare(b.name));
-
-  if (selectedCategory === ALL) return list;
-  return list.filter((item) => item.category === selectedCategory);
-}
-
-function renderProductSelect() {
-  const options = getHistoryByCategory();
-
-  if (options.length === 0) {
-    els.select.innerHTML = '<option value="">Sem historico</option>';
-    renderChart(null);
-    return;
-  }
-
-  els.select.innerHTML = options
-    .map((item, index) => `<option value="${item.product_id}" ${index === 0 ? 'selected' : ''}>${item.name}</option>`)
-    .join('');
-
-  renderChart(options[0].product_id);
-}
-
-function renderChart(productId) {
-  if (state.chart) {
-    state.chart.destroy();
-    state.chart = null;
-  }
-
-  const history = productId ? state.historyByProduct.get(productId) : null;
-  const labels = history?.points.map((p) => p.date) || [];
-  const values = history?.points.map((p) => p.price) || [];
-
-  state.chart = new window.Chart(els.canvas, {
-    type: 'line',
+  state.pieChart = new window.Chart(els.pieCanvas, {
+    type: 'pie',
     data: {
-      labels,
+      labels: labels.map(formatCategoryLabel),
       datasets: [
         {
-          label: history?.name ? `Preco - ${history.name}` : 'Sem dados',
+          label: 'Produtos por categoria',
           data: values,
-          borderColor: '#0f7a62',
-          backgroundColor: '#0f7a62',
+          backgroundColor: colors,
         },
       ],
     },
@@ -264,6 +173,262 @@ function renderChart(productId) {
       responsive: true,
     },
   });
+}
+
+function buildRows() {
+  const successes = Array.isArray(state.latest?.items) ? state.latest.items : [];
+  const failures = Array.isArray(state.latest?.failures) ? state.latest.failures : [];
+  const rows = [];
+
+  successes.forEach((item) => {
+    const product = state.productsById.get(item.product_id);
+    rows.push({
+      category: normalizeCategory(product?.category),
+      name: item.name,
+      price: item.price,
+      unit_price: item.unit_price,
+      engine: item.engine_used,
+      fetched_at: item.fetched_at,
+      status: 'ok',
+    });
+  });
+
+  failures.forEach((item) => {
+    const product = state.productsById.get(item.product_id);
+    rows.push({
+      category: normalizeCategory(product?.category),
+      name: item.name,
+      price: null,
+      unit_price: null,
+      engine: item.attempts?.[item.attempts.length - 1]?.engine || '-',
+      fetched_at: item.fetched_at,
+      status: 'failed',
+    });
+  });
+
+  return rows.sort((a, b) => {
+    if (a.category !== b.category) return a.category.localeCompare(b.category);
+    return a.name.localeCompare(b.name);
+  });
+}
+
+function renderTable() {
+  const selectedCategory = els.tableCategoryFilter.value || ALL;
+  const filteredRows = buildRows().filter((row) => selectedCategory === ALL || row.category === selectedCategory);
+
+  if (filteredRows.length === 0) {
+    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponivel para o filtro atual.</td></tr>';
+    return;
+  }
+
+  let lastCategory = '';
+  const html = [];
+  filteredRows.forEach((row) => {
+    if (row.category !== lastCategory) {
+      html.push(`<tr class="category-group-row"><td colspan="6">${formatCategoryLabel(row.category)}</td></tr>`);
+      lastCategory = row.category;
+    }
+
+    html.push(`
+      <tr>
+        <td>${row.name}</td>
+        <td>${formatMoney(row.price)}</td>
+        <td>${formatMoney(row.unit_price)}</td>
+        <td>${row.engine || '-'}</td>
+        <td>${formatDateTime(row.fetched_at)}</td>
+        <td><span class="status-pill ${row.status === 'ok' ? 'status-ok' : 'status-failed'}">${row.status}</span></td>
+      </tr>
+    `);
+  });
+
+  els.tbody.innerHTML = html.join('');
+}
+
+function buildHistories() {
+  const productMap = new Map();
+  const categoryAggregation = new Map();
+  const datesSet = new Set();
+
+  state.runs.forEach((run) => {
+    const dateLabel = run.run_date || (run.generated_at ? run.generated_at.slice(0, 10) : '-');
+    datesSet.add(dateLabel);
+
+    (run.results || []).forEach((result) => {
+      const product = state.productsById.get(result.product_id);
+      const category = normalizeCategory(product?.category);
+
+      if (!productMap.has(result.product_id)) {
+        productMap.set(result.product_id, {
+          product_id: result.product_id,
+          name: result.name,
+          category,
+          points: [],
+        });
+      }
+      productMap.get(result.product_id).points.push({
+        date: dateLabel,
+        price: Number(result.price),
+      });
+
+      const key = `${category}::${dateLabel}`;
+      const prev = categoryAggregation.get(key) || { sum: 0, count: 0 };
+      prev.sum += Number(result.price);
+      prev.count += 1;
+      categoryAggregation.set(key, prev);
+    });
+  });
+
+  const allDates = [...datesSet].sort((a, b) => a.localeCompare(b));
+
+  productMap.forEach((entry) => {
+    entry.points.sort((a, b) => a.date.localeCompare(b.date));
+  });
+
+  const categoryMap = new Map();
+  state.categories.forEach((category) => {
+    const points = allDates.map((date) => {
+      const agg = categoryAggregation.get(`${category}::${date}`);
+      if (!agg || agg.count === 0) return { date, price: null };
+      return { date, price: Math.round((agg.sum / agg.count) * 100) / 100 };
+    });
+
+    categoryMap.set(category, {
+      category,
+      label: formatCategoryLabel(category),
+      points,
+    });
+  });
+
+  state.historyByProduct = productMap;
+  state.historyByCategory = categoryMap;
+  state.allDates = allDates;
+}
+
+function productOptionsForFilter() {
+  const selectedCategory = els.historyCategoryFilter.value || ALL;
+  const list = [...state.historyByProduct.values()].sort((a, b) => a.name.localeCompare(b.name));
+  if (selectedCategory === ALL) return list;
+  return list.filter((item) => item.category === selectedCategory);
+}
+
+function renderProductSelect() {
+  const options = productOptionsForFilter();
+  if (options.length === 0) {
+    els.productSelect.innerHTML = '<option value="">Sem historico</option>';
+    return;
+  }
+
+  els.productSelect.innerHTML = options
+    .map((item, index) => `<option value="${item.product_id}" ${index === 0 ? 'selected' : ''}>${item.name}</option>`)
+    .join('');
+}
+
+function valueMap(points) {
+  const map = new Map();
+  (points || []).forEach((point) => map.set(point.date, Number(point.price)));
+  return map;
+}
+
+function datasetFromProduct(entry) {
+  const pointMap = valueMap(entry.points);
+  return {
+    label: entry.name,
+    data: state.allDates.map((date) => (pointMap.has(date) ? pointMap.get(date) : null)),
+    borderColor: colorForCategory(entry.category),
+    backgroundColor: colorForCategory(entry.category),
+  };
+}
+
+function datasetFromCategory(entry) {
+  const pointMap = valueMap(entry.points);
+  return {
+    label: entry.label,
+    data: state.allDates.map((date) => (pointMap.has(date) ? pointMap.get(date) : null)),
+    borderColor: colorForCategory(entry.category),
+    backgroundColor: colorForCategory(entry.category),
+  };
+}
+
+function chartDatasets() {
+  const scope = els.chartScope.value;
+  const category = els.historyCategoryFilter.value || ALL;
+
+  if (scope === 'single-product') {
+    const product = state.historyByProduct.get(els.productSelect.value);
+    if (!product) return [];
+    return [datasetFromProduct(product)];
+  }
+
+  if (scope === 'by-category') {
+    const categories = category === ALL ? state.categories : state.categories.filter((item) => item === category);
+    return categories
+      .map((cat) => state.historyByCategory.get(cat))
+      .filter(Boolean)
+      .map(datasetFromCategory);
+  }
+
+  const products = productOptionsForFilter();
+  return products.map(datasetFromProduct);
+}
+
+function renderDetailPanel(datasets) {
+  const scope = els.chartScope.value;
+  const category = els.historyCategoryFilter.value || ALL;
+
+  if (datasets.length === 0) {
+    els.detail.innerHTML = 'Sem dados para o filtro atual.';
+    return;
+  }
+
+  if (scope === 'single-product') {
+    const ds = datasets[0];
+    const validValues = ds.data.filter((value) => Number.isFinite(Number(value)));
+    const last = validValues[validValues.length - 1] ?? null;
+    const min = validValues.length ? Math.min(...validValues) : null;
+    const max = validValues.length ? Math.max(...validValues) : null;
+
+    els.detail.innerHTML = `
+      <div class="detail-list">
+        <div class="detail-item"><span>Produto</span><strong>${ds.label}</strong></div>
+        <div class="detail-item"><span>Ultimo preco</span><strong>${formatMoney(last)}</strong></div>
+        <div class="detail-item"><span>Minimo no periodo</span><strong>${formatMoney(min)}</strong></div>
+        <div class="detail-item"><span>Maximo no periodo</span><strong>${formatMoney(max)}</strong></div>
+      </div>
+    `;
+    return;
+  }
+
+  const scopeLabel = scope === 'by-category' ? 'Categorias' : 'Produtos';
+  const categoryLabel = category === ALL ? 'Todas' : formatCategoryLabel(category);
+  els.detail.innerHTML = `
+    <div class="detail-list">
+      <div class="detail-item"><span>Modo</span><strong>${scopeLabel}</strong></div>
+      <div class="detail-item"><span>Filtro de categoria</span><strong>${categoryLabel}</strong></div>
+      <div class="detail-item"><span>Series ativas</span><strong>${datasets.length}</strong></div>
+      <div class="detail-item"><span>Periodo</span><strong>${state.allDates.length} snapshots</strong></div>
+    </div>
+  `;
+}
+
+function renderHistoryChart() {
+  if (state.chart) {
+    state.chart.destroy();
+    state.chart = null;
+  }
+
+  const datasets = chartDatasets();
+  state.chart = new window.Chart(els.historyCanvas, {
+    type: 'line',
+    data: {
+      labels: state.allDates,
+      datasets,
+    },
+    options: {
+      responsive: true,
+    },
+  });
+
+  renderDetailPanel(datasets);
 }
 
 function detectDefaultRepo() {
@@ -275,11 +440,7 @@ function detectDefaultRepo() {
     const repo = pathParts[0] || '';
     if (owner && repo) return `${owner}/${repo}`;
   }
-
-  if (pathParts.length >= 2) {
-    return `${pathParts[0]}/${pathParts[1]}`;
-  }
-
+  if (pathParts.length >= 2) return `${pathParts[0]}/${pathParts[1]}`;
   return '';
 }
 
@@ -296,12 +457,11 @@ function closeModal() {
 }
 
 function buildIssueBody(payload) {
-  const json = JSON.stringify(payload, null, 2);
   return [
     '## Add Product Request',
     '',
     '```json',
-    json,
+    JSON.stringify(payload, null, 2),
     '```',
     '',
     'Criado via dashboard estatico.',
@@ -364,6 +524,12 @@ function onSubmitAddProduct(event) {
   closeModal();
 }
 
+function onChartScopeChange() {
+  const scope = els.chartScope.value;
+  els.productSelect.disabled = scope !== 'single-product';
+  renderHistoryChart();
+}
+
 async function init() {
   try {
     const [latest, runsIndex, products] = await Promise.all([
@@ -377,29 +543,40 @@ async function init() {
       runFiles.map((file) => fetchJson(`../data/runs/${file}`).catch(() => null)),
     );
 
-    state.productsById = new Map((products || []).map((product) => [product.id, product]));
-    state.categories = [...new Set((products || []).map((product) => normalizeCategory(product.category)))].sort();
     state.latest = latest;
     state.runs = runPayloads.filter(Boolean);
-    state.historyByProduct = buildHistoryMap(state.runs);
+    state.products = Array.isArray(products) ? products : [];
+    state.productsById = new Map(state.products.map((product) => [product.id, product]));
+    state.categories = [...new Set(state.products.map((product) => normalizeCategory(product.category)))].sort();
 
+    buildCategoryColors(state.categories);
+    buildHistories();
     setFilterOptions(els.tableCategoryFilter, state.categories);
     setFilterOptions(els.historyCategoryFilter, state.categories);
-
-    renderSummary(state.latest);
-    renderTable(state.latest);
     renderProductSelect();
+    els.chartScope.value = 'all-products';
+    els.productSelect.disabled = true;
+
+    renderSummary();
+    renderCategoryLegend(state.categories);
+    renderPieChart();
+    renderHistoryChart();
+    renderTable();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     els.summaryGrid.innerHTML = `<div class="summary-item"><span class="k">Erro</span><span class="v">${message}</span></div>`;
     els.tbody.innerHTML = '<tr><td colspan="6">Falha ao carregar dados.</td></tr>';
-    renderChart(null);
+    els.detail.textContent = `Erro: ${message}`;
   }
 }
 
-els.tableCategoryFilter.addEventListener('change', () => renderTable(state.latest));
-els.historyCategoryFilter.addEventListener('change', () => renderProductSelect());
-els.select.addEventListener('change', (event) => renderChart(event.target.value));
+els.tableCategoryFilter.addEventListener('change', () => renderTable());
+els.historyCategoryFilter.addEventListener('change', () => {
+  renderProductSelect();
+  renderHistoryChart();
+});
+els.chartScope.addEventListener('change', onChartScopeChange);
+els.productSelect.addEventListener('change', () => renderHistoryChart());
 
 els.openModal.addEventListener('click', openModal);
 els.closeModal.addEventListener('click', closeModal);
