@@ -1,0 +1,25 @@
+{
+  "run_date": "2026-03-04",
+  "generated_at": "2026-03-04T09:59:39.352Z",
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 4,
+      "success": 4,
+      "failed": 0,
+      "avg_time_ms": 1214
+    },
+    "engine2_browser": {
+      "attempted": 0,
+      "success": 0,
+      "failed": 0,
+      "avg_time_ms": 0
+    },
+    "engine3_hardmode": {
+      "attempted": 0,
+      "success": 0,
+      "failed": 0,
+      "avg_time_ms": 0
+    }
+  },
+  "errors": []
+}
