@@ -1,4 +1,5 @@
 {
+  "run_date": "2026-03-07",
   "generated_at": "2026-03-07T09:45:41.211Z",
   "currency": "BRL",
   "summary": {
@@ -27,7 +28,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
       "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
@@ -81,6 +82,5 @@
       "status": "ok"
     }
   ],
-  "failures": [],
-  "run_file": "2026-03-07.json"
+  "failures": []
 }
