@@ -1,11 +1,23 @@
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
-const DATA_DIR = resolve(process.cwd(), 'data');
-const RUNS_DIR = resolve(DATA_DIR, 'runs');
-const ERRORS_DIR = resolve(DATA_DIR, 'errors');
-const LATEST_PATH = resolve(DATA_DIR, 'latest.json');
-const RUNS_INDEX_PATH = resolve(RUNS_DIR, 'index.json');
+const PRIMARY_DATA_DIR = resolve(process.cwd(), 'data');
+const MIRROR_DATA_DIR = resolve(process.cwd(), 'docs', 'data');
+
+function buildStoragePaths(dataDir) {
+  const runsDir = resolve(dataDir, 'runs');
+  return {
+    dataDir,
+    runsDir,
+    errorsDir: resolve(dataDir, 'errors'),
+    latestPath: resolve(dataDir, 'latest.json'),
+    runsIndexPath: resolve(runsDir, 'index.json'),
+  };
+}
+
+const PRIMARY_PATHS = buildStoragePaths(PRIMARY_DATA_DIR);
+const MIRROR_PATHS = buildStoragePaths(MIRROR_DATA_DIR);
+const STORAGE_PATHS = [PRIMARY_PATHS, MIRROR_PATHS];
 
 function stripBom(text) {
   if (!text) return text;
@@ -20,33 +32,39 @@ async function writeJsonAtomic(targetPath, payload) {
   await rename(tempPath, targetPath);
 }
 
+async function ensureStoragePaths(paths) {
+  await mkdir(paths.dataDir, { recursive: true });
+  await mkdir(paths.runsDir, { recursive: true });
+  await mkdir(paths.errorsDir, { recursive: true });
+}
+
 export async function ensureStorage() {
-  await mkdir(DATA_DIR, { recursive: true });
-  await mkdir(RUNS_DIR, { recursive: true });
-  await mkdir(ERRORS_DIR, { recursive: true });
+  await Promise.all(STORAGE_PATHS.map((paths) => ensureStoragePaths(paths)));
 }
 
 export async function saveLatestSnapshot(payload) {
   await ensureStorage();
-  await writeJsonAtomic(LATEST_PATH, payload);
+  await Promise.all(STORAGE_PATHS.map((paths) => writeJsonAtomic(paths.latestPath, payload)));
 }
 
 export async function saveDailyRun(runDate, payload) {
   await ensureStorage();
-  const targetPath = resolve(RUNS_DIR, `${runDate}.json`);
-  await writeJsonAtomic(targetPath, payload);
+  await Promise.all(
+    STORAGE_PATHS.map((paths) => writeJsonAtomic(resolve(paths.runsDir, `${runDate}.json`), payload)),
+  );
   return `${runDate}.json`;
 }
 
 export async function saveDailyErrors(runDate, payload) {
   await ensureStorage();
-  const targetPath = resolve(ERRORS_DIR, `${runDate}.json`);
-  await writeJsonAtomic(targetPath, payload);
+  await Promise.all(
+    STORAGE_PATHS.map((paths) => writeJsonAtomic(resolve(paths.errorsDir, `${runDate}.json`), payload)),
+  );
 }
 
 export async function readRunsIndex() {
   try {
-    const raw = await readFile(RUNS_INDEX_PATH, 'utf8');
+    const raw = await readFile(PRIMARY_PATHS.runsIndexPath, 'utf8');
     const parsed = JSON.parse(stripBom(raw));
 
     if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.files)) {
@@ -72,6 +90,7 @@ export async function updateRunsIndex(newRunFile) {
     files: merged,
   };
 
-  await writeJsonAtomic(RUNS_INDEX_PATH, payload);
+  await ensureStorage();
+  await Promise.all(STORAGE_PATHS.map((paths) => writeJsonAtomic(paths.runsIndexPath, payload)));
   return payload;
 }

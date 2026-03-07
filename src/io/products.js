@@ -3,7 +3,11 @@ import { dirname, resolve } from 'node:path';
 import { normalizeUrl } from '../utils/url.js';
 import { sleep } from '../utils/pool.js';
 
-export const PRODUCTS_PATH = resolve(process.cwd(), 'data', 'products.json');
+const PRIMARY_PRODUCTS_PATH = resolve(process.cwd(), 'data', 'products.json');
+const MIRROR_PRODUCTS_PATH = resolve(process.cwd(), 'docs', 'data', 'products.json');
+const PRODUCTS_TARGET_PATHS = [PRIMARY_PRODUCTS_PATH, MIRROR_PRODUCTS_PATH];
+
+export const PRODUCTS_PATH = PRIMARY_PRODUCTS_PATH;
 const PRODUCTS_LOCK_PATH = resolve(process.cwd(), 'data', '.products.lock');
 
 function toErrorMessage(error) {
@@ -85,7 +89,7 @@ async function writeJsonAtomic(targetPath, payload) {
 }
 
 export async function readProducts() {
-  const raw = await readFile(PRODUCTS_PATH, 'utf8');
+  const raw = await readFile(PRIMARY_PRODUCTS_PATH, 'utf8');
   const parsed = JSON.parse(stripBom(raw));
 
   if (!Array.isArray(parsed)) {
@@ -105,7 +109,7 @@ export async function writeProducts(products) {
   const lock = await acquireLock(PRODUCTS_LOCK_PATH);
 
   try {
-    await writeJsonAtomic(PRODUCTS_PATH, validated);
+    await Promise.all(PRODUCTS_TARGET_PATHS.map((targetPath) => writeJsonAtomic(targetPath, validated)));
   } finally {
     await lock.close().catch(() => undefined);
     await rm(PRODUCTS_LOCK_PATH, { force: true }).catch(() => undefined);

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "mouse-logitech-g203",
+    "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
+    "name": "Mouse Logitech G203 Lightsync",
+    "category": "perifericos",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "[data-testid='price-current']",
+        ".finalPrice",
+        ".priceCard"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "price"
+      ]
+    },
+    "notes": "Link atualizado para produto ativo, evitando item com URL quebrada."
+  },
+  {
+    "id": "ssd-1tb-kabum",
+    "url": "https://www.kabum.com.br/produto/85197/ssd-kingston-nv2-1tb-m-2-2280-pcie-nvme-leitura-3500mb-s-gravacao-2100mb-s-snv2s-1000g",
+    "name": "SSD Kingston NV2 1TB",
+    "category": "hardware",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "[data-testid='price-current']",
+        ".finalPrice",
+        ".priceCard"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "price"
+      ]
+    },
+    "notes": "Produto base usado para validar estabilidade do parser em JSON-LD."
+  },
+  {
+    "id": "teclado-logitech-k835",
+    "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
+    "name": "Teclado Logitech K835 TKL",
+    "category": "perifericos",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "[data-testid='price-current']",
+        ".finalPrice",
+        ".priceCard"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "price"
+      ]
+    },
+    "notes": "Substitui item sem preco por URL invalida."
+  },
+  {
+    "id": "headset-hyperx-cloud-stinger-2",
+    "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
+    "name": "Headset HyperX Cloud Stinger 2",
+    "category": "audio",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "[data-testid='price-current']",
+        ".finalPrice",
+        ".priceCard"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "price"
+      ]
+    },
+    "notes": "Substitui item que retornava erro de acesso no ambiente atual."
+  }
+]

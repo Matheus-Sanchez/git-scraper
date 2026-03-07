@@ -1,4 +1,5 @@
 const ALL = '__all__';
+let resolvedDataRoot = null;
 
 const els = {
   repoInput: document.getElementById('repo-input'),
@@ -67,8 +68,47 @@ function formatCategoryLabel(value) {
   return raw.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+function addUniquePath(list, value) {
+  if (value && !list.includes(value)) {
+    list.push(value);
+  }
+}
+
+function dataRootCandidates() {
+  const candidates = [];
+  addUniquePath(candidates, './data');
+  addUniquePath(candidates, '../data');
+
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  if (pathParts.length > 0) {
+    addUniquePath(candidates, `/${pathParts[0]}/data`);
+  }
+
+  addUniquePath(candidates, '/data');
+  return candidates;
+}
+
+async function detectDataRoot() {
+  if (resolvedDataRoot) return resolvedDataRoot;
+
+  for (const candidate of dataRootCandidates()) {
+    try {
+      const response = await fetch(`${candidate}/products.json`, { cache: 'no-store' });
+      if (response.ok) {
+        resolvedDataRoot = candidate;
+        return candidate;
+      }
+    } catch {
+      // Try next candidate.
+    }
+  }
+
+  throw new Error('Nao foi possivel localizar products.json em ./data ou ../data.');
+}
+
 async function fetchProducts() {
-  const response = await fetch('../data/products.json', { cache: 'no-store' });
+  const dataRoot = await detectDataRoot();
+  const response = await fetch(`${dataRoot}/products.json`, { cache: 'no-store' });
   if (!response.ok) {
     throw new Error(`Falha ao carregar products.json (${response.status})`);
   }

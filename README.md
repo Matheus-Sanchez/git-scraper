@@ -15,8 +15,9 @@ Tambem permite adicionar produtos pelo site via GitHub Issue.
   - `data/runs/YYYY-MM-DD.json`
   - `data/errors/YYYY-MM-DD.json`
   - `data/runs/index.json`
-- Dashboard: `web/` (estatico, sem API)
-- Add-product sem backend: formulario do site abre Issue; workflow ingere e atualiza `data/products.json`.
+- Espelho para GitHub Pages: `docs/data/*` (sincronizado automaticamente pelo scraper/ingest)
+- Dashboard: `docs/` (estatico, sem API)
+- Add-product sem backend: formulario do site abre Issue; workflow ingere e atualiza `data/products.json` + `docs/data/products.json`.
 
 ## Requisitos
 
@@ -99,7 +100,7 @@ Sem `SCRAPING_API_KEY`, o sistema funciona apenas com engines locais.
   - `npm ci`
   - `npx playwright install --with-deps chromium`
   - `npm run scrape`
-  - commit/push de mudancas em `data/`
+  - commit/push de mudancas em `data/` e `docs/data/`
 
 Permissao necessaria do workflow:
 
@@ -116,7 +117,7 @@ Permissao necessaria do workflow:
   - valida payload
   - suporta `action: add|edit|remove`
   - evita duplicidade por URL normalizada
-  - atualiza `data/products.json`
+  - atualiza `data/products.json` e `docs/data/products.json`
   - comenta e fecha issue
 
 Permissoes necessarias:
@@ -130,18 +131,18 @@ Permissoes necessarias:
 2. Em `Build and deployment`, selecione:
    - `Source`: `Deploy from a branch`
    - `Branch`: `main`
-   - `Folder`: `/(root)`
+   - `Folder`: `/docs`
 3. Salve.
-4. A pagina sera publicada em `https://<owner>.github.io/<repo>/web/`.
+4. A pagina sera publicada em `https://<owner>.github.io/<repo>/`.
 
 ## Fluxo para adicionar produto pelo site
 
-1. Abra o dashboard em `/web/`.
+1. Abra o dashboard em `/`.
 2. Clique em `Adicionar Produto`.
 3. Preencha formulario e envie.
 4. O site abre a tela de nova issue no GitHub ja preenchida.
 5. Confirme envio da issue.
-6. O workflow `ingest_issue.yml` valida e adiciona no `data/products.json`.
+6. O workflow `ingest_issue.yml` valida e adiciona no `data/products.json` e `docs/data/products.json`.
 
 O parser aceita:
 
@@ -198,6 +199,8 @@ npm.cmd run scrape
    - `data/latest.json`
    - `data/runs/YYYY-MM-DD.json`
    - `data/errors/YYYY-MM-DD.json`
+   - `docs/data/latest.json`
+   - `docs/data/runs/YYYY-MM-DD.json`
 
 3. Suba servidor estatico local:
 
@@ -206,11 +209,11 @@ npx.cmd http-server -p 5500 .
 ```
 
 4. Abra:
-   - Dashboard: `http://localhost:5500/web/`
-   - Gestao: `http://localhost:5500/web/manage.html`
+   - Dashboard: `http://localhost:5500/docs/`
+   - Gestao: `http://localhost:5500/docs/manage.html`
 
 5. Crie um produto via UI (abre issue), confirme envio no GitHub e aguarde workflow.
-6. Rode `git pull` local para trazer a alteracao de `data/products.json`.
+6. Rode `git pull` local para trazer as alteracoes em `data/products.json` e `docs/data/products.json`.
 7. Rode `npm.cmd run scrape` novamente e atualize a tela.
 
 ## Por que pode falhar em testes locais

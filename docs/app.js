@@ -1,5 +1,6 @@
 const RUNS_LIMIT = 30;
 const ALL = '__all__';
+let resolvedDataRoot = null;
 
 const CATEGORY_PALETTE = [
   '#0f7a62',
@@ -29,6 +30,7 @@ const els = {
   closeModal: document.getElementById('close-add-modal'),
   modal: document.getElementById('add-modal'),
   addForm: document.getElementById('add-product-form'),
+  latestJsonLink: document.getElementById('latest-json-link'),
 };
 
 const state = {
@@ -87,6 +89,56 @@ async function fetchJson(path) {
     throw new Error(`Falha ao carregar ${path}: HTTP ${response.status}`);
   }
   return response.json();
+}
+
+function addUniquePath(list, value) {
+  if (value && !list.includes(value)) {
+    list.push(value);
+  }
+}
+
+function dataRootCandidates() {
+  const candidates = [];
+  addUniquePath(candidates, './data');
+  addUniquePath(candidates, '../data');
+
+  const pathParts = window.location.pathname.split('/').filter(Boolean);
+  if (pathParts.length > 0) {
+    addUniquePath(candidates, `/${pathParts[0]}/data`);
+  }
+
+  addUniquePath(candidates, '/data');
+  return candidates;
+}
+
+function setLatestJsonLink(dataRoot) {
+  if (els.latestJsonLink) {
+    els.latestJsonLink.href = `${dataRoot}/latest.json`;
+  }
+}
+
+async function detectDataRoot() {
+  if (resolvedDataRoot) return resolvedDataRoot;
+
+  for (const candidate of dataRootCandidates()) {
+    try {
+      const response = await fetch(`${candidate}/latest.json`, { cache: 'no-store' });
+      if (response.ok) {
+        resolvedDataRoot = candidate;
+        setLatestJsonLink(candidate);
+        return candidate;
+      }
+    } catch {
+      // Try next candidate.
+    }
+  }
+
+  throw new Error('Nao foi possivel localizar os arquivos de dados em ./data ou ../data.');
+}
+
+async function fetchDataJson(path) {
+  const dataRoot = await detectDataRoot();
+  return fetchJson(`${dataRoot}/${path}`);
 }
 
 function colorForCategory(category) {
@@ -533,14 +585,14 @@ function onChartScopeChange() {
 async function init() {
   try {
     const [latest, runsIndex, products] = await Promise.all([
-      fetchJson('../data/latest.json'),
-      fetchJson('../data/runs/index.json').catch(() => ({ files: [] })),
-      fetchJson('../data/products.json').catch(() => []),
+      fetchDataJson('latest.json'),
+      fetchDataJson('runs/index.json').catch(() => ({ files: [] })),
+      fetchDataJson('products.json').catch(() => []),
     ]);
 
     const runFiles = (runsIndex.files || []).slice(0, RUNS_LIMIT);
     const runPayloads = await Promise.all(
-      runFiles.map((file) => fetchJson(`../data/runs/${file}`).catch(() => null)),
+      runFiles.map((file) => fetchDataJson(`runs/${file}`).catch(() => null)),
     );
 
     state.latest = latest;
