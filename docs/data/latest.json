@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-03-07T09:45:41.211Z",
+  "generated_at": "2026-03-08T09:46:44.435Z",
   "currency": "BRL",
   "summary": {
     "total_products": 4,
     "success_count": 4,
     "failure_count": 0,
-    "run_duration_ms": 979,
+    "run_duration_ms": 918,
     "engines": {
       "engine1_http": {
         "attempted": 4,
         "success": 4,
         "failed": 0,
-        "avg_time_ms": 812
+        "avg_time_ms": 831
       },
       "engine2_browser": {
         "attempted": 0,
@@ -36,7 +36,7 @@
       "currency": "BRL",
       "unit_price": 199.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-07T09:45:42.182Z",
+      "fetched_at": "2026-03-08T09:46:45.324Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -49,7 +49,7 @@
       "currency": "BRL",
       "unit_price": 149.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-07T09:45:41.970Z",
+      "fetched_at": "2026-03-08T09:46:45.261Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -62,7 +62,7 @@
       "currency": "BRL",
       "unit_price": 399.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-07T09:45:41.939Z",
+      "fetched_at": "2026-03-08T09:46:45.345Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -75,12 +75,12 @@
       "currency": "BRL",
       "unit_price": 194.34,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-07T09:45:42.160Z",
+      "fetched_at": "2026-03-08T09:46:45.289Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
     }
   ],
   "failures": [],
-  "run_file": "2026-03-07.json"
+  "run_file": "2026-03-08.json"
 }
