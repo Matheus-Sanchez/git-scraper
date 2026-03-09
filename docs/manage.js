@@ -14,6 +14,8 @@ const els = {
   fieldName: document.getElementById('mf-name'),
   fieldUrl: document.getElementById('mf-url'),
   fieldCategory: document.getElementById('mf-category'),
+  fieldCategoryHint: document.getElementById('mf-category-hint'),
+  fieldCategoryList: document.getElementById('mf-category-list'),
   fieldUnits: document.getElementById('mf-units'),
   fieldActive: document.getElementById('mf-active'),
   fieldPriceCss: document.getElementById('mf-price-css'),
@@ -66,6 +68,129 @@ function parseRepoInput(value) {
 function formatCategoryLabel(value) {
   const raw = String(value || 'sem-categoria').trim() || 'sem-categoria';
   return raw.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function normalizeCategoryKey(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function levenshteinDistance(a, b) {
+  const left = String(a || '');
+  const right = String(b || '');
+  if (!left) return right.length;
+  if (!right) return left.length;
+
+  const matrix = Array.from({ length: left.length + 1 }, () => []);
+  for (let i = 0; i <= left.length; i += 1) matrix[i][0] = i;
+  for (let j = 0; j <= right.length; j += 1) matrix[0][j] = j;
+
+  for (let i = 1; i <= left.length; i += 1) {
+    for (let j = 1; j <= right.length; j += 1) {
+      const cost = left[i - 1] === right[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost,
+      );
+    }
+  }
+
+  return matrix[left.length][right.length];
+}
+
+function findCategoryMatch(rawValue) {
+  const typed = String(rawValue || '').trim();
+  if (!typed) return null;
+
+  const typedKey = normalizeCategoryKey(typed);
+  if (!typedKey) return null;
+
+  const exact = state.categories.find((category) => normalizeCategoryKey(category) === typedKey);
+  if (exact) {
+    return {
+      category: exact,
+      kind: 'exact',
+    };
+  }
+
+  let best = null;
+  for (const category of state.categories) {
+    const key = normalizeCategoryKey(category);
+    if (!key) continue;
+
+    const distance = levenshteinDistance(typedKey, key);
+    const maxLen = Math.max(typedKey.length, key.length);
+    const similarity = maxLen ? 1 - (distance / maxLen) : 0;
+
+    if (!best || similarity > best.similarity || (similarity === best.similarity && distance < best.distance)) {
+      best = {
+        category,
+        distance,
+        similarity,
+      };
+    }
+  }
+
+  if (best && best.distance <= 2 && best.similarity >= 0.82 && typedKey.length >= 4) {
+    return {
+      category: best.category,
+      kind: 'fuzzy',
+    };
+  }
+
+  return null;
+}
+
+function renderCategoryInputSuggestions() {
+  if (!els.fieldCategoryList) return;
+  els.fieldCategoryList.innerHTML = state.categories
+    .map((category) => `<option value="${category}"></option>`)
+    .join('');
+}
+
+function updateCategoryFieldHint({ applyMatch = false } = {}) {
+  if (!els.fieldCategory) return '';
+
+  const typed = els.fieldCategory.value.trim();
+  if (!typed) {
+    if (els.fieldCategoryHint) {
+      els.fieldCategoryHint.textContent = '';
+      els.fieldCategoryHint.dataset.state = '';
+    }
+    return '';
+  }
+
+  const match = findCategoryMatch(typed);
+  if (!match) {
+    if (els.fieldCategoryHint) {
+      els.fieldCategoryHint.textContent = `Nova categoria: "${typed}".`;
+      els.fieldCategoryHint.dataset.state = 'new';
+    }
+    return typed;
+  }
+
+  if (applyMatch) {
+    els.fieldCategory.value = match.category;
+  }
+
+  if (els.fieldCategoryHint) {
+    if (match.kind === 'exact') {
+      els.fieldCategoryHint.textContent = `Categoria existente: "${match.category}".`;
+    } else {
+      els.fieldCategoryHint.textContent = `Categoria parecida encontrada: "${match.category}".`;
+    }
+    els.fieldCategoryHint.dataset.state = 'ok';
+  }
+
+  return applyMatch ? els.fieldCategory.value.trim() : typed;
+}
+
+function containsHtmlSnippet(lines) {
+  return lines.some((line) => /<[^>]+>/.test(String(line || '')));
 }
 
 function addUniquePath(list, value) {
@@ -185,6 +310,7 @@ function openModal(mode, product = null) {
   state.mode = mode;
   els.modal.setAttribute('aria-hidden', 'false');
   els.modalTitle.textContent = mode === 'add' ? 'Novo Produto' : 'Editar Produto';
+  renderCategoryInputSuggestions();
 
   if (!product) {
     els.fieldId.value = '';
@@ -197,6 +323,7 @@ function openModal(mode, product = null) {
     els.fieldJsonld.value = '';
     els.fieldRegex.value = '';
     els.fieldNotes.value = '';
+    updateCategoryFieldHint();
     return;
   }
 
@@ -210,6 +337,7 @@ function openModal(mode, product = null) {
   els.fieldJsonld.value = (product.selectors?.jsonld_paths || []).join('\n');
   els.fieldRegex.value = (product.selectors?.regex_hints || []).join('\n');
   els.fieldNotes.value = product.notes || '';
+  updateCategoryFieldHint({ applyMatch: true });
 }
 
 function closeModal() {
@@ -239,18 +367,28 @@ function buildIssueUrl({ title, payload }) {
 function onSubmitManageForm(event) {
   event.preventDefault();
 
+  const category = updateCategoryFieldHint({ applyMatch: true });
+  const priceCss = splitLines(els.fieldPriceCss.value);
+  const jsonldPaths = splitLines(els.fieldJsonld.value);
+  const regexHints = splitLines(els.fieldRegex.value);
+
+  if (containsHtmlSnippet(priceCss)) {
+    alert('No campo Seletores CSS, informe apenas seletores (ex: .a-price .a-offscreen), nao HTML copiado.');
+    return;
+  }
+
   const payload = {
     action: state.mode === 'add' ? 'add' : 'edit',
     ...(state.mode === 'edit' ? { product_id: els.fieldId.value.trim() } : {}),
     name: els.fieldName.value.trim(),
     url: els.fieldUrl.value.trim(),
-    category: els.fieldCategory.value.trim(),
+    category,
     units_per_package: els.fieldUnits.value.trim() || null,
     is_active: els.fieldActive.value === 'true',
     selectors: {
-      price_css: splitLines(els.fieldPriceCss.value),
-      jsonld_paths: splitLines(els.fieldJsonld.value),
-      regex_hints: splitLines(els.fieldRegex.value),
+      price_css: priceCss,
+      jsonld_paths: jsonldPaths,
+      regex_hints: regexHints,
     },
     notes: els.fieldNotes.value.trim(),
   };
@@ -318,6 +456,7 @@ async function init() {
     state.products = await fetchProducts();
     state.categories = [...new Set(state.products.map((item) => String(item.category || 'sem-categoria')))].sort();
     setCategoryFilterOptions(state.categories);
+    renderCategoryInputSuggestions();
     renderProductsTable();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
@@ -339,6 +478,8 @@ els.modal.addEventListener('click', (event) => {
 els.form.addEventListener('submit', onSubmitManageForm);
 els.categoryFilter.addEventListener('change', renderProductsTable);
 els.searchInput.addEventListener('input', renderProductsTable);
+els.fieldCategory.addEventListener('input', () => updateCategoryFieldHint());
+els.fieldCategory.addEventListener('blur', () => updateCategoryFieldHint({ applyMatch: true }));
 bindTableActions();
 
 document.addEventListener('keydown', (event) => {

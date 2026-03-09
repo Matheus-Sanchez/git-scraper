@@ -13,7 +13,6 @@ export const amazonAdapter = {
       adapter_price_css: [
         '#corePriceDisplay_desktop_feature_div .a-offscreen',
         '#corePrice_feature_div .a-offscreen',
-        '.a-price .a-offscreen',
         '#price_inside_buybox',
         '#priceblock_ourprice',
         '#priceblock_dealprice',

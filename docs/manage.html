@@ -88,7 +88,9 @@
 
           <label>
             Categoria
-            <input id="mf-category" type="text">
+            <input id="mf-category" type="text" list="mf-category-list" autocomplete="off">
+            <small id="mf-category-hint" class="field-hint"></small>
+            <datalist id="mf-category-list"></datalist>
           </label>
 
           <label>
@@ -107,6 +109,7 @@
           <label class="full-width">
             Seletores CSS (um por linha)
             <textarea id="mf-price-css" rows="3"></textarea>
+            <small class="field-hint">Use apenas seletores CSS (ex: <code>.a-price .a-offscreen</code>), nao HTML completo.</small>
           </label>
 
           <label class="full-width">

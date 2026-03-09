@@ -30,6 +30,10 @@ const els = {
   closeModal: document.getElementById('close-add-modal'),
   modal: document.getElementById('add-modal'),
   addForm: document.getElementById('add-product-form'),
+  addCategory: document.getElementById('ap-category'),
+  addCategoryHint: document.getElementById('ap-category-hint'),
+  addCategoryList: document.getElementById('ap-category-list'),
+  addPriceCss: document.getElementById('ap-price-css'),
   latestJsonLink: document.getElementById('latest-json-link'),
 };
 
@@ -58,6 +62,38 @@ function formatCategoryLabel(value) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+function normalizeCategoryKey(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '');
+}
+
+function levenshteinDistance(a, b) {
+  const left = String(a || '');
+  const right = String(b || '');
+  if (!left) return right.length;
+  if (!right) return left.length;
+
+  const matrix = Array.from({ length: left.length + 1 }, () => []);
+  for (let i = 0; i <= left.length; i += 1) matrix[i][0] = i;
+  for (let j = 0; j <= right.length; j += 1) matrix[0][j] = j;
+
+  for (let i = 1; i <= left.length; i += 1) {
+    for (let j = 1; j <= right.length; j += 1) {
+      const cost = left[i - 1] === right[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost,
+      );
+    }
+  }
+
+  return matrix[left.length][right.length];
+}
+
 function formatDateTime(iso) {
   if (!iso) return '-';
   const date = new Date(iso);
@@ -81,6 +117,99 @@ function splitLines(text) {
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
+}
+
+function findCategoryMatch(rawValue) {
+  const typed = String(rawValue || '').trim();
+  if (!typed) return null;
+
+  const typedKey = normalizeCategoryKey(typed);
+  if (!typedKey) return null;
+
+  const exact = state.categories.find((category) => normalizeCategoryKey(category) === typedKey);
+  if (exact) {
+    return {
+      category: exact,
+      kind: 'exact',
+    };
+  }
+
+  let best = null;
+  for (const category of state.categories) {
+    const key = normalizeCategoryKey(category);
+    if (!key) continue;
+
+    const distance = levenshteinDistance(typedKey, key);
+    const maxLen = Math.max(typedKey.length, key.length);
+    const similarity = maxLen ? 1 - (distance / maxLen) : 0;
+
+    if (!best || similarity > best.similarity || (similarity === best.similarity && distance < best.distance)) {
+      best = {
+        category,
+        distance,
+        similarity,
+      };
+    }
+  }
+
+  if (best && best.distance <= 2 && best.similarity >= 0.82 && typedKey.length >= 4) {
+    return {
+      category: best.category,
+      kind: 'fuzzy',
+      distance: best.distance,
+      similarity: best.similarity,
+    };
+  }
+
+  return null;
+}
+
+function renderAddCategorySuggestions() {
+  if (!els.addCategoryList) return;
+  els.addCategoryList.innerHTML = state.categories
+    .map((category) => `<option value="${category}"></option>`)
+    .join('');
+}
+
+function updateAddCategoryHint({ applyMatch = false } = {}) {
+  if (!els.addCategory) return '';
+
+  const typed = els.addCategory.value.trim();
+  if (!typed) {
+    if (els.addCategoryHint) {
+      els.addCategoryHint.textContent = '';
+      els.addCategoryHint.dataset.state = '';
+    }
+    return '';
+  }
+
+  const match = findCategoryMatch(typed);
+  if (!match) {
+    if (els.addCategoryHint) {
+      els.addCategoryHint.textContent = `Nova categoria: "${typed}".`;
+      els.addCategoryHint.dataset.state = 'new';
+    }
+    return typed;
+  }
+
+  if (applyMatch) {
+    els.addCategory.value = match.category;
+  }
+
+  if (els.addCategoryHint) {
+    if (match.kind === 'exact') {
+      els.addCategoryHint.textContent = `Categoria existente: "${match.category}".`;
+    } else {
+      els.addCategoryHint.textContent = `Categoria parecida encontrada: "${match.category}".`;
+    }
+    els.addCategoryHint.dataset.state = 'ok';
+  }
+
+  return applyMatch ? els.addCategory.value.trim() : typed;
+}
+
+function containsHtmlSnippet(lines) {
+  return lines.some((line) => /<[^>]+>/.test(String(line || '')));
 }
 
 async function fetchJson(path) {
@@ -502,6 +631,8 @@ function openModal() {
   if (!repoInput.value.trim()) {
     repoInput.value = detectDefaultRepo();
   }
+  renderAddCategorySuggestions();
+  updateAddCategoryHint();
 }
 
 function closeModal() {
@@ -535,13 +666,21 @@ function onSubmitAddProduct(event) {
 
   const name = document.getElementById('ap-name').value.trim();
   const url = document.getElementById('ap-url').value.trim();
-  const category = document.getElementById('ap-category').value.trim();
+  const category = updateAddCategoryHint({ applyMatch: true });
   const unitsRaw = document.getElementById('ap-units').value.trim();
   const isActive = document.getElementById('ap-active').value === 'true';
   const repoValue = parseRepoInput(document.getElementById('ap-repo').value);
+  const priceCss = splitLines(els.addPriceCss?.value || '');
+  const jsonldPaths = splitLines(document.getElementById('ap-jsonld').value);
+  const regexHints = splitLines(document.getElementById('ap-regex').value);
 
   if (!name || !url || !repoValue) {
     alert('Preencha nome, URL e repositorio GitHub no formato owner/repo.');
+    return;
+  }
+
+  if (containsHtmlSnippet(priceCss)) {
+    alert('No campo Seletores CSS, informe apenas seletores (ex: .a-price .a-offscreen), nao HTML copiado.');
     return;
   }
 
@@ -554,9 +693,9 @@ function onSubmitAddProduct(event) {
     ...(Number.isFinite(units) && units > 0 ? { units_per_package: units } : {}),
     is_active: isActive,
     selectors: {
-      price_css: splitLines(document.getElementById('ap-price-css').value),
-      jsonld_paths: splitLines(document.getElementById('ap-jsonld').value),
-      regex_hints: splitLines(document.getElementById('ap-regex').value),
+      price_css: priceCss,
+      jsonld_paths: jsonldPaths,
+      regex_hints: regexHints,
     },
     ...(document.getElementById('ap-notes').value.trim()
       ? { notes: document.getElementById('ap-notes').value.trim() }
@@ -603,6 +742,7 @@ async function init() {
 
     buildCategoryColors(state.categories);
     buildHistories();
+    renderAddCategorySuggestions();
     setFilterOptions(els.tableCategoryFilter, state.categories);
     setFilterOptions(els.historyCategoryFilter, state.categories);
     renderProductSelect();
@@ -637,6 +777,10 @@ els.modal.addEventListener('click', (event) => {
     closeModal();
   }
 });
+if (els.addCategory) {
+  els.addCategory.addEventListener('input', () => updateAddCategoryHint());
+  els.addCategory.addEventListener('blur', () => updateAddCategoryHint({ applyMatch: true }));
+}
 els.addForm.addEventListener('submit', onSubmitAddProduct);
 
 document.addEventListener('keydown', (event) => {

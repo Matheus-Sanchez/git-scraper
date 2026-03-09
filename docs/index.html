@@ -138,7 +138,9 @@
 
           <label>
             Categoria
-            <input type="text" id="ap-category">
+            <input type="text" id="ap-category" list="ap-category-list" autocomplete="off">
+            <small id="ap-category-hint" class="field-hint"></small>
+            <datalist id="ap-category-list"></datalist>
           </label>
 
           <label>
@@ -162,6 +164,7 @@
           <label class="full-width">
             Seletores CSS (um por linha)
             <textarea id="ap-price-css" rows="4" placeholder=".price&#10;[itemprop='price']"></textarea>
+            <small class="field-hint">Use apenas seletores CSS (ex: <code>.a-price .a-offscreen</code>), nao HTML completo.</small>
           </label>
 
           <label class="full-width">

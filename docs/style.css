@@ -416,6 +416,20 @@ label {
   color: var(--ink-soft);
 }
 
+.field-hint {
+  min-height: 1.05rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.field-hint[data-state='ok'] {
+  color: var(--accent-strong);
+}
+
+.field-hint[data-state='new'] {
+  color: var(--warn);
+}
+
 input,
 select,
 textarea {
