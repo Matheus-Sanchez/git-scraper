@@ -1,17 +1,18 @@
 {
-  "generated_at": "2026-03-08T09:46:44.435Z",
+  "run_date": "2026-03-07",
+  "generated_at": "2026-03-07T09:45:41.211Z",
   "currency": "BRL",
   "summary": {
     "total_products": 4,
     "success_count": 4,
     "failure_count": 0,
-    "run_duration_ms": 918,
+    "run_duration_ms": 979,
     "engines": {
       "engine1_http": {
         "attempted": 4,
         "success": 4,
         "failed": 0,
-        "avg_time_ms": 831
+        "avg_time_ms": 812
       },
       "engine2_browser": {
         "attempted": 0,
@@ -27,7 +28,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
       "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
@@ -36,7 +37,7 @@
       "currency": "BRL",
       "unit_price": 199.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.324Z",
+      "fetched_at": "2026-03-07T09:45:42.182Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -49,7 +50,7 @@
       "currency": "BRL",
       "unit_price": 149.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.261Z",
+      "fetched_at": "2026-03-07T09:45:41.970Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -62,7 +63,7 @@
       "currency": "BRL",
       "unit_price": 399.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.345Z",
+      "fetched_at": "2026-03-07T09:45:41.939Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -75,12 +76,11 @@
       "currency": "BRL",
       "unit_price": 194.34,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.289Z",
+      "fetched_at": "2026-03-07T09:45:42.160Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
     }
   ],
-  "failures": [],
-  "run_file": "2026-03-08.json"
+  "failures": []
 }
