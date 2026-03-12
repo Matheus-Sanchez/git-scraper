@@ -1,29 +1,29 @@
 {
-  "generated_at": "2026-03-11T10:03:07.064Z",
+  "generated_at": "2026-03-12T10:02:48.963Z",
   "currency": "BRL",
   "summary": {
     "total_products": 5,
-    "success_count": 5,
-    "failure_count": 0,
-    "run_duration_ms": 1309,
+    "success_count": 3,
+    "failure_count": 2,
+    "run_duration_ms": 24085,
     "engines": {
       "engine1_http": {
         "attempted": 5,
-        "success": 5,
-        "failed": 0,
-        "avg_time_ms": 928
+        "success": 3,
+        "failed": 2,
+        "avg_time_ms": 565
       },
       "engine2_browser": {
-        "attempted": 0,
+        "attempted": 2,
         "success": 0,
-        "failed": 0,
-        "avg_time_ms": 0
+        "failed": 2,
+        "avg_time_ms": 2493
       },
       "engine3_hardmode": {
-        "attempted": 0,
+        "attempted": 2,
         "success": 0,
-        "failed": 0,
-        "avg_time_ms": 0
+        "failed": 2,
+        "avg_time_ms": 9380
       }
     }
   },
@@ -36,7 +36,7 @@
       "currency": "BRL",
       "unit_price": 199.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-11T10:03:08.102Z",
+      "fetched_at": "2026-03-12T10:02:49.559Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -49,20 +49,7 @@
       "currency": "BRL",
       "unit_price": 149.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-11T10:03:08.134Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "ssd-1tb-kabum",
-      "url": "https://www.kabum.com.br/produto/85197/ssd-kingston-nv2-1tb-m-2-2280-pcie-nvme-leitura-3500mb-s-gravacao-2100mb-s-snv2s-1000g",
-      "name": "SSD Kingston NV2 1TB",
-      "price": 399.99,
-      "currency": "BRL",
-      "unit_price": 399.99,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-03-11T10:03:08.362Z",
+      "fetched_at": "2026-03-12T10:02:49.602Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -75,25 +62,87 @@
       "currency": "BRL",
       "unit_price": 194.34,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-11T10:03:08.237Z",
+      "fetched_at": "2026-03-12T10:02:49.627Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
+    }
+  ],
+  "failures": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
+      "status": "failed",
+      "fetched_at": "2026-03-12T10:03:13.048Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 1034,
+          "error": "Unmatched selector: \">R$379,00",
+          "source": null,
+          "confidence": null,
+          "price": null
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2491,
+          "error": "Unmatched selector: \">R$379,00",
+          "source": null,
+          "confidence": null,
+          "price": null
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 9009,
+          "error": "Unmatched selector: \">R$379,00",
+          "source": null,
+          "confidence": null,
+          "price": null
+        }
+      ],
+      "last_error": "Unmatched selector: \">R$379,00"
     },
     {
       "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
       "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
       "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-      "price": 255,
-      "currency": "BRL",
-      "unit_price": null,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-03-11T10:03:08.372Z",
-      "source": "selector",
-      "confidence": 0.7,
-      "status": "ok"
+      "status": "failed",
+      "fetched_at": "2026-03-12T10:03:13.048Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 75,
+          "error": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2494,
+          "error": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 9751,
+          "error": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null
+        }
+      ],
+      "last_error": "Unmatched selector: \""
     }
   ],
-  "failures": [],
-  "run_file": "2026-03-11.json"
+  "run_file": "2026-03-12.json"
 }
