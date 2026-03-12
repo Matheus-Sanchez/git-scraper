@@ -1,5 +1,23 @@
 [
   {
+    "id": "echo-pop-5f33e662",
+    "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+    "name": "Echo Pop",
+    "category": "casa inteligente",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "\"a-offscreen\">R$379,00"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "offers[0].price",
+        "price"
+      ]
+    }
+  },
+  {
     "id": "headset-hyperx-cloud-stinger-2",
     "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
     "name": "Headset HyperX Cloud Stinger 2",
