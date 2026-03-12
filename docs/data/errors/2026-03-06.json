@@ -1,18 +1,18 @@
 {
-  "run_date": "2026-03-12",
-  "generated_at": "2026-03-12T14:25:17.462Z",
+  "run_date": "2026-03-06",
+  "generated_at": "2026-03-06T09:57:45.784Z",
   "engine_summary": {
     "engine1_http": {
-      "attempted": 5,
+      "attempted": 4,
       "success": 4,
-      "failed": 1,
-      "avg_time_ms": 4142
+      "failed": 0,
+      "avg_time_ms": 932
     },
     "engine2_browser": {
-      "attempted": 1,
-      "success": 1,
+      "attempted": 0,
+      "success": 0,
       "failed": 0,
-      "avg_time_ms": 5471
+      "avg_time_ms": 0
     },
     "engine3_hardmode": {
       "attempted": 0,

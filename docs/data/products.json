@@ -1,5 +1,24 @@
 [
   {
+    "id": "echo-pop-5f33e662",
+    "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+    "name": "Echo Pop",
+    "category": "casa inteligente",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "#corePriceDisplay_desktop_feature_div .a-offscreen",
+        "#corePrice_feature_div .a-offscreen"
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "offers[0].price",
+        "price"
+      ]
+    }
+  },
+  {
     "id": "headset-hyperx-cloud-stinger-2",
     "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
     "name": "Headset HyperX Cloud Stinger 2",
@@ -40,26 +59,6 @@
     "notes": "Link atualizado para produto ativo, evitando item com URL quebrada."
   },
   {
-    "id": "ssd-1tb-kabum",
-    "url": "https://www.kabum.com.br/produto/85197/ssd-kingston-nv2-1tb-m-2-2280-pcie-nvme-leitura-3500mb-s-gravacao-2100mb-s-snv2s-1000g",
-    "name": "SSD Kingston NV2 1TB",
-    "category": "hardware",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "[data-testid='price-current']",
-        ".finalPrice",
-        ".priceCard"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "price"
-      ]
-    },
-    "notes": "Produto base usado para validar estabilidade do parser em JSON-LD."
-  },
-  {
     "id": "teclado-logitech-k835",
     "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
     "name": "Teclado Logitech K835 TKL",
@@ -84,10 +83,12 @@
     "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
     "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
     "category": "Hardware",
+    "units_per_package": 1,
     "is_active": true,
     "selectors": {
       "price_css": [
-        "<div class=\"a-section apex-core-price-identifier\">      <span class=\"a-price aok-align-center apex-pricetopay-value\" data-a-size=\"xl\" data-a-color=\"base\"><span class=\"a-offscreen\">R$255,00</span><span aria-hidden=\"true\"><span class=\"a-price-symbol\">R$</span><span class=\"a-price-whole\">255<span class=\"a-price-decimal\">,</span></span><span class=\"a-price-fraction\">00</span></span></span>        <span id=\"taxInclusiveMessage\" class=\"a-size-mini a-color-base aok-align-center aok-nowrap\">  </span>           </div>"
+        "#corePriceDisplay_desktop_feature_div .a-offscreen",
+        "#corePrice_feature_div .a-offscreen"
       ],
       "jsonld_paths": [
         "offers.price",
