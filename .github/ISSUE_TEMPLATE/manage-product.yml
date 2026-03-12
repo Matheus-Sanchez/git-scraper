@@ -43,6 +43,12 @@ body:
       description: Opcional.
       placeholder: hardware
   - type: input
+    id: comparison_key
+    attributes:
+      label: Grupo de comparacao
+      description: Opcional. Use o mesmo valor para comparar o mesmo produto em lojas diferentes.
+      placeholder: mouse-g203
+  - type: input
     id: units_per_package
     attributes:
       label: Unidades por pacote
@@ -84,7 +90,21 @@ body:
       render: json
       placeholder: |
         {
-          "action": "edit",
-          "product_id": "ssd-1tb-kabum",
-          "category": "hardware"
+          "action": "batch",
+          "operations": [
+            {
+              "action": "add",
+              "name": "Mouse G203",
+              "url": "https://loja-a.com/mouse",
+              "category": "perifericos",
+              "comparison_key": "mouse-g203"
+            },
+            {
+              "action": "add",
+              "name": "Mouse G203",
+              "url": "https://loja-b.com/mouse",
+              "category": "perifericos",
+              "comparison_key": "mouse-g203"
+            }
+          ]
         }

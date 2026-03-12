@@ -58,6 +58,7 @@
             <select id="chart-scope">
               <option value="all-products">Todos os produtos</option>
               <option value="by-category">Produtos por categoria</option>
+              <option value="comparison-group">Comparar equivalentes</option>
               <option value="single-product">Produto especifico</option>
             </select>
           </label>
@@ -71,11 +72,21 @@
             Produto
             <select id="product-select"></select>
           </label>
+          <div class="zoom-tools" aria-label="Controles de zoom">
+            <button id="zoom-out" class="btn btn-ghost" type="button">Zoom -</button>
+            <button id="zoom-in" class="btn btn-ghost" type="button">Zoom +</button>
+            <button id="zoom-reset" class="btn btn-ghost" type="button">Ver tudo</button>
+          </div>
         </div>
 
         <div class="history-layout">
-          <div class="history-main">
-            <canvas id="history-chart" width="1200" height="420"></canvas>
+          <div id="history-main" class="history-main">
+            <div id="history-scroll" class="history-scroll">
+              <div id="history-stage" class="history-stage">
+                <canvas id="history-chart" width="1200" height="420"></canvas>
+              </div>
+            </div>
+            <div id="history-hover-tooltip" class="chart-hover-tooltip" hidden></div>
           </div>
           <aside class="detail-panel">
             <h3>Visor Detalhado</h3>
@@ -87,23 +98,22 @@
 
       <section class="card" aria-labelledby="table-title">
         <div class="card-title-row">
-          <h2 id="table-title">Lista de Produtos (Atual)</h2>
-          <label class="inline-field" for="table-category-filter">
-            Categoria
-            <select id="table-category-filter">
-              <option value="__all__">Todas</option>
-            </select>
-          </label>
+          <div>
+            <h2 id="table-title">Lista de Produtos (Atual)</h2>
+            <p id="table-filter-summary" class="section-note">
+              A tabela acompanha os filtros ativos do historico.
+            </p>
+          </div>
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Produto</th>
+                <th>Loja</th>
                 <th>Preco Atual</th>
+                <th>Menor 30d</th>
                 <th>Unitario</th>
-                <th>Engine</th>
-                <th>Data/Hora</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -127,60 +137,23 @@
 
         <form id="add-product-form" class="form-grid">
           <label>
-            Nome
-            <input type="text" id="ap-name" required>
-          </label>
-
-          <label>
-            URL
-            <input type="url" id="ap-url" required>
-          </label>
-
-          <label>
-            Categoria
-            <input type="text" id="ap-category" list="ap-category-list" autocomplete="off">
-            <small id="ap-category-hint" class="field-hint"></small>
-            <datalist id="ap-category-list"></datalist>
-          </label>
-
-          <label>
-            Unidades por pacote
-            <input type="number" id="ap-units" min="1" step="1">
-          </label>
-
-          <label>
-            Ativo
-            <select id="ap-active">
-              <option value="true">true</option>
-              <option value="false">false</option>
-            </select>
-          </label>
-
-          <label>
             Repositorio GitHub (owner/repo)
             <input type="text" id="ap-repo" required>
           </label>
 
-          <label class="full-width">
-            Seletores CSS (um por linha)
-            <textarea id="ap-price-css" rows="4" placeholder=".price&#10;[itemprop='price']"></textarea>
-            <small class="field-hint">Use apenas seletores CSS (ex: <code>.a-price .a-offscreen</code>), nao HTML completo.</small>
-          </label>
+          <div class="batch-toolbar full-width">
+            <div>
+              <strong>Lote de produtos</strong>
+              <p class="section-note">
+                Um unico envio abre uma unica issue e o workflow aplica tudo no mesmo commit.
+                Use o mesmo grupo de comparacao para produtos equivalentes em lojas diferentes.
+              </p>
+            </div>
+            <button id="ap-add-item" type="button" class="btn btn-ghost">Adicionar mais um</button>
+          </div>
 
-          <label class="full-width">
-            JSON-LD paths (um por linha)
-            <textarea id="ap-jsonld" rows="3" placeholder="offers.price&#10;offers[0].price"></textarea>
-          </label>
-
-          <label class="full-width">
-            Regex hints (um por linha)
-            <textarea id="ap-regex" rows="2" placeholder="R\$\s*\d{1,4},\d{2}"></textarea>
-          </label>
-
-          <label class="full-width">
-            Observacoes
-            <textarea id="ap-notes" rows="2"></textarea>
-          </label>
+          <div id="ap-items" class="batch-items full-width"></div>
+          <datalist id="ap-category-list"></datalist>
 
           <div class="form-actions full-width">
             <button type="submit" class="btn btn-primary">Abrir Issue no GitHub</button>

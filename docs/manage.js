@@ -1,10 +1,24 @@
 const ALL = '__all__';
 let resolvedDataRoot = null;
 
+const CATEGORY_PALETTE = [
+  '#0f7a62',
+  '#b54708',
+  '#7a3ea1',
+  '#0f6cc0',
+  '#b42318',
+  '#1f7a1f',
+  '#8a5a00',
+  '#005f73',
+  '#8b1e3f',
+];
+
 const els = {
   repoInput: document.getElementById('repo-input'),
   categoryFilter: document.getElementById('category-filter'),
+  activeFilter: document.getElementById('active-filter'),
   searchInput: document.getElementById('search-input'),
+  stats: document.getElementById('manage-stats'),
   tbody: document.getElementById('products-manage-tbody'),
   openAdd: document.getElementById('open-add'),
   modal: document.getElementById('manage-modal'),
@@ -16,6 +30,7 @@ const els = {
   fieldCategory: document.getElementById('mf-category'),
   fieldCategoryHint: document.getElementById('mf-category-hint'),
   fieldCategoryList: document.getElementById('mf-category-list'),
+  fieldComparisonKey: document.getElementById('mf-comparison-key'),
   fieldUnits: document.getElementById('mf-units'),
   fieldActive: document.getElementById('mf-active'),
   fieldPriceCss: document.getElementById('mf-price-css'),
@@ -28,6 +43,7 @@ const els = {
 const state = {
   products: [],
   categories: [],
+  colorsByCategory: new Map(),
   mode: 'add',
 };
 
@@ -68,6 +84,54 @@ function parseRepoInput(value) {
 function formatCategoryLabel(value) {
   const raw = String(value || 'sem-categoria').trim() || 'sem-categoria';
   return raw.replace(/-/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function normalizeCategory(value) {
+  return String(value || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'sem-categoria';
+}
+
+function normalizeLooseKey(value) {
+  return String(value || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function buildCategoryColors(categories) {
+  state.colorsByCategory = new Map();
+  categories.forEach((category, index) => {
+    state.colorsByCategory.set(category, CATEGORY_PALETTE[index % CATEGORY_PALETTE.length]);
+  });
+}
+
+function colorForCategory(category) {
+  return state.colorsByCategory.get(normalizeCategory(category)) || '#0f7a62';
+}
+
+function siteLabelFromUrl(value) {
+  try {
+    const hostname = new URL(value).hostname.replace(/^www\./i, '').toLowerCase();
+    const parts = hostname.split('.').filter(Boolean);
+    const core = parts.length > 1 ? parts[0] : hostname;
+    return core.replace(/[-_]+/g, ' ').trim();
+  } catch {
+    return '';
+  }
+}
+
+function formatSiteLabel(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return 'Site';
+  return raw.replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function normalizeCategoryKey(value) {
@@ -248,34 +312,58 @@ function setCategoryFilterOptions(categories) {
   ].join('');
 }
 
+function renderStats() {
+  const total = state.products.length;
+  const active = state.products.filter((product) => product.is_active).length;
+  const comparisonGroups = new Set(
+    state.products
+      .map((product) => String(product.comparison_key || '').trim())
+      .filter(Boolean),
+  ).size;
+
+  els.stats.innerHTML = [
+    `<span class="stat-pill"><strong>${total}</strong> produtos</span>`,
+    `<span class="stat-pill"><strong>${active}</strong> ativos</span>`,
+    `<span class="stat-pill"><strong>${state.categories.length}</strong> categorias</span>`,
+    `<span class="stat-pill"><strong>${comparisonGroups}</strong> grupos comparativos</span>`,
+  ].join('');
+}
+
 function currentFilteredProducts() {
   const category = els.categoryFilter.value || ALL;
+  const activeFilter = els.activeFilter.value || ALL;
   const query = String(els.searchInput.value || '').trim().toLowerCase();
 
   return state.products.filter((product) => {
-    const productCategory = String(product.category || 'sem-categoria');
+    const productCategory = normalizeCategory(product.category);
     const categoryOk = category === ALL || productCategory === category;
     if (!categoryOk) return false;
 
+    if (activeFilter === 'active' && !product.is_active) return false;
+    if (activeFilter === 'inactive' && product.is_active) return false;
+
     if (!query) return true;
+    const site = formatSiteLabel(siteLabelFromUrl(product.url)).toLowerCase();
     return (
       String(product.name || '').toLowerCase().includes(query)
       || String(product.url || '').toLowerCase().includes(query)
       || String(product.id || '').toLowerCase().includes(query)
+      || String(product.comparison_key || '').toLowerCase().includes(query)
+      || site.includes(query)
     );
   });
 }
 
 function renderProductsTable() {
   const rows = currentFilteredProducts().sort((a, b) => {
-    const catA = String(a.category || 'sem-categoria');
-    const catB = String(b.category || 'sem-categoria');
+    const catA = normalizeCategory(a.category);
+    const catB = normalizeCategory(b.category);
     if (catA !== catB) return catA.localeCompare(catB);
     return String(a.name || '').localeCompare(String(b.name || ''));
   });
 
   if (rows.length === 0) {
-    els.tbody.innerHTML = '<tr><td colspan="5">Nenhum produto para o filtro atual.</td></tr>';
+    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum produto para o filtro atual.</td></tr>';
     return;
   }
 
@@ -283,17 +371,33 @@ function renderProductsTable() {
   let lastCategory = '';
 
   for (const product of rows) {
-    const category = String(product.category || 'sem-categoria');
+    const category = normalizeCategory(product.category);
+    const siteLabel = formatSiteLabel(siteLabelFromUrl(product.url));
     if (category !== lastCategory) {
-      html.push(`<tr class="category-group-row"><td colspan="5">${formatCategoryLabel(category)}</td></tr>`);
+      html.push(`
+        <tr class="category-group-row" style="--category-color:${colorForCategory(category)}">
+          <td colspan="6">
+            <span class="category-row-dot"></span>
+            ${formatCategoryLabel(category)}
+          </td>
+        </tr>
+      `);
       lastCategory = category;
     }
 
     html.push(`
       <tr>
-        <td>${product.name}</td>
+        <td>
+          <div class="product-name-cell">
+            <strong>${product.name}</strong>
+            <span class="product-meta">
+              <a href="${product.url}" target="_blank" rel="noopener noreferrer">${product.url}</a>
+            </span>
+          </div>
+        </td>
+        <td><span class="site-pill">${siteLabel}</span></td>
         <td>${formatCategoryLabel(category)}</td>
-        <td><a href="${product.url}" target="_blank" rel="noopener noreferrer">${product.url}</a></td>
+        <td>${product.comparison_key ? `<span class="site-pill">${product.comparison_key}</span>` : '-'}</td>
         <td>${product.is_active ? 'true' : 'false'}</td>
         <td class="actions-cell">
           <button type="button" class="btn btn-ghost" data-action="edit" data-id="${product.id}">Editar</button>
@@ -317,6 +421,7 @@ function openModal(mode, product = null) {
     els.fieldName.value = '';
     els.fieldUrl.value = '';
     els.fieldCategory.value = '';
+    els.fieldComparisonKey.value = '';
     els.fieldUnits.value = '';
     els.fieldActive.value = 'true';
     els.fieldPriceCss.value = '';
@@ -330,7 +435,8 @@ function openModal(mode, product = null) {
   els.fieldId.value = product.id || '';
   els.fieldName.value = product.name || '';
   els.fieldUrl.value = product.url || '';
-  els.fieldCategory.value = product.category || '';
+  els.fieldCategory.value = normalizeCategory(product.category);
+  els.fieldComparisonKey.value = product.comparison_key || '';
   els.fieldUnits.value = product.units_per_package || '';
   els.fieldActive.value = product.is_active ? 'true' : 'false';
   els.fieldPriceCss.value = (product.selectors?.price_css || []).join('\n');
@@ -367,7 +473,8 @@ function buildIssueUrl({ title, payload }) {
 function onSubmitManageForm(event) {
   event.preventDefault();
 
-  const category = updateCategoryFieldHint({ applyMatch: true });
+  const categoryRaw = updateCategoryFieldHint({ applyMatch: true });
+  const category = categoryRaw ? normalizeCategory(categoryRaw) : '';
   const priceCss = splitLines(els.fieldPriceCss.value);
   const jsonldPaths = splitLines(els.fieldJsonld.value);
   const regexHints = splitLines(els.fieldRegex.value);
@@ -383,6 +490,7 @@ function onSubmitManageForm(event) {
     name: els.fieldName.value.trim(),
     url: els.fieldUrl.value.trim(),
     category,
+    comparison_key: normalizeLooseKey(els.fieldComparisonKey.value.trim()),
     units_per_package: els.fieldUnits.value.trim() || null,
     is_active: els.fieldActive.value === 'true',
     selectors: {
@@ -403,6 +511,7 @@ function onSubmitManageForm(event) {
   if (payload.selectors.regex_hints.length === 0) delete payload.selectors.regex_hints;
   if (Object.keys(payload.selectors).length === 0) delete payload.selectors;
   if (!payload.category) delete payload.category;
+  if (!payload.comparison_key) delete payload.comparison_key;
   if (!payload.notes) delete payload.notes;
 
   const title = `[MANAGE PRODUCT] ${payload.action.toUpperCase()} ${payload.name}`;
@@ -454,13 +563,15 @@ function bindTableActions() {
 async function init() {
   try {
     state.products = await fetchProducts();
-    state.categories = [...new Set(state.products.map((item) => String(item.category || 'sem-categoria')))].sort();
+    state.categories = [...new Set(state.products.map((item) => normalizeCategory(item.category)))].sort();
+    buildCategoryColors(state.categories);
     setCategoryFilterOptions(state.categories);
     renderCategoryInputSuggestions();
+    renderStats();
     renderProductsTable();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    els.tbody.innerHTML = `<tr><td colspan="5">Erro: ${message}</td></tr>`;
+    els.tbody.innerHTML = `<tr><td colspan="6">Erro: ${message}</td></tr>`;
   }
 
   if (!els.repoInput.value.trim()) {
@@ -477,6 +588,7 @@ els.modal.addEventListener('click', (event) => {
 });
 els.form.addEventListener('submit', onSubmitManageForm);
 els.categoryFilter.addEventListener('change', renderProductsTable);
+els.activeFilter.addEventListener('change', renderProductsTable);
 els.searchInput.addEventListener('input', renderProductsTable);
 els.fieldCategory.addEventListener('input', () => updateCategoryFieldHint());
 els.fieldCategory.addEventListener('blur', () => updateCategoryFieldHint({ applyMatch: true }));

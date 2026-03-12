@@ -25,12 +25,17 @@
 
       <section class="card" aria-labelledby="manage-title">
         <div class="card-title-row">
-          <h2 id="manage-title">Lista de Produtos</h2>
+          <div>
+            <h2 id="manage-title">Lista de Produtos</h2>
+            <p class="section-note">Use o grupo de comparacao para relacionar o mesmo produto em lojas diferentes.</p>
+          </div>
           <label class="inline-field" for="repo-input">
             Repositorio
             <input id="repo-input" type="text" placeholder="owner/repo">
           </label>
         </div>
+
+        <div id="manage-stats" class="stats-strip"></div>
 
         <div class="manage-toolbar">
           <label class="inline-field" for="category-filter">
@@ -40,9 +45,18 @@
             </select>
           </label>
 
+          <label class="inline-field" for="active-filter">
+            Status
+            <select id="active-filter">
+              <option value="__all__">Todos</option>
+              <option value="active">Ativos</option>
+              <option value="inactive">Inativos</option>
+            </select>
+          </label>
+
           <label class="inline-field" for="search-input">
             Busca
-            <input id="search-input" type="text" placeholder="Nome ou URL">
+            <input id="search-input" type="text" placeholder="Nome, URL, loja ou grupo">
           </label>
         </div>
 
@@ -51,14 +65,15 @@
             <thead>
               <tr>
                 <th>Nome</th>
+                <th>Loja</th>
                 <th>Categoria</th>
-                <th>URL</th>
+                <th>Grupo Comparacao</th>
                 <th>Ativo</th>
                 <th>Acoes</th>
               </tr>
             </thead>
             <tbody id="products-manage-tbody">
-              <tr><td colspan="5">Carregando...</td></tr>
+              <tr><td colspan="6">Carregando...</td></tr>
             </tbody>
           </table>
         </div>
@@ -91,6 +106,11 @@
             <input id="mf-category" type="text" list="mf-category-list" autocomplete="off">
             <small id="mf-category-hint" class="field-hint"></small>
             <datalist id="mf-category-list"></datalist>
+          </label>
+
+          <label>
+            Grupo de comparacao
+            <input id="mf-comparison-key" type="text" placeholder="mouse-g203">
           </label>
 
           <label>

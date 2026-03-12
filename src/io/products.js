@@ -44,6 +44,13 @@ function validateProduct(product, index) {
     throw new Error(`Invalid product at index ${index}: is_active must be boolean`);
   }
 
+  if (product.comparison_key !== undefined && product.comparison_key !== null) {
+    if (typeof product.comparison_key !== 'string' || !product.comparison_key.trim()) {
+      throw new Error(`Invalid product at index ${index}: comparison_key must be a non-empty string`);
+    }
+    product.comparison_key = product.comparison_key.trim();
+  }
+
   if (product.units_per_package !== undefined && product.units_per_package !== null) {
     const units = Number(product.units_per_package);
     if (!Number.isFinite(units) || units <= 0) {

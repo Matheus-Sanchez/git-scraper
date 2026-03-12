@@ -30,6 +30,12 @@ body:
       description: Opcional.
       placeholder: mercado
   - type: input
+    id: comparison_key
+    attributes:
+      label: Grupo de comparacao
+      description: Opcional. Use o mesmo valor para o mesmo produto em lojas diferentes.
+      placeholder: cafe-500g-tradicional
+  - type: input
     id: units_per_package
     attributes:
       label: Unidades por pacote
@@ -82,6 +88,7 @@ body:
           "name": "Produto X",
           "url": "https://site.com/item",
           "category": "categoria",
+          "comparison_key": "produto-x",
           "units_per_package": 1,
           "is_active": true,
           "selectors": {

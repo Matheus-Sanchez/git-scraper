@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-03-08T09:46:44.435Z",
+  "generated_at": "2026-03-12T09:35:47.458Z",
   "currency": "BRL",
   "summary": {
-    "total_products": 4,
-    "success_count": 4,
+    "total_products": 5,
+    "success_count": 5,
     "failure_count": 0,
-    "run_duration_ms": 918,
+    "run_duration_ms": 2881,
     "engines": {
       "engine1_http": {
-        "attempted": 4,
-        "success": 4,
+        "attempted": 5,
+        "success": 5,
         "failed": 0,
-        "avg_time_ms": 831
+        "avg_time_ms": 1404
       },
       "engine2_browser": {
         "attempted": 0,
@@ -36,7 +36,7 @@
       "currency": "BRL",
       "unit_price": 199.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.324Z",
+      "fetched_at": "2026-03-12T09:35:49.135Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -49,7 +49,7 @@
       "currency": "BRL",
       "unit_price": 149.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.261Z",
+      "fetched_at": "2026-03-12T09:35:49.056Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -58,11 +58,11 @@
       "product_id": "ssd-1tb-kabum",
       "url": "https://www.kabum.com.br/produto/85197/ssd-kingston-nv2-1tb-m-2-2280-pcie-nvme-leitura-3500mb-s-gravacao-2100mb-s-snv2s-1000g",
       "name": "SSD Kingston NV2 1TB",
-      "price": 399.99,
+      "price": 439.99,
       "currency": "BRL",
-      "unit_price": 399.99,
+      "unit_price": 439.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.345Z",
+      "fetched_at": "2026-03-12T09:35:48.529Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -75,12 +75,25 @@
       "currency": "BRL",
       "unit_price": 194.34,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-08T09:46:45.289Z",
+      "fetched_at": "2026-03-12T09:35:48.360Z",
       "source": "json-ld",
       "confidence": 0.97,
+      "status": "ok"
+    },
+    {
+      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
+      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+      "price": 255,
+      "currency": "BRL",
+      "unit_price": null,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-03-12T09:35:50.338Z",
+      "source": "adapter",
+      "confidence": 0.85,
       "status": "ok"
     }
   ],
   "failures": [],
-  "run_file": "2026-03-08.json"
+  "run_file": "2026-03-12.json"
 }

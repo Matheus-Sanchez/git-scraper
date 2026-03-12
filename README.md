@@ -17,7 +17,7 @@ Tambem permite adicionar produtos pelo site via GitHub Issue.
   - `data/runs/index.json`
 - Espelho para GitHub Pages: `docs/data/*` (sincronizado automaticamente pelo scraper/ingest)
 - Dashboard: `docs/` (estatico, sem API)
-- Add-product sem backend: formulario do site abre Issue; workflow ingere e atualiza `data/products.json` + `docs/data/products.json`.
+- Add-product sem backend: formulario do site abre Issue; workflow ingere uma acao unica ou lote e atualiza `data/products.json` + `docs/data/products.json`.
 
 ## Requisitos
 
@@ -115,7 +115,7 @@ Permissao necessaria do workflow:
 - Script: `.github/scripts/ingest_issue.mjs`
 - Resultado:
   - valida payload
-  - suporta `action: add|edit|remove`
+  - suporta `action: add|edit|remove|batch`
   - evita duplicidade por URL normalizada
   - atualiza `data/products.json` e `docs/data/products.json`
   - comenta e fecha issue
@@ -140,9 +140,10 @@ Permissoes necessarias:
 1. Abra o dashboard em `/`.
 2. Clique em `Adicionar Produto`.
 3. Preencha formulario e envie.
-4. O site abre a tela de nova issue no GitHub ja preenchida.
-5. Confirme envio da issue.
-6. O workflow `ingest_issue.yml` valida e adiciona no `data/products.json` e `docs/data/products.json`.
+4. Se quiser comparar o mesmo produto em lojas diferentes, use o mesmo `comparison_key`.
+5. O site abre a tela de nova issue no GitHub ja preenchida.
+6. Confirme envio da issue.
+7. O workflow `ingest_issue.yml` valida e adiciona no `data/products.json` e `docs/data/products.json`.
 
 O parser aceita:
 
@@ -155,6 +156,7 @@ O parser aceita:
 - `Nome`: obrigatorio. Nome exibido no dashboard e snapshots.
 - `URL`: obrigatorio. URL HTTP/HTTPS da pagina do produto.
 - `Categoria`: opcional, mas recomendado para filtros e agrupamento.
+- `Grupo de comparacao`: opcional. Use o mesmo valor para relacionar o mesmo produto em lojas diferentes.
 - `Unidades por pacote`: opcional (`> 0`). Usado para calcular `unit_price`.
 - `Ativo`: se `false`, o produto fica cadastrado mas nao entra no scraping.
 - `Repositorio (owner/repo)`: obrigatorio para abrir a issue no repositorio correto.
@@ -171,6 +173,7 @@ O parser aceita:
   "name": "Mouse Logitech G203 Lightsync",
   "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
   "category": "perifericos",
+  "comparison_key": "mouse-g203",
   "units_per_package": 1,
   "is_active": true,
   "selectors": {
@@ -235,6 +238,7 @@ Cada item suporta:
 - `url`
 - `name`
 - `category` (opcional)
+- `comparison_key` (opcional)
 - `units_per_package` (opcional, >0)
 - `is_active`
 - `selectors` (opcional):

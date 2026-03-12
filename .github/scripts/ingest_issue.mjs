@@ -81,6 +81,7 @@ export function parseIssuePayload(body) {
     name: fields['nome do produto'] || fields.nome || fields.name,
     url: fields['url do produto'] || fields.url,
     category: fields.categoria || fields.category,
+    comparison_key: fields['grupo de comparacao'] || fields['comparison key'] || fields.comparison_key,
     units_per_package: fields['unidades por pacote'] || fields['units per package'],
     is_active: fields['ativo para scraping?'] || fields.is_active,
     notes: fields.observacoes || fields.notas || fields.notes,
@@ -102,6 +103,16 @@ function cleanArray(value) {
   return splitLines(value);
 }
 
+function normalizeLooseKey(value) {
+  return String(value || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function slugify(text) {
   return String(text || '')
     .normalize('NFD')
@@ -120,6 +131,7 @@ export function normalizeAction(value) {
   const raw = String(value || '').trim().toLowerCase();
   if (!raw) return 'add';
   if (['add', 'novo', 'adicionar'].includes(raw)) return 'add';
+  if (['batch', 'lote', 'bulk'].includes(raw)) return 'batch';
   if (['edit', 'editar', 'update', 'atualizar'].includes(raw)) return 'edit';
   if (['remove', 'remover', 'delete', 'excluir'].includes(raw)) return 'remove';
   return 'invalid';
@@ -166,7 +178,8 @@ export function validateAndBuildProduct(rawPayload) {
   if (selectors.jsonld_paths.length > 0) compactSelectors.jsonld_paths = selectors.jsonld_paths;
   if (selectors.regex_hints.length > 0) compactSelectors.regex_hints = selectors.regex_hints;
 
-  const category = String(rawPayload.category || '').trim() || undefined;
+  const category = normalizeLooseKey(rawPayload.category) || undefined;
+  const comparisonKey = normalizeLooseKey(rawPayload.comparison_key) || undefined;
   const notes = String(rawPayload.notes || '').trim() || undefined;
   const active = parseBoolean(rawPayload.is_active, true);
 
@@ -178,6 +191,7 @@ export function validateAndBuildProduct(rawPayload) {
     url: normalizedUrl,
     name,
     ...(category ? { category } : {}),
+    ...(comparisonKey ? { comparison_key: comparisonKey } : {}),
     ...(units ? { units_per_package: units } : {}),
     is_active: active,
     ...(Object.keys(compactSelectors).length > 0 ? { selectors: compactSelectors } : {}),
@@ -262,9 +276,15 @@ function applyEdit(existing, payload) {
   }
 
   if (payload.category !== undefined) {
-    const category = String(payload.category || '').trim();
+    const category = normalizeLooseKey(payload.category);
     if (category) draft.category = category;
     else delete draft.category;
+  }
+
+  if (payload.comparison_key !== undefined) {
+    const comparisonKey = normalizeLooseKey(payload.comparison_key);
+    if (comparisonKey) draft.comparison_key = comparisonKey;
+    else delete draft.comparison_key;
   }
 
   if (payload.units_per_package !== undefined) {
@@ -299,11 +319,11 @@ function applyEdit(existing, payload) {
   return { ok: true, product: setDefaultSelectorsIfMissing(validated.product) };
 }
 
-export function mutateProducts(products, rawPayload, issueTitle = '') {
+function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
   const payload = { ...(rawPayload || {}) };
   const action = normalizeAction(payload.action);
 
-  if (action === 'invalid') {
+  if (action === 'invalid' || action === 'batch') {
     return { ok: false, status: 'invalid', message: 'Field "action" must be add, edit or remove' };
   }
 
@@ -387,6 +407,79 @@ export function mutateProducts(products, rawPayload, issueTitle = '') {
     product_id: edited.product.id,
     products: nextProducts,
   };
+}
+
+function collectBatchOperations(rawPayload) {
+  if (Array.isArray(rawPayload)) {
+    return rawPayload;
+  }
+
+  if (!rawPayload || typeof rawPayload !== 'object') {
+    return [];
+  }
+
+  const candidates = [rawPayload.operations, rawPayload.items, rawPayload.products];
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate)) {
+      return candidate;
+    }
+  }
+
+  return [];
+}
+
+export function mutateProducts(products, rawPayload, issueTitle = '') {
+  const payload = Array.isArray(rawPayload) ? { action: 'batch', operations: rawPayload } : { ...(rawPayload || {}) };
+  const action = normalizeAction(payload.action);
+
+  if (action === 'batch') {
+    const operations = collectBatchOperations(rawPayload)
+      .map((item) => (item && typeof item === 'object' ? item : null))
+      .filter(Boolean);
+
+    if (operations.length === 0) {
+      return {
+        ok: false,
+        status: 'invalid',
+        message: 'Batch payload must include a non-empty operations array.',
+      };
+    }
+
+    let nextProducts = [...products];
+    const changedIds = [];
+
+    for (let index = 0; index < operations.length; index += 1) {
+      const operation = operations[index];
+      const normalizedOperation = operation.action
+        ? operation
+        : { ...operation, action: payload.default_action || 'add' };
+
+      const mutation = mutateSingleProductAction(nextProducts, normalizedOperation, issueTitle);
+      if (!mutation.ok) {
+        return {
+          ok: false,
+          status: mutation.status || 'invalid',
+          message: `Operacao ${index + 1}/${operations.length} falhou: ${mutation.message}`,
+          product_id: mutation.product_id || '',
+        };
+      }
+
+      nextProducts = mutation.products;
+      if (mutation.product_id) {
+        changedIds.push(mutation.product_id);
+      }
+    }
+
+    return {
+      ok: true,
+      status: 'success',
+      message: `Lote aplicado com sucesso: ${operations.length} operacao(oes), ${changedIds.length} produto(s) afetado(s).`,
+      product_id: changedIds.join(', '),
+      products: nextProducts,
+    };
+  }
+
+  return mutateSingleProductAction(products, payload, issueTitle);
 }
 
 async function writeOutput(key, value) {

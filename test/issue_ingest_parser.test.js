@@ -45,6 +45,7 @@ test('parseIssuePayload parses issue form fields with action', () => {
 
 test('normalizeAction accepts aliases', () => {
   assert.equal(normalizeAction('adicionar'), 'add');
+  assert.equal(normalizeAction('lote'), 'batch');
   assert.equal(normalizeAction('editar'), 'edit');
   assert.equal(normalizeAction('remove'), 'remove');
   assert.equal(normalizeAction('???'), 'invalid');
@@ -80,12 +81,14 @@ test('mutateProducts can add product', () => {
     name: 'Produto X',
     url: 'https://example.com/x',
     category: 'teste',
+    comparison_key: 'mouse-g203',
     is_active: true,
   });
 
   assert.equal(result.ok, true);
   assert.equal(result.products.length, 1);
   assert.equal(result.products[0].name, 'Produto X');
+  assert.equal(result.products[0].comparison_key, 'mouse-g203');
 });
 
 test('mutateProducts can edit product by id', () => {
@@ -127,4 +130,56 @@ test('mutateProducts can remove product by id', () => {
   assert.equal(result.ok, true);
   assert.equal(result.products.length, 1);
   assert.equal(result.products[0].id, 'produto-b');
+});
+
+test('mutateProducts can apply batch add operations atomically', () => {
+  const result = mutateProducts([], {
+    action: 'batch',
+    operations: [
+      {
+        action: 'add',
+        name: 'Produto A',
+        url: 'https://example.com/a',
+        category: 'hardware',
+        comparison_key: 'ssd-nv2-1tb',
+      },
+      {
+        action: 'add',
+        name: 'Produto B',
+        url: 'https://example.com/b',
+        category: 'hardware',
+        comparison_key: 'ssd-nv2-1tb',
+      },
+    ],
+  });
+
+  assert.equal(result.ok, true);
+  assert.equal(result.products.length, 2);
+  assert.match(result.message, /Lote aplicado com sucesso/);
+  assert.deepEqual(
+    result.products.map((item) => item.comparison_key),
+    ['ssd-nv2-1tb', 'ssd-nv2-1tb'],
+  );
+});
+
+test('mutateProducts aborts batch when one operation fails', () => {
+  const result = mutateProducts([], {
+    action: 'batch',
+    operations: [
+      {
+        action: 'add',
+        name: 'Produto A',
+        url: 'https://example.com/a',
+      },
+      {
+        action: 'add',
+        name: 'Produto Invalido',
+        url: 'notaurl',
+      },
+    ],
+  });
+
+  assert.equal(result.ok, false);
+  assert.equal(result.status, 'invalid');
+  assert.match(result.message, /Operacao 2\/2 falhou/);
 });
