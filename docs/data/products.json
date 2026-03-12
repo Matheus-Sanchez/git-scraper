@@ -82,10 +82,11 @@
     "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
     "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
     "category": "Hardware",
+    "units_per_package": 1,
     "is_active": true,
     "selectors": {
       "price_css": [
-        "<div class=\"a-section apex-core-price-identifier\">      <span class=\"a-price aok-align-center apex-pricetopay-value\" data-a-size=\"xl\" data-a-color=\"base\"><span class=\"a-offscreen\">R$255,00</span><span aria-hidden=\"true\"><span class=\"a-price-symbol\">R$</span><span class=\"a-price-whole\">255<span class=\"a-price-decimal\">,</span></span><span class=\"a-price-fraction\">00</span></span></span>        <span id=\"taxInclusiveMessage\" class=\"a-size-mini a-color-base aok-align-center aok-nowrap\">  </span>           </div>"
+        "\"a-offscreen\""
       ],
       "jsonld_paths": [
         "offers.price",
