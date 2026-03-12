@@ -604,12 +604,13 @@ function datasetFromProduct(entry) {
     }),
     borderColor: color,
     backgroundColor: color,
-    borderWidth: 2,
-    pointRadius: 2,
+    borderWidth: 2.4,
+    pointRadius: 0,
     pointHoverRadius: 6,
-    pointHitRadius: 18,
+    pointHitRadius: 20,
     spanGaps: true,
-    tension: 0.18,
+    tension: 0.24,
+    highlightLastPoint: true,
   };
 }
 
@@ -629,11 +630,12 @@ function datasetFromCategory(entry) {
     borderColor: color,
     backgroundColor: color,
     borderWidth: 3,
-    pointRadius: 2,
+    pointRadius: 0,
     pointHoverRadius: 6,
-    pointHitRadius: 18,
+    pointHitRadius: 20,
     spanGaps: true,
-    tension: 0.18,
+    tension: 0.22,
+    highlightLastPoint: true,
   };
 }
 
@@ -660,6 +662,25 @@ function chartDatasets() {
   }
 
   return currentVisibleProductEntries().map(datasetFromProduct);
+}
+
+function styleHistoryDatasets(datasets) {
+  const singleSeries = datasets.length === 1;
+  const crowded = datasets.length >= 6;
+
+  return datasets.map((dataset, index) => ({
+    ...dataset,
+    borderWidth: singleSeries
+      ? 3.4
+      : dataset.kind === 'category'
+        ? 3
+        : 2.2,
+    tension: singleSeries ? 0.3 : dataset.tension || 0.22,
+    fillOpacity: singleSeries ? 0.18 : 0,
+    lastPointRadius: singleSeries ? 5.8 : 4.4,
+    lineOpacity: crowded ? 0.78 : 0.92,
+    showLatestPrice: singleSeries && index === 0,
+  }));
 }
 
 function resetViewport() {
@@ -873,6 +894,7 @@ function findNearestHistoryLineHit(chart, position) {
       if (!best || distance < best.distance) {
         best = {
           dataset,
+          datasetIndex,
           distance,
           price: pointValue,
           label: labels[index],
@@ -898,6 +920,7 @@ function findNearestHistoryLineHit(chart, position) {
 
         best = {
           dataset,
+          datasetIndex,
           distance: projection.distance,
           price,
           label: labels[labelIndex],
@@ -914,6 +937,9 @@ function findNearestHistoryLineHit(chart, position) {
 function hideHistoryHoverTooltip() {
   if (!els.historyHoverTooltip) return;
   els.historyHoverTooltip.hidden = true;
+  if (state.chart?.setActiveHover) {
+    state.chart.setActiveHover(null);
+  }
   if (els.historyCanvas) {
     els.historyCanvas.style.cursor = 'default';
   }
@@ -960,6 +986,13 @@ function handleHistoryHover(event) {
   }
 
   els.historyCanvas.style.cursor = 'pointer';
+  if (state.chart?.setActiveHover) {
+    state.chart.setActiveHover({
+      datasetIndex: hit.datasetIndex,
+      x: hit.anchorX,
+      y: hit.anchorY,
+    });
+  }
   showHistoryHoverTooltip(hit, event);
 }
 
@@ -1208,10 +1241,14 @@ function historyChartOptions() {
         grid: {
           display: false,
         },
+        ticks: {
+          maxTicksLimit: 6,
+        },
       },
       y: {
-        beginAtZero: true,
+        beginAtZero: false,
         ticks: {
+          maxTicksLimit: 5,
           callback(value) {
             return formatMoney(value);
           },
@@ -1248,10 +1285,10 @@ function renderHistoryChart() {
   hideHistoryHoverTooltip();
 
   const range = visibleRange();
-  const datasets = chartDatasets().map((dataset) => ({
+  const datasets = styleHistoryDatasets(chartDatasets().map((dataset) => ({
     ...dataset,
     data: dataset.data.slice(range.startIndex, range.endIndex + 1),
-  }));
+  })));
 
   if (datasets.length === 0 || range.labels.length === 0) {
     els.detail.textContent = 'Sem dados para o grafico.';
