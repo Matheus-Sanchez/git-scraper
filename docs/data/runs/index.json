@@ -1,6 +1,7 @@
 {
-  "updated_at": "2026-03-14T21:06:02.574Z",
+  "updated_at": "2026-03-15T09:51:39.394Z",
   "files": [
+    "2026-03-15T09-51-17-048Z.json",
     "2026-03-14.json",
     "2026-03-12.json",
     "2026-03-11.json",
@@ -13,5 +14,243 @@
     "2026-03-04.json",
     "2026-03-03.json",
     "2026-03-02.json"
+  ],
+  "runs": [
+    {
+      "run_id": "2026-03-15T09-51-17-048Z",
+      "run_date": "2026-03-15",
+      "generated_at": "2026-03-15T09:51:17.048Z",
+      "run_file": "2026-03-15T09-51-17-048Z.json",
+      "error_file": "2026-03-15T09-51-17-048Z.json",
+      "success_count": 3,
+      "failure_count": 2,
+      "status": "partial"
+    },
+    {
+      "run_id": "2026-03-14",
+      "run_date": "2026-03-14",
+      "generated_at": null,
+      "run_file": "2026-03-14.json",
+      "error_file": "2026-03-14.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-12",
+      "run_date": "2026-03-12",
+      "generated_at": null,
+      "run_file": "2026-03-12.json",
+      "error_file": "2026-03-12.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-11",
+      "run_date": "2026-03-11",
+      "generated_at": null,
+      "run_file": "2026-03-11.json",
+      "error_file": "2026-03-11.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-10",
+      "run_date": "2026-03-10",
+      "generated_at": null,
+      "run_file": "2026-03-10.json",
+      "error_file": "2026-03-10.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-09",
+      "run_date": "2026-03-09",
+      "generated_at": null,
+      "run_file": "2026-03-09.json",
+      "error_file": "2026-03-09.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-08",
+      "run_date": "2026-03-08",
+      "generated_at": null,
+      "run_file": "2026-03-08.json",
+      "error_file": "2026-03-08.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-07",
+      "run_date": "2026-03-07",
+      "generated_at": null,
+      "run_file": "2026-03-07.json",
+      "error_file": "2026-03-07.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-06",
+      "run_date": "2026-03-06",
+      "generated_at": null,
+      "run_file": "2026-03-06.json",
+      "error_file": "2026-03-06.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-05",
+      "run_date": "2026-03-05",
+      "generated_at": null,
+      "run_file": "2026-03-05.json",
+      "error_file": "2026-03-05.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-04",
+      "run_date": "2026-03-04",
+      "generated_at": null,
+      "run_file": "2026-03-04.json",
+      "error_file": "2026-03-04.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-03",
+      "run_date": "2026-03-03",
+      "generated_at": null,
+      "run_file": "2026-03-03.json",
+      "error_file": "2026-03-03.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    },
+    {
+      "run_id": "2026-03-02",
+      "run_date": "2026-03-02",
+      "generated_at": null,
+      "run_file": "2026-03-02.json",
+      "error_file": "2026-03-02.json",
+      "success_count": null,
+      "failure_count": null,
+      "status": "unknown"
+    }
+  ],
+  "daily": [
+    {
+      "run_date": "2026-03-15",
+      "run_ids": [
+        "2026-03-15T09-51-17-048Z"
+      ],
+      "latest_run_id": "2026-03-15T09-51-17-048Z",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-14",
+      "run_ids": [
+        "2026-03-14"
+      ],
+      "latest_run_id": "2026-03-14",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-12",
+      "run_ids": [
+        "2026-03-12"
+      ],
+      "latest_run_id": "2026-03-12",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-11",
+      "run_ids": [
+        "2026-03-11"
+      ],
+      "latest_run_id": "2026-03-11",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-10",
+      "run_ids": [
+        "2026-03-10"
+      ],
+      "latest_run_id": "2026-03-10",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-09",
+      "run_ids": [
+        "2026-03-09"
+      ],
+      "latest_run_id": "2026-03-09",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-08",
+      "run_ids": [
+        "2026-03-08"
+      ],
+      "latest_run_id": "2026-03-08",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-07",
+      "run_ids": [
+        "2026-03-07"
+      ],
+      "latest_run_id": "2026-03-07",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-06",
+      "run_ids": [
+        "2026-03-06"
+      ],
+      "latest_run_id": "2026-03-06",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-05",
+      "run_ids": [
+        "2026-03-05"
+      ],
+      "latest_run_id": "2026-03-05",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-04",
+      "run_ids": [
+        "2026-03-04"
+      ],
+      "latest_run_id": "2026-03-04",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-03",
+      "run_ids": [
+        "2026-03-03"
+      ],
+      "latest_run_id": "2026-03-03",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-02",
+      "run_ids": [
+        "2026-03-02"
+      ],
+      "latest_run_id": "2026-03-02",
+      "total_runs": 1
+    }
   ]
 }
