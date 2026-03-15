@@ -263,6 +263,55 @@ function scoreCandidate(candidate, candidates) {
   return score;
 }
 
+function summarizeCandidates(candidates) {
+  return candidates
+    .map((candidate) => ({
+      price: candidate.price,
+      source: candidate.source,
+      context: candidate.context,
+      score: Number.isFinite(candidate.score) ? roundTo2(candidate.score) : null,
+    }))
+    .sort((left, right) => {
+      const leftScore = Number.isFinite(left.score) ? left.score : Number.NEGATIVE_INFINITY;
+      const rightScore = Number.isFinite(right.score) ? right.score : Number.NEGATIVE_INFINITY;
+      if (rightScore !== leftScore) return rightScore - leftScore;
+      return Number(left.price || 0) - Number(right.price || 0);
+    })
+    .slice(0, 5);
+}
+
+function detectFailureCode(candidates) {
+  if (candidates.length === 0) {
+    return {
+      error_code: 'no_candidates',
+      reason: 'No price candidates found',
+    };
+  }
+
+  const installmentCandidates = candidates.filter((candidate) => hasInstallmentContext(candidate.context));
+  if (installmentCandidates.length > 0 && installmentCandidates.length === candidates.length) {
+    return {
+      error_code: 'installment_only',
+      reason: 'Only installment prices were detected',
+    };
+  }
+
+  const oldPriceCandidates = candidates.filter((candidate) => (
+    hasOldPriceContext(candidate.context) && !hasCurrentPriceContext(candidate.context)
+  ));
+  if (oldPriceCandidates.length > 0 && oldPriceCandidates.length === candidates.length) {
+    return {
+      error_code: 'old_price_only',
+      reason: 'Only old/reference prices were detected',
+    };
+  }
+
+  return {
+    error_code: 'implausible_candidates',
+    reason: 'Candidates found but none passed plausibility heuristics',
+  };
+}
+
 export function extractPriceFromHtml({
   html,
   selectors = {},
@@ -270,6 +319,16 @@ export function extractPriceFromHtml({
   adapterName = 'generic',
 }) {
   const safeHtml = String(html || '');
+  if (!safeHtml.trim()) {
+    return {
+      ok: false,
+      error_code: 'empty_html',
+      reason: 'HTML response is empty',
+      candidates_checked: 0,
+      top_candidates: [],
+    };
+  }
+
   const $ = load(safeHtml);
   const candidates = [];
 
@@ -304,12 +363,13 @@ export function extractPriceFromHtml({
 
   extractRegexCandidates(safeHtml, selectors.regex_hints || [], candidates);
 
-  const valid = candidates
+  const scoredCandidates = candidates.map((candidate) => ({
+    ...candidate,
+    score: scoreCandidate(candidate, candidates),
+  }));
+
+  const valid = scoredCandidates
     .filter((candidate) => isCandidatePricePlausible(candidate.price))
-    .map((candidate) => ({
-      ...candidate,
-      score: scoreCandidate(candidate, candidates),
-    }))
     .filter((candidate) => Number.isFinite(candidate.score))
     .sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
@@ -317,10 +377,13 @@ export function extractPriceFromHtml({
     });
 
   if (valid.length === 0) {
+    const failure = detectFailureCode(scoredCandidates);
     return {
       ok: false,
-      reason: 'No plausible price candidates',
+      error_code: failure.error_code,
+      reason: failure.reason,
       candidates_checked: candidates.length,
+      top_candidates: summarizeCandidates(scoredCandidates),
     };
   }
 

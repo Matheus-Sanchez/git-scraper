@@ -18,11 +18,20 @@ const CATEGORY_PALETTE = [
 
 const els = {
   generatedAt: document.getElementById('generated-at'),
+  heroMetrics: document.getElementById('hero-metrics'),
   summaryGrid: document.getElementById('summary-grid'),
+  focusMetrics: document.getElementById('focus-metrics'),
   tbody: document.getElementById('products-tbody'),
+  dashboardSearch: document.getElementById('dashboard-search'),
+  siteFilter: document.getElementById('site-filter'),
+  statusFilter: document.getElementById('status-filter'),
   historyCategoryFilter: document.getElementById('history-category-filter'),
   chartScope: document.getElementById('chart-scope'),
   productSelect: document.getElementById('product-select'),
+  hideLegacySeries: document.getElementById('hide-legacy-series'),
+  dashboardResetFilters: document.getElementById('dashboard-reset-filters'),
+  activeFilterPills: document.getElementById('active-filter-pills'),
+  toolbarInsights: document.getElementById('toolbar-insights'),
   historyMain: document.getElementById('history-main'),
   historyScroll: document.getElementById('history-scroll'),
   historyStage: document.getElementById('history-stage'),
@@ -30,6 +39,7 @@ const els = {
   historyHoverTooltip: document.getElementById('history-hover-tooltip'),
   pieCanvas: document.getElementById('category-pie-chart'),
   detail: document.getElementById('history-detail'),
+  runDrilldown: document.getElementById('history-run-drilldown'),
   categoryLegend: document.getElementById('category-legend'),
   tableFilterSummary: document.getElementById('table-filter-summary'),
   zoomIn: document.getElementById('zoom-in'),
@@ -48,6 +58,11 @@ const els = {
 const state = {
   latest: null,
   runs: [],
+  runsManifest: {
+    files: [],
+    runs: [],
+    daily: [],
+  },
   products: [],
   productsById: new Map(),
   categories: [],
@@ -67,6 +82,7 @@ const state = {
   isSyncingHistoryScroll: false,
   pendingHistoryScrollFrame: null,
   addDrafts: [],
+  selectedRunDate: '',
 };
 
 function escapeHtml(value) {
@@ -270,6 +286,41 @@ async function fetchDataJson(path) {
   return fetchJson(`${dataRoot}/${path}`);
 }
 
+function normalizeRunId(value) {
+  return String(value || '').replace(/\.json$/i, '');
+}
+
+function normalizeRunPayload(run, fallbackFile = '') {
+  if (!run || typeof run !== 'object') return null;
+
+  const runId = normalizeRunId(run.run_id || fallbackFile);
+  const runDate = run.run_date || (run.generated_at ? run.generated_at.slice(0, 10) : runId.slice(0, 10));
+  if (!runId || !runDate) return null;
+
+  return {
+    ...run,
+    run_id: runId,
+    run_date: runDate,
+    run_file: run.run_file || (fallbackFile || `${runId}.json`),
+  };
+}
+
+function runSortKey(run) {
+  return String(run?.generated_at || run?.run_id || run?.run_file || run?.run_date || '');
+}
+
+function sortRunsDescending(runs) {
+  return [...runs].sort((left, right) => runSortKey(right).localeCompare(runSortKey(left)));
+}
+
+function manifestRunEntries() {
+  return Array.isArray(state.runsManifest?.runs) ? state.runsManifest.runs : [];
+}
+
+function manifestDailyEntries() {
+  return Array.isArray(state.runsManifest?.daily) ? state.runsManifest.daily : [];
+}
+
 function colorForCategory(category) {
   return state.colorsByCategory.get(normalizeCategory(category)) || '#0f7a62';
 }
@@ -313,6 +364,73 @@ function buildProductLabel(name, url) {
   return site ? `${trimmedName} / ${site}` : trimmedName;
 }
 
+function humanizeErrorCode(value) {
+  return String(value || '')
+    .trim()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function trimText(value, maxLength = 120) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
+}
+
+function failureSummary(failure) {
+  if (!failure) return '';
+
+  const code = humanizeErrorCode(failure.error_code || failure.last_error_code || '');
+  const detail = trimText(failure.error_detail || failure.last_error || failure.error || '');
+  if (code && detail && detail.toLowerCase() !== code.toLowerCase()) {
+    return `${code}: ${detail}`;
+  }
+  return code || detail || 'Falha sem classificacao';
+}
+
+function normalizeSearchText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function currentSearchTerm() {
+  return normalizeSearchText(els.dashboardSearch?.value || '');
+}
+
+function selectedSite() {
+  return els.siteFilter?.value || ALL;
+}
+
+function selectedStatus() {
+  return els.statusFilter?.value || ALL;
+}
+
+function hideLegacySeriesEnabled() {
+  return Boolean(els.hideLegacySeries?.checked);
+}
+
+function latestStatusForProductId(productId) {
+  if (state.latestItemsById.has(productId)) return 'ok';
+  if (state.latestFailuresById.has(productId)) return 'failed';
+  return '';
+}
+
+function currentSiteLabelForProductId(productId, fallback = '') {
+  const success = state.latestItemsById.get(productId);
+  const failure = state.latestFailuresById.get(productId);
+  const product = state.productsById.get(productId);
+  return formatSiteLabel(siteLabelFromUrl(success?.url || failure?.url || product?.url || fallback));
+}
+
+function matchesSearch(haystack) {
+  const query = currentSearchTerm();
+  if (!query) return true;
+  return normalizeSearchText(haystack).includes(query);
+}
+
 function currentScope() {
   return els.chartScope?.value || 'all-products';
 }
@@ -333,6 +451,94 @@ function syncControlAvailability() {
   if (!els.productSelect) return;
   const disabled = !scopeUsesProductSelect() || els.productSelect.options.length === 0 || !els.productSelect.value;
   els.productSelect.disabled = disabled;
+}
+
+function buildCurrentSiteOptions() {
+  return [...new Set(buildCurrentRows()
+    .map((row) => row.site_label)
+    .filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b));
+}
+
+function renderSiteFilterOptions() {
+  if (!els.siteFilter) return;
+
+  const previous = selectedSite();
+  const sites = buildCurrentSiteOptions();
+  els.siteFilter.innerHTML = [
+    `<option value="${ALL}">Todas</option>`,
+    ...sites.map((site) => `<option value="${escapeHtml(site)}">${escapeHtml(site)}</option>`),
+  ].join('');
+
+  els.siteFilter.value = sites.includes(previous) ? previous : ALL;
+}
+
+function historyEntryMatchesToolbarFilters(entry) {
+  if (!entry) return false;
+  if (hideLegacySeriesEnabled() && !state.productsById.has(entry.product_id)) {
+    return false;
+  }
+
+  const site = selectedSite();
+  if (site !== ALL && entry.site_label !== site) {
+    return false;
+  }
+
+  const status = selectedStatus();
+  const currentStatus = latestStatusForProductId(entry.product_id);
+  if (status !== ALL && currentStatus !== status) {
+    return false;
+  }
+
+  return matchesSearch([
+    entry.label,
+    entry.site_label,
+    formatCategoryLabel(entry.category),
+    entry.comparison_key,
+    entry.product_id,
+  ].join(' '));
+}
+
+function filteredHistoryProductEntries() {
+  const category = selectedCategory();
+  let entries = [...state.historyByProduct.values()];
+
+  if (category !== ALL) {
+    entries = entries.filter((entry) => entry.category === category);
+  }
+
+  return entries
+    .filter(historyEntryMatchesToolbarFilters)
+    .sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function buildCategoryEntriesFromProducts(entries) {
+  const categories = [...new Set(entries.map((entry) => entry.category))].sort((a, b) => a.localeCompare(b));
+
+  return categories.map((category) => {
+    const categoryEntries = entries.filter((entry) => entry.category === category);
+    const pointMaps = categoryEntries.map((entry) => valueMap(entry.points));
+
+    return {
+      category,
+      label: formatCategoryLabel(category),
+      points: state.allDates.map((date) => {
+        const values = pointMaps
+          .map((map) => map.get(date))
+          .filter((value) => Number.isFinite(value));
+
+        if (values.length === 0) {
+          return { date, price: null };
+        }
+
+        const average = values.reduce((sum, value) => sum + Number(value), 0) / values.length;
+        return {
+          date,
+          price: Math.round(average * 100) / 100,
+        };
+      }),
+    };
+  });
 }
 
 function buildLatestIndexes() {
@@ -363,6 +569,7 @@ function renderSummary() {
   const engines = summary.engines || {};
 
   const rows = [
+    ['Run ID', state.latest?.run_id || '-'],
     ['Total ativos', summary.total_products ?? 0],
     ['Sucesso', summary.success_count ?? 0],
     ['Falhas', summary.failure_count ?? 0],
@@ -379,6 +586,34 @@ function renderSummary() {
   els.generatedAt.textContent = state.latest?.generated_at
     ? `Atualizado: ${formatDateTime(state.latest.generated_at)}`
     : 'Sem execucao registrada';
+}
+
+function renderHeroMetrics() {
+  if (!els.heroMetrics) return;
+
+  const summary = state.latest?.summary || {};
+  const total = Number(summary.total_products || 0);
+  const success = Number(summary.success_count || 0);
+  const failure = Number(summary.failure_count || 0);
+  const successRate = total > 0 ? Math.round((success / total) * 100) : 0;
+  const visibleSpan = state.allDates.length > 0
+    ? `${state.allDates[0]} ate ${state.allDates[state.allDates.length - 1]}`
+    : 'sem historico';
+
+  const cards = [
+    ['Ativos', total, `${state.categories.length} categorias monitoradas`],
+    ['Taxa de sucesso', `${successRate}%`, `${success} ok / ${failure} falhas no ultimo run`],
+    ['Lojas', buildCurrentSiteOptions().length, 'Canais com dados atuais no painel'],
+    ['Janela', state.allDates.length, visibleSpan],
+  ];
+
+  els.heroMetrics.innerHTML = cards.map(([label, value, note]) => `
+    <article class="hero-metric-card">
+      <span class="metric-label">${escapeHtml(label)}</span>
+      <strong class="metric-value">${escapeHtml(value)}</strong>
+      <small class="metric-note">${escapeHtml(note)}</small>
+    </article>
+  `).join('');
 }
 
 function renderCategoryLegend(categories) {
@@ -456,43 +691,55 @@ function valueMap(points) {
 
 function buildHistories() {
   const productMap = new Map();
-  const categoryAggregation = new Map();
   const datesSet = new Set();
+  const dailyProductSnapshots = new Map();
 
-  state.runs.forEach((run) => {
+  sortRunsDescending(state.runs).reverse().forEach((run) => {
     const dateLabel = run.run_date || (run.generated_at ? run.generated_at.slice(0, 10) : '-');
     datesSet.add(dateLabel);
 
     (run.results || []).forEach((result) => {
-      const product = state.productsById.get(result.product_id);
-      const category = normalizeCategory(product?.category);
-      const comparisonKey = normalizeComparisonKey(product?.comparison_key);
-      const url = product?.url || result.url;
-      const label = buildProductLabel(product?.name || result.name, url);
-
-      if (!productMap.has(result.product_id)) {
-        productMap.set(result.product_id, {
-          product_id: result.product_id,
-          name: product?.name || result.name,
-          label,
-          category,
-          comparison_key: comparisonKey,
-          site_label: formatSiteLabel(siteLabelFromUrl(url)),
-          points: [],
-        });
-      }
-
-      productMap.get(result.product_id).points.push({
+      const key = `${result.product_id}::${dateLabel}`;
+      dailyProductSnapshots.set(key, {
+        run,
+        result,
         date: dateLabel,
-        price: Number(result.price),
       });
-
-      const key = `${category}::${dateLabel}`;
-      const prev = categoryAggregation.get(key) || { sum: 0, count: 0 };
-      prev.sum += Number(result.price);
-      prev.count += 1;
-      categoryAggregation.set(key, prev);
     });
+  });
+
+  const categoryAggregation = new Map();
+  dailyProductSnapshots.forEach(({ run, result, date }) => {
+    const product = state.productsById.get(result.product_id);
+    const category = normalizeCategory(product?.category);
+    const comparisonKey = normalizeComparisonKey(product?.comparison_key);
+    const url = product?.url || result.url;
+    const label = buildProductLabel(product?.name || result.name, url);
+
+    if (!productMap.has(result.product_id)) {
+      productMap.set(result.product_id, {
+        product_id: result.product_id,
+        name: product?.name || result.name,
+        label,
+        category,
+        comparison_key: comparisonKey,
+        site_label: formatSiteLabel(siteLabelFromUrl(url)),
+        points: [],
+      });
+    }
+
+    productMap.get(result.product_id).points.push({
+      date,
+      price: Number(result.price),
+      run_id: run.run_id || null,
+      generated_at: run.generated_at || null,
+    });
+
+    const categoryKey = `${category}::${date}`;
+    const prev = categoryAggregation.get(categoryKey) || { sum: 0, count: 0 };
+    prev.sum += Number(result.price);
+    prev.count += 1;
+    categoryAggregation.set(categoryKey, prev);
   });
 
   const allDates = [...datesSet].sort((a, b) => a.localeCompare(b));
@@ -522,14 +769,14 @@ function buildHistories() {
   state.historyByProduct = productMap;
   state.historyByCategory = categoryMap;
   state.allDates = allDates;
+  if (!state.selectedRunDate || !allDates.includes(state.selectedRunDate)) {
+    state.selectedRunDate = allDates[allDates.length - 1] || '';
+  }
   resetViewport();
 }
 
 function productOptionsForFilter() {
-  const category = selectedCategory();
-  const options = [...state.historyByProduct.values()].sort((a, b) => a.label.localeCompare(b.label));
-  if (category === ALL) return options;
-  return options.filter((item) => item.category === category);
+  return filteredHistoryProductEntries();
 }
 
 function renderProductSelect() {
@@ -566,12 +813,7 @@ function currentComparisonGroupIds() {
 }
 
 function currentVisibleProductEntries() {
-  const category = selectedCategory();
-  let entries = [...state.historyByProduct.values()];
-
-  if (category !== ALL) {
-    entries = entries.filter((entry) => entry.category === category);
-  }
+  let entries = filteredHistoryProductEntries();
 
   const scope = currentScope();
   if (scope === 'single-product') {
@@ -583,7 +825,7 @@ function currentVisibleProductEntries() {
     return entries.filter((entry) => allowedIds.has(entry.product_id));
   }
 
-  return entries.sort((a, b) => a.label.localeCompare(b.label));
+  return entries;
 }
 
 function datasetFromProduct(entry) {
@@ -654,11 +896,8 @@ function chartDatasets() {
   }
 
   if (scope === 'by-category') {
-    const categories = category === ALL ? state.categories : state.categories.filter((item) => item === category);
-    return categories
-      .map((item) => state.historyByCategory.get(item))
-      .filter(Boolean)
-      .map(datasetFromCategory);
+    const entries = filteredHistoryProductEntries();
+    return buildCategoryEntriesFromProducts(entries).map(datasetFromCategory);
   }
 
   return currentVisibleProductEntries().map(datasetFromProduct);
@@ -948,6 +1187,11 @@ function hideHistoryHoverTooltip() {
 function showHistoryHoverTooltip(hit, mouseEvent) {
   if (!els.historyHoverTooltip || !els.historyMain) return;
 
+  if (hit?.label && state.selectedRunDate !== hit.label) {
+    state.selectedRunDate = hit.label;
+    renderRunDrilldown();
+  }
+
   els.historyHoverTooltip.innerHTML = `
     <strong>${escapeHtml(hit.dataset.label)}</strong>
     <span class="tooltip-price">${formatMoney(hit.price)}</span>
@@ -1028,9 +1272,13 @@ function buildCurrentRows() {
       current_price: success ? Number(success.price) : null,
       lowest_30d: last30DayMinimum(productId),
       unit_price: success && Number.isFinite(units) && units > 1 ? Number(success.unit_price) : null,
+      price_gap_30d: success ? Number(success.price) - Number(last30DayMinimum(productId) ?? success.price) : null,
       comparison_key: String(product?.comparison_key || '').trim(),
       updated_at: success?.fetched_at || failure?.fetched_at || null,
       status: success ? 'ok' : 'failed',
+      error_code: failure?.error_code || '',
+      error_detail: failure?.error_detail || failure?.last_error || '',
+      artifact_dir: failure?.artifact_dir || '',
     });
   });
 
@@ -1042,6 +1290,26 @@ function buildCurrentRows() {
 }
 
 function rowMatchesSharedFilters(row) {
+  const site = selectedSite();
+  if (site !== ALL && row.site_label !== site) {
+    return false;
+  }
+
+  const status = selectedStatus();
+  if (status !== ALL && row.status !== status) {
+    return false;
+  }
+
+  if (!matchesSearch([
+    row.name,
+    row.site_label,
+    formatCategoryLabel(row.category),
+    row.comparison_key,
+    row.product_id,
+  ].join(' '))) {
+    return false;
+  }
+
   const category = selectedCategory();
   if (category !== ALL && row.category !== category) {
     return false;
@@ -1090,6 +1358,89 @@ function tableSummaryText(rowCount) {
   return `${rowCount} linha(s) sincronizadas com o historico em ${categoryLabel}.`;
 }
 
+function renderActiveFilterPills() {
+  if (!els.activeFilterPills) return;
+
+  const pills = [];
+  const query = els.dashboardSearch?.value.trim();
+
+  if (query) pills.push(`Busca: ${query}`);
+  if (selectedSite() !== ALL) pills.push(`Loja: ${selectedSite()}`);
+  if (selectedStatus() !== ALL) pills.push(`Status: ${selectedStatus()}`);
+  if (selectedCategory() !== ALL) pills.push(`Categoria: ${formatCategoryLabel(selectedCategory())}`);
+  if (currentScope() !== 'all-products') pills.push(`Modo: ${els.chartScope.selectedOptions[0]?.textContent || currentScope()}`);
+  if (hideLegacySeriesEnabled()) pills.push('Series legadas ocultas');
+
+  if (pills.length === 0) {
+    els.activeFilterPills.innerHTML = '<span class="filter-pill filter-pill-muted">Sem filtros adicionais</span>';
+    return;
+  }
+
+  els.activeFilterPills.innerHTML = pills
+    .map((pill) => `<span class="filter-pill">${escapeHtml(pill)}</span>`)
+    .join('');
+}
+
+function renderToolbarInsights(datasets) {
+  if (!els.toolbarInsights) return;
+
+  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
+  const visibleSites = new Set(rows.map((row) => row.site_label).filter(Boolean)).size;
+  const range = visibleRange();
+  const rangeText = range.labels.length > 0
+    ? `${range.labels[0]} -> ${range.labels[range.labels.length - 1]}`
+    : 'sem janela';
+
+  const blocks = [
+    ['Itens visiveis', rows.length],
+    ['Series', datasets.length],
+    ['Lojas', visibleSites],
+    ['Janela', rangeText],
+  ];
+
+  els.toolbarInsights.innerHTML = blocks.map(([label, value]) => `
+    <span class="insight-chip">
+      <strong>${escapeHtml(value)}</strong>
+      <small>${escapeHtml(label)}</small>
+    </span>
+  `).join('');
+}
+
+function renderFocusMetrics(datasets) {
+  if (!els.focusMetrics) return;
+
+  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
+  const visiblePrices = rows.filter((row) => Number.isFinite(row.current_price));
+  const best = [...visiblePrices].sort((a, b) => a.current_price - b.current_price)[0];
+  const average = visiblePrices.length > 0
+    ? visiblePrices.reduce((sum, row) => sum + Number(row.current_price), 0) / visiblePrices.length
+    : null;
+  const range = visibleRange();
+  const snapshots = `${range.labels.length}/${state.allDates.length}`;
+
+  const cards = [
+    ['Melhor oferta', best ? `${formatMoney(best.current_price)} em ${best.site_label}` : '-', 'menor preco atual no recorte'],
+    ['Preco medio', Number.isFinite(average) ? formatMoney(average) : '-', 'media dos itens visiveis'],
+    ['Series visiveis', datasets.length, `snapshots ${snapshots}`],
+    ['Falhas no recorte', rows.filter((row) => row.status === 'failed').length, 'itens que exigem atencao'],
+  ];
+
+  els.focusMetrics.innerHTML = cards.map(([label, value, note]) => `
+    <article class="focus-card-item">
+      <span class="metric-label">${escapeHtml(label)}</span>
+      <strong class="metric-value">${escapeHtml(value)}</strong>
+      <small class="metric-note">${escapeHtml(note)}</small>
+    </article>
+  `).join('');
+}
+
+function renderProfessionalChrome(datasets) {
+  renderHeroMetrics();
+  renderActiveFilterPills();
+  renderToolbarInsights(datasets);
+  renderFocusMetrics(datasets);
+}
+
 function renderTable() {
   const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
   els.tableFilterSummary.textContent = tableSummaryText(rows.length);
@@ -1120,17 +1471,39 @@ function renderTable() {
         <td>
           <div class="product-name-cell">
             <strong>${escapeHtml(row.name)}</strong>
-            ${row.comparison_key ? `<span class="product-meta">Grupo: ${escapeHtml(row.comparison_key)}</span>` : ''}
+            <div class="product-tags">
+              ${row.comparison_key ? `<span class="table-micro-chip">Grupo ${escapeHtml(row.comparison_key)}</span>` : ''}
+              <span class="table-micro-chip">${escapeHtml(formatCategoryLabel(row.category))}</span>
+            </div>
           </div>
         </td>
-        <td><span class="site-pill">${escapeHtml(row.site_label)}</span></td>
-        <td>${formatMoney(row.current_price)}</td>
-        <td>${formatMoney(row.lowest_30d)}</td>
+        <td>
+          <span class="site-pill">${escapeHtml(row.site_label)}</span>
+        </td>
+        <td>
+          <div class="table-value-stack">
+            <strong>${formatMoney(row.current_price)}</strong>
+            <small>${row.updated_at ? `Atualizado ${escapeHtml(formatDateTime(row.updated_at))}` : 'Sem horario'}</small>
+          </div>
+        </td>
+        <td>
+          <div class="table-value-stack">
+            <strong>${formatMoney(row.lowest_30d)}</strong>
+            <small>
+              ${Number.isFinite(row.price_gap_30d)
+                ? (row.price_gap_30d > 0 ? `+${formatMoney(row.price_gap_30d)} acima do piso` : 'No menor nivel da janela')
+                : 'Sem referencia'}
+            </small>
+          </div>
+        </td>
         <td>${formatMoney(row.unit_price)}</td>
         <td>
-          <span class="status-pill ${row.status === 'ok' ? 'status-ok' : 'status-failed'}">
-            ${row.status === 'ok' ? 'ok' : 'falhou'}
-          </span>
+          <div class="status-stack">
+            <span class="status-pill ${row.status === 'ok' ? 'status-ok' : 'status-failed'}">
+              ${row.status === 'ok' ? 'ok' : 'falhou'}
+            </span>
+            <small>${row.status === 'ok' ? 'coleta validada' : escapeHtml(failureSummary(row) || 'exige atencao')}</small>
+          </div>
         </td>
       </tr>
     `);
@@ -1155,14 +1528,21 @@ function renderDetailPanel(datasets) {
     const productId = selectedProductId();
     const entry = state.historyByProduct.get(productId);
     const latest = state.latestItemsById.get(productId);
+    const latestFailure = state.latestFailuresById.get(productId);
     const min30d = last30DayMinimum(productId);
+    const premiumVsFloor = Number.isFinite(latest?.price) && Number.isFinite(min30d)
+      ? Number(latest.price) - Number(min30d)
+      : null;
 
     els.detail.innerHTML = `
       <div class="detail-list">
         <div class="detail-item"><span>Produto</span><strong>${escapeHtml(entry?.label || 'Produto')}</strong></div>
+        <div class="detail-item"><span>Status atual</span><strong>${latest ? 'Ok' : 'Falhou'}</strong></div>
         <div class="detail-item"><span>Preco atual</span><strong>${formatMoney(latest?.price)}</strong></div>
         <div class="detail-item"><span>Menor preco 30d</span><strong>${formatMoney(min30d)}</strong></div>
+        <div class="detail-item"><span>Spread vs piso</span><strong>${formatMoney(premiumVsFloor)}</strong></div>
         <div class="detail-item"><span>Atualizado</span><strong>${escapeHtml(formatDateTime(latest?.fetched_at))}</strong></div>
+        ${latestFailure ? `<div class="detail-item"><span>Falha classificada</span><strong>${escapeHtml(failureSummary(latestFailure))}</strong></div>` : ''}
         <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       </div>
     `;
@@ -1174,6 +1554,9 @@ function renderDetailPanel(datasets) {
     const best = rows
       .filter((row) => Number.isFinite(row.current_price))
       .sort((a, b) => a.current_price - b.current_price)[0];
+    const worst = rows
+      .filter((row) => Number.isFinite(row.current_price))
+      .sort((a, b) => b.current_price - a.current_price)[0];
     const selected = state.productsById.get(selectedProductId());
 
     els.detail.innerHTML = `
@@ -1181,6 +1564,7 @@ function renderDetailPanel(datasets) {
         <div class="detail-item"><span>Grupo</span><strong>${escapeHtml(String(selected?.comparison_key || 'Sem grupo'))}</strong></div>
         <div class="detail-item"><span>Lojas visiveis</span><strong>${rows.length}</strong></div>
         <div class="detail-item"><span>Melhor preco atual</span><strong>${best ? `${formatMoney(best.current_price)} (${escapeHtml(best.site_label)})` : '-'}</strong></div>
+        <div class="detail-item"><span>Maior preco atual</span><strong>${worst ? `${formatMoney(worst.current_price)} (${escapeHtml(worst.site_label)})` : '-'}</strong></div>
         <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       </div>
     `;
@@ -1189,14 +1573,116 @@ function renderDetailPanel(datasets) {
 
   const scopeLabel = scope === 'by-category' ? 'Categorias' : 'Produtos';
   const categoryLabel = selectedCategory() === ALL ? 'Todas' : formatCategoryLabel(selectedCategory());
+  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
+  const visibleSites = new Set(rows.map((row) => row.site_label).filter(Boolean)).size;
 
   els.detail.innerHTML = `
     <div class="detail-list">
       <div class="detail-item"><span>Modo</span><strong>${escapeHtml(scopeLabel)}</strong></div>
       <div class="detail-item"><span>Filtro de categoria</span><strong>${escapeHtml(categoryLabel)}</strong></div>
       <div class="detail-item"><span>Series ativas</span><strong>${datasets.length}</strong></div>
+      <div class="detail-item"><span>Lojas visiveis</span><strong>${visibleSites}</strong></div>
       <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       <div class="detail-item"><span>Snapshots</span><strong>${range.labels.length}/${state.allDates.length}</strong></div>
+    </div>
+  `;
+}
+
+function runEntriesForDate(runDate) {
+  if (!runDate) return [];
+  const loadedById = new Map(state.runs.map((run) => [normalizeRunId(run.run_id || run.run_file), run]));
+
+  return manifestRunEntries()
+    .filter((entry) => entry.run_date === runDate)
+    .map((entry) => ({
+      ...entry,
+      payload: loadedById.get(normalizeRunId(entry.run_id || entry.run_file)) || null,
+    }))
+    .sort((left, right) => runSortKey(right).localeCompare(runSortKey(left)));
+}
+
+function selectedRunEntries() {
+  const runDate = state.selectedRunDate;
+  const manifestEntries = runEntriesForDate(runDate);
+  if (manifestEntries.length > 0) return manifestEntries;
+
+  return sortRunsDescending(state.runs)
+    .filter((run) => run.run_date === runDate)
+    .map((run) => ({
+      run_id: run.run_id,
+      run_date: run.run_date,
+      generated_at: run.generated_at,
+      run_file: run.run_file,
+      error_file: `${run.run_id}.json`,
+      success_count: Number(run.summary?.success_count || 0),
+      failure_count: Number(run.summary?.failure_count || 0),
+      status: Number(run.summary?.failure_count || 0) > 0 ? 'partial' : 'success',
+      payload: run,
+    }));
+}
+
+function runStatusClass(status) {
+  if (status === 'fatal') return 'status-fatal';
+  if (status === 'partial') return 'status-partial';
+  if (status === 'failed') return 'status-failed';
+  return 'status-success';
+}
+
+function renderRunDrilldown() {
+  if (!els.runDrilldown) return;
+
+  const visibleLabels = visibleRange().labels;
+  if (!state.selectedRunDate || !visibleLabels.includes(state.selectedRunDate)) {
+    state.selectedRunDate = visibleLabels[visibleLabels.length - 1] || state.allDates[state.allDates.length - 1] || '';
+  }
+
+  if (!state.selectedRunDate) {
+    els.runDrilldown.innerHTML = '';
+    return;
+  }
+
+  const runs = selectedRunEntries();
+  if (runs.length === 0) {
+    els.runDrilldown.innerHTML = `
+      <div class="run-drilldown-header">
+        <strong>Runs do dia</strong>
+        <small>${escapeHtml(state.selectedRunDate)}</small>
+      </div>
+      <div class="summary-item">
+        <span class="k">Sem runs carregados</span>
+        <span class="v">O manifesto nao trouxe execucoes para esta data.</span>
+      </div>
+    `;
+    return;
+  }
+
+  els.runDrilldown.innerHTML = `
+    <div class="run-drilldown-header">
+      <strong>Runs de ${escapeHtml(state.selectedRunDate)}</strong>
+      <small>${runs.length} execucao(oes)</small>
+    </div>
+    <div class="run-drilldown-list">
+      ${runs.map((run) => {
+    const status = run.status || (Number(run.failure_count || 0) > 0 ? 'partial' : 'success');
+    const payload = run.payload;
+    const latestFailure = Array.isArray(payload?.failures) && payload.failures.length > 0
+      ? payload.failures[0]
+      : null;
+
+    return `
+          <article class="run-drilldown-item is-${escapeHtml(status)}">
+            <div class="run-drilldown-topline">
+              <strong>${escapeHtml(run.generated_at ? formatDateTime(run.generated_at) : (run.run_id || '-'))}</strong>
+              <span class="run-status-chip ${runStatusClass(status)}">${escapeHtml(status)}</span>
+            </div>
+            <div class="run-drilldown-meta">
+              <span>${escapeHtml(`${Number(run.success_count || 0)} ok / ${Number(run.failure_count || 0)} falhas`)}</span>
+              <span>${escapeHtml(run.run_id || '')}</span>
+            </div>
+            ${latestFailure ? `<div class="run-drilldown-meta"><span>${escapeHtml(failureSummary(latestFailure))}</span></div>` : ''}
+          </article>
+        `;
+  }).join('')}
     </div>
   `;
 }
@@ -1292,10 +1778,13 @@ function renderHistoryChart() {
 
   if (datasets.length === 0 || range.labels.length === 0) {
     els.detail.textContent = 'Sem dados para o grafico.';
+    if (els.runDrilldown) {
+      els.runDrilldown.innerHTML = '';
+    }
     updateHistoryStageWidth();
     syncHistoryScrollPosition();
     updateZoomButtons();
-    return;
+    return [];
   }
 
   updateHistoryStageWidth();
@@ -1310,8 +1799,10 @@ function renderHistoryChart() {
   });
 
   renderDetailPanel(datasets);
+  renderRunDrilldown();
   window.requestAnimationFrame(() => syncHistoryScrollPosition());
   updateZoomButtons();
+  return datasets;
 }
 
 function buildFilterSummaryFromDraftValue(rawValue) {
@@ -1673,6 +2164,20 @@ function onChartScopeChange() {
   renderLinkedViews({ preserveZoom: true });
 }
 
+function onDashboardFilterChange() {
+  renderLinkedViews({ preserveZoom: true });
+}
+
+function resetDashboardFilters() {
+  if (els.dashboardSearch) els.dashboardSearch.value = '';
+  if (els.siteFilter) els.siteFilter.value = ALL;
+  if (els.statusFilter) els.statusFilter.value = ALL;
+  if (els.hideLegacySeries) els.hideLegacySeries.checked = true;
+  if (els.historyCategoryFilter) els.historyCategoryFilter.value = ALL;
+  if (els.chartScope) els.chartScope.value = 'all-products';
+  renderLinkedViews({ preserveZoom: true });
+}
+
 function renderLinkedViews({ preserveZoom = false, preserveProductSelect = false } = {}) {
   if (!preserveProductSelect) {
     renderProductSelect();
@@ -1685,25 +2190,38 @@ function renderLinkedViews({ preserveZoom = false, preserveProductSelect = false
     clampViewport();
   }
 
-  renderHistoryChart();
+  const datasets = renderHistoryChart();
   renderTable();
+  renderProfessionalChrome(datasets);
 }
 
 async function init() {
   try {
     const [latest, runsIndex, products] = await Promise.all([
       fetchDataJson('latest.json'),
-      fetchDataJson('runs/index.json').catch(() => ({ files: [] })),
+      fetchDataJson('runs/index.json').catch(() => ({ files: [], runs: [], daily: [] })),
       fetchDataJson('products.json').catch(() => []),
     ]);
 
-    const runFiles = (runsIndex.files || []).slice(0, RUNS_LIMIT);
+    const manifestRuns = Array.isArray(runsIndex?.runs) ? runsIndex.runs : [];
+    const runFiles = (manifestRuns.length > 0
+      ? manifestRuns.map((entry) => entry.run_file)
+      : (runsIndex.files || []))
+      .filter(Boolean)
+      .slice(0, RUNS_LIMIT);
     const runPayloads = await Promise.all(
-      runFiles.map((file) => fetchDataJson(`runs/${file}`).catch(() => null)),
+      runFiles.map((file) => fetchDataJson(`runs/${file}`)
+        .then((run) => normalizeRunPayload(run, file))
+        .catch(() => null)),
     );
 
     state.latest = latest;
-    state.runs = runPayloads.filter(Boolean);
+    state.runsManifest = {
+      files: Array.isArray(runsIndex?.files) ? runsIndex.files : [],
+      runs: manifestRuns,
+      daily: Array.isArray(runsIndex?.daily) ? runsIndex.daily : [],
+    };
+    state.runs = sortRunsDescending(runPayloads.filter(Boolean));
     state.products = Array.isArray(products) ? products : [];
     state.productsById = new Map(state.products.map((product) => [product.id, product]));
     state.categories = [...new Set(state.products.map((product) => normalizeCategory(product.category)))].sort();
@@ -1713,6 +2231,7 @@ async function init() {
     buildComparisonGroups();
     buildHistories();
     setFilterOptions(els.historyCategoryFilter, state.categories);
+    renderSiteFilterOptions();
     renderProductSelect();
     els.chartScope.value = 'all-products';
 
@@ -1729,6 +2248,9 @@ async function init() {
   }
 }
 
+els.dashboardSearch.addEventListener('input', onDashboardFilterChange);
+els.siteFilter.addEventListener('change', onDashboardFilterChange);
+els.statusFilter.addEventListener('change', onDashboardFilterChange);
 els.historyCategoryFilter.addEventListener('change', () => {
   resetViewport();
   renderLinkedViews({ preserveZoom: true });
@@ -1738,6 +2260,8 @@ els.productSelect.addEventListener('change', () => {
   resetViewport();
   renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
 });
+els.hideLegacySeries.addEventListener('change', onDashboardFilterChange);
+els.dashboardResetFilters.addEventListener('click', resetDashboardFilters);
 
 els.zoomIn.addEventListener('click', () => zoomChart('in'));
 els.zoomOut.addEventListener('click', () => zoomChart('out'));

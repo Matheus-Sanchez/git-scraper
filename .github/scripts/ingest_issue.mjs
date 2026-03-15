@@ -1,7 +1,12 @@
 import { appendFile, readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
+import { ZodError } from 'zod';
 import { readProducts, writeProducts } from '../../src/io/products.js';
+import {
+  parseStoredProduct,
+  validateNormalizedMutation,
+} from '../../src/schema/catalog.js';
 import { isValidHttpUrl, normalizeUrl, urlsEqualNormalized } from '../../src/utils/url.js';
 
 function normalizeHeading(text) {
@@ -17,6 +22,19 @@ function splitLines(value) {
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
+}
+
+function schemaErrorToMessage(error) {
+  if (!(error instanceof ZodError)) {
+    return error instanceof Error ? error.message : String(error);
+  }
+
+  return error.issues
+    .map((issue) => {
+      const location = issue.path.length > 0 ? issue.path.join('.') : 'root';
+      return `${location}: ${issue.message}`;
+    })
+    .join('; ');
 }
 
 function parseBoolean(value, fallback = true) {
@@ -186,19 +204,23 @@ export function validateAndBuildProduct(rawPayload) {
   const idBase = slugify(name) || 'produto';
   const id = rawPayload.id || `${idBase}-${shortHash(normalizedUrl)}`;
 
-  const product = {
-    id,
-    url: normalizedUrl,
-    name,
-    ...(category ? { category } : {}),
-    ...(comparisonKey ? { comparison_key: comparisonKey } : {}),
-    ...(units ? { units_per_package: units } : {}),
-    is_active: active,
-    ...(Object.keys(compactSelectors).length > 0 ? { selectors: compactSelectors } : {}),
-    ...(notes ? { notes } : {}),
-  };
+  try {
+    const product = parseStoredProduct({
+      id,
+      url: normalizedUrl,
+      name,
+      ...(category ? { category } : {}),
+      ...(comparisonKey ? { comparison_key: comparisonKey } : {}),
+      ...(units ? { units_per_package: units } : {}),
+      is_active: active,
+      ...(Object.keys(compactSelectors).length > 0 ? { selectors: compactSelectors } : {}),
+      ...(notes ? { notes } : {}),
+    });
 
-  return { ok: true, product };
+    return { ok: true, product };
+  } catch (error) {
+    return { ok: false, error: schemaErrorToMessage(error) };
+  }
 }
 
 function setDefaultSelectorsIfMissing(product) {
@@ -260,6 +282,39 @@ function sanitizeSelectors(selectors, fallbackSelectors) {
   return out;
 }
 
+function normalizeMutationPayload(rawPayload, action) {
+  try {
+    return {
+      ok: true,
+      payload: validateNormalizedMutation({
+        action,
+        id: rawPayload.id,
+        product_id: rawPayload.product_id,
+        name: rawPayload.name !== undefined ? String(rawPayload.name).trim() : undefined,
+        url: rawPayload.url !== undefined ? String(rawPayload.url).trim() : undefined,
+        category: rawPayload.category !== undefined ? normalizeLooseKey(rawPayload.category) : undefined,
+        comparison_key: rawPayload.comparison_key !== undefined
+          ? normalizeLooseKey(rawPayload.comparison_key)
+          : undefined,
+        units_per_package: rawPayload.units_per_package,
+        is_active: rawPayload.is_active !== undefined
+          ? parseBoolean(rawPayload.is_active, true)
+          : undefined,
+        notes: rawPayload.notes !== undefined ? String(rawPayload.notes || '').trim() : undefined,
+        selectors: rawPayload.selectors !== undefined
+          ? sanitizeSelectors(rawPayload.selectors, undefined)
+          : undefined,
+        default_action: rawPayload.default_action,
+      }),
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      error: schemaErrorToMessage(error),
+    };
+  }
+}
+
 function applyEdit(existing, payload) {
   const draft = { ...existing };
 
@@ -313,10 +368,14 @@ function applyEdit(existing, payload) {
     draft.selectors = sanitizeSelectors(payload.selectors, draft.selectors);
   }
 
-  const validated = validateAndBuildProduct({ ...draft, id: existing.id });
-  if (!validated.ok) return validated;
-
-  return { ok: true, product: setDefaultSelectorsIfMissing(validated.product) };
+  try {
+    return {
+      ok: true,
+      product: setDefaultSelectorsIfMissing(parseStoredProduct({ ...draft, id: existing.id })),
+    };
+  } catch (error) {
+    return { ok: false, error: schemaErrorToMessage(error) };
+  }
 }
 
 function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
@@ -332,8 +391,14 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
     if (fallbackName) payload.name = fallbackName;
   }
 
+  const normalizedPayload = normalizeMutationPayload(payload, action);
+  if (!normalizedPayload.ok) {
+    return { ok: false, status: 'invalid', message: normalizedPayload.error };
+  }
+  const parsedPayload = normalizedPayload.payload;
+
   if (action === 'add') {
-    const validated = validateAndBuildProduct(payload);
+    const validated = validateAndBuildProduct(parsedPayload);
     if (!validated.ok) {
       return { ok: false, status: 'invalid', message: validated.error };
     }
@@ -359,7 +424,7 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
     };
   }
 
-  const index = findProductIndex(products, payload);
+  const index = findProductIndex(products, parsedPayload);
   if (index < 0) {
     return {
       ok: false,
@@ -381,7 +446,7 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
     };
   }
 
-  const edited = applyEdit(target, payload);
+  const edited = applyEdit(target, parsedPayload);
   if (!edited.ok) {
     return { ok: false, status: 'invalid', message: edited.error };
   }

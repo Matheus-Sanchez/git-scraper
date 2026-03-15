@@ -81,6 +81,28 @@ export const amazonAdapter = {
 
     return out;
   },
+  classifyFailure({ html }) {
+    const text = String(html || '');
+
+    if (/captcha|digite os caracteres|insira os caracteres|robot check/i.test(text)) {
+      return {
+        error_code: 'captcha_or_block',
+        error_detail: 'Amazon anti-bot or captcha page detected',
+      };
+    }
+
+    if (
+      /twister|variation_(?:size|color|style|dimension|name)|dropdown_selected/i.test(text)
+      && /selecione|escolha|choose/i.test(text)
+    ) {
+      return {
+        error_code: 'variation_required',
+        error_detail: 'Amazon page requires selecting a variation before price is final',
+      };
+    }
+
+    return null;
+  },
   postProcess(result) {
     return result;
   },

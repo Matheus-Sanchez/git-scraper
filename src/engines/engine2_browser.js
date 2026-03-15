@@ -4,6 +4,15 @@ import { runWithPool, sleep } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';
 import { getAdapterForUrl } from '../adapters/index.js';
 import { roundTo2 } from '../utils/price_parse.js';
+import {
+  classifyExtractionFailure,
+  classifyPlaywrightFailure,
+  mergeFailureMetadata,
+} from '../utils/failure.js';
+import {
+  prepareDebugArtifactPaths,
+  writeFailureArtifacts,
+} from '../utils/debug_artifacts.js';
 
 const ENGINE_NAME = 'engine2_browser';
 
@@ -34,6 +43,23 @@ function buildSnapshot(product, extraction) {
   };
 }
 
+function classifyAdapterFailure(adapter, context, fallbackFailure) {
+  if (typeof adapter?.classifyFailure !== 'function') {
+    return fallbackFailure;
+  }
+
+  const adapterFailure = adapter.classifyFailure(context);
+  if (!adapterFailure) {
+    return fallbackFailure;
+  }
+
+  return mergeFailureMetadata(fallbackFailure, {
+    error_code: adapterFailure.error_code || fallbackFailure.error_code,
+    error_detail: adapterFailure.error_detail || fallbackFailure.error_detail,
+    error: adapterFailure.error_detail || fallbackFailure.error,
+  });
+}
+
 async function maybeScroll(page) {
   await page.evaluate(async () => {
     await new Promise((resolve) => {
@@ -51,7 +77,7 @@ async function maybeScroll(page) {
   });
 }
 
-export async function runEngine2(products, { env, logger }) {
+export async function runEngine2(products, { env, logger, runId }) {
   if (products.length === 0) return [];
 
   const log = logger.child(ENGINE_NAME);
@@ -61,14 +87,17 @@ export async function runEngine2(products, { env, logger }) {
       headless: true,
     });
   } catch (error) {
-    const message = compactErrorMessage(error);
-    log.warn('Engine2 browser launch failed', { error: message });
+    const failure = classifyPlaywrightFailure(error, { stage: 'launch' });
+    log.warn('Engine2 browser launch failed', {
+      error: failure.error_detail,
+      error_code: failure.error_code,
+    });
     return products.map((product) => ({
       product,
       engine: ENGINE_NAME,
       ok: false,
       elapsed_ms: 0,
-      error: `browser_launch_failed: ${message}`,
+      ...failure,
     }));
   }
 
@@ -76,10 +105,14 @@ export async function runEngine2(products, { env, logger }) {
     const attempts = await runWithPool(products, env.CONCURRENCY, async (product) => {
       const startedAt = Date.now();
       let context;
+      let page;
+      let adapter = null;
+      let html = '';
+      let responseMetadata = {};
 
       try {
         const url = normalizeUrl(product.url);
-        const adapter = getAdapterForUrl(url);
+        adapter = getAdapterForUrl(url);
         const selectors = adapter.getSelectors(product);
         const waitOptions = adapter.getWaitOptions(ENGINE_NAME);
 
@@ -93,11 +126,16 @@ export async function runEngine2(products, { env, logger }) {
           },
         });
 
-        const page = await context.newPage();
-        await page.goto(url, {
+        page = await context.newPage();
+        const response = await page.goto(url, {
           waitUntil: waitOptions.waitUntil,
           timeout: env.HTTP_TIMEOUT_MS + 12000,
         });
+        responseMetadata = {
+          http_status: Number(response?.status?.() || 0) || undefined,
+          final_url: page.url() || url,
+          content_type: response?.headers?.()['content-type'] || undefined,
+        };
 
         if (waitOptions.scroll) {
           await maybeScroll(page);
@@ -105,7 +143,46 @@ export async function runEngine2(products, { env, logger }) {
 
         await sleep(waitOptions.postWaitMs || 1200);
 
-        const html = await page.content();
+        html = await page.content();
+        responseMetadata = {
+          ...responseMetadata,
+          html_size: html.length || undefined,
+        };
+
+        if (!html.trim()) {
+          const failure = {
+            error: 'Post-render DOM is empty',
+            error_code: 'empty_post_render_dom',
+            error_detail: 'Post-render DOM is empty',
+            ...responseMetadata,
+          };
+          const paths = await prepareDebugArtifactPaths({
+            runId,
+            productId: product.id,
+            engineName: ENGINE_NAME,
+          });
+          const artifactDir = await writeFailureArtifacts({
+            paths,
+            html,
+            metadata: {
+              ...failure,
+              product_id: product.id,
+              url,
+            },
+            page,
+          });
+          const elapsedMs = Date.now() - startedAt;
+
+          return {
+            product,
+            engine: ENGINE_NAME,
+            ok: false,
+            elapsed_ms: elapsedMs,
+            artifact_dir: artifactDir,
+            ...failure,
+          };
+        }
+
         const adapterCandidates = adapter.extractCandidates({ html, product });
 
         const extraction = extractPriceFromHtml({
@@ -117,12 +194,35 @@ export async function runEngine2(products, { env, logger }) {
 
         const elapsedMs = Date.now() - startedAt;
         if (!extraction.ok) {
+          const failure = classifyAdapterFailure(
+            adapter,
+            { html, product, extraction, engineName: ENGINE_NAME },
+            classifyExtractionFailure(extraction, responseMetadata),
+          );
+          const paths = await prepareDebugArtifactPaths({
+            runId,
+            productId: product.id,
+            engineName: ENGINE_NAME,
+          });
+          const artifactDir = await writeFailureArtifacts({
+            paths,
+            html,
+            metadata: {
+              ...failure,
+              product_id: product.id,
+              url,
+              adapter: adapter.id,
+            },
+            page,
+          });
+
           return {
             product,
             engine: ENGINE_NAME,
             ok: false,
             elapsed_ms: elapsedMs,
-            error: extraction.reason || 'price_not_found',
+            artifact_dir: artifactDir,
+            ...failure,
           };
         }
 
@@ -148,16 +248,52 @@ export async function runEngine2(products, { env, logger }) {
         };
       } catch (error) {
         const elapsedMs = Date.now() - startedAt;
-        const message = error instanceof Error ? error.message : String(error);
+        const failure = classifyPlaywrightFailure(error, {
+          stage: 'navigation',
+          metadata: {
+            final_url: page?.url?.() || product.url,
+            html_size: html.length || undefined,
+            ...responseMetadata,
+          },
+        });
+        let artifactDir = null;
 
-        log.product('warn', product, 'Engine2 failed', { error: message, elapsed_ms: elapsedMs });
+        if (page) {
+          try {
+            const paths = await prepareDebugArtifactPaths({
+              runId,
+              productId: product.id,
+              engineName: ENGINE_NAME,
+            });
+            artifactDir = await writeFailureArtifacts({
+              paths,
+              html: html || await page.content().catch(() => ''),
+              metadata: {
+                ...failure,
+                product_id: product.id,
+                url: product.url,
+                adapter: adapter?.id || null,
+              },
+              page,
+            });
+          } catch {
+            artifactDir = null;
+          }
+        }
+
+        log.product('warn', product, 'Engine2 failed', {
+          error: failure.error_detail,
+          error_code: failure.error_code,
+          elapsed_ms: elapsedMs,
+        });
 
         return {
           product,
           engine: ENGINE_NAME,
           ok: false,
           elapsed_ms: elapsedMs,
-          error: message,
+          artifact_dir: artifactDir,
+          ...failure,
         };
       } finally {
         if (context) {

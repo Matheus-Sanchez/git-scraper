@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '17 9 * * *'
 
+concurrency:
+  group: git-scraper-main
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -15,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
@@ -24,6 +30,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Run tests
+        run: npm test
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
@@ -49,4 +58,13 @@ jobs:
           fi
           RUN_DATE=$(date -u +%F)
           git commit -m "chore(data): daily scrape ${RUN_DATE}"
-          git push
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin HEAD:"${GITHUB_REF_NAME}"
+
+      - name: Upload debug artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scrape-debug-${{ github.run_id }}
+          path: .cache/debug
+          if-no-files-found: ignore

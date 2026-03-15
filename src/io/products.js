@@ -1,14 +1,29 @@
 import { mkdir, open, readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
-import { normalizeUrl } from '../utils/url.js';
+import { ZodError } from 'zod';
+import { mirrorDataDir, primaryDataDir } from './paths.js';
+import { parseStoredProducts } from '../schema/catalog.js';
 import { sleep } from '../utils/pool.js';
 
-const PRIMARY_PRODUCTS_PATH = resolve(process.cwd(), 'data', 'products.json');
-const MIRROR_PRODUCTS_PATH = resolve(process.cwd(), 'docs', 'data', 'products.json');
-const PRODUCTS_TARGET_PATHS = [PRIMARY_PRODUCTS_PATH, MIRROR_PRODUCTS_PATH];
+function primaryProductsPath() {
+  return resolve(primaryDataDir(), 'products.json');
+}
 
-export const PRODUCTS_PATH = PRIMARY_PRODUCTS_PATH;
-const PRODUCTS_LOCK_PATH = resolve(process.cwd(), 'data', '.products.lock');
+function mirrorProductsPath() {
+  return resolve(mirrorDataDir(), 'products.json');
+}
+
+function productsTargetPaths() {
+  return [primaryProductsPath(), mirrorProductsPath()];
+}
+
+function productsLockPath() {
+  return resolve(primaryDataDir(), '.products.lock');
+}
+
+export function productsPath() {
+  return primaryProductsPath();
+}
 
 function toErrorMessage(error) {
   if (!error) return 'unknown error';
@@ -21,58 +36,25 @@ function stripBom(text) {
   return text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
 }
 
-function validateProduct(product, index) {
-  if (!product || typeof product !== 'object') {
-    throw new Error(`Invalid product at index ${index}: not an object`);
+function schemaErrorToMessage(error) {
+  if (!(error instanceof ZodError)) {
+    return toErrorMessage(error);
   }
 
-  if (!product.id || typeof product.id !== 'string') {
-    throw new Error(`Invalid product at index ${index}: missing id`);
-  }
-
-  if (!product.name || typeof product.name !== 'string') {
-    throw new Error(`Invalid product at index ${index}: missing name`);
-  }
-
-  if (!product.url || typeof product.url !== 'string') {
-    throw new Error(`Invalid product at index ${index}: missing url`);
-  }
-
-  product.url = normalizeUrl(product.url);
-
-  if (typeof product.is_active !== 'boolean') {
-    throw new Error(`Invalid product at index ${index}: is_active must be boolean`);
-  }
-
-  if (product.comparison_key !== undefined && product.comparison_key !== null) {
-    if (typeof product.comparison_key !== 'string' || !product.comparison_key.trim()) {
-      throw new Error(`Invalid product at index ${index}: comparison_key must be a non-empty string`);
-    }
-    product.comparison_key = product.comparison_key.trim();
-  }
-
-  if (product.units_per_package !== undefined && product.units_per_package !== null) {
-    const units = Number(product.units_per_package);
-    if (!Number.isFinite(units) || units <= 0) {
-      throw new Error(`Invalid product at index ${index}: units_per_package must be > 0`);
-    }
-    product.units_per_package = units;
-  }
-
-  if (product.selectors && typeof product.selectors !== 'object') {
-    throw new Error(`Invalid product at index ${index}: selectors must be object`);
-  }
-
-  return product;
+  return error.issues
+    .map((issue) => {
+      const location = issue.path.length > 0 ? issue.path.join('.') : 'root';
+      return `${location}: ${issue.message}`;
+    })
+    .join('; ');
 }
 
-async function acquireLock(lockPath, { retries = 25, retryDelayMs = 150 } = {}) {
+async function acquireLock(lockPath, { retries = 40, retryDelayMs = 150 } = {}) {
   await mkdir(dirname(lockPath), { recursive: true });
 
   for (let attempt = 0; attempt < retries; attempt += 1) {
     try {
-      const handle = await open(lockPath, 'wx');
-      return handle;
+      return await open(lockPath, 'wx');
     } catch (error) {
       if (error?.code !== 'EEXIST') {
         throw error;
@@ -82,7 +64,7 @@ async function acquireLock(lockPath, { retries = 25, retryDelayMs = 150 } = {}) 
     }
   }
 
-  throw new Error(`Could not acquire lock: ${lockPath}`);
+  throw new Error(`Could not acquire products lock after retries: ${lockPath}`);
 }
 
 async function writeJsonAtomic(targetPath, payload) {
@@ -96,15 +78,14 @@ async function writeJsonAtomic(targetPath, payload) {
 }
 
 export async function readProducts() {
-  const raw = await readFile(PRIMARY_PRODUCTS_PATH, 'utf8');
+  const raw = await readFile(primaryProductsPath(), 'utf8');
   const parsed = JSON.parse(stripBom(raw));
 
   if (!Array.isArray(parsed)) {
     throw new Error('data/products.json must contain an array');
   }
 
-  const validated = parsed.map((product, index) => validateProduct({ ...product }, index));
-  return validated;
+  return parseStoredProducts(parsed);
 }
 
 export async function writeProducts(products) {
@@ -112,17 +93,17 @@ export async function writeProducts(products) {
     throw new TypeError('products must be an array');
   }
 
-  const validated = products.map((product, index) => validateProduct({ ...product }, index));
-  const lock = await acquireLock(PRODUCTS_LOCK_PATH);
+  const validated = parseStoredProducts(products);
+  const lock = await acquireLock(productsLockPath());
 
   try {
-    await Promise.all(PRODUCTS_TARGET_PATHS.map((targetPath) => writeJsonAtomic(targetPath, validated)));
+    await Promise.all(productsTargetPaths().map((targetPath) => writeJsonAtomic(targetPath, validated)));
   } finally {
     await lock.close().catch(() => undefined);
-    await rm(PRODUCTS_LOCK_PATH, { force: true }).catch(() => undefined);
+    await rm(productsLockPath(), { force: true }).catch(() => undefined);
   }
 }
 
 export function toSafeProductReadError(error) {
-  return toErrorMessage(error);
+  return schemaErrorToMessage(error);
 }

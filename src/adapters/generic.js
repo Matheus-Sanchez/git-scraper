@@ -46,6 +46,18 @@ export const genericAdapter = {
   extractCandidates() {
     return [];
   },
+  classifyFailure({ html }) {
+    const text = String(html || '');
+
+    if (/captcha|robot check|access denied/i.test(text)) {
+      return {
+        error_code: 'captcha_or_block',
+        error_detail: 'Generic anti-bot or blocked page detected',
+      };
+    }
+
+    return null;
+  },
   postProcess(result) {
     return result;
   },

@@ -2,7 +2,11 @@ name: Ingest Add-Product Issue
 
 on:
   issues:
-    types: [opened]
+    types: [opened, edited, labeled, reopened]
+
+concurrency:
+  group: git-scraper-ingest
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -10,7 +14,7 @@ permissions:
 
 jobs:
   ingest:
-    if: github.event.action == 'opened' && (
+    if: (
       contains(github.event.issue.labels.*.name, 'add-product') ||
       contains(github.event.issue.labels.*.name, 'manage-product') ||
       startsWith(github.event.issue.title, '[ADD PRODUCT]') ||
@@ -21,6 +25,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
@@ -48,7 +54,8 @@ jobs:
             exit 0
           fi
           git commit -m "chore(products): ingest from issue #${{ github.event.issue.number }}"
-          git push
+          git pull --rebase origin "${{ github.event.repository.default_branch }}"
+          git push origin HEAD:"${{ github.event.repository.default_branch }}"
 
       - name: Comment and close issue
         if: always() && steps.ingest.outputs.status != ''
