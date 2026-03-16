@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-03-15T09-51-17-048Z",
-  "generated_at": "2026-03-15T09:51:17.048Z",
+  "run_id": "2026-03-16T10-17-45-873Z",
+  "generated_at": "2026-03-16T10:17:45.873Z",
   "currency": "BRL",
   "summary": {
     "total_products": 5,
     "success_count": 3,
     "failure_count": 2,
-    "run_duration_ms": 22341,
+    "run_duration_ms": 23542,
     "engines": {
       "engine1_http": {
         "attempted": 5,
         "success": 3,
         "failed": 2,
-        "avg_time_ms": 872
+        "avg_time_ms": 399
       },
       "engine2_browser": {
         "attempted": 2,
         "success": 0,
         "failed": 2,
-        "avg_time_ms": 2759
+        "avg_time_ms": 2488
       },
       "engine3_hardmode": {
         "attempted": 2,
         "success": 0,
         "failed": 2,
-        "avg_time_ms": 8453
+        "avg_time_ms": 9176
       }
     }
   },
@@ -37,7 +37,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-15T09:51:18.459Z",
+      "fetched_at": "2026-03-16T10:17:46.500Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -50,7 +50,7 @@
       "currency": "BRL",
       "unit_price": 174.66,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-15T09:51:18.417Z",
+      "fetched_at": "2026-03-16T10:17:46.398Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -59,11 +59,11 @@
       "product_id": "teclado-logitech-k835",
       "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
       "name": "Teclado Logitech K835 TKL",
-      "price": 194.34,
+      "price": 232.75,
       "currency": "BRL",
-      "unit_price": 194.34,
+      "unit_price": 232.75,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-03-15T09:51:18.277Z",
+      "fetched_at": "2026-03-16T10:17:46.454Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -75,12 +75,12 @@
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
       "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-03-15T09:51:39.389Z",
+      "fetched_at": "2026-03-16T10:18:09.415Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 437,
+          "elapsed_ms": 265,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -110,7 +110,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2761,
+          "elapsed_ms": 2482,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -121,12 +121,12 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-03-15T09-51-17-048Z/echo-pop-5f33e662/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-03-16T10-17-45-873Z/echo-pop-5f33e662/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 7777,
+          "elapsed_ms": 8989,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -137,25 +137,25 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-03-15T09-51-17-048Z/echo-pop-5f33e662/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-03-16T10-17-45-873Z/echo-pop-5f33e662/engine3_hardmode"
         }
       ],
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-03-15T09-51-17-048Z/echo-pop-5f33e662/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-03-16T10-17-45-873Z/echo-pop-5f33e662/engine3_hardmode"
     },
     {
       "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
       "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
       "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
       "status": "failed",
-      "fetched_at": "2026-03-15T09:51:39.389Z",
+      "fetched_at": "2026-03-16T10:18:09.415Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 100,
+          "elapsed_ms": 152,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -185,7 +185,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2757,
+          "elapsed_ms": 2493,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -196,12 +196,12 @@
           "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
           "content_type": "text/html",
           "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-03-15T09-51-17-048Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-03-16T10-17-45-873Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9129,
+          "elapsed_ms": 9362,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -212,14 +212,14 @@
           "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
           "content_type": "text/html",
           "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-03-15T09-51-17-048Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-03-16T10-17-45-873Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
         }
       ],
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-03-15T09-51-17-048Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-03-16T10-17-45-873Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
   ],
-  "run_file": "2026-03-15T09-51-17-048Z.json"
+  "run_file": "2026-03-16T10-17-45-873Z.json"
 }
