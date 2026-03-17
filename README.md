@@ -1,30 +1,219 @@
-# Git Scraper: Price Tracker Pessoal
+# Git Scraper
 
-Scraper de precos sem backend/sem banco, com execucao diaria no GitHub Actions, persistencia em arquivos no proprio repositorio e dashboard estatico em GitHub Pages.  
-Tambem permite adicionar produtos pelo site via GitHub Issue.
+Price tracker pessoal com scraping em cascata, persistencia em JSON no proprio repositorio, dashboard estatico em GitHub Pages e gestao de catalogo via GitHub Issue.
 
-## Arquitetura
+## Descricao sugerida para o repositorio
 
-- Fonte de produtos: `data/products.json`
-- Cascata de engines:
-  - `engine1_http` (`axios` + `cheerio`)
-  - `engine2_browser` (Playwright leve)
-  - `engine3_hardmode` (Playwright agressivo + fallback opcional de provider externo)
-- Saida:
-  - `data/latest.json`
-  - `data/runs/YYYY-MM-DD.json`
-  - `data/errors/YYYY-MM-DD.json`
-  - `data/runs/index.json`
-- Espelho para GitHub Pages: `docs/data/*` (sincronizado automaticamente pelo scraper/ingest)
-- Dashboard: `docs/` (estatico, sem API)
-- Add-product sem backend: formulario do site abre Issue; workflow ingere uma acao unica ou lote e atualiza `data/products.json` + `docs/data/products.json`.
+`Static price tracker with GitHub Actions, GitHub Pages dashboard, multi-engine scraping, and issue-driven product management.`
+
+<<<<<<< ours
+## Topics sugeridos
+
+`price-tracker`, `web-scraping`, `github-actions`, `github-pages`, `playwright`, `nodejs`, `dashboard`, `automation`, `json`, `monitoring`, `ecommerce`
+
+## Preview
+
+Use esta secao para deixar o repositorio mais apresentavel no GitHub. Os blocos abaixo ja estao separados por contexto para voce substituir pelas capturas reais.
+
+### 1. Dashboard principal
+
+> Coloque aqui uma imagem com a visao geral do dashboard.
+> Sugestao de caminho: `docs/assets/readme/dashboard-overview.png`
+
+<!--
+![Dashboard principal](docs/assets/readme/dashboard-overview.png)
+-->
+
+### 2. Historico de precos com drilldown
+
+> Coloque aqui uma imagem mostrando o grafico principal, filtros e o detalhe por run.
+> Sugestao de caminho: `docs/assets/readme/history-drilldown.png`
+
+<!--
+![Historico com drilldown](docs/assets/readme/history-drilldown.png)
+-->
+
+### 3. Fluxo de cadastro via Issue
+
+> Coloque aqui uma imagem ou GIF com o formulario abrindo a Issue no GitHub.
+> Sugestao de caminho: `docs/assets/readme/add-product-flow.gif`
+
+<!--
+![Fluxo de cadastro via Issue](docs/assets/readme/add-product-flow.gif)
+-->
+
+## O que este projeto faz
+
+- Monitora precos de produtos cadastrados em `data/products.json`.
+- Usa tres engines em cascata para maximizar a chance de extracao.
+- Mantem snapshots historicos versionados no proprio Git.
+- Publica um dashboard estatico sem backend e sem banco.
+- Permite adicionar, editar ou remover produtos via GitHub Issue.
+- Gera manifestos de run com `run_id` unico, historico diario e metadados de falha.
+
+## Como funciona
+
+### 1. Catalogo de produtos
+
+Os produtos ativos ficam em `data/products.json` e sao espelhados em `docs/data/products.json` para o dashboard.
+
+Cada produto pode ter:
+
+- `id`
+- `name`
+- `url`
+- `category`
+- `comparison_key`
+- `units_per_package`
+- `is_active`
+- `selectors.price_css`
+- `selectors.jsonld_paths`
+- `selectors.regex_hints`
+- `notes`
+
+### 2. Pipeline de scraping
+
+Quando o scraper roda, ele tenta extrair preco nesta ordem:
+
+1. `engine1_http`
+   Usa `axios` + `cheerio`, com retry curto e classificacao estruturada de erro.
+2. `engine2_browser`
+   Usa Playwright em modo browser leve quando o HTML puro nao foi suficiente.
+3. `engine3_hardmode`
+   Usa Playwright com estrategia mais agressiva, proxy opcional, trace e fallback externo opcional.
+
+### 3. Persistencia de resultados
+
+Cada execucao gera um `run_id` unico, por exemplo:
+
+```text
+2026-03-14T09-50-43-123Z
+```
+
+Arquivos principais gerados:
+
+- `data/latest.json`
+- `data/runs/<run_id>.json`
+- `data/errors/<run_id>.json`
+- `data/runs/index.json`
+- `docs/data/*` como espelho para o GitHub Pages
+
+O manifesto `data/runs/index.json` mantem:
+
+- `files`: compatibilidade com o formato antigo
+- `runs`: lista detalhada das execucoes
+- `daily`: agrupamento diario para o dashboard
+
+### 4. Dashboard estatico
+
+O frontend fica em `docs/` e consome apenas JSON estatico. Nao existe API, backend ou banco.
+
+O dashboard mostra:
+
+- resumo do ultimo snapshot
+- distribuicao por categoria
+- historico de precos por produto, grupo ou categoria
+- detalhe por dia com drilldown de runs
+- classificacao de falhas e sinais operacionais
+
+### 5. Gestao via GitHub Issue
+
+O formulario do dashboard abre uma Issue no GitHub com payload JSON. O workflow de ingestao valida, aplica a mudanca e atualiza:
+
+- `data/products.json`
+- `docs/data/products.json`
+
+O fluxo aceita `add`, `edit`, `remove` e `batch`.
+
+## Arquitetura resumida
+
+```text
+data/products.json
+        |
+        v
+src/scrape.js
+        |
+        +--> engine1_http
+        +--> engine2_browser
+        +--> engine3_hardmode
+        |
+        v
+data/latest.json
+data/runs/<run_id>.json
+data/errors/<run_id>.json
+data/runs/index.json
+        |
+        v
+docs/data/*
+        |
+        v
+docs/ (dashboard estatico em GitHub Pages)
+```
+
+## Como rodar localmente
+
+### Requisitos
+=======
+## Documentacao complementar
+
+- Arquitetura detalhada: `docs/arquitetura.md`
+- Estrategia e execucao de testes (caixa preta e caixa branca): `docs/testes-software.md`
+
+## Documentacao complementar
+
+- Arquitetura detalhada: `docs/arquitetura.md`
+- Estrategia e execucao de testes (caixa preta e caixa branca): `docs/testes-software.md`
 
 ## Requisitos
+>>>>>>> theirs
 
 - Node.js 20+
 - npm 10+
 
-## Setup local
+### Setup rapido no Windows PowerShell
+
+1. Instale dependencias:
+
+```powershell
+npm.cmd ci
+```
+
+2. Instale o Chromium do Playwright:
+
+```powershell
+npx.cmd playwright install chromium
+```
+
+3. Opcionalmente, crie um `.env` a partir do exemplo:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+4. Rode os testes:
+
+```powershell
+npm.cmd test
+```
+
+5. Rode o scraper:
+
+```powershell
+npm.cmd run scrape
+```
+
+6. Suba um servidor estatico local para visualizar o dashboard:
+
+```powershell
+npx.cmd http-server -p 5500 .
+```
+
+7. Abra no navegador:
+
+- Dashboard: `http://localhost:5500/docs/`
+- Gestao: `http://localhost:5500/docs/manage.html`
+
+### Setup rapido no macOS/Linux
 
 1. Instale dependencias:
 
@@ -32,140 +221,134 @@ Tambem permite adicionar produtos pelo site via GitHub Issue.
 npm ci
 ```
 
-No PowerShell do Windows, se houver bloqueio de `npm`/`npx`:
+2. Instale o Chromium do Playwright:
 
-```powershell
-npm.cmd ci
+```bash
+npx playwright install chromium
 ```
 
-2. Copie e ajuste variaveis:
+3. Opcionalmente, crie o `.env`:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Instale Chromium do Playwright:
-
-```bash
-npx playwright install --with-deps chromium
-```
-
-No PowerShell do Windows:
-
-```powershell
-npx.cmd playwright install chromium
-```
-
-4. Rode scraping local:
-
-```bash
-npm run scrape
-```
-
-No PowerShell do Windows:
-
-```powershell
-npm.cmd run scrape
-```
-
-5. Modo debug:
-
-```bash
-npm run dev
-```
-
-6. Rode testes:
+4. Rode testes:
 
 ```bash
 npm test
 ```
 
+5. Rode o scraper:
+
+```bash
+npm run scrape
+```
+
+6. Suba um servidor estatico:
+
+```bash
+npx http-server -p 5500 .
+```
+
+7. Abra:
+
+- Dashboard: `http://localhost:5500/docs/`
+- Gestao: `http://localhost:5500/docs/manage.html`
+
+## Comandos principais
+
+```bash
+npm run scrape
+npm run dev
+npm test
+```
+
+Resumo:
+
+- `npm run scrape`: executa o pipeline completo de scraping
+- `npm run dev`: roda o scraper com `DEBUG=1`
+- `npm test`: roda testes unitarios, fixtures e smoke tests locais
+
 ## Variaveis de ambiente
 
-- `DEBUG`: `0` ou `1`
-- `HTTP_TIMEOUT_MS`: timeout HTTP/base das navegacoes
-- `CONCURRENCY`: limite de paralelo (clamp 1..5)
-- `USER_AGENT`: user-agent custom
-- `PROXY_URL`: proxy opcional para hard mode (`http(s)://...` ou `socks5://...`)
-- `SCRAPING_API_KEY`: opcional para fallback externo no engine3 (ZenRows)
+- `DEBUG`
+  `0` ou `1`. Quando ativo, aumenta a verbosidade e habilita mais evidencias de debug no hardmode.
+- `HTTP_TIMEOUT_MS`
+  Timeout base das requisicoes HTTP e navegacoes.
+- `CONCURRENCY`
+  Limite de paralelismo do scraper. O projeto faz clamp entre `1` e `5`.
+- `USER_AGENT`
+  User agent customizado para requests e browser automation.
+- `PROXY_URL`
+  Proxy opcional para o hardmode.
+- `SCRAPING_API_KEY`
+  Chave opcional para fallback externo no `engine3_hardmode`.
 
-Sem `SCRAPING_API_KEY`, o sistema funciona apenas com engines locais.
+Sem `SCRAPING_API_KEY`, o sistema continua funcionando apenas com engines locais.
 
 ## GitHub Actions
 
-### 1) Scrape diario (`.github/workflows/scrape.yml`)
+### Daily scrape
 
-- Trigger: `schedule` diario + `workflow_dispatch`
-- Fluxo:
-  - `npm ci`
-  - `npx playwright install --with-deps chromium`
-  - `npm run scrape`
-  - commit/push de mudancas em `data/` e `docs/data/`
+Workflow: `.github/workflows/scrape.yml`
 
-Permissao necessaria do workflow:
+Faz:
 
-- `contents: write`
+- `npm ci`
+- `npm test`
+- instala Chromium do Playwright
+- roda o scraper
+- commita `data/` e `docs/data/`
+- sobe artifacts de debug quando a execucao falha
 
-### 2) Ingest de Issue (`.github/workflows/ingest_issue.yml`)
+Caracteristicas importantes:
 
-- Trigger: issue `opened`
-- Processa apenas quando:
-  - label `add-product` ou `manage-product`, ou
-  - titulo com prefixo `[ADD PRODUCT]` ou `[MANAGE PRODUCT]`
-- Script: `.github/scripts/ingest_issue.mjs`
-- Resultado:
-  - valida payload
-  - suporta `action: add|edit|remove|batch`
-  - evita duplicidade por URL normalizada
-  - atualiza `data/products.json` e `docs/data/products.json`
-  - comenta e fecha issue
+- `concurrency` para evitar corrida entre execucoes
+- `git pull --rebase` antes do push
+- persistencia de `run_id` unico por execucao
 
-Permissoes necessarias:
+### Ingest de Issue
 
-- `contents: write`
-- `issues: write`
+Workflow: `.github/workflows/ingest_issue.yml`
 
-## Configurar GitHub Pages
+Triggers:
 
-1. No repositorio, abra `Settings` -> `Pages`.
-2. Em `Build and deployment`, selecione:
-   - `Source`: `Deploy from a branch`
-   - `Branch`: `main`
-   - `Folder`: `/docs`
-3. Salve.
-4. A pagina sera publicada em `https://<owner>.github.io/<repo>/`.
+- `opened`
+- `edited`
+- `labeled`
+- `reopened`
 
-## Fluxo para adicionar produto pelo site
+Processa apenas Issues com:
 
-1. Abra o dashboard em `/`.
+- label `add-product`, ou
+- label `manage-product`, ou
+- titulo com prefixo `[ADD PRODUCT]`, ou
+- titulo com prefixo `[MANAGE PRODUCT]`
+
+Resultado:
+
+- valida payload com schema
+- aplica `add`, `edit`, `remove` ou `batch`
+- evita duplicidade por URL normalizada
+- commita mudancas no catalogo
+- comenta a Issue com o status
+
+## Como adicionar ou editar produtos
+
+### Pela interface
+
+1. Abra o dashboard em `docs/`.
 2. Clique em `Adicionar Produto`.
-3. Preencha formulario e envie.
-4. Se quiser comparar o mesmo produto em lojas diferentes, use o mesmo `comparison_key`.
-5. O site abre a tela de nova issue no GitHub ja preenchida.
-6. Confirme envio da issue.
-7. O workflow `ingest_issue.yml` valida e adiciona no `data/products.json` e `docs/data/products.json`.
+3. Preencha os campos.
+4. O formulario abre uma Issue no GitHub.
+5. Envie a Issue.
+6. O workflow de ingestao atualiza o catalogo.
+7. Rode o scraper novamente para trazer os novos dados.
 
-O parser aceita:
+### Por JSON
 
-- Bloco ` ```json ... ``` ` no corpo da issue (preferencial)
-- Campos do Issue Form (`.github/ISSUE_TEMPLATE/add-product.yml`)
-- Acao de gerenciamento por issue (`add`, `edit`, `remove`) com label `manage-product` e titulo `[MANAGE PRODUCT]`
-
-## Campos do formulario (Adicionar Produto)
-
-- `Nome`: obrigatorio. Nome exibido no dashboard e snapshots.
-- `URL`: obrigatorio. URL HTTP/HTTPS da pagina do produto.
-- `Categoria`: opcional, mas recomendado para filtros e agrupamento.
-- `Grupo de comparacao`: opcional. Use o mesmo valor para relacionar o mesmo produto em lojas diferentes.
-- `Unidades por pacote`: opcional (`> 0`). Usado para calcular `unit_price`.
-- `Ativo`: se `false`, o produto fica cadastrado mas nao entra no scraping.
-- `Repositorio (owner/repo)`: obrigatorio para abrir a issue no repositorio correto.
-- `Seletores CSS` (um por linha): opcional. Ajuda em paginas com HTML dificil.
-- `JSON-LD paths` (um por linha): opcional. Preferencial para extracao estavel.
-- `Regex hints` (um por linha): opcional. Ultimo fallback.
-- `Observacoes`: opcional. Campo livre para contexto humano.
-
-### Exemplo de payload gerado pelo formulario
+Exemplo de payload:
 
 ```json
 {
@@ -190,78 +373,72 @@ O parser aceita:
 }
 ```
 
-## Checklist rapido: validar novo produto ponta a ponta
+## Estrutura de pastas
 
-1. Rode scraping local:
+```text
+.
+|-- .github/
+|   |-- workflows/
+|   `-- scripts/
+|-- data/
+|   |-- errors/
+|   |-- runs/
+|   |-- latest.json
+|   `-- products.json
+|-- docs/
+|   |-- data/
+|   |-- app.js
+|   |-- index.html
+|   |-- manage.html
+|   `-- style.css
+|-- src/
+|   |-- adapters/
+|   |-- config/
+|   |-- engines/
+|   |-- extract/
+|   |-- io/
+|   |-- schema/
+|   `-- utils/
+`-- test/
+```
+
+## Checklist rapido para validar localmente
+
+1. Rode:
 
 ```powershell
+npm.cmd test
 npm.cmd run scrape
 ```
 
-2. Confirme arquivos gerados/atualizados:
-   - `data/latest.json`
-   - `data/runs/YYYY-MM-DD.json`
-   - `data/errors/YYYY-MM-DD.json`
-   - `docs/data/latest.json`
-   - `docs/data/runs/YYYY-MM-DD.json`
+2. Confirme se estes arquivos foram atualizados:
 
-3. Suba servidor estatico local:
+- `data/latest.json`
+- `data/runs/index.json`
+- `data/runs/<run_id>.json`
+- `data/errors/<run_id>.json`
+- `docs/data/latest.json`
+- `docs/data/runs/index.json`
 
-```powershell
-npx.cmd http-server -p 5500 .
-```
+3. Abra o dashboard local em `http://localhost:5500/docs/`.
 
-4. Abra:
-   - Dashboard: `http://localhost:5500/docs/`
-   - Gestao: `http://localhost:5500/docs/manage.html`
+## Solucao de problemas
 
-5. Crie um produto via UI (abre issue), confirme envio no GitHub e aguarde workflow.
-6. Rode `git pull` local para trazer as alteracoes em `data/products.json` e `docs/data/products.json`.
-7. Rode `npm.cmd run scrape` novamente e atualize a tela.
-
-## Por que pode falhar em testes locais
-
-- `npm test` valida funcoes unitarias, nao garante scraping real de sites externos.
-- Se `npx` falhar no PowerShell, use `npx.cmd` (politica de execucao do Windows).
-- Se Chromium nao estiver instalado, engine2/engine3 falham com `Executable doesn't exist`.
-- Alguns sites retornam `403/404` por bloqueio anti-bot, geolocalizacao ou URL expirada.
-- Abrir HTML com `file://` pode bloquear `fetch`; use servidor local (`http://localhost:5500`).
-- Fluxo add/edit/remove via UI abre issue; alteracao real ocorre no workflow remoto, depois exige `git pull`.
-
-## Estrutura de dados
-
-### `data/products.json`
-
-Cada item suporta:
-
-- `id`
-- `url`
-- `name`
-- `category` (opcional)
-- `comparison_key` (opcional)
-- `units_per_package` (opcional, >0)
-- `is_active`
-- `selectors` (opcional):
-  - `price_css`
-  - `jsonld_paths`
-  - `regex_hints`
-- `notes` (opcional)
-
-### Snapshot de sucesso por produto
-
-- `product_id`, `url`, `name`
-- `price`, `currency`
-- `unit_price`
-- `engine_used`
-- `fetched_at`
-- `source`
-- `confidence`
-- `status: "ok"`
+- `npx` ou `npm` bloqueado no PowerShell
+  Use `npx.cmd` e `npm.cmd`.
+- `Executable doesn't exist`
+  O Chromium do Playwright nao foi instalado.
+- `403`, `429` ou pagina vazia
+  O site pode estar bloqueando scraping ou exigindo renderizacao/browser.
+- Dashboard em branco via `file://`
+  O frontend usa `fetch`; rode com servidor local.
+- Produto foi enviado pela UI mas nao apareceu no catalogo
+  A alteracao acontece no workflow remoto. Depois, rode `git pull`.
 
 ## Boas praticas e limitacoes
 
-- Scraping pode falhar por CAPTCHA, bloqueio por IP/datacenter, mudanca de HTML ou rate-limit.
-- Respeite ToS e robots dos sites monitorados.
-- Evite concorrencia alta desnecessaria; o padrao e 4.
-- Use intervalos e lista de produtos razoavel.
-- Para sites mais restritivos, considere `PROXY_URL` e/ou `SCRAPING_API_KEY`.
+- Scraping de e-commerce pode quebrar com mudancas de HTML, CAPTCHA ou bloqueio por IP.
+- Respeite ToS e regras dos sites monitorados.
+- Prefira cadastrar seletores e `jsonld_paths` quando souber que a loja e sensivel.
+- Mantenha a concorrencia controlada para nao piorar bloqueios.
+- O dashboard e estatico por design; nao existe persistencia fora do Git.
