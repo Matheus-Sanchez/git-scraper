@@ -1,75 +1,28 @@
 {
   "run_id": "2026-03-18T10-13-44-783Z",
+  "run_date": "2026-03-18",
   "generated_at": "2026-03-18T10:13:44.783Z",
-  "currency": "BRL",
-  "summary": {
-    "total_products": 5,
-    "success_count": 3,
-    "failure_count": 2,
-    "run_duration_ms": 21093,
-    "engines": {
-      "engine1_http": {
-        "attempted": 5,
-        "success": 3,
-        "failed": 2,
-        "avg_time_ms": 635
-      },
-      "engine2_browser": {
-        "attempted": 2,
-        "success": 0,
-        "failed": 2,
-        "avg_time_ms": 2746
-      },
-      "engine3_hardmode": {
-        "attempted": 2,
-        "success": 0,
-        "failed": 2,
-        "avg_time_ms": 7919
-      }
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 5,
+      "success": 3,
+      "failed": 2,
+      "avg_time_ms": 635
+    },
+    "engine2_browser": {
+      "attempted": 2,
+      "success": 0,
+      "failed": 2,
+      "avg_time_ms": 2746
+    },
+    "engine3_hardmode": {
+      "attempted": 2,
+      "success": 0,
+      "failed": 2,
+      "avg_time_ms": 7919
     }
   },
-  "items": [
-    {
-      "product_id": "headset-hyperx-cloud-stinger-2",
-      "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
-      "name": "Headset HyperX Cloud Stinger 2",
-      "price": 279.99,
-      "currency": "BRL",
-      "unit_price": 279.99,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-03-18T10:13:45.765Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "mouse-logitech-g203",
-      "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
-      "name": "Mouse Logitech G203 Lightsync",
-      "price": 174.66,
-      "currency": "BRL",
-      "unit_price": 174.66,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-03-18T10:13:45.800Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "teclado-logitech-k835",
-      "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
-      "name": "Teclado Logitech K835 TKL",
-      "price": 232.75,
-      "currency": "BRL",
-      "unit_price": 232.75,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-03-18T10:13:45.830Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    }
-  ],
-  "failures": [
+  "errors": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -220,6 +173,5 @@
       "error_detail": "Amazon anti-bot or captcha page detected",
       "artifact_dir": ".cache/debug/2026-03-18T10-13-44-783Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
-  ],
-  "run_file": "2026-03-18T10-13-44-783Z.json"
+  ]
 }
