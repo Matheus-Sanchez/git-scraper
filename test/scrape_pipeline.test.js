@@ -5,6 +5,8 @@ import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
+import { runScrape } from '../src/scrape.js';
+import { persistRunOutputs } from '../src/io/storage.js';
 
 function runScrapeProcess(dataRoot) {
   return new Promise((resolvePromise, rejectPromise) => {
@@ -146,4 +148,141 @@ test('same-day runs create unique run_ids and update manifest daily drilldown', 
   assert.equal(manifest.daily[0].total_runs, 2);
   assert.equal(latest.summary.success_count, 1);
   assert.match(latest.run_file, /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z\.json$/);
+});
+
+test('failed scrape carries forward the last valid price into the current snapshot', async () => {
+  const dataRoot = await makeTempDataRoot();
+  process.env.DATA_ROOT = dataRoot;
+
+  const noopLogger = {
+    info() {},
+    warn() {},
+    error() {},
+    debug() {},
+    summary() {},
+  };
+
+  try {
+    await writeProducts(dataRoot, JSON.stringify([
+      {
+        id: 'produto-a',
+        name: 'Produto A',
+        url: 'https://example.com/produto-a',
+        is_active: true,
+        units_per_package: 1,
+      },
+    ], null, 2));
+
+    const previousRunId = '2026-03-17T10-00-00-000Z';
+    await persistRunOutputs({
+      runId: previousRunId,
+      runDate: '2026-03-17',
+      generatedAt: '2026-03-17T10:00:00.000Z',
+      status: 'success',
+      runPayload: {
+        run_id: previousRunId,
+        run_date: '2026-03-17',
+        generated_at: '2026-03-17T10:00:00.000Z',
+        currency: 'BRL',
+        summary: {
+          total_products: 1,
+          success_count: 1,
+          failure_count: 0,
+        },
+        results: [{
+          product_id: 'produto-a',
+          name: 'Produto A',
+          url: 'https://example.com/produto-a',
+          price: 199.9,
+          unit_price: 199.9,
+          currency: 'BRL',
+          fetched_at: '2026-03-17T10:00:00.000Z',
+          status: 'ok',
+          source: 'json-ld',
+          confidence: 0.97,
+          engine_used: 'engine1_http',
+        }],
+        failures: [],
+      },
+      errorPayload: {
+        run_id: previousRunId,
+        run_date: '2026-03-17',
+        generated_at: '2026-03-17T10:00:00.000Z',
+        engine_summary: {},
+        errors: [],
+      },
+      latestPayload: {
+        run_id: previousRunId,
+        generated_at: '2026-03-17T10:00:00.000Z',
+        currency: 'BRL',
+        summary: {
+          total_products: 1,
+          success_count: 1,
+          failure_count: 0,
+        },
+        items: [{
+          product_id: 'produto-a',
+          name: 'Produto A',
+          url: 'https://example.com/produto-a',
+          price: 199.9,
+          unit_price: 199.9,
+          currency: 'BRL',
+          fetched_at: '2026-03-17T10:00:00.000Z',
+          status: 'ok',
+          source: 'json-ld',
+          confidence: 0.97,
+          engine_used: 'engine1_http',
+        }],
+        failures: [],
+        run_file: `${previousRunId}.json`,
+      },
+    });
+
+    const result = await runScrape({
+      runtimeEnv: {
+        DEBUG: false,
+        CONCURRENCY: 1,
+        HTTP_TIMEOUT_MS: 1000,
+        PROXY_URL: '',
+        SCRAPING_API_KEY: '',
+      },
+      baseLogger: noopLogger,
+      engineRunners: {
+        async runEngine1(products) {
+          return products.map((product) => ({
+            engine: 'engine1_http',
+            product,
+            ok: false,
+            elapsed_ms: 1,
+            error: 'Amazon anti-bot or captcha page detected',
+            error_code: 'captcha_or_block',
+            error_detail: 'Amazon anti-bot or captcha page detected',
+          }));
+        },
+        async runEngine2() {
+          return [];
+        },
+        async runEngine3() {
+          return [];
+        },
+      },
+    });
+
+    const latest = await readJson(dataRoot, 'data/latest.json');
+    const currentRun = await readJson(dataRoot, `data/runs/${latest.run_file}`);
+
+    assert.equal(result.status, 'partial');
+    assert.equal(latest.summary.success_count, 0);
+    assert.equal(latest.summary.failure_count, 1);
+    assert.equal(latest.items.length, 1);
+    assert.equal(latest.failures.length, 1);
+    assert.equal(latest.items[0].status, 'carried_forward');
+    assert.equal(latest.items[0].price, 199.9);
+    assert.equal(latest.items[0].engine_used, 'carry_forward');
+    assert.equal(latest.items[0].carried_forward_from.run_id, previousRunId);
+    assert.equal(currentRun.results[0].status, 'carried_forward');
+    assert.equal(currentRun.failures[0].error_code, 'captcha_or_block');
+  } finally {
+    delete process.env.DATA_ROOT;
+  }
 });

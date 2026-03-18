@@ -4,7 +4,7 @@ import { runEngine1 } from './engines/engine1_http.js';
 import { runEngine2 } from './engines/engine2_browser.js';
 import { runEngine3 } from './engines/engine3_hardmode.js';
 import { readProducts, toSafeProductReadError } from './io/products.js';
-import { persistRunOutputs } from './io/storage.js';
+import { findLatestSuccessfulResults, persistRunOutputs } from './io/storage.js';
 import { buildFatalFailure } from './utils/failure.js';
 import { createLogger } from './utils/logger.js';
 import { createRunId } from './utils/run_id.js';
@@ -129,6 +129,61 @@ function buildErrorPayload({ runId, runDate, generatedAt, engineSummary, errors,
   };
 }
 
+function isUsablePrice(value) {
+  const price = Number(value);
+  return Number.isFinite(price) && price > 0;
+}
+
+function toCarriedForwardResult(failure, previousResult, generatedAt) {
+  if (!failure || !previousResult || !isUsablePrice(previousResult.price)) {
+    return null;
+  }
+
+  return {
+    product_id: failure.product_id,
+    url: failure.url || previousResult.url,
+    name: failure.name || previousResult.name,
+    price: Number(previousResult.price),
+    currency: previousResult.currency || 'BRL',
+    unit_price: isUsablePrice(previousResult.unit_price) ? Number(previousResult.unit_price) : null,
+    engine_used: 'carry_forward',
+    fetched_at: failure.fetched_at || generatedAt,
+    source: previousResult.source || 'carry_forward',
+    confidence: Number.isFinite(Number(previousResult.confidence)) ? Number(previousResult.confidence) : null,
+    status: 'carried_forward',
+    carried_forward_reason: failure.error_code || 'scrape_failed',
+    carried_forward_from: {
+      run_id: previousResult.run_id || null,
+      run_date: previousResult.run_date || null,
+      fetched_at: previousResult.fetched_at || null,
+      engine_used: previousResult.engine_used || null,
+      source: previousResult.source || null,
+      status: previousResult.status || 'ok',
+    },
+  };
+}
+
+async function buildCarriedForwardResults({ failures, generatedAt, lookupPreviousResults, baseLogger, runId }) {
+  if (!Array.isArray(failures) || failures.length === 0) {
+    return [];
+  }
+
+  const previousByProductId = await lookupPreviousResults(failures.map((failure) => failure.product_id));
+  const carriedForward = failures
+    .map((failure) => toCarriedForwardResult(failure, previousByProductId.get(failure.product_id), generatedAt))
+    .filter(Boolean);
+
+  if (carriedForward.length > 0) {
+    baseLogger.info('Carried forward previous prices after scrape failures', {
+      run_id: runId,
+      carried_forward_count: carriedForward.length,
+      product_ids: carriedForward.map((item) => item.product_id),
+    });
+  }
+
+  return carriedForward;
+}
+
 async function persistSuccessRun({ runId, runDate, generatedAt, summary, successes, failures, status = 'success' }) {
   const runPayload = buildRunPayload({
     runId,
@@ -191,11 +246,19 @@ async function persistFatalRun({ runId, runDate, generatedAt, summary, fatal }) 
   });
 }
 
-export async function runScrape({ runtimeEnv = env, baseLogger = logger } = {}) {
+export async function runScrape({
+  runtimeEnv = env,
+  baseLogger = logger,
+  engineRunners = {},
+  lookupPreviousResults = findLatestSuccessfulResults,
+} = {}) {
   const startedAt = Date.now();
   const generatedAt = new Date().toISOString();
   const runDate = generatedAt.slice(0, 10);
   const runId = createRunId(generatedAt);
+  const engine1Runner = engineRunners.runEngine1 || runEngine1;
+  const engine2Runner = engineRunners.runEngine2 || runEngine2;
+  const engine3Runner = engineRunners.runEngine3 || runEngine3;
 
   baseLogger.info('Starting scrape run', {
     run_id: runId,
@@ -261,7 +324,7 @@ export async function runScrape({ runtimeEnv = env, baseLogger = logger } = {}) 
     });
   }
 
-  const attempts1 = await runEngine1(activeProducts, {
+  const attempts1 = await engine1Runner(activeProducts, {
     env: runtimeEnv,
     logger: baseLogger,
     runId,
@@ -269,7 +332,7 @@ export async function runScrape({ runtimeEnv = env, baseLogger = logger } = {}) 
   registerAttempts(trailsById, successById, attempts1);
   const pendingForEngine2 = findRemainingFailures(activeProducts, attempts1);
 
-  const attempts2 = await runEngine2(pendingForEngine2, {
+  const attempts2 = await engine2Runner(pendingForEngine2, {
     env: runtimeEnv,
     logger: baseLogger,
     runId,
@@ -277,7 +340,7 @@ export async function runScrape({ runtimeEnv = env, baseLogger = logger } = {}) 
   registerAttempts(trailsById, successById, attempts2);
   const pendingForEngine3 = findRemainingFailures(pendingForEngine2, attempts2);
 
-  const attempts3 = await runEngine3(pendingForEngine3, {
+  const attempts3 = await engine3Runner(pendingForEngine3, {
     env: runtimeEnv,
     logger: baseLogger,
     runId,
@@ -290,6 +353,15 @@ export async function runScrape({ runtimeEnv = env, baseLogger = logger } = {}) 
   const failures = [...trailsById.values()]
     .filter((trail) => !successById.has(trail.product.id))
     .map((trail) => toFailureEntry(trail));
+  const carriedForward = await buildCarriedForwardResults({
+    failures,
+    generatedAt,
+    lookupPreviousResults,
+    baseLogger,
+    runId,
+  });
+  const persistedResults = [...successes, ...carriedForward]
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const summary = {
     total_products: activeProducts.length,
@@ -308,7 +380,7 @@ export async function runScrape({ runtimeEnv = env, baseLogger = logger } = {}) 
     runDate,
     generatedAt,
     summary,
-    successes,
+    successes: persistedResults,
     failures,
     status: failures.length > 0 ? 'partial' : 'success',
   });

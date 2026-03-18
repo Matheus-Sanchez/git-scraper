@@ -343,6 +343,7 @@
       }
 
       if (beginAtZero && min > 0) min = 0;
+      if (allValues.every((value) => Number(value) >= 0) && min < 0) min = 0;
 
       const yTicks = createNiceTicks(min, max, maxTicksLimit);
       const domainMin = yTicks[0];

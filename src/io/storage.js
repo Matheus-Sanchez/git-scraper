@@ -175,6 +175,53 @@ export async function readRunsIndex() {
   }
 }
 
+async function readJsonSafe(filePath) {
+  try {
+    const raw = await readFile(filePath, 'utf8');
+    return JSON.parse(stripBom(raw));
+  } catch {
+    return null;
+  }
+}
+
+function isUsableHistoricalResult(result) {
+  const price = Number(result?.price);
+  return Number.isFinite(price) && price > 0;
+}
+
+export async function findLatestSuccessfulResults(productIds) {
+  const pending = new Set((productIds || []).filter(Boolean));
+  const matches = new Map();
+
+  if (pending.size === 0) {
+    return matches;
+  }
+
+  const manifest = await readRunsIndex();
+  for (const entry of manifest.runs) {
+    if (pending.size === 0) break;
+    if (!entry?.run_file) continue;
+
+    const runPayload = await readJsonSafe(resolve(primaryPaths().runsDir, entry.run_file));
+    if (!runPayload || !Array.isArray(runPayload.results)) continue;
+
+    for (const result of runPayload.results) {
+      if (!pending.has(result?.product_id) || !isUsableHistoricalResult(result)) {
+        continue;
+      }
+
+      matches.set(result.product_id, {
+        ...result,
+        run_id: runPayload.run_id || entry.run_id || inferRunIdFromFileName(entry.run_file),
+        run_date: runPayload.run_date || entry.run_date || inferRunDate(entry.run_file),
+      });
+      pending.delete(result.product_id);
+    }
+  }
+
+  return matches;
+}
+
 export async function persistRunOutputs({
   runId,
   runDate,

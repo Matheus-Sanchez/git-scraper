@@ -163,11 +163,16 @@ function formatDateTime(iso) {
 }
 
 function formatMoney(value) {
-  if (value === null || value === undefined || Number.isNaN(Number(value))) return '-';
+  if (!isRenderablePrice(value)) return '-';
   return Number(value).toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   });
+}
+
+function isRenderablePrice(value) {
+  const numericValue = Number(value);
+  return Number.isFinite(numericValue) && numericValue > 0;
 }
 
 function splitLines(text) {
@@ -413,8 +418,9 @@ function hideLegacySeriesEnabled() {
 }
 
 function latestStatusForProductId(productId) {
-  if (state.latestItemsById.has(productId)) return 'ok';
+  const latest = state.latestItemsById.get(productId);
   if (state.latestFailuresById.has(productId)) return 'failed';
+  if (latest) return 'ok';
   return '';
 }
 
@@ -680,7 +686,7 @@ function renderPieChart() {
 function valueMap(points) {
   const map = new Map();
   (points || []).forEach((point) => {
-    if (point.price === null || point.price === undefined) {
+    if (!isRenderablePrice(point?.price)) {
       map.set(point.date, null);
       return;
     }
@@ -710,6 +716,10 @@ function buildHistories() {
 
   const categoryAggregation = new Map();
   dailyProductSnapshots.forEach(({ run, result, date }) => {
+    if (!isRenderablePrice(result?.price)) {
+      return;
+    }
+
     const product = state.productsById.get(result.product_id);
     const category = normalizeCategory(product?.category);
     const comparisonKey = normalizeComparisonKey(product?.comparison_key);
@@ -850,7 +860,7 @@ function datasetFromProduct(entry) {
     pointRadius: 0,
     pointHoverRadius: 6,
     pointHitRadius: 20,
-    spanGaps: true,
+    spanGaps: false,
     tension: 0.24,
     highlightLastPoint: true,
   };
@@ -875,7 +885,7 @@ function datasetFromCategory(entry) {
     pointRadius: 0,
     pointHoverRadius: 6,
     pointHitRadius: 20,
-    spanGaps: true,
+    spanGaps: false,
     tension: 0.22,
     highlightLastPoint: true,
   };
@@ -1245,9 +1255,66 @@ function last30DayMinimum(productId) {
   const values = points
     .slice(-30)
     .map((point) => Number(point.price))
-    .filter((value) => Number.isFinite(value));
+    .filter((value) => isRenderablePrice(value));
 
   return values.length > 0 ? Math.min(...values) : null;
+}
+
+function lastKnownHistoryPoint(productId) {
+  const points = state.historyByProduct.get(productId)?.points || [];
+  return [...points]
+    .reverse()
+    .find((point) => isRenderablePrice(point?.price)) || null;
+}
+
+function snapshotStatus(snapshot, failure) {
+  if (failure) return 'failed';
+  if (snapshot) return 'ok';
+  return '';
+}
+
+function isCarriedForwardSnapshot(snapshot) {
+  return snapshot?.status === 'carried_forward' && isRenderablePrice(snapshot?.price);
+}
+
+function fallbackLabel(snapshotLike) {
+  if (!snapshotLike) return '';
+  const status = snapshotLike?.status;
+
+  if (status !== 'carried_forward' && status !== 'historical_fallback') {
+    return '';
+  }
+
+  if (status === 'carried_forward' && snapshotLike?.carried_forward_from?.run_date) {
+    return `preco reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
+  }
+
+  if (status === 'historical_fallback' && snapshotLike?.carried_forward_from?.run_date) {
+    return `preco reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
+  }
+
+  return 'preco reaproveitado do ultimo snapshot valido';
+}
+
+function rowStatusLabel(row) {
+  if (row.snapshot_status === 'carried_forward') return 'fallback';
+  return row.status === 'ok' ? 'ok' : 'falhou';
+}
+
+function rowStatusNote(row) {
+  if (row.status === 'ok') {
+    return 'coleta validada';
+  }
+
+  const failure = failureSummary(row);
+  const carryLabel = fallbackLabel({
+    status: row.snapshot_status,
+    carried_forward_from: row.carried_forward_from,
+  });
+  if (failure && carryLabel) {
+    return `${failure}. ${carryLabel}`;
+  }
+  return carryLabel || failure || 'exige atencao';
 }
 
 function buildCurrentRows() {
@@ -1263,19 +1330,38 @@ function buildCurrentRows() {
     const failure = state.latestFailuresById.get(productId);
     const base = success || failure || product || {};
     const units = Number(product?.units_per_package);
+    const historyFallback = lastKnownHistoryPoint(productId);
+    const currentPrice = isRenderablePrice(success?.price)
+      ? Number(success.price)
+      : (historyFallback ? Number(historyFallback.price) : null);
+    const latestFloor = last30DayMinimum(productId);
+    const unitPrice = isRenderablePrice(success?.unit_price)
+      ? Number(success.unit_price)
+      : (currentPrice !== null && Number.isFinite(units) && units > 1 ? currentPrice / units : null);
+    const fallbackMeta = success?.carried_forward_from || (historyFallback ? {
+      run_id: historyFallback.run_id || null,
+      run_date: historyFallback.date || null,
+      fetched_at: historyFallback.generated_at || null,
+      source: 'history',
+      status: 'ok',
+    } : null);
 
     rows.push({
       product_id: productId,
       category: normalizeCategory(product?.category),
       name: product?.name || base.name || productId,
       site_label: formatSiteLabel(siteLabelFromUrl(base.url || product?.url)),
-      current_price: success ? Number(success.price) : null,
-      lowest_30d: last30DayMinimum(productId),
-      unit_price: success && Number.isFinite(units) && units > 1 ? Number(success.unit_price) : null,
-      price_gap_30d: success ? Number(success.price) - Number(last30DayMinimum(productId) ?? success.price) : null,
+      current_price: currentPrice,
+      lowest_30d: latestFloor,
+      unit_price: isRenderablePrice(unitPrice) ? Number(unitPrice) : null,
+      price_gap_30d: currentPrice !== null && isRenderablePrice(latestFloor)
+        ? currentPrice - Number(latestFloor)
+        : null,
       comparison_key: String(product?.comparison_key || '').trim(),
-      updated_at: success?.fetched_at || failure?.fetched_at || null,
-      status: success ? 'ok' : 'failed',
+      updated_at: success?.fetched_at || failure?.fetched_at || historyFallback?.generated_at || null,
+      status: snapshotStatus(success, failure),
+      snapshot_status: success?.status || (failure && historyFallback ? 'historical_fallback' : ''),
+      carried_forward_from: fallbackMeta,
       error_code: failure?.error_code || '',
       error_detail: failure?.error_detail || failure?.last_error || '',
       artifact_dir: failure?.artifact_dir || '',
@@ -1422,7 +1508,7 @@ function renderFocusMetrics(datasets) {
     ['Melhor oferta', best ? `${formatMoney(best.current_price)} em ${best.site_label}` : '-', 'menor preco atual no recorte'],
     ['Preco medio', Number.isFinite(average) ? formatMoney(average) : '-', 'media dos itens visiveis'],
     ['Series visiveis', datasets.length, `snapshots ${snapshots}`],
-    ['Falhas no recorte', rows.filter((row) => row.status === 'failed').length, 'itens que exigem atencao'],
+    ['Falhas no recorte', rows.filter((row) => row.status === 'failed').length, 'falhas reais e precos reaproveitados'],
   ];
 
   els.focusMetrics.innerHTML = cards.map(([label, value, note]) => `
@@ -1500,9 +1586,9 @@ function renderTable() {
         <td>
           <div class="status-stack">
             <span class="status-pill ${row.status === 'ok' ? 'status-ok' : 'status-failed'}">
-              ${row.status === 'ok' ? 'ok' : 'falhou'}
+              ${rowStatusLabel(row)}
             </span>
-            <small>${row.status === 'ok' ? 'coleta validada' : escapeHtml(failureSummary(row) || 'exige atencao')}</small>
+            <small>${escapeHtml(rowStatusNote(row))}</small>
           </div>
         </td>
       </tr>
@@ -1529,19 +1615,37 @@ function renderDetailPanel(datasets) {
     const entry = state.historyByProduct.get(productId);
     const latest = state.latestItemsById.get(productId);
     const latestFailure = state.latestFailuresById.get(productId);
+    const historyFallback = !latest ? lastKnownHistoryPoint(productId) : null;
+    const currentPrice = isRenderablePrice(latest?.price)
+      ? Number(latest.price)
+      : (historyFallback ? Number(historyFallback.price) : null);
+    const fallbackSnapshot = isCarriedForwardSnapshot(latest) ? latest : (historyFallback ? {
+      status: 'historical_fallback',
+      carried_forward_from: {
+        run_id: historyFallback.run_id || null,
+        run_date: historyFallback.date || null,
+        fetched_at: historyFallback.generated_at || null,
+      },
+    } : null);
     const min30d = last30DayMinimum(productId);
-    const premiumVsFloor = Number.isFinite(latest?.price) && Number.isFinite(min30d)
-      ? Number(latest.price) - Number(min30d)
+    const premiumVsFloor = isRenderablePrice(currentPrice) && isRenderablePrice(min30d)
+      ? Number(currentPrice) - Number(min30d)
       : null;
+    const currentStatus = fallbackSnapshot
+      ? 'Fallback'
+      : latest
+        ? 'Ok'
+        : 'Falhou';
 
     els.detail.innerHTML = `
       <div class="detail-list">
         <div class="detail-item"><span>Produto</span><strong>${escapeHtml(entry?.label || 'Produto')}</strong></div>
-        <div class="detail-item"><span>Status atual</span><strong>${latest ? 'Ok' : 'Falhou'}</strong></div>
-        <div class="detail-item"><span>Preco atual</span><strong>${formatMoney(latest?.price)}</strong></div>
+        <div class="detail-item"><span>Status atual</span><strong>${escapeHtml(currentStatus)}</strong></div>
+        <div class="detail-item"><span>Preco atual</span><strong>${formatMoney(currentPrice)}</strong></div>
         <div class="detail-item"><span>Menor preco 30d</span><strong>${formatMoney(min30d)}</strong></div>
         <div class="detail-item"><span>Spread vs piso</span><strong>${formatMoney(premiumVsFloor)}</strong></div>
-        <div class="detail-item"><span>Atualizado</span><strong>${escapeHtml(formatDateTime(latest?.fetched_at))}</strong></div>
+        <div class="detail-item"><span>Atualizado</span><strong>${escapeHtml(formatDateTime(latest?.fetched_at || latestFailure?.fetched_at || historyFallback?.generated_at))}</strong></div>
+        ${fallbackSnapshot ? `<div class="detail-item"><span>Origem do preco</span><strong>${escapeHtml(fallbackLabel(fallbackSnapshot))}</strong></div>` : ''}
         ${latestFailure ? `<div class="detail-item"><span>Falha classificada</span><strong>${escapeHtml(failureSummary(latestFailure))}</strong></div>` : ''}
         <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       </div>
