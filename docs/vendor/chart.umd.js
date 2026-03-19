@@ -7,6 +7,9 @@
   }
 
   function isFiniteNumber(value) {
+    if (value === null || value === undefined || value === '') {
+      return false;
+    }
     const numericValue = Number(value);
     return Number.isFinite(numericValue);
   }

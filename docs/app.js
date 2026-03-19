@@ -1133,10 +1133,10 @@ function findNearestHistoryLineHit(chart, position) {
     const labels = chart.data.labels || [];
 
     for (let index = 0; index < points.length; index += 1) {
-      const pointValue = Number(values[index]);
-      if (!Number.isFinite(pointValue)) continue;
-
+      const pointValue = values[index];
       const point = points[index];
+      if (!point || !isRenderablePrice(pointValue)) continue;
+
       const distance = Math.hypot(x - point.x, y - point.y);
       if (distance > threshold) continue;
 
@@ -1154,17 +1154,17 @@ function findNearestHistoryLineHit(chart, position) {
     }
 
     for (let index = 0; index < points.length - 1; index += 1) {
-      const startValue = Number(values[index]);
-      const endValue = Number(values[index + 1]);
-      if (!Number.isFinite(startValue) || !Number.isFinite(endValue)) continue;
-
       const startPoint = points[index];
       const endPoint = points[index + 1];
+      const startValue = values[index];
+      const endValue = values[index + 1];
+      if (!startPoint || !endPoint || !isRenderablePrice(startValue) || !isRenderablePrice(endValue)) continue;
+
       const projection = projectPointOnSegment({ x, y }, startPoint, endPoint);
       if (projection.distance > threshold) continue;
 
       if (!best || projection.distance < best.distance) {
-        const price = startValue + ((endValue - startValue) * projection.t);
+        const price = Number(startValue) + ((Number(endValue) - Number(startValue)) * projection.t);
         const labelIndex = projection.t < 0.5 ? index : index + 1;
 
         best = {
