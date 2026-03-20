@@ -1,5 +1,6 @@
 {
   "run_id": "2026-03-20T10-00-05-389Z",
+  "run_date": "2026-03-20",
   "generated_at": "2026-03-20T10:00:05.389Z",
   "currency": "BRL",
   "summary": {
@@ -28,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -334,6 +335,5 @@
       "error_detail": "Amazon anti-bot or captcha page detected",
       "artifact_dir": ".cache/debug/2026-03-20T10-00-05-389Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
-  ],
-  "run_file": "2026-03-20T10-00-05-389Z.json"
+  ]
 }
