@@ -150,6 +150,79 @@ test('same-day runs create unique run_ids and update manifest daily drilldown', 
   assert.match(latest.run_file, /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d{3}Z\.json$/);
 });
 
+test('amazon products can succeed via official PA-API fallback before browser engines', async () => {
+  const dataRoot = await makeTempDataRoot();
+  const previousDataRoot = process.env.DATA_ROOT;
+  process.env.DATA_ROOT = dataRoot;
+
+  const noopLogger = {
+    child() { return this; },
+    product() {},
+    info() {},
+    warn() {},
+    error() {},
+    debug() {},
+    summary() {},
+  };
+
+  try {
+    await writeProducts(dataRoot, JSON.stringify([{
+      id: 'echo-pop',
+      name: 'Echo Pop',
+      url: 'https://www.amazon.com.br/dp/B09WXVH7WK?th=1',
+      is_active: true,
+    }], null, 2));
+
+    const result = await runScrape({
+      runtimeEnv: {
+        DEBUG: false,
+        CONCURRENCY: 1,
+        HTTP_TIMEOUT_MS: 1000,
+        PROXY_URL: '',
+        SCRAPING_API_KEY: '',
+        AMAZON_PAAPI_ACCESS_KEY: 'ak',
+        AMAZON_PAAPI_SECRET_KEY: 'sk',
+        AMAZON_PAAPI_PARTNER_TAG: 'tag-20',
+      },
+      baseLogger: noopLogger,
+      lookupPreviousResults: async () => new Map(),
+      engineRunners: {
+        async runEngine1(products) {
+          return products.map((product) => ({
+            engine: 'engine1_http',
+            product,
+            ok: true,
+            elapsed_ms: 10,
+            result: {
+              product_id: product.id,
+              url: product.url,
+              name: product.name,
+              price: 379,
+              currency: 'BRL',
+              unit_price: null,
+              engine_used: 'engine1_http',
+              fetched_at: '2026-03-18T10:13:45.765Z',
+              source: 'amazon-paapi',
+              confidence: 0.99,
+              status: 'ok',
+            },
+          }));
+        },
+        async runEngine2() { return []; },
+        async runEngine3() { return []; },
+      },
+    });
+
+    assert.equal(result.success, true);
+  } finally {
+    if (previousDataRoot === undefined) {
+      delete process.env.DATA_ROOT;
+    } else {
+      process.env.DATA_ROOT = previousDataRoot;
+    }
+  }
+});
+
 test('failed scrape carries forward the last valid price into the current snapshot', async () => {
   const dataRoot = await makeTempDataRoot();
   process.env.DATA_ROOT = dataRoot;

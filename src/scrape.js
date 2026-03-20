@@ -267,6 +267,11 @@ export async function runScrape({
     timeout_ms: runtimeEnv.HTTP_TIMEOUT_MS,
     hardmode_proxy: Boolean(runtimeEnv.PROXY_URL),
     has_external_provider_key: Boolean(runtimeEnv.SCRAPING_API_KEY),
+    has_amazon_paapi: Boolean(
+      runtimeEnv.AMAZON_PAAPI_ACCESS_KEY
+      && runtimeEnv.AMAZON_PAAPI_SECRET_KEY
+      && runtimeEnv.AMAZON_PAAPI_PARTNER_TAG
+    ),
   });
 
   let products;

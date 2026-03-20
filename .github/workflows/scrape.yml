@@ -41,6 +41,9 @@ jobs:
         env:
           DEBUG: ${{ vars.DEBUG }}
           SCRAPING_API_KEY: ${{ secrets.SCRAPING_API_KEY }}
+          AMAZON_PAAPI_ACCESS_KEY: ${{ secrets.AMAZON_PAAPI_ACCESS_KEY }}
+          AMAZON_PAAPI_SECRET_KEY: ${{ secrets.AMAZON_PAAPI_SECRET_KEY }}
+          AMAZON_PAAPI_PARTNER_TAG: ${{ vars.AMAZON_PAAPI_PARTNER_TAG }}
           HTTP_TIMEOUT_MS: ${{ vars.HTTP_TIMEOUT_MS }}
           CONCURRENCY: ${{ vars.CONCURRENCY }}
           USER_AGENT: ${{ vars.USER_AGENT }}

@@ -4,6 +4,7 @@ import { runWithPool, sleep } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';
 import { getAdapterForUrl } from '../adapters/index.js';
 import { roundTo2 } from '../utils/price_parse.js';
+import { fetchAmazonPriceViaPaapi } from '../providers.amazon_paapi.js';
 import {
   classifyAxiosFailure,
   classifyExtractionFailure,
@@ -79,6 +80,50 @@ export async function runEngine1(products, { env, logger }) {
     const selectors = adapter.getSelectors(product);
 
     log.product('debug', product, 'Engine1 fetching product', { adapter: adapter.id });
+
+    if (adapter.id === 'amazon') {
+      const apiResult = await fetchAmazonPriceViaPaapi({ product, env, logger: log });
+      if (apiResult.ok) {
+        const elapsedMs = Date.now() - startedAt;
+        const extraction = {
+          price: apiResult.price,
+          source: apiResult.source,
+          confidence: apiResult.confidence,
+        };
+        const result = adapter.postProcess(buildSnapshot(product, extraction), {
+          html: '',
+          extraction,
+          product,
+        });
+        result.name = product.name || apiResult.title || result.name;
+        result.url = apiResult.final_url || product.url;
+        result.currency = apiResult.currency || result.currency;
+
+        log.product('info', product, 'Engine1 Amazon PA-API success', {
+          price: result.price,
+          asin: apiResult.asin,
+          elapsed_ms: elapsedMs,
+        });
+
+        return {
+          product,
+          engine: ENGINE_NAME,
+          ok: true,
+          elapsed_ms: elapsedMs,
+          retry_attempts: [],
+          ...apiResult.engine_metadata,
+          result,
+        };
+      }
+
+      if (!apiResult.skipped) {
+        log.product('debug', product, 'Engine1 Amazon PA-API fallback failed, continuing with HTML scraping', {
+          error_code: apiResult.error_code,
+          error: apiResult.error_detail,
+          asin: apiResult.asin,
+        });
+      }
+    }
 
     for (let attemptIndex = 0; attemptIndex <= MAX_HTTP_RETRIES; attemptIndex += 1) {
       try {

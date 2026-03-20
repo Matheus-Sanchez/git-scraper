@@ -284,8 +284,15 @@ Resumo:
   Proxy opcional para o hardmode.
 - `SCRAPING_API_KEY`
   Chave opcional para fallback externo no `engine3_hardmode`.
+- `AMAZON_PAAPI_ACCESS_KEY`
+  Access key opcional da Amazon Product Advertising API para fallback oficial de produtos Amazon no `engine1_http`.
+- `AMAZON_PAAPI_SECRET_KEY`
+  Secret key opcional da Amazon Product Advertising API.
+- `AMAZON_PAAPI_PARTNER_TAG`
+  Partner tag opcional da Amazon Product Advertising API (Associates).
 
 Sem `SCRAPING_API_KEY`, o sistema continua funcionando apenas com engines locais.
+Sem as variaveis `AMAZON_PAAPI_*`, produtos Amazon continuam tentando scraping HTML/browser normalmente; com elas, o scraper tenta primeiro a API oficial antes de cair para HTML.
 
 ## GitHub Actions
 

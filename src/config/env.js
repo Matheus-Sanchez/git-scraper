@@ -46,6 +46,9 @@ const httpTimeoutMs = Math.max(3000, parseIntSafe(process.env.HTTP_TIMEOUT_MS, 1
 export const env = Object.freeze({
   DEBUG: parseBool(process.env.DEBUG, false),
   SCRAPING_API_KEY: optionalString(process.env.SCRAPING_API_KEY),
+  AMAZON_PAAPI_ACCESS_KEY: optionalString(process.env.AMAZON_PAAPI_ACCESS_KEY),
+  AMAZON_PAAPI_SECRET_KEY: optionalString(process.env.AMAZON_PAAPI_SECRET_KEY),
+  AMAZON_PAAPI_PARTNER_TAG: optionalString(process.env.AMAZON_PAAPI_PARTNER_TAG),
   HTTP_TIMEOUT_MS: httpTimeoutMs,
   CONCURRENCY: concurrency,
   USER_AGENT: optionalString(process.env.USER_AGENT) || defaultUserAgent,
