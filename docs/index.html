@@ -48,108 +48,35 @@
         </aside>
       </header>
 
-      <section class="card command-center" aria-labelledby="command-title">
-        <div class="section-heading">
-          <div>
-            <p class="section-kicker">Command Center</p>
-            <h2 id="command-title">Filtros e Ferramentas</h2>
-            <p class="section-note">
-              Refine o recorte, isole sinais relevantes e navegue no historico com menos atrito.
-            </p>
-          </div>
-          <button id="dashboard-reset-filters" class="btn btn-ghost" type="button">Limpar filtros</button>
-        </div>
-
-        <div class="command-grid">
-          <label class="control-card" for="dashboard-search">
-            Pesquisa rapida
-            <input id="dashboard-search" type="search" placeholder="Produto, loja, categoria ou grupo">
-          </label>
-
-          <label class="control-card" for="site-filter">
-            Loja
-            <select id="site-filter">
-              <option value="__all__">Todas</option>
-            </select>
-          </label>
-
-          <label class="control-card" for="status-filter">
-            Status
-            <select id="status-filter">
-              <option value="__all__">Todos</option>
-              <option value="ok">Somente ok</option>
-              <option value="failed">Somente falhas</option>
-            </select>
-          </label>
-
-          <label class="control-card" for="chart-scope">
-            Modo
-            <select id="chart-scope">
-              <option value="all-products">Todos os produtos</option>
-              <option value="by-category">Produtos por categoria</option>
-              <option value="comparison-group">Comparar equivalentes</option>
-              <option value="single-product">Produto especifico</option>
-            </select>
-          </label>
-
-          <label class="control-card" for="history-category-filter">
-            Categoria
-            <select id="history-category-filter">
-              <option value="__all__">Todas</option>
-            </select>
-          </label>
-
-          <label class="control-card" for="product-select">
-            Produto
-            <select id="product-select"></select>
-          </label>
-
-          <div class="control-card control-card-tools">
-            <span class="control-label">Ferramentas</span>
-            <label class="toggle-chip" for="hide-legacy-series">
-              <input id="hide-legacy-series" type="checkbox" checked>
-              Ocultar series legadas
-            </label>
-            <div class="zoom-tools" aria-label="Controles de zoom">
-              <button id="zoom-out" class="btn btn-ghost" type="button">Zoom -</button>
-              <button id="zoom-in" class="btn btn-ghost" type="button">Zoom +</button>
-              <button id="zoom-reset" class="btn btn-ghost" type="button">Ver tudo</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="command-footer">
-          <div id="active-filter-pills" class="filter-pill-row"></div>
-          <div id="toolbar-insights" class="toolbar-insights"></div>
-        </div>
-      </section>
-
       <section class="analytics-grid" aria-label="Visao geral">
-        <article class="card card-emphasis" aria-labelledby="category-pie-title">
-          <div class="card-title-row">
+        <article class="card card-emphasis card-mix" aria-labelledby="category-pie-title">
+          <div class="card-title-row analytics-card-header">
             <div>
               <p class="section-kicker">Mix</p>
               <h2 id="category-pie-title">Distribuicao por Categoria</h2>
+              <p class="section-note">Panorama do portifolio ativo para leitura rapida da cobertura por categoria.</p>
             </div>
           </div>
           <canvas id="category-pie-chart" width="700" height="320"></canvas>
         </article>
 
-        <article class="card" aria-labelledby="summary-title">
-          <div class="card-title-row">
+        <article class="card card-summary-panel" aria-labelledby="summary-title">
+          <div class="card-title-row analytics-card-header">
             <div>
               <p class="section-kicker">Run</p>
               <h2 id="summary-title">Resumo do Ultimo Run</h2>
+              <p class="section-note">Sinais operacionais do ciclo mais recente, em uma leitura mais compacta.</p>
             </div>
           </div>
           <div id="summary-grid" class="summary-grid"></div>
         </article>
 
-        <article class="card" aria-labelledby="focus-title">
-          <div class="card-title-row">
+        <article class="card card-focus-panel" aria-labelledby="focus-title">
+          <div class="card-title-row analytics-card-header">
             <div>
               <p class="section-kicker">Focus</p>
               <h2 id="focus-title">Indicadores do Recorte</h2>
+              <p class="section-note">Melhor oferta, media e densidade do recorte aplicado no historico.</p>
             </div>
           </div>
           <div id="focus-metrics" class="focus-grid"></div>
@@ -162,26 +89,113 @@
             <p class="section-kicker">Explore</p>
             <h2 id="chart-title">Historico de Precos</h2>
             <p class="section-note">
-              Combine os filtros acima para investigar tendencias, quedas e comparativos entre lojas.
+              Refine o recorte sem perder o grafico de vista e compare produtos, categorias e lojas com mais clareza.
             </p>
           </div>
         </div>
 
-        <div class="history-layout">
-          <div id="history-main" class="history-main">
-            <div id="history-scroll" class="history-scroll">
-              <div id="history-stage" class="history-stage">
-                <canvas id="history-chart" width="1200" height="420"></canvas>
+        <section class="history-toolbar-panel" aria-labelledby="command-title">
+          <div class="section-heading compact history-toolbar-heading">
+            <div>
+              <p class="section-kicker">Command Center</p>
+              <h3 id="command-title">Filtros e Ferramentas</h3>
+              <p class="section-note">
+                Pesquisa rapida, recorte por loja e navegao do historico em uma unica faixa horizontal.
+              </p>
+            </div>
+            <button id="dashboard-reset-filters" class="btn btn-ghost" type="button">Limpar filtros</button>
+          </div>
+
+          <div class="command-grid history-filter-grid">
+            <label class="control-card control-span-4" for="dashboard-search">
+              Pesquisa rapida
+              <input id="dashboard-search" type="search" placeholder="Produto, loja, categoria ou grupo">
+            </label>
+
+            <label class="control-card control-span-2" for="chart-scope">
+              Modo
+              <select id="chart-scope">
+                <option value="all-products">Todos os produtos</option>
+                <option value="by-category">Produtos por categoria</option>
+                <option value="comparison-group">Comparar equivalentes</option>
+                <option value="single-product">Produto especifico</option>
+              </select>
+            </label>
+
+            <label class="control-card control-span-2" for="site-filter">
+              Loja
+              <select id="site-filter">
+                <option value="__all__">Todas</option>
+              </select>
+            </label>
+
+            <label class="control-card control-span-2" for="status-filter">
+              Status
+              <select id="status-filter">
+                <option value="__all__">Todos</option>
+                <option value="ok">Somente ok</option>
+                <option value="failed">Somente falhas</option>
+              </select>
+            </label>
+
+            <label class="control-card control-span-2" for="history-category-filter">
+              Categoria
+              <select id="history-category-filter">
+                <option value="__all__">Todas</option>
+              </select>
+            </label>
+
+            <label class="control-card control-span-5" for="product-select">
+              Produto
+              <select id="product-select"></select>
+            </label>
+
+            <div class="control-card control-card-tools control-span-7">
+              <div class="tools-copy">
+                <span class="control-label">Ferramentas</span>
+                <label class="toggle-chip" for="hide-legacy-series">
+                  <input id="hide-legacy-series" type="checkbox" checked>
+                  Ocultar series legadas
+                </label>
+              </div>
+              <div class="zoom-tools" aria-label="Controles de zoom">
+                <button id="zoom-out" class="btn btn-ghost" type="button">Zoom -</button>
+                <button id="zoom-in" class="btn btn-ghost" type="button">Zoom +</button>
+                <button id="zoom-reset" class="btn btn-ghost" type="button">Ver tudo</button>
               </div>
             </div>
-            <div id="history-hover-tooltip" class="chart-hover-tooltip" hidden></div>
           </div>
-          <aside class="detail-panel">
-            <h3>Visor Detalhado</h3>
+
+          <div class="history-toolbar-footer">
+            <div id="active-filter-pills" class="filter-pill-row"></div>
+            <div id="toolbar-insights" class="toolbar-insights"></div>
+          </div>
+        </section>
+
+        <div id="history-main" class="history-main">
+          <div id="history-scroll" class="history-scroll">
+            <div id="history-stage" class="history-stage">
+              <canvas id="history-chart" width="1200" height="420"></canvas>
+            </div>
+          </div>
+          <div id="history-hover-tooltip" class="chart-hover-tooltip" hidden></div>
+        </div>
+
+        <div class="history-detail-grid">
+          <section class="detail-panel detail-panel-primary">
+            <h3>Resumo do Recorte</h3>
             <div id="history-detail"></div>
+          </section>
+
+          <section class="detail-panel detail-panel-secondary">
+            <h3>Runs do Dia</h3>
             <div id="history-run-drilldown" class="run-drilldown"></div>
+          </section>
+
+          <section class="detail-panel detail-panel-tertiary">
+            <h3>Legenda e Categorias</h3>
             <div id="category-legend" class="category-legend"></div>
-          </aside>
+          </section>
         </div>
       </section>
 

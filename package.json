@@ -10,7 +10,13 @@
   "scripts": {
     "scrape": "node src/scrape.js",
     "dev": "cross-env DEBUG=1 node src/scrape.js",
-    "test": "node --test"
+    "lint": "eslint --max-warnings=0 .github/scripts src test test_support scripts eslint.config.js",
+    "validate:catalog": "node scripts/validate_catalog.mjs",
+    "test": "node --test --experimental-test-isolation=none",
+    "test:unit": "node --test --experimental-test-isolation=none test/amazon_paapi.test.js test/catalog_schema.test.js test/failure_classification.test.js test/heuristics.test.js test/issue_ingest_parser.test.js test/pool.test.js test/price_parse.test.js",
+    "test:fixtures": "node --test --experimental-test-isolation=none test/extract_price.test.js test/site_regression.test.js",
+    "test:integration": "node --test --experimental-test-isolation=none test/scrape_pipeline.test.js test/storage_manifest.test.js",
+    "test:ci": "npm run lint && npm run validate:catalog && npm run test:unit && npm run test:fixtures && npm run test:integration"
   },
   "dependencies": {
     "axios": "^1.8.4",
@@ -20,6 +26,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "eslint": "^9.38.0"
   }
 }

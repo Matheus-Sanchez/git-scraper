@@ -16,14 +16,6 @@ import {
 
 const ENGINE_NAME = 'engine2_browser';
 
-function compactErrorMessage(error) {
-  const raw = error instanceof Error ? error.message : String(error);
-  return raw
-    .split('\n')[0]
-    .replace(/[^\x20-\x7E]/g, '')
-    .trim();
-}
-
 function buildSnapshot(product, extraction) {
   const units = Number(product.units_per_package);
   const unitPrice = Number.isFinite(units) && units > 0 ? roundTo2(extraction.price / units) : null;

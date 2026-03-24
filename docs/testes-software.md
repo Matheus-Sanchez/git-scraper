@@ -1,83 +1,110 @@
-# Testes de software: caixa preta e caixa branca
+# Testes de software
 
-Este documento registra a estrategia e a execucao de testes funcionais (caixa preta) e estruturais (caixa branca) para a base atual.
+Este documento descreve a estrutura atual de QA para o scraper e o que cada camada valida.
 
-## 1. Escopo
+## 1. Objetivos
 
-- Linguagem/plataforma: Node.js (`node --test`).
-- Alvos principais:
-  - pipeline de scraping e persistencia;
-  - validacao de schema/catalogo;
-  - heuristicas de extracao;
-  - parser de preco;
-  - classificacao de falhas;
-  - controle de concorrencia (pool).
+Os testes precisam cobrir:
 
-## 2. Caixa preta
+- qualidade de codigo e contratos do catalogo
+- erros operacionais e classificacao de falhas
+- continuidade dos dados persistidos
+- regressao por dominio para lojas com suporte validado
 
-Teste orientado a comportamento externo, sem depender de detalhes internos de implementacao.
+## 2. Camadas da suite
 
-### 2.1 Casos cobertos
+### Unitarios
 
-- Valida entradas e contratos de catalogo (`catalog_schema`).
-- Valida fluxo ponta a ponta do scraping (`scrape_pipeline`):
-  - execucao com falha fatal retorna codigo != 0 e gera payload esperado;
-  - execucao sem produtos ativos gera snapshot valido;
-  - execucoes no mesmo dia mantem IDs unicos e manifesto consistente.
-
-### 2.2 Comando executado
+Comando:
 
 ```bash
-node --test test/scrape_pipeline.test.js test/catalog_schema.test.js
+npm run test:unit
 ```
 
-### 2.3 Resultado
+Cobertura principal:
 
-- **Aprovado**: 6 testes, 0 falhas.
+- `price_parse`
+- `heuristics`
+- `failure_classification`
+- `pool`
+- `catalog_schema`
+- `issue_ingest_parser`
+- `amazon_paapi`
 
-## 3. Caixa branca
+### Fixtures e regressao por dominio
 
-Teste orientado a ramos, regras e funcoes internas.
-
-### 3.1 Casos cobertos
-
-- `heuristics`:
-  - deteccao de contexto de parcelamento;
-  - deteccao de preco antigo x atual;
-  - priorizacao de fontes de extracao.
-- `price_parse`:
-  - parse de formatos BRL;
-  - rejeicao de entradas invalidas;
-  - extracao de tokens numericos.
-- `failure_classification`:
-  - mapeamento de falhas de transporte/navegacao/extracao.
-- `pool`:
-  - limite de concorrencia;
-  - isolamento de falhas de workers.
-
-### 3.2 Comando executado
+Comando:
 
 ```bash
-node --test test/heuristics.test.js test/price_parse.test.js test/failure_classification.test.js test/pool.test.js
+npm run test:fixtures
 ```
 
-### 3.3 Resultado
+Cobertura principal:
 
-- **Aprovado**: 13 testes, 0 falhas.
+- extracao com fixtures HTML deterministicas
+- roteamento de adapter por URL
+- regressao por dominio para lojas com adapter dedicado
 
-## 4. Regressao completa
+Matriz validada hoje:
 
-Para cobertura de regressao geral da base foi executado:
+- Amazon
+- KaBuM
+
+Dominios atendidos apenas pelo `genericAdapter` continuam fora da matriz de suporte validado.
+
+### Integracao e continuidade de dados
+
+Comando:
 
 ```bash
-npm test
+npm run test:integration
 ```
 
-Resultado:
+Cobertura principal:
 
-- **Aprovado**: 33 testes, 0 falhas.
+- fluxo de scraping ponta a ponta
+- run fatal e run vazio
+- IDs unicos para runs do mesmo dia
+- persistencia de `latest.json`, `runs/index.json`, `runs/<run_id>.json` e `errors/<run_id>.json`
+- espelhamento consistente entre `data/` e `docs/data/`
+- carry-forward de preco anterior
+- normalizacao de manifesto legado
+- busca do ultimo preco historico valido por `product_id`
 
-## 5. Conclusao
+## 3. Gates de qualidade
 
-- O projeto possui boa cobertura funcional e estrutural nos pontos criticos do scraper.
-- A combinacao de caixa preta + caixa branca reduz risco de regressao tanto de contrato quanto de logica interna.
+Comandos:
+
+```bash
+npm run lint
+npm run validate:catalog
+npm run test:ci
+```
+
+Significado:
+
+- `lint`: validacao estatica de `src/`, `test/`, `.github/scripts/` e `scripts/`
+- `validate:catalog`: valida `data/products.json` com o schema oficial
+- `test:ci`: pipeline rapida usada no GitHub Actions
+
+## 4. CI
+
+Workflow rapido:
+
+- arquivo: `.github/workflows/ci.yml`
+- gatilhos: `push` e `pull_request`
+- ignora alteracoes apenas em `data/**` e `docs/data/**`
+
+Workflow agendado:
+
+- arquivo: `.github/workflows/scrape.yml`
+- executa a mesma suite rapida antes do scrape real
+
+## 5. Aceite atual
+
+Uma mudanca deve falhar no CI quando:
+
+- quebrar parser, heuristicas, schema ou persistencia
+- invalidar `data/products.json`
+- fizer Amazon ou KaBuM cair no `genericAdapter`
+- quebrar continuidade de dados em run parcial, manifesto ou carry-forward

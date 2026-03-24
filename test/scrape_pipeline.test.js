@@ -1,55 +1,35 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { mkdtemp, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { resolve } from 'node:path';
 import { createServer } from 'node:http';
-import { spawn } from 'node:child_process';
 import { runScrape } from '../src/scrape.js';
 import { persistRunOutputs } from '../src/io/storage.js';
+import {
+  makeTempDataRoot,
+  readJson,
+  withDataRoot,
+  writeProducts,
+} from '../test_support/data_root.js';
 
-function runScrapeProcess(dataRoot) {
-  return new Promise((resolvePromise, rejectPromise) => {
-    const child = spawn(process.execPath, ['src/scrape.js'], {
-      cwd: process.cwd(),
-      env: {
-        ...process.env,
-        DATA_ROOT: dataRoot,
-        DEBUG: '0',
-        CONCURRENCY: '1',
-        HTTP_TIMEOUT_MS: '4000',
-      },
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
+const runtimeEnv = {
+  DEBUG: false,
+  CONCURRENCY: 1,
+  HTTP_TIMEOUT_MS: 4000,
+  PROXY_URL: '',
+  SCRAPING_API_KEY: '',
+  AMAZON_PAAPI_ACCESS_KEY: '',
+  AMAZON_PAAPI_SECRET_KEY: '',
+  AMAZON_PAAPI_PARTNER_TAG: '',
+};
 
-    let stdout = '';
-    let stderr = '';
-    child.stdout.on('data', (chunk) => {
-      stdout += chunk.toString();
-    });
-    child.stderr.on('data', (chunk) => {
-      stderr += chunk.toString();
-    });
-    child.on('error', rejectPromise);
-    child.on('close', (code) => {
-      resolvePromise({ code, stdout, stderr });
-    });
-  });
-}
-
-async function makeTempDataRoot() {
-  const root = await mkdtemp(resolve(tmpdir(), 'git-scraper-run-'));
-  await mkdir(resolve(root, 'data'), { recursive: true });
-  return root;
-}
-
-async function writeProducts(dataRoot, productsBody) {
-  await writeFile(resolve(dataRoot, 'data', 'products.json'), productsBody, 'utf8');
-}
-
-async function readJson(dataRoot, relativePath) {
-  return JSON.parse(await readFile(resolve(dataRoot, relativePath), 'utf8'));
-}
+const noopLogger = {
+  child() { return this; },
+  product() {},
+  info() {},
+  warn() {},
+  error() {},
+  debug() {},
+  summary() {},
+};
 
 async function withFixtureServer(html, callback) {
   const server = createServer((request, response) => {
@@ -70,40 +50,50 @@ async function withFixtureServer(html, callback) {
   }
 }
 
-test('fatal scrape path exits with code 1 and writes fatal error payload', async () => {
+test('fatal scrape path persists fatal error payload and rejects', async () => {
   const dataRoot = await makeTempDataRoot();
-  await writeProducts(dataRoot, '{invalid json');
+  await withDataRoot(dataRoot, async () => {
+    await writeProducts(dataRoot, '{invalid json');
 
-  const result = await runScrapeProcess(dataRoot);
-  const manifest = await readJson(dataRoot, 'data/runs/index.json');
-  const fatalRun = manifest.runs[0];
-  const fatalError = await readJson(dataRoot, `data/errors/${fatalRun.error_file}`);
+    await assert.rejects(() => runScrape({
+      runtimeEnv,
+      baseLogger: noopLogger,
+    }));
 
-  assert.equal(result.code, 1);
-  assert.equal(fatalRun.status, 'fatal');
-  assert.equal(fatalError.fatal, true);
-  assert.equal(fatalError.phase, 'read_products');
+    const manifest = await readJson(dataRoot, 'data/runs/index.json');
+    const fatalRun = manifest.runs[0];
+    const fatalError = await readJson(dataRoot, `data/errors/${fatalRun.error_file}`);
+
+    assert.equal(fatalRun.status, 'fatal');
+    assert.equal(fatalError.fatal, true);
+    assert.equal(fatalError.phase, 'read_products');
+  });
 });
 
 test('empty active product set writes a successful empty snapshot', async () => {
   const dataRoot = await makeTempDataRoot();
-  await writeProducts(dataRoot, JSON.stringify([
-    {
-      id: 'produto-inativo',
-      name: 'Produto Inativo',
-      url: 'https://example.com/inativo',
-      is_active: false,
-    },
-  ], null, 2));
+  await withDataRoot(dataRoot, async () => {
+    await writeProducts(dataRoot, JSON.stringify([
+      {
+        id: 'produto-inativo',
+        name: 'Produto Inativo',
+        url: 'https://example.com/inativo',
+        is_active: false,
+      },
+    ], null, 2));
 
-  const result = await runScrapeProcess(dataRoot);
-  const latest = await readJson(dataRoot, 'data/latest.json');
-  const manifest = await readJson(dataRoot, 'data/runs/index.json');
+    const result = await runScrape({
+      runtimeEnv,
+      baseLogger: noopLogger,
+    });
+    const latest = await readJson(dataRoot, 'data/latest.json');
+    const manifest = await readJson(dataRoot, 'data/runs/index.json');
 
-  assert.equal(result.code, 0);
-  assert.equal(latest.summary.total_products, 0);
-  assert.deepEqual(latest.items, []);
-  assert.equal(manifest.runs[0].status, 'success');
+    assert.equal(result.status, 'success');
+    assert.equal(latest.summary.total_products, 0);
+    assert.deepEqual(latest.items, []);
+    assert.equal(manifest.runs[0].status, 'success');
+  });
 });
 
 test('same-day runs create unique run_ids and update manifest daily drilldown', async () => {
@@ -123,21 +113,29 @@ test('same-day runs create unique run_ids and update manifest daily drilldown', 
   `;
 
   await withFixtureServer(html, async (url) => {
-    await writeProducts(dataRoot, JSON.stringify([
-      {
-        id: 'produto-a',
-        name: 'Produto A',
-        url,
-        is_active: true,
-      },
-    ], null, 2));
+    await withDataRoot(dataRoot, async () => {
+      await writeProducts(dataRoot, JSON.stringify([
+        {
+          id: 'produto-a',
+          name: 'Produto A',
+          url,
+          is_active: true,
+        },
+      ], null, 2));
 
-    const first = await runScrapeProcess(dataRoot);
-    await new Promise((resolvePromise) => setTimeout(resolvePromise, 20));
-    const second = await runScrapeProcess(dataRoot);
+      const first = await runScrape({
+        runtimeEnv,
+        baseLogger: noopLogger,
+      });
+      await new Promise((resolvePromise) => setTimeout(resolvePromise, 20));
+      const second = await runScrape({
+        runtimeEnv,
+        baseLogger: noopLogger,
+      });
 
-    assert.equal(first.code, 0);
-    assert.equal(second.code, 0);
+      assert.equal(first.status, 'success');
+      assert.equal(second.status, 'success');
+    });
   });
 
   const manifest = await readJson(dataRoot, 'data/runs/index.json');
@@ -152,20 +150,8 @@ test('same-day runs create unique run_ids and update manifest daily drilldown', 
 
 test('amazon products can succeed via official PA-API fallback before browser engines', async () => {
   const dataRoot = await makeTempDataRoot();
-  const previousDataRoot = process.env.DATA_ROOT;
-  process.env.DATA_ROOT = dataRoot;
 
-  const noopLogger = {
-    child() { return this; },
-    product() {},
-    info() {},
-    warn() {},
-    error() {},
-    debug() {},
-    summary() {},
-  };
-
-  try {
+  await withDataRoot(dataRoot, async () => {
     await writeProducts(dataRoot, JSON.stringify([{
       id: 'echo-pop',
       name: 'Echo Pop',
@@ -214,28 +200,13 @@ test('amazon products can succeed via official PA-API fallback before browser en
     });
 
     assert.equal(result.success, true);
-  } finally {
-    if (previousDataRoot === undefined) {
-      delete process.env.DATA_ROOT;
-    } else {
-      process.env.DATA_ROOT = previousDataRoot;
-    }
-  }
+  });
 });
 
 test('failed scrape carries forward the last valid price into the current snapshot', async () => {
   const dataRoot = await makeTempDataRoot();
-  process.env.DATA_ROOT = dataRoot;
 
-  const noopLogger = {
-    info() {},
-    warn() {},
-    error() {},
-    debug() {},
-    summary() {},
-  };
-
-  try {
+  await withDataRoot(dataRoot, async () => {
     await writeProducts(dataRoot, JSON.stringify([
       {
         id: 'produto-a',
@@ -355,7 +326,5 @@ test('failed scrape carries forward the last valid price into the current snapsh
     assert.equal(latest.items[0].carried_forward_from.run_id, previousRunId);
     assert.equal(currentRun.results[0].status, 'carried_forward');
     assert.equal(currentRun.failures[0].error_code, 'captcha_or_block');
-  } finally {
-    delete process.env.DATA_ROOT;
-  }
+  });
 });
