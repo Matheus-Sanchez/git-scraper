@@ -1,0 +1,247 @@
+{
+  "run_id": "2026-03-23T10-16-27-339Z",
+  "run_date": "2026-03-23",
+  "generated_at": "2026-03-23T10:16:27.339Z",
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 6,
+      "success": 3,
+      "failed": 3,
+      "avg_time_ms": 595
+    },
+    "engine2_browser": {
+      "attempted": 3,
+      "success": 0,
+      "failed": 3,
+      "avg_time_ms": 2672
+    },
+    "engine3_hardmode": {
+      "attempted": 3,
+      "success": 0,
+      "failed": 3,
+      "avg_time_ms": 8331
+    }
+  },
+  "errors": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
+      "status": "failed",
+      "fetched_at": "2026-03-23T10:16:59.125Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 660,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5218,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+              "content_type": "text/html",
+              "html_size": 5218,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2670,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/echo-pop-5f33e662/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 7501,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/echo-pop-5f33e662/engine3_hardmode"
+        }
+      ],
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/echo-pop-5f33e662/engine3_hardmode"
+    },
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "status": "failed",
+      "fetched_at": "2026-03-23T10:16:59.126Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 649,
+          "error": "Unmatched selector: \"",
+          "error_code": "unexpected_error",
+          "error_detail": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": null,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": null,
+          "html_size": null,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Unmatched selector: \"",
+              "error_code": "unexpected_error",
+              "error_detail": "Unmatched selector: \"",
+              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1"
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2662,
+          "error": "Unmatched selector: \"",
+          "error_code": "unexpected_error",
+          "error_detail": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 7896,
+          "error": "Unmatched selector: \"",
+          "error_code": "unexpected_error",
+          "error_detail": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+        }
+      ],
+      "last_error": "Unmatched selector: \"",
+      "error_code": "unexpected_error",
+      "error_detail": "Unmatched selector: \"",
+      "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+    },
+    {
+      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
+      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+      "status": "failed",
+      "fetched_at": "2026-03-23T10:16:59.126Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 22,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5275,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+              "content_type": "text/html",
+              "html_size": 5275,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2684,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5711,
+          "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 9597,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5711,
+          "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+        }
+      ],
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-03-23T10-16-27-339Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+    }
+  ]
+}

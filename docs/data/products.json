@@ -1,8 +1,8 @@
 [
   {
     "id": "echo-pop-5f33e662",
-    "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
     "name": "Echo Pop",
+    "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
     "category": "casa inteligente",
     "units_per_package": 1,
     "is_active": true,
@@ -19,9 +19,28 @@
     }
   },
   {
+    "id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+    "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+    "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+    "category": "hardware",
+    "comparison_key": "monitor-25",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "\"a-offscreen\""
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "offers[0].price",
+        "price"
+      ]
+    }
+  },
+  {
     "id": "headset-hyperx-cloud-stinger-2",
-    "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
     "name": "Headset HyperX Cloud Stinger 2",
+    "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
     "category": "audio",
     "units_per_package": 1,
     "is_active": true,
@@ -40,8 +59,8 @@
   },
   {
     "id": "mouse-logitech-g203",
-    "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
     "name": "Mouse Logitech G203 Lightsync",
+    "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
     "category": "perifericos",
     "units_per_package": 1,
     "is_active": true,
@@ -60,8 +79,8 @@
   },
   {
     "id": "teclado-logitech-k835",
-    "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
     "name": "Teclado Logitech K835 TKL",
+    "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
     "category": "perifericos",
     "units_per_package": 1,
     "is_active": true,
@@ -80,8 +99,8 @@
   },
   {
     "id": "xiaomi-smart-band-9-active-v-b56deabe",
-    "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
     "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+    "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
     "category": "Hardware",
     "units_per_package": 1,
     "is_active": true,

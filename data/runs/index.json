@@ -1,7 +1,11 @@
 {
-  "updated_at": "2026-03-23T23:18:06.035Z",
+  "updated_at": "2026-03-24T00:15:42.074Z",
   "files": [
     "2026-03-23T23-18-03-148Z.json",
+    "2026-03-23T10-16-27-339Z.json",
+    "2026-03-22T09-49-40-639Z.json",
+    "2026-03-21T09-48-31-654Z.json",
+    "2026-03-20T10-00-05-389Z.json",
     "2026-03-19T10-03-33-062Z.json",
     "2026-03-18T10-13-44-783Z.json",
     "2026-03-17T10-10-53-252Z.json",
@@ -30,6 +34,46 @@
       "success_count": 5,
       "failure_count": 0,
       "status": "success"
+    },
+    {
+      "run_id": "2026-03-23T10-16-27-339Z",
+      "run_date": "2026-03-23",
+      "generated_at": "2026-03-23T10:16:27.339Z",
+      "run_file": "2026-03-23T10-16-27-339Z.json",
+      "error_file": "2026-03-23T10-16-27-339Z.json",
+      "success_count": 3,
+      "failure_count": 3,
+      "status": "partial"
+    },
+    {
+      "run_id": "2026-03-22T09-49-40-639Z",
+      "run_date": "2026-03-22",
+      "generated_at": "2026-03-22T09:49:40.639Z",
+      "run_file": "2026-03-22T09-49-40-639Z.json",
+      "error_file": "2026-03-22T09-49-40-639Z.json",
+      "success_count": 3,
+      "failure_count": 3,
+      "status": "partial"
+    },
+    {
+      "run_id": "2026-03-21T09-48-31-654Z",
+      "run_date": "2026-03-21",
+      "generated_at": "2026-03-21T09:48:31.654Z",
+      "run_file": "2026-03-21T09-48-31-654Z.json",
+      "error_file": "2026-03-21T09-48-31-654Z.json",
+      "success_count": 4,
+      "failure_count": 2,
+      "status": "partial"
+    },
+    {
+      "run_id": "2026-03-20T10-00-05-389Z",
+      "run_date": "2026-03-20",
+      "generated_at": "2026-03-20T10:00:05.389Z",
+      "run_file": "2026-03-20T10-00-05-389Z.json",
+      "error_file": "2026-03-20T10-00-05-389Z.json",
+      "success_count": 3,
+      "failure_count": 3,
+      "status": "partial"
     },
     {
       "run_id": "2026-03-19T10-03-33-062Z",
@@ -84,131 +128,156 @@
     {
       "run_id": "2026-03-14",
       "run_date": "2026-03-14",
-      "generated_at": null,
+      "generated_at": "2026-03-14T21:06:00.103Z",
       "run_file": "2026-03-14.json",
       "error_file": "2026-03-14.json",
-      "success_count": 0,
+      "success_count": 5,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-12",
       "run_date": "2026-03-12",
-      "generated_at": null,
+      "generated_at": "2026-03-12T14:25:17.462Z",
       "run_file": "2026-03-12.json",
       "error_file": "2026-03-12.json",
-      "success_count": 0,
+      "success_count": 5,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-11",
       "run_date": "2026-03-11",
-      "generated_at": null,
+      "generated_at": "2026-03-11T10:03:07.064Z",
       "run_file": "2026-03-11.json",
       "error_file": "2026-03-11.json",
-      "success_count": 0,
+      "success_count": 5,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-10",
       "run_date": "2026-03-10",
-      "generated_at": null,
+      "generated_at": "2026-03-10T10:02:23.721Z",
       "run_file": "2026-03-10.json",
       "error_file": "2026-03-10.json",
-      "success_count": 0,
+      "success_count": 5,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-09",
       "run_date": "2026-03-09",
-      "generated_at": null,
+      "generated_at": "2026-03-09T10:09:44.526Z",
       "run_file": "2026-03-09.json",
       "error_file": "2026-03-09.json",
-      "success_count": 0,
+      "success_count": 5,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-08",
       "run_date": "2026-03-08",
-      "generated_at": null,
+      "generated_at": "2026-03-08T09:46:44.435Z",
       "run_file": "2026-03-08.json",
       "error_file": "2026-03-08.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-07",
       "run_date": "2026-03-07",
-      "generated_at": null,
+      "generated_at": "2026-03-07T09:45:41.211Z",
       "run_file": "2026-03-07.json",
       "error_file": "2026-03-07.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-06",
       "run_date": "2026-03-06",
-      "generated_at": null,
+      "generated_at": "2026-03-06T09:57:45.784Z",
       "run_file": "2026-03-06.json",
       "error_file": "2026-03-06.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-05",
       "run_date": "2026-03-05",
-      "generated_at": null,
+      "generated_at": "2026-03-05T10:04:01.971Z",
       "run_file": "2026-03-05.json",
       "error_file": "2026-03-05.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-04",
       "run_date": "2026-03-04",
-      "generated_at": null,
+      "generated_at": "2026-03-04T09:59:39.352Z",
       "run_file": "2026-03-04.json",
       "error_file": "2026-03-04.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-03",
       "run_date": "2026-03-03",
-      "generated_at": null,
+      "generated_at": "2026-03-03T10:02:35.316Z",
       "run_file": "2026-03-03.json",
       "error_file": "2026-03-03.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     },
     {
       "run_id": "2026-03-02",
       "run_date": "2026-03-02",
-      "generated_at": null,
+      "generated_at": "2026-03-02T10:08:47.061Z",
       "run_file": "2026-03-02.json",
       "error_file": "2026-03-02.json",
-      "success_count": 0,
+      "success_count": 4,
       "failure_count": 0,
-      "status": "unknown"
+      "status": "success"
     }
   ],
   "daily": [
     {
       "run_date": "2026-03-23",
       "run_ids": [
-        "2026-03-23T23-18-03-148Z"
+        "2026-03-23T23-18-03-148Z",
+        "2026-03-23T10-16-27-339Z"
       ],
       "latest_run_id": "2026-03-23T23-18-03-148Z",
+      "total_runs": 2
+    },
+    {
+      "run_date": "2026-03-22",
+      "run_ids": [
+        "2026-03-22T09-49-40-639Z"
+      ],
+      "latest_run_id": "2026-03-22T09-49-40-639Z",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-21",
+      "run_ids": [
+        "2026-03-21T09-48-31-654Z"
+      ],
+      "latest_run_id": "2026-03-21T09-48-31-654Z",
+      "total_runs": 1
+    },
+    {
+      "run_date": "2026-03-20",
+      "run_ids": [
+        "2026-03-20T10-00-05-389Z"
+      ],
+      "latest_run_id": "2026-03-20T10-00-05-389Z",
       "total_runs": 1
     },
     {
