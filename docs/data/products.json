@@ -78,6 +78,25 @@
     "notes": "Link atualizado para produto ativo, evitando item com URL quebrada."
   },
   {
+    "id": "notebook-acer-aspire-go-15-f27ed9a1",
+    "name": "Notebook Acer Aspire GO 15",
+    "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
+    "category": "hardware",
+    "comparison_key": "notebook-acer",
+    "units_per_package": 1,
+    "is_active": true,
+    "selectors": {
+      "price_css": [
+        "h4 class=\"text-4xl text-secondary-500 font-bold transition-all duration-500\""
+      ],
+      "jsonld_paths": [
+        "offers.price",
+        "offers[0].price",
+        "price"
+      ]
+    }
+  },
+  {
     "id": "teclado-logitech-k835",
     "name": "Teclado Logitech K835 TKL",
     "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
