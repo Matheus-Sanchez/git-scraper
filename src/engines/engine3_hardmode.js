@@ -61,12 +61,12 @@ function classifyAdapterFailure(adapter, context, fallbackFailure) {
   });
 }
 
-async function stealthScroll(page) {
-  const steps = randomBetween(5, 10);
+async function stealthScrollWithControls(page, { sleepFn, randomBetweenFn }) {
+  const steps = randomBetweenFn(5, 10);
   for (let i = 0; i < steps; i += 1) {
-    const delta = randomBetween(350, 900);
+    const delta = randomBetweenFn(350, 900);
     await page.mouse.wheel(0, delta);
-    await sleep(randomBetween(130, 420));
+    await sleepFn(randomBetweenFn(130, 420));
   }
 }
 
@@ -200,7 +200,13 @@ async function buildFailureArtifacts({
   };
 }
 
-export async function runEngine3(products, { env, logger, runId }) {
+export async function runEngine3(products, {
+  env,
+  logger,
+  runId,
+  sleepFn = sleep,
+  randomBetweenFn = randomBetween,
+} = {}) {
   if (products.length === 0) return [];
 
   const log = logger.child(ENGINE_NAME);
@@ -274,13 +280,16 @@ export async function runEngine3(products, { env, logger, runId }) {
           content_type: response?.headers?.()['content-type'] || undefined,
         };
 
-        await sleep(randomBetween(800, 1800));
+        await sleepFn(randomBetweenFn(800, 1800));
 
         if (waitOptions.scroll) {
-          await stealthScroll(page);
+          await stealthScrollWithControls(page, {
+            sleepFn,
+            randomBetweenFn,
+          });
         }
 
-        await sleep((waitOptions.postWaitMs || 2500) + randomBetween(800, 1900));
+        await sleepFn((waitOptions.postWaitMs || 2500) + randomBetweenFn(800, 1900));
 
         html = await page.content();
         responseMetadata = {

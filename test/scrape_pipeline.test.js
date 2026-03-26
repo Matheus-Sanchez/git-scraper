@@ -67,6 +67,8 @@ test('fatal scrape path persists fatal error payload and rejects', async () => {
     assert.equal(fatalRun.status, 'fatal');
     assert.equal(fatalError.fatal, true);
     assert.equal(fatalError.phase, 'read_products');
+    assert.equal(fatalError.engine, 'pipeline');
+    assert.match(fatalError.error_detail, /(unexpected token|expected property name)/i);
   });
 });
 
@@ -325,6 +327,8 @@ test('failed scrape carries forward the last valid price into the current snapsh
     assert.equal(latest.items[0].engine_used, 'carry_forward');
     assert.equal(latest.items[0].carried_forward_from.run_id, previousRunId);
     assert.equal(currentRun.results[0].status, 'carried_forward');
+    assert.equal(currentRun.failures[0].engine, 'engine1_http');
     assert.equal(currentRun.failures[0].error_code, 'captcha_or_block');
+    assert.equal(currentRun.failures[0].artifact_dir, null);
   });
 });

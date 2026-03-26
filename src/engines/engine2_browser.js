@@ -69,7 +69,12 @@ async function maybeScroll(page) {
   });
 }
 
-export async function runEngine2(products, { env, logger, runId }) {
+export async function runEngine2(products, {
+  env,
+  logger,
+  runId,
+  sleepFn = sleep,
+} = {}) {
   if (products.length === 0) return [];
 
   const log = logger.child(ENGINE_NAME);
@@ -133,7 +138,7 @@ export async function runEngine2(products, { env, logger, runId }) {
           await maybeScroll(page);
         }
 
-        await sleep(waitOptions.postWaitMs || 1200);
+        await sleepFn(waitOptions.postWaitMs || 1200);
 
         html = await page.content();
         responseMetadata = {
