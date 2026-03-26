@@ -123,6 +123,7 @@ export function isRetryableFailure(failure) {
 
 export function buildFatalFailure({ phase, errorCode = 'unexpected_error', message, metadata = {} }) {
   return withMetadata(errorCode, compactErrorDetail(message), {
+    engine: 'pipeline',
     phase,
     ...metadata,
   });

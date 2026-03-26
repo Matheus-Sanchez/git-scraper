@@ -13,10 +13,13 @@
     "lint": "eslint --max-warnings=0 .github/scripts src test test_support scripts eslint.config.js",
     "validate:catalog": "node scripts/validate_catalog.mjs",
     "test": "node --test --experimental-test-isolation=none",
-    "test:unit": "node --test --experimental-test-isolation=none test/amazon_paapi.test.js test/catalog_schema.test.js test/failure_classification.test.js test/heuristics.test.js test/issue_ingest_parser.test.js test/pool.test.js test/price_parse.test.js",
+    "test:unit": "node --test --experimental-test-isolation=none test/amazon_paapi.test.js test/catalog_schema.test.js test/failure_classification.test.js test/heuristics.test.js test/issue_ingest_parser.test.js test/pool.test.js test/price_parse.test.js test/smoke_real.test.js",
     "test:fixtures": "node --test --experimental-test-isolation=none test/extract_price.test.js test/site_regression.test.js",
-    "test:integration": "node --test --experimental-test-isolation=none test/scrape_pipeline.test.js test/storage_manifest.test.js",
-    "test:ci": "npm run lint && npm run validate:catalog && npm run test:unit && npm run test:fixtures && npm run test:integration"
+    "test:integration": "node --test --experimental-test-isolation=none test/browser_engines.test.js test/scrape_pipeline.test.js test/storage_manifest.test.js",
+    "test:coverage:critical": "node src/qa/coverage_gate.js",
+    "test:precommit": "npm run test:ci",
+    "smoke:real": "node src/smoke/run_real.js",
+    "test:ci": "npm run lint && npm run validate:catalog && npm run test:unit && npm run test:fixtures && npm run test:integration && npm run test:coverage:critical"
   },
   "dependencies": {
     "axios": "^1.8.4",

@@ -27,6 +27,7 @@ function summarizeEngineAttempts(allAttempts, engineName) {
 
 function toFailureEntry(trail) {
   const lastErrorAttempt = [...trail.attempts].reverse().find((item) => !item.ok);
+  const lastAttempt = trail.attempts[trail.attempts.length - 1];
 
   return {
     product_id: trail.product.id,
@@ -51,6 +52,7 @@ function toFailureEntry(trail) {
       artifact_dir: item.artifact_dir || null,
       retry_attempts: Array.isArray(item.retry_attempts) ? item.retry_attempts : undefined,
     })),
+    engine: lastErrorAttempt?.engine || lastAttempt?.engine || null,
     last_error: lastErrorAttempt?.error || 'unknown',
     error_code: lastErrorAttempt?.error_code || 'unexpected_error',
     error_detail: lastErrorAttempt?.error_detail || lastErrorAttempt?.error || 'unknown',
@@ -123,7 +125,9 @@ function buildErrorPayload({ runId, runDate, generatedAt, engineSummary, errors,
     ...(fatal ? {
       fatal: true,
       phase: fatal.phase,
+      engine: fatal.engine || null,
       error_code: fatal.error_code,
+      error_detail: fatal.error_detail || fatal.error || fatal.message || null,
       message: fatal.error_detail || fatal.error,
     } : {}),
   };
