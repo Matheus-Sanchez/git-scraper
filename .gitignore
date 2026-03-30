@@ -1,5 +1,7 @@
 node_modules/
 .env
+.github
+.vscode
 .cache/
 playwright/.cache/
 logs/
