@@ -157,6 +157,14 @@ Workflow: `.github/workflows/ingest_issue.yml`
 
 Processa Issues para `add`, `edit`, `remove` e `batch`, valida o payload e atualiza o catalogo espelhado.
 
+Executa automaticamente em `opened`, `edited`, `labeled` e `reopened`, e tambem aceita `workflow_dispatch` para replay manual do backlog.
+
+Replay manual:
+
+- abra `Actions > Ingest Add-Product Issue > Run workflow`
+- opcionalmente informe `issue_numbers` como lista separada por virgula
+- se `issue_numbers` ficar vazio, o workflow processa todas as Issues abertas com label `add-product` ou `manage-product`, ou titulo iniciado por `[ADD PRODUCT]` / `[MANAGE PRODUCT]`
+
 ## Como rodar localmente
 
 ### Requisitos
@@ -167,6 +175,7 @@ Processa Issues para `add`, `edit`, `remove` e `batch`, valida o payload e atual
 ### Windows PowerShell
 
 ```powershell
+Copy-Item .env.example .env
 npm.cmd ci
 npx.cmd playwright install chromium
 npm.cmd run test:ci
@@ -178,6 +187,7 @@ npx.cmd http-server -p 5500 .
 ### macOS/Linux
 
 ```bash
+cp .env.example .env
 npm ci
 npx playwright install chromium
 npm run test:ci
@@ -192,6 +202,8 @@ Endpoints locais:
 - Gestao: `http://localhost:5500/docs/manage.html`
 
 ## Variaveis de ambiente
+
+Copie `.env.example` para `.env` e preencha apenas as credenciais que voce realmente usa.
 
 - `DEBUG`
 - `HTTP_TIMEOUT_MS`

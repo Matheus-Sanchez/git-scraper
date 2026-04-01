@@ -1,0 +1,110 @@
+name: Gerenciar Produto
+labels: [manage-product]
+description: Adicionar, editar ou remover produtos de data/products.json.
+title: "[MANAGE PRODUCT] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Escolha a acao. O bot valida e aplica a alteracao no arquivo `data/products.json`.
+  - type: dropdown
+    id: action
+    attributes:
+      label: Acao
+      options:
+        - add
+        - edit
+        - remove
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: product_id
+    attributes:
+      label: ID do produto
+      description: Obrigatorio para edit/remove. Em add pode ficar vazio.
+      placeholder: ssd-1tb-kabum
+  - type: input
+    id: name
+    attributes:
+      label: Nome do produto
+      description: Obrigatorio em add. Opcional em edit.
+      placeholder: SSD Kingston NV2 1TB
+  - type: input
+    id: url
+    attributes:
+      label: URL do produto
+      description: Obrigatorio em add. Em edit use para trocar URL.
+      placeholder: https://loja.exemplo.com/produto/abc
+  - type: input
+    id: category
+    attributes:
+      label: Categoria
+      description: Opcional.
+      placeholder: hardware
+  - type: input
+    id: comparison_key
+    attributes:
+      label: Grupo de comparacao
+      description: Opcional. Use o mesmo valor para comparar o mesmo produto em lojas diferentes.
+      placeholder: mouse-g203
+  - type: input
+    id: units_per_package
+    attributes:
+      label: Unidades por pacote
+      description: Opcional.
+      placeholder: "1"
+  - type: dropdown
+    id: is_active
+    attributes:
+      label: Ativo para scraping?
+      options:
+        - true
+        - false
+      default: 0
+  - type: textarea
+    id: selectors_price_css
+    attributes:
+      label: Seletores CSS (um por linha)
+      description: Opcional.
+  - type: textarea
+    id: selectors_jsonld_paths
+    attributes:
+      label: JSON-LD paths (um por linha)
+      description: Opcional.
+  - type: textarea
+    id: selectors_regex_hints
+    attributes:
+      label: Regex hints (um por linha)
+      description: Opcional.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Observacoes
+      description: Opcional.
+  - type: textarea
+    id: action_json
+    attributes:
+      label: JSON da acao (opcional)
+      description: Se informado, tem prioridade sobre os campos acima.
+      render: json
+      placeholder: |
+        {
+          "action": "batch",
+          "operations": [
+            {
+              "action": "add",
+              "name": "Mouse G203",
+              "url": "https://loja-a.com/mouse",
+              "category": "perifericos",
+              "comparison_key": "mouse-g203"
+            },
+            {
+              "action": "add",
+              "name": "Mouse G203",
+              "url": "https://loja-b.com/mouse",
+              "category": "perifericos",
+              "comparison_key": "mouse-g203"
+            }
+          ]
+        }
