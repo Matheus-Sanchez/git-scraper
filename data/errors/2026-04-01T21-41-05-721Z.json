@@ -1,119 +1,28 @@
 {
   "run_id": "2026-04-01T21-41-05-721Z",
+  "run_date": "2026-04-01",
   "generated_at": "2026-04-01T21:41:05.721Z",
-  "currency": "BRL",
-  "summary": {
-    "total_products": 7,
-    "success_count": 3,
-    "failure_count": 4,
-    "run_duration_ms": 39575,
-    "engines": {
-      "engine1_http": {
-        "attempted": 7,
-        "success": 3,
-        "failed": 4,
-        "avg_time_ms": 340
-      },
-      "engine2_browser": {
-        "attempted": 4,
-        "success": 0,
-        "failed": 4,
-        "avg_time_ms": 2951
-      },
-      "engine3_hardmode": {
-        "attempted": 4,
-        "success": 0,
-        "failed": 4,
-        "avg_time_ms": 8036
-      }
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 3,
+      "failed": 4,
+      "avg_time_ms": 340
+    },
+    "engine2_browser": {
+      "attempted": 4,
+      "success": 0,
+      "failed": 4,
+      "avg_time_ms": 2951
+    },
+    "engine3_hardmode": {
+      "attempted": 4,
+      "success": 0,
+      "failed": 4,
+      "avg_time_ms": 8036
     }
   },
-  "items": [
-    {
-      "product_id": "echo-pop-5f33e662",
-      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
-      "name": "Echo Pop",
-      "price": 379,
-      "currency": "BRL",
-      "unit_price": 379,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-04-01T21:41:45.278Z",
-      "source": "adapter",
-      "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-03-23T23-18-03-148Z",
-        "run_date": "2026-03-23",
-        "fetched_at": "2026-03-23T23:18:04.904Z",
-        "engine_used": "engine1_http",
-        "source": "adapter",
-        "status": "ok"
-      }
-    },
-    {
-      "product_id": "headset-hyperx-cloud-stinger-2",
-      "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
-      "name": "Headset HyperX Cloud Stinger 2",
-      "price": 279.99,
-      "currency": "BRL",
-      "unit_price": 279.99,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-01T21:41:06.322Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "mouse-logitech-g203",
-      "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
-      "name": "Mouse Logitech G203 Lightsync",
-      "price": 170.91,
-      "currency": "BRL",
-      "unit_price": 170.91,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-01T21:41:06.432Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "teclado-logitech-k835",
-      "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
-      "name": "Teclado Logitech K835 TKL",
-      "price": 236.55,
-      "currency": "BRL",
-      "unit_price": 236.55,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-01T21:41:06.347Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
-      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-      "price": 214,
-      "currency": "BRL",
-      "unit_price": 214,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-04-01T21:41:45.278Z",
-      "source": "adapter",
-      "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-03-23T23-18-03-148Z",
-        "run_date": "2026-03-23",
-        "fetched_at": "2026-03-23T23:18:05.997Z",
-        "engine_used": "engine1_http",
-        "source": "adapter",
-        "status": "ok"
-      }
-    }
-  ],
-  "failures": [
+  "errors": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -408,6 +317,5 @@
       "error_detail": "Amazon anti-bot or captcha page detected",
       "artifact_dir": ".cache/debug/2026-04-01T21-41-05-721Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
-  ],
-  "run_file": "2026-04-01T21-41-05-721Z.json"
+  ]
 }
