@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-02T10-11-40-413Z",
-  "generated_at": "2026-04-02T10:11:40.413Z",
+  "run_id": "2026-04-03T10-03-19-706Z",
+  "generated_at": "2026-04-03T10:03:19.706Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
-    "success_count": 4,
-    "failure_count": 3,
-    "run_duration_ms": 34724,
+    "success_count": 3,
+    "failure_count": 4,
+    "run_duration_ms": 43040,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 4,
-        "failed": 3,
-        "avg_time_ms": 669
+        "success": 3,
+        "failed": 4,
+        "avg_time_ms": 765
       },
       "engine2_browser": {
-        "attempted": 3,
+        "attempted": 4,
         "success": 0,
-        "failed": 3,
-        "avg_time_ms": 3039
+        "failed": 4,
+        "avg_time_ms": 3116
       },
       "engine3_hardmode": {
-        "attempted": 3,
+        "attempted": 4,
         "success": 0,
-        "failed": 3,
-        "avg_time_ms": 9038
+        "failed": 4,
+        "avg_time_ms": 9036
       }
     }
   },
@@ -36,11 +36,20 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-02T10:11:41.866Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-04-03T10:04:02.737Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "carried_forward",
+      "carried_forward_reason": "captcha_or_block",
+      "carried_forward_from": {
+        "run_id": "2026-04-02T10-11-40-413Z",
+        "run_date": "2026-04-02",
+        "fetched_at": "2026-04-02T10:11:41.866Z",
+        "engine_used": "engine1_http",
+        "source": "adapter",
+        "status": "ok"
+      }
     },
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
@@ -50,7 +59,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-02T10:11:41.349Z",
+      "fetched_at": "2026-04-03T10:03:20.893Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -59,11 +68,11 @@
       "product_id": "mouse-logitech-g203",
       "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
       "name": "Mouse Logitech G203 Lightsync",
-      "price": 170.91,
+      "price": 174.66,
       "currency": "BRL",
-      "unit_price": 170.91,
+      "unit_price": 174.66,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-02T10:11:41.420Z",
+      "fetched_at": "2026-04-03T10:03:21.073Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +85,7 @@
       "currency": "BRL",
       "unit_price": 236.55,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-02T10:11:41.604Z",
+      "fetched_at": "2026-04-03T10:03:21.258Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -89,15 +98,15 @@
       "currency": "BRL",
       "unit_price": 214,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-04-02T10:12:15.128Z",
+      "fetched_at": "2026-04-03T10:04:02.738Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-04-01T21-41-05-721Z",
-        "run_date": "2026-04-01",
-        "fetched_at": "2026-04-01T21:41:45.278Z",
+        "run_id": "2026-04-02T10-11-40-413Z",
+        "run_date": "2026-04-02",
+        "fetched_at": "2026-04-02T10:12:15.128Z",
         "engine_used": "carry_forward",
         "source": "adapter",
         "status": "carried_forward"
@@ -106,16 +115,92 @@
   ],
   "failures": [
     {
-      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-04-02T10:12:15.128Z",
+      "fetched_at": "2026-04-03T10:04:02.737Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 687,
+          "elapsed_ms": 678,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5218,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+              "content_type": "text/html",
+              "html_size": 5218,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2672,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/echo-pop-5f33e662/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 8371,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/echo-pop-5f33e662/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/echo-pop-5f33e662/engine3_hardmode"
+    },
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "status": "failed",
+      "fetched_at": "2026-04-03T10:04:02.738Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 659,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -140,7 +225,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2564,
+          "elapsed_ms": 2674,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -151,12 +236,12 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9184,
+          "elapsed_ms": 8297,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -167,26 +252,26 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Unmatched selector: \"",
       "error_code": "unexpected_error",
       "error_detail": "Unmatched selector: \"",
-      "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     },
     {
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
       "status": "failed",
-      "fetched_at": "2026-04-02T10:12:15.128Z",
+      "fetched_at": "2026-04-03T10:04:02.738Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 351,
+          "elapsed_ms": 596,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -211,7 +296,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 3979,
+          "elapsed_ms": 4478,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -221,13 +306,13 @@
           "http_status": 200,
           "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
           "content_type": "text/html; charset=utf-8",
-          "html_size": 426729,
-          "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
+          "html_size": 494387,
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9770,
+          "elapsed_ms": 9619,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -237,27 +322,27 @@
           "http_status": 200,
           "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
           "content_type": "text/html; charset=utf-8",
-          "html_size": 477849,
-          "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+          "html_size": 476810,
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
       "error_code": "unexpected_error",
       "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-      "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
     },
     {
       "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
       "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
       "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
       "status": "failed",
-      "fetched_at": "2026-04-02T10:12:15.128Z",
+      "fetched_at": "2026-04-03T10:04:02.738Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 54,
+          "elapsed_ms": 51,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -287,7 +372,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2575,
+          "elapsed_ms": 2639,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -298,12 +383,12 @@
           "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
           "content_type": "text/html",
           "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 8160,
+          "elapsed_ms": 9857,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -314,15 +399,15 @@
           "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
           "content_type": "text/html",
           "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-04-02T10-11-40-413Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-03T10-03-19-706Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
   ],
-  "run_file": "2026-04-02T10-11-40-413Z.json"
+  "run_file": "2026-04-03T10-03-19-706Z.json"
 }
