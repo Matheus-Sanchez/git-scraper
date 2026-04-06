@@ -1,101 +1,28 @@
 {
   "run_id": "2026-04-06T10-20-23-344Z",
+  "run_date": "2026-04-06",
   "generated_at": "2026-04-06T10:20:23.344Z",
-  "currency": "BRL",
-  "summary": {
-    "total_products": 7,
-    "success_count": 5,
-    "failure_count": 2,
-    "run_duration_ms": 45003,
-    "engines": {
-      "engine1_http": {
-        "attempted": 7,
-        "success": 3,
-        "failed": 4,
-        "avg_time_ms": 417
-      },
-      "engine2_browser": {
-        "attempted": 4,
-        "success": 0,
-        "failed": 4,
-        "avg_time_ms": 3859
-      },
-      "engine3_hardmode": {
-        "attempted": 4,
-        "success": 2,
-        "failed": 2,
-        "avg_time_ms": 9465
-      }
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 3,
+      "failed": 4,
+      "avg_time_ms": 417
+    },
+    "engine2_browser": {
+      "attempted": 4,
+      "success": 0,
+      "failed": 4,
+      "avg_time_ms": 3859
+    },
+    "engine3_hardmode": {
+      "attempted": 4,
+      "success": 2,
+      "failed": 2,
+      "avg_time_ms": 9465
     }
   },
-  "items": [
-    {
-      "product_id": "echo-pop-5f33e662",
-      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
-      "name": "Echo Pop",
-      "price": 379,
-      "currency": "BRL",
-      "unit_price": 379,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-06T10:20:39.466Z",
-      "source": "adapter",
-      "confidence": 0.85,
-      "status": "ok"
-    },
-    {
-      "product_id": "headset-hyperx-cloud-stinger-2",
-      "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
-      "name": "Headset HyperX Cloud Stinger 2",
-      "price": 279.99,
-      "currency": "BRL",
-      "unit_price": 279.99,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-06T10:20:23.974Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "mouse-logitech-g203",
-      "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
-      "name": "Mouse Logitech G203 Lightsync",
-      "price": 174.66,
-      "currency": "BRL",
-      "unit_price": 174.66,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-06T10:20:24.148Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "teclado-logitech-k835",
-      "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
-      "name": "Teclado Logitech K835 TKL",
-      "price": 236.55,
-      "currency": "BRL",
-      "unit_price": 236.55,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-06T10:20:24.195Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
-      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-      "price": 207,
-      "currency": "BRL",
-      "unit_price": 207,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-06T10:21:08.242Z",
-      "source": "adapter",
-      "confidence": 0.85,
-      "status": "ok"
-    }
-  ],
-  "failures": [
+  "errors": [
     {
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
@@ -238,6 +165,5 @@
       "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
       "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
     }
-  ],
-  "run_file": "2026-04-06T10-20-23-344Z.json"
+  ]
 }

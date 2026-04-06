@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-05T09-56-20-164Z",
-  "generated_at": "2026-04-05T09:56:20.164Z",
+  "run_id": "2026-04-06T10-20-23-344Z",
+  "generated_at": "2026-04-06T10:20:23.344Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 5,
     "failure_count": 2,
-    "run_duration_ms": 29055,
+    "run_duration_ms": 45003,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 3,
         "failed": 4,
-        "avg_time_ms": 471
+        "avg_time_ms": 417
       },
       "engine2_browser": {
         "attempted": 4,
-        "success": 2,
-        "failed": 2,
-        "avg_time_ms": 5430
+        "success": 0,
+        "failed": 4,
+        "avg_time_ms": 3859
       },
       "engine3_hardmode": {
-        "attempted": 2,
-        "success": 0,
+        "attempted": 4,
+        "success": 2,
         "failed": 2,
-        "avg_time_ms": 9302
+        "avg_time_ms": 9465
       }
     }
   },
@@ -36,8 +36,8 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-05T09:56:28.307Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-04-06T10:20:39.466Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -50,7 +50,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-05T09:56:20.894Z",
+      "fetched_at": "2026-04-06T10:20:23.974Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -63,7 +63,7 @@
       "currency": "BRL",
       "unit_price": 174.66,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-05T09:56:20.926Z",
+      "fetched_at": "2026-04-06T10:20:24.148Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +76,7 @@
       "currency": "BRL",
       "unit_price": 236.55,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-05T09:56:21.098Z",
+      "fetched_at": "2026-04-06T10:20:24.195Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -88,8 +88,8 @@
       "price": 207,
       "currency": "BRL",
       "unit_price": 207,
-      "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-05T09:56:27.944Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-04-06T10:21:08.242Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -101,12 +101,12 @@
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
       "status": "failed",
-      "fetched_at": "2026-04-05T09:56:49.210Z",
+      "fetched_at": "2026-04-06T10:21:08.338Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 521,
+          "elapsed_ms": 440,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -131,23 +131,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2556,
-          "error": "Unmatched selector: \"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: \"",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-04-05T09-56-20-164Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
-        },
-        {
-          "engine": "engine3_hardmode",
-          "ok": false,
-          "elapsed_ms": 10857,
+          "elapsed_ms": 4742,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -157,27 +141,43 @@
           "http_status": 200,
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html;charset=UTF-8",
-          "html_size": 872130,
-          "artifact_dir": ".cache/debug/2026-04-05T09-56-20-164Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+          "html_size": 986478,
+          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 11744,
+          "error": "Unmatched selector: \"",
+          "error_code": "unexpected_error",
+          "error_detail": "Unmatched selector: \"",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html;charset=UTF-8",
+          "html_size": 1391823,
+          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Unmatched selector: \"",
       "error_code": "unexpected_error",
       "error_detail": "Unmatched selector: \"",
-      "artifact_dir": ".cache/debug/2026-04-05T09-56-20-164Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     },
     {
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
       "status": "failed",
-      "fetched_at": "2026-04-05T09:56:49.211Z",
+      "fetched_at": "2026-04-06T10:21:08.338Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 365,
+          "elapsed_ms": 209,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -202,7 +202,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 7600,
+          "elapsed_ms": 5377,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -212,13 +212,13 @@
           "http_status": 200,
           "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
           "content_type": "text/html; charset=utf-8",
-          "html_size": 498750,
-          "artifact_dir": ".cache/debug/2026-04-05T09-56-20-164Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
+          "html_size": 492049,
+          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 7746,
+          "elapsed_ms": 6906,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -228,16 +228,16 @@
           "http_status": 200,
           "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
           "content_type": "text/html; charset=utf-8",
-          "html_size": 480285,
-          "artifact_dir": ".cache/debug/2026-04-05T09-56-20-164Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+          "html_size": 472732,
+          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
       "error_code": "unexpected_error",
       "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-      "artifact_dir": ".cache/debug/2026-04-05T09-56-20-164Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
     }
   ],
-  "run_file": "2026-04-05T09-56-20-164Z.json"
+  "run_file": "2026-04-06T10-20-23-344Z.json"
 }
