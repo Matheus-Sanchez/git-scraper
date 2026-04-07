@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-06T10-20-23-344Z",
-  "generated_at": "2026-04-06T10:20:23.344Z",
+  "run_id": "2026-04-07T10-17-24-560Z",
+  "generated_at": "2026-04-07T10:17:24.560Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
-    "success_count": 5,
-    "failure_count": 2,
-    "run_duration_ms": 45003,
+    "success_count": 4,
+    "failure_count": 3,
+    "run_duration_ms": 34070,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 3,
-        "failed": 4,
-        "avg_time_ms": 417
+        "success": 4,
+        "failed": 3,
+        "avg_time_ms": 934
       },
       "engine2_browser": {
-        "attempted": 4,
+        "attempted": 3,
         "success": 0,
-        "failed": 4,
-        "avg_time_ms": 3859
+        "failed": 3,
+        "avg_time_ms": 3146
       },
       "engine3_hardmode": {
-        "attempted": 4,
-        "success": 2,
-        "failed": 2,
-        "avg_time_ms": 9465
+        "attempted": 3,
+        "success": 0,
+        "failed": 3,
+        "avg_time_ms": 8769
       }
     }
   },
@@ -36,8 +36,8 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-06T10:20:39.466Z",
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-04-07T10:17:25.984Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -50,7 +50,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-06T10:20:23.974Z",
+      "fetched_at": "2026-04-07T10:17:25.688Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -63,7 +63,7 @@
       "currency": "BRL",
       "unit_price": 174.66,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-06T10:20:24.148Z",
+      "fetched_at": "2026-04-07T10:17:25.723Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +76,7 @@
       "currency": "BRL",
       "unit_price": 236.55,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-06T10:20:24.195Z",
+      "fetched_at": "2026-04-07T10:17:26.525Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -88,11 +88,20 @@
       "price": 207,
       "currency": "BRL",
       "unit_price": 207,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-06T10:21:08.242Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-04-07T10:17:58.622Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "carried_forward",
+      "carried_forward_reason": "captcha_or_block",
+      "carried_forward_from": {
+        "run_id": "2026-04-06T10-20-23-344Z",
+        "run_date": "2026-04-06",
+        "fetched_at": "2026-04-06T10:21:08.242Z",
+        "engine_used": "engine3_hardmode",
+        "source": "adapter",
+        "status": "ok"
+      }
     }
   ],
   "failures": [
@@ -101,12 +110,12 @@
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
       "status": "failed",
-      "fetched_at": "2026-04-06T10:21:08.338Z",
+      "fetched_at": "2026-04-07T10:17:58.622Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 440,
+          "elapsed_ms": 1524,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -131,7 +140,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 4742,
+          "elapsed_ms": 2580,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -140,14 +149,14 @@
           "price": null,
           "http_status": 200,
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html;charset=UTF-8",
-          "html_size": 986478,
-          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 11744,
+          "elapsed_ms": 8737,
           "error": "Unmatched selector: \"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: \"",
@@ -156,28 +165,28 @@
           "price": null,
           "http_status": 200,
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html;charset=UTF-8",
-          "html_size": 1391823,
-          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Unmatched selector: \"",
       "error_code": "unexpected_error",
       "error_detail": "Unmatched selector: \"",
-      "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     },
     {
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
       "status": "failed",
-      "fetched_at": "2026-04-06T10:21:08.338Z",
+      "fetched_at": "2026-04-07T10:17:58.622Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 209,
+          "elapsed_ms": 436,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -202,7 +211,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 5377,
+          "elapsed_ms": 4273,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -212,13 +221,13 @@
           "http_status": 200,
           "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
           "content_type": "text/html; charset=utf-8",
-          "html_size": 492049,
-          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
+          "html_size": 485935,
+          "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 6906,
+          "elapsed_ms": 8677,
           "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
           "error_code": "unexpected_error",
           "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
@@ -228,16 +237,92 @@
           "http_status": 200,
           "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
           "content_type": "text/html; charset=utf-8",
-          "html_size": 472732,
-          "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+          "html_size": 475153,
+          "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
       "error_code": "unexpected_error",
       "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-      "artifact_dir": ".cache/debug/2026-04-06T10-20-23-344Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+    },
+    {
+      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
+      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+      "status": "failed",
+      "fetched_at": "2026-04-07T10:17:58.622Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 121,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5275,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+              "content_type": "text/html",
+              "html_size": 5275,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2584,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5711,
+          "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 8894,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5711,
+          "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-07T10-17-24-560Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
   ],
-  "run_file": "2026-04-06T10-20-23-344Z.json"
+  "run_file": "2026-04-07T10-17-24-560Z.json"
 }
