@@ -665,6 +665,7 @@ function renderPieChart() {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: 'right',
@@ -1979,7 +1980,7 @@ function createEmptyAddDraft(seed = {}) {
 }
 
 function syncAddDraftsFromDom() {
-  const cards = [...els.addItems.querySelectorAll('[data-draft-id]')];
+  const cards = [...els.addItems.querySelectorAll('.batch-item-card[data-draft-id]')];
   if (cards.length === 0) return;
 
   state.addDrafts = cards.map((card) => ({
@@ -2013,7 +2014,7 @@ function renderAddDrafts() {
           type="button"
           class="btn btn-ghost"
           data-action="remove-draft"
-          data-draft-id="${escapeHtml(draft.draftId)}"
+          data-remove-draft-id="${escapeHtml(draft.draftId)}"
           ${state.addDrafts.length === 1 ? 'disabled' : ''}
         >Remover</button>
       </div>
@@ -2413,11 +2414,11 @@ els.addItemButton.addEventListener('click', () => {
 });
 
 els.addItems.addEventListener('click', (event) => {
-  const button = event.target.closest('button[data-action="remove-draft"][data-draft-id]');
+  const button = event.target.closest('button[data-action="remove-draft"][data-remove-draft-id]');
   if (!button) return;
 
   syncAddDraftsFromDom();
-  state.addDrafts = state.addDrafts.filter((draft) => draft.draftId !== button.dataset.draftId);
+  state.addDrafts = state.addDrafts.filter((draft) => draft.draftId !== button.dataset.removeDraftId);
   renderAddDrafts();
 });
 

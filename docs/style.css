@@ -200,6 +200,8 @@ h1 {
 
 .card-mix {
   grid-area: mix;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-summary-panel {
@@ -583,6 +585,20 @@ canvas {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: linear-gradient(180deg, #fffefb 0%, #ffffff 100%);
+}
+
+.chart-shell {
+  position: relative;
+  width: 100%;
+}
+
+.chart-shell-pie {
+  flex: 1 1 auto;
+  min-height: clamp(320px, 34vw, 520px);
+}
+
+.chart-shell-pie canvas {
+  height: 100% !important;
 }
 
 #category-pie-chart {
@@ -1245,5 +1261,9 @@ textarea {
 
   .history-toolbar-footer .toolbar-insights {
     justify-content: flex-start;
+  }
+
+  .chart-shell-pie {
+    min-height: 260px;
   }
 }
