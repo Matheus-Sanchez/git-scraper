@@ -1,5 +1,6 @@
 {
   "run_id": "2026-04-08T10-17-56-373Z",
+  "run_date": "2026-04-08",
   "generated_at": "2026-04-08T10:17:56.373Z",
   "currency": "BRL",
   "summary": {
@@ -28,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -238,6 +239,5 @@
       "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
       "artifact_dir": ".cache/debug/2026-04-08T10-17-56-373Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
     }
-  ],
-  "run_file": "2026-04-08T10-17-56-373Z.json"
+  ]
 }
