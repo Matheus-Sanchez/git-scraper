@@ -33,6 +33,30 @@ test('extractPriceFromHtml reads Amazon price fixture', async () => {
   assert.equal(extraction.price, 379);
 });
 
+test('extractPriceFromHtml ignores malformed custom selectors', async () => {
+  const html = await readFixture('kabum-price.html');
+  const product = {
+    id: 'kabum-produto',
+    name: 'Kabum Produto',
+    url: 'https://www.kabum.com.br/produto/123',
+    is_active: true,
+    selectors: {
+      price_css: ['h4 class="text-4xl text-secondary-500 font-bold"', '"a-offscreen"'],
+    },
+  };
+
+  const selectors = kabumAdapter.getSelectors(product);
+  const extraction = extractPriceFromHtml({
+    html,
+    selectors,
+    adapterCandidates: kabumAdapter.extractCandidates({ html, product }),
+    adapterName: kabumAdapter.id,
+  });
+
+  assert.equal(extraction.ok, true);
+  assert.equal(extraction.price, 174.66);
+});
+
 test('amazonAdapter classifies variation-required pages', async () => {
   const html = await readFixture('amazon-variation.html');
   const failure = amazonAdapter.classifyFailure({ html });

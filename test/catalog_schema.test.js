@@ -21,6 +21,24 @@ test('parseStoredProduct rejects malformed selector arrays', () => {
   }, ZodError);
 });
 
+test('parseStoredProduct strips invalid css selectors and keeps valid ones', () => {
+  const product = parseStoredProduct({
+    id: 'produto-a',
+    name: 'Produto A',
+    url: 'https://example.com/a',
+    is_active: true,
+    selectors: {
+      price_css: ['.price', '"a-offscreen"', 'h4 class="broken"'],
+      jsonld_paths: ['offers.price'],
+    },
+  });
+
+  assert.deepEqual(product.selectors, {
+    price_css: ['.price'],
+    jsonld_paths: ['offers.price'],
+  });
+});
+
 test('parseStoredProduct normalizes url, parses numeric fields and strips empty optionals', () => {
   const product = parseStoredProduct({
     id: 'produto-a',

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { normalizeCssSelectors } from '../utils/css_selector.js';
 import { isValidHttpUrl, normalizeUrl } from '../utils/url.js';
 
 function cleanObject(value) {
@@ -18,7 +19,7 @@ function stringArrayField(fieldName) {
 }
 
 export const productSelectorsSchema = z.object({
-  price_css: stringArrayField('price_css').optional(),
+  price_css: stringArrayField('price_css').transform((value) => normalizeCssSelectors(value)).optional(),
   jsonld_paths: stringArrayField('jsonld_paths').optional(),
   regex_hints: stringArrayField('regex_hints').optional(),
 }).strict();

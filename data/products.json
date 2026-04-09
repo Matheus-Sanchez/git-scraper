@@ -28,7 +28,8 @@
     "is_active": true,
     "selectors": {
       "price_css": [
-        "\"a-offscreen\""
+        "#corePriceDisplay_desktop_feature_div .a-offscreen",
+        "#corePrice_feature_div .a-offscreen"
       ],
       "jsonld_paths": [
         "offers.price",
@@ -87,7 +88,9 @@
     "is_active": true,
     "selectors": {
       "price_css": [
-        "h4 class=\"text-4xl text-secondary-500 font-bold transition-all duration-500\""
+        "[data-testid='price-current']",
+        ".finalPrice",
+        ".priceCard"
       ],
       "jsonld_paths": [
         "offers.price",

@@ -1,5 +1,6 @@
 import { load } from 'cheerio';
 import { extractNumericTokens, parseBRLValue, roundTo2 } from '../utils/price_parse.js';
+import { isValidCssSelector } from '../utils/css_selector.js';
 import {
   clampConfidence,
   confidenceBaseBySource,
@@ -182,9 +183,16 @@ function extractSelectorCandidates($, selectorEntries, candidates) {
     const selector = entry.selector;
     const source = entry.source;
 
-    if (!selector) continue;
+    if (!selector || !isValidCssSelector(selector)) continue;
 
-    $(selector).slice(0, 8).each((_, element) => {
+    let elements;
+    try {
+      elements = $(selector).slice(0, 8);
+    } catch {
+      continue;
+    }
+
+    elements.each((_, element) => {
       const text = $(element).text().trim();
       const content = $(element).attr('content') || '';
       const context = `${$(element).parent().text().slice(0, 180)} ${text}`;
