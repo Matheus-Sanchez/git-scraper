@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-09T10-22-32-664Z",
-  "generated_at": "2026-04-09T10:22:32.664Z",
+  "run_id": "2026-04-10T10-17-40-122Z",
+  "generated_at": "2026-04-10T10:17:40.122Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 5,
     "failure_count": 2,
-    "run_duration_ms": 49601,
+    "run_duration_ms": 30370,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 3,
-        "failed": 4,
-        "avg_time_ms": 795
+        "success": 4,
+        "failed": 3,
+        "avg_time_ms": 592
       },
       "engine2_browser": {
-        "attempted": 4,
+        "attempted": 3,
         "success": 0,
-        "failed": 4,
-        "avg_time_ms": 3168
+        "failed": 3,
+        "avg_time_ms": 2624
       },
       "engine3_hardmode": {
-        "attempted": 4,
-        "success": 2,
+        "attempted": 3,
+        "success": 1,
         "failed": 2,
-        "avg_time_ms": 10538
+        "avg_time_ms": 8604
       }
     }
   },
@@ -36,11 +36,20 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-09T10:22:50.141Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-04-10T10:18:10.483Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "carried_forward",
+      "carried_forward_reason": "captcha_or_block",
+      "carried_forward_from": {
+        "run_id": "2026-04-09T10-22-32-664Z",
+        "run_date": "2026-04-09",
+        "fetched_at": "2026-04-09T10:22:50.141Z",
+        "engine_used": "engine3_hardmode",
+        "source": "adapter",
+        "status": "ok"
+      }
     },
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
@@ -50,7 +59,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-09T10:22:34.100Z",
+      "fetched_at": "2026-04-10T10:17:41.079Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -63,7 +72,20 @@
       "currency": "BRL",
       "unit_price": 174.66,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-09T10:22:33.976Z",
+      "fetched_at": "2026-04-10T10:17:41.039Z",
+      "source": "json-ld",
+      "confidence": 0.97,
+      "status": "ok"
+    },
+    {
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
+      "name": "Notebook Acer Aspire GO 15",
+      "price": 4705.42,
+      "currency": "BRL",
+      "unit_price": 4705.42,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-04-10T10:17:41.105Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +98,7 @@
       "currency": "BRL",
       "unit_price": 236.55,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-09T10:22:34.237Z",
+      "fetched_at": "2026-04-10T10:17:41.384Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -89,7 +111,7 @@
       "currency": "BRL",
       "unit_price": 174.9,
       "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-09T10:23:22.191Z",
+      "fetched_at": "2026-04-10T10:18:10.400Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -97,44 +119,125 @@
   ],
   "failures": [
     {
-      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-04-09T10:23:22.253Z",
+      "fetched_at": "2026-04-10T10:18:10.483Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 555,
-          "error": "Unmatched selector: \"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: \"",
+          "elapsed_ms": 574,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
           "source": null,
           "confidence": null,
           "price": null,
-          "http_status": null,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": null,
-          "html_size": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5218,
           "artifact_dir": null,
           "retry_attempts": [
             {
               "attempt": 1,
-              "error": "Unmatched selector: \"",
-              "error_code": "unexpected_error",
-              "error_detail": "Unmatched selector: \"",
-              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1"
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+              "content_type": "text/html",
+              "html_size": 5218,
+              "candidates_checked": 0,
+              "top_candidates": []
             }
           ]
         },
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2619,
-          "error": "Unmatched selector: \"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: \"",
+          "elapsed_ms": 2644,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/echo-pop-5f33e662/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 8139,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/echo-pop-5f33e662/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/echo-pop-5f33e662/engine3_hardmode"
+    },
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "status": "failed",
+      "fetched_at": "2026-04-10T10:18:10.483Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 584,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5279,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+              "content_type": "text/html",
+              "html_size": 5279,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2618,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
           "source": null,
           "confidence": null,
           "price": null,
@@ -142,102 +245,31 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-04-09T10-22-32-664Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 12709,
-          "error": "Unmatched selector: \"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: \"",
+          "elapsed_ms": 7680,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
           "source": null,
           "confidence": null,
           "price": null,
           "http_status": 200,
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html;charset=UTF-8",
-          "html_size": 1387541,
-          "artifact_dir": ".cache/debug/2026-04-09T10-22-32-664Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
-      "last_error": "Unmatched selector: \"",
-      "error_code": "unexpected_error",
-      "error_detail": "Unmatched selector: \"",
-      "artifact_dir": ".cache/debug/2026-04-09T10-22-32-664Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
-    },
-    {
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
-      "name": "Notebook Acer Aspire GO 15",
-      "status": "failed",
-      "fetched_at": "2026-04-09T10:23:22.254Z",
-      "attempts": [
-        {
-          "engine": "engine1_http",
-          "ok": false,
-          "elapsed_ms": 642,
-          "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": null,
-          "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
-          "content_type": null,
-          "html_size": null,
-          "artifact_dir": null,
-          "retry_attempts": [
-            {
-              "attempt": 1,
-              "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-              "error_code": "unexpected_error",
-              "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-              "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w"
-            }
-          ]
-        },
-        {
-          "engine": "engine2_browser",
-          "ok": false,
-          "elapsed_ms": 4825,
-          "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
-          "content_type": "text/html; charset=utf-8",
-          "html_size": 420907,
-          "artifact_dir": ".cache/debug/2026-04-09T10-22-32-664Z/notebook-acer-aspire-go-15-f27ed9a1/engine2_browser"
-        },
-        {
-          "engine": "engine3_hardmode",
-          "ok": false,
-          "elapsed_ms": 8542,
-          "error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-          "error_code": "unexpected_error",
-          "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
-          "content_type": "text/html; charset=utf-8",
-          "html_size": 466637,
-          "artifact_dir": ".cache/debug/2026-04-09T10-22-32-664Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
-        }
-      ],
-      "engine": "engine3_hardmode",
-      "last_error": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-      "error_code": "unexpected_error",
-      "error_detail": "Unmatched selector: =\"text-4xl text-secondary-500 font-bold transition-all duration-500\"",
-      "artifact_dir": ".cache/debug/2026-04-09T10-22-32-664Z/notebook-acer-aspire-go-15-f27ed9a1/engine3_hardmode"
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     }
   ],
-  "run_file": "2026-04-09T10-22-32-664Z.json"
+  "run_file": "2026-04-10T10-17-40-122Z.json"
 }

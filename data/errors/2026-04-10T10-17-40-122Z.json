@@ -1,123 +1,28 @@
 {
   "run_id": "2026-04-10T10-17-40-122Z",
+  "run_date": "2026-04-10",
   "generated_at": "2026-04-10T10:17:40.122Z",
-  "currency": "BRL",
-  "summary": {
-    "total_products": 7,
-    "success_count": 5,
-    "failure_count": 2,
-    "run_duration_ms": 30370,
-    "engines": {
-      "engine1_http": {
-        "attempted": 7,
-        "success": 4,
-        "failed": 3,
-        "avg_time_ms": 592
-      },
-      "engine2_browser": {
-        "attempted": 3,
-        "success": 0,
-        "failed": 3,
-        "avg_time_ms": 2624
-      },
-      "engine3_hardmode": {
-        "attempted": 3,
-        "success": 1,
-        "failed": 2,
-        "avg_time_ms": 8604
-      }
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 4,
+      "failed": 3,
+      "avg_time_ms": 592
+    },
+    "engine2_browser": {
+      "attempted": 3,
+      "success": 0,
+      "failed": 3,
+      "avg_time_ms": 2624
+    },
+    "engine3_hardmode": {
+      "attempted": 3,
+      "success": 1,
+      "failed": 2,
+      "avg_time_ms": 8604
     }
   },
-  "items": [
-    {
-      "product_id": "echo-pop-5f33e662",
-      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
-      "name": "Echo Pop",
-      "price": 379,
-      "currency": "BRL",
-      "unit_price": 379,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-04-10T10:18:10.483Z",
-      "source": "adapter",
-      "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-04-09T10-22-32-664Z",
-        "run_date": "2026-04-09",
-        "fetched_at": "2026-04-09T10:22:50.141Z",
-        "engine_used": "engine3_hardmode",
-        "source": "adapter",
-        "status": "ok"
-      }
-    },
-    {
-      "product_id": "headset-hyperx-cloud-stinger-2",
-      "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
-      "name": "Headset HyperX Cloud Stinger 2",
-      "price": 279.99,
-      "currency": "BRL",
-      "unit_price": 279.99,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-10T10:17:41.079Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "mouse-logitech-g203",
-      "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
-      "name": "Mouse Logitech G203 Lightsync",
-      "price": 174.66,
-      "currency": "BRL",
-      "unit_price": 174.66,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-10T10:17:41.039Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
-      "name": "Notebook Acer Aspire GO 15",
-      "price": 4705.42,
-      "currency": "BRL",
-      "unit_price": 4705.42,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-10T10:17:41.105Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "teclado-logitech-k835",
-      "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
-      "name": "Teclado Logitech K835 TKL",
-      "price": 236.55,
-      "currency": "BRL",
-      "unit_price": 236.55,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-10T10:17:41.384Z",
-      "source": "json-ld",
-      "confidence": 0.97,
-      "status": "ok"
-    },
-    {
-      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
-      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-      "price": 174.9,
-      "currency": "BRL",
-      "unit_price": 174.9,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-10T10:18:10.400Z",
-      "source": "adapter",
-      "confidence": 0.85,
-      "status": "ok"
-    }
-  ],
-  "failures": [
+  "errors": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -270,6 +175,5 @@
       "error_detail": "Amazon anti-bot or captcha page detected",
       "artifact_dir": ".cache/debug/2026-04-10T10-17-40-122Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     }
-  ],
-  "run_file": "2026-04-10T10-17-40-122Z.json"
+  ]
 }
