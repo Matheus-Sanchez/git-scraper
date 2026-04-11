@@ -1,0 +1,26 @@
+{
+  "run_id": "2026-04-11T09-57-23-497Z",
+  "run_date": "2026-04-11",
+  "generated_at": "2026-04-11T09:57:23.497Z",
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 4,
+      "failed": 3,
+      "avg_time_ms": 447
+    },
+    "engine2_browser": {
+      "attempted": 3,
+      "success": 2,
+      "failed": 1,
+      "avg_time_ms": 4062
+    },
+    "engine3_hardmode": {
+      "attempted": 1,
+      "success": 1,
+      "failed": 0,
+      "avg_time_ms": 9701
+    }
+  },
+  "errors": []
+}
