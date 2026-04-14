@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-13T10-56-25-166Z",
-  "generated_at": "2026-04-13T10:56:25.166Z",
+  "run_id": "2026-04-14T10-41-06-967Z",
+  "generated_at": "2026-04-14T10:41:06.967Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 27614,
+    "run_duration_ms": 25724,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 4,
-        "failed": 3,
-        "avg_time_ms": 574
+        "success": 5,
+        "failed": 2,
+        "avg_time_ms": 1024
       },
       "engine2_browser": {
-        "attempted": 3,
-        "success": 1,
+        "attempted": 2,
+        "success": 0,
         "failed": 2,
-        "avg_time_ms": 3315
+        "avg_time_ms": 2656
       },
       "engine3_hardmode": {
         "attempted": 2,
         "success": 2,
         "failed": 0,
-        "avg_time_ms": 10164
+        "avg_time_ms": 10213
       }
     }
   },
@@ -37,7 +37,7 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-13T10:56:42.154Z",
+      "fetched_at": "2026-04-14T10:41:22.796Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -46,11 +46,11 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 509.99,
+      "price": 545.91,
       "currency": "BRL",
-      "unit_price": 509.99,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-04-13T10:56:52.713Z",
+      "unit_price": 545.91,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-04-14T10:41:08.620Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -63,7 +63,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-13T10:56:26.168Z",
+      "fetched_at": "2026-04-14T10:41:08.697Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +76,7 @@
       "currency": "BRL",
       "unit_price": 167.81,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-13T10:56:26.094Z",
+      "fetched_at": "2026-04-14T10:41:08.408Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -85,11 +85,11 @@
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
-      "price": 4705.42,
+      "price": 4953.07,
       "currency": "BRL",
-      "unit_price": 4705.42,
+      "unit_price": 4953.07,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-13T10:56:26.133Z",
+      "fetched_at": "2026-04-14T10:41:08.443Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -98,11 +98,11 @@
       "product_id": "teclado-logitech-k835",
       "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
       "name": "Teclado Logitech K835 TKL",
-      "price": 240.26,
+      "price": 245.89,
       "currency": "BRL",
-      "unit_price": 240.26,
+      "unit_price": 245.89,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-13T10:56:26.286Z",
+      "fetched_at": "2026-04-14T10:41:09.166Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -114,13 +114,13 @@
       "price": 189.9,
       "currency": "BRL",
       "unit_price": 189.9,
-      "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-13T10:56:32.208Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-04-14T10:41:32.618Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
     }
   ],
   "failures": [],
-  "run_file": "2026-04-13T10-56-25-166Z.json"
+  "run_file": "2026-04-14T10-41-06-967Z.json"
 }
