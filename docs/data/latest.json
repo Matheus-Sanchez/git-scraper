@@ -1,24 +1,24 @@
 {
-  "run_id": "2026-04-17T10-35-37-213Z",
-  "generated_at": "2026-04-17T10:35:37.213Z",
+  "run_id": "2026-04-18T10-01-51-499Z",
+  "generated_at": "2026-04-18T10:01:51.499Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 11673,
+    "run_duration_ms": 7203,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 5,
-        "failed": 2,
-        "avg_time_ms": 3229
+        "success": 4,
+        "failed": 3,
+        "avg_time_ms": 615
       },
       "engine2_browser": {
-        "attempted": 2,
-        "success": 2,
+        "attempted": 3,
+        "success": 3,
         "failed": 0,
-        "avg_time_ms": 4629
+        "avg_time_ms": 5336
       },
       "engine3_hardmode": {
         "attempted": 0,
@@ -37,7 +37,7 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-17T10:35:48.618Z",
+      "fetched_at": "2026-04-18T10:01:58.327Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -50,7 +50,7 @@
       "currency": "BRL",
       "unit_price": 54.9,
       "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-17T10:35:48.831Z",
+      "fetched_at": "2026-04-18T10:01:57.961Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -63,7 +63,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-17T10:35:43.092Z",
+      "fetched_at": "2026-04-18T10:01:52.475Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +76,7 @@
       "currency": "BRL",
       "unit_price": 167.81,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-17T10:35:43.577Z",
+      "fetched_at": "2026-04-18T10:01:52.533Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -89,7 +89,7 @@
       "currency": "BRL",
       "unit_price": 4705.42,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-17T10:35:43.048Z",
+      "fetched_at": "2026-04-18T10:01:52.509Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -102,7 +102,7 @@
       "currency": "BRL",
       "unit_price": 249,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-17T10:35:40.712Z",
+      "fetched_at": "2026-04-18T10:01:52.775Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -114,13 +114,13 @@
       "price": 189.9,
       "currency": "BRL",
       "unit_price": 189.9,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-17T10:35:41.826Z",
+      "engine_used": "engine2_browser",
+      "fetched_at": "2026-04-18T10:01:58.659Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
     }
   ],
   "failures": [],
-  "run_file": "2026-04-17T10-35-37-213Z.json"
+  "run_file": "2026-04-18T10-01-51-499Z.json"
 }

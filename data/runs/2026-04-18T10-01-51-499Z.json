@@ -1,5 +1,6 @@
 {
   "run_id": "2026-04-18T10-01-51-499Z",
+  "run_date": "2026-04-18",
   "generated_at": "2026-04-18T10:01:51.499Z",
   "currency": "BRL",
   "summary": {
@@ -28,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -121,6 +122,5 @@
       "status": "ok"
     }
   ],
-  "failures": [],
-  "run_file": "2026-04-18T10-01-51-499Z.json"
+  "failures": []
 }
