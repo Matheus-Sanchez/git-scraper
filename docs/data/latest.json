@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-23T10-47-44-655Z",
-  "generated_at": "2026-04-23T10:47:44.655Z",
+  "run_id": "2026-04-24T10-44-57-606Z",
+  "generated_at": "2026-04-24T10:44:57.606Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 6,
     "failure_count": 1,
-    "run_duration_ms": 15535,
+    "run_duration_ms": 15640,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 5,
         "failed": 2,
-        "avg_time_ms": 948
+        "avg_time_ms": 560
       },
       "engine2_browser": {
         "attempted": 2,
         "success": 1,
         "failed": 1,
-        "avg_time_ms": 3623
+        "avg_time_ms": 3553
       },
       "engine3_hardmode": {
         "attempted": 1,
         "success": 0,
         "failed": 1,
-        "avg_time_ms": 7753
+        "avg_time_ms": 8087
       }
     }
   },
@@ -36,21 +36,30 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-04-23T10:47:46.232Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-04-24T10:45:13.243Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "carried_forward",
+      "carried_forward_reason": "captcha_or_block",
+      "carried_forward_from": {
+        "run_id": "2026-04-23T10-47-44-655Z",
+        "run_date": "2026-04-23",
+        "fetched_at": "2026-04-23T10:47:46.232Z",
+        "engine_used": "engine1_http",
+        "source": "adapter",
+        "status": "ok"
+      }
     },
     {
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 528,
+      "price": 54.9,
       "currency": "BRL",
-      "unit_price": 528,
+      "unit_price": 54.9,
       "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-23T10:47:52.285Z",
+      "fetched_at": "2026-04-24T10:45:04.998Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -59,11 +68,11 @@
       "product_id": "headset-hyperx-cloud-stinger-2",
       "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
       "name": "Headset HyperX Cloud Stinger 2",
-      "price": 339.99,
+      "price": 279.99,
       "currency": "BRL",
-      "unit_price": 339.99,
+      "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-23T10:47:46.256Z",
+      "fetched_at": "2026-04-24T10:44:58.334Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -76,7 +85,7 @@
       "currency": "BRL",
       "unit_price": 167.81,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-23T10:47:45.945Z",
+      "fetched_at": "2026-04-24T10:44:58.413Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -89,7 +98,7 @@
       "currency": "BRL",
       "unit_price": 4705.42,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-23T10:47:45.986Z",
+      "fetched_at": "2026-04-24T10:44:58.295Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -102,7 +111,7 @@
       "currency": "BRL",
       "unit_price": 234.06,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-23T10:47:46.625Z",
+      "fetched_at": "2026-04-24T10:44:58.503Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -114,34 +123,25 @@
       "price": 189.9,
       "currency": "BRL",
       "unit_price": 189.9,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-04-23T10:48:00.187Z",
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-04-24T10:44:59.186Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-04-22T10-42-57-915Z",
-        "run_date": "2026-04-22",
-        "fetched_at": "2026-04-22T10:43:00.740Z",
-        "engine_used": "engine1_http",
-        "source": "adapter",
-        "status": "ok"
-      }
+      "status": "ok"
     }
   ],
   "failures": [
     {
-      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
-      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-04-23T10:48:00.187Z",
+      "fetched_at": "2026-04-24T10:45:13.243Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 250,
+          "elapsed_ms": 386,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -149,9 +149,9 @@
           "confidence": null,
           "price": null,
           "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
-          "html_size": 5275,
+          "html_size": 5218,
           "artifact_dir": null,
           "retry_attempts": [
             {
@@ -160,9 +160,9 @@
               "error_code": "captcha_or_block",
               "error_detail": "Amazon anti-bot or captcha page detected",
               "http_status": 200,
-              "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+              "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
               "content_type": "text/html",
-              "html_size": 5275,
+              "html_size": 5218,
               "candidates_checked": 0,
               "top_candidates": []
             }
@@ -171,7 +171,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2953,
+          "elapsed_ms": 2557,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -179,15 +179,15 @@
           "confidence": null,
           "price": null,
           "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
-          "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-04-23T10-47-44-655Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-24T10-44-57-606Z/echo-pop-5f33e662/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 7753,
+          "elapsed_ms": 8087,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -195,18 +195,18 @@
           "confidence": null,
           "price": null,
           "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
-          "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-04-23T10-47-44-655Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-24T10-44-57-606Z/echo-pop-5f33e662/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-04-23T10-47-44-655Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-04-24T10-44-57-606Z/echo-pop-5f33e662/engine3_hardmode"
     }
   ],
-  "run_file": "2026-04-23T10-47-44-655Z.json"
+  "run_file": "2026-04-24T10-44-57-606Z.json"
 }
