@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-04-27T11-17-29-734Z",
-  "generated_at": "2026-04-27T11:17:29.734Z",
+  "run_id": "2026-04-28T11-17-18-368Z",
+  "generated_at": "2026-04-28T11:17:18.368Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
-    "success_count": 5,
-    "failure_count": 2,
-    "run_duration_ms": 23384,
+    "success_count": 7,
+    "failure_count": 0,
+    "run_duration_ms": 24994,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 4,
-        "failed": 3,
-        "avg_time_ms": 647
+        "success": 5,
+        "failed": 2,
+        "avg_time_ms": 525
       },
       "engine2_browser": {
-        "attempted": 3,
-        "success": 1,
-        "failed": 2,
-        "avg_time_ms": 3133
-      },
-      "engine3_hardmode": {
         "attempted": 2,
         "success": 0,
         "failed": 2,
-        "avg_time_ms": 8116
+        "avg_time_ms": 2619
+      },
+      "engine3_hardmode": {
+        "attempted": 2,
+        "success": 2,
+        "failed": 0,
+        "avg_time_ms": 10248
       }
     }
   },
@@ -36,8 +36,8 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine2_browser",
-      "fetched_at": "2026-04-27T11:17:36.738Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-04-28T11:17:32.688Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -46,23 +46,14 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 54.9,
+      "price": 529,
       "currency": "BRL",
-      "unit_price": 54.9,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-04-27T11:17:53.116Z",
+      "unit_price": 529,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-04-28T11:17:19.726Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-04-26T10-06-30-319Z",
-        "run_date": "2026-04-26",
-        "fetched_at": "2026-04-26T10:06:38.106Z",
-        "engine_used": "engine2_browser",
-        "source": "adapter",
-        "status": "ok"
-      }
+      "status": "ok"
     },
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
@@ -72,7 +63,7 @@
       "currency": "BRL",
       "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-27T11:17:30.688Z",
+      "fetched_at": "2026-04-28T11:17:19.083Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -85,7 +76,7 @@
       "currency": "BRL",
       "unit_price": 152.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-27T11:17:30.747Z",
+      "fetched_at": "2026-04-28T11:17:19.109Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -94,11 +85,11 @@
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
-      "price": 5003.1,
+      "price": 4705.42,
       "currency": "BRL",
-      "unit_price": 5003.1,
+      "unit_price": 4705.42,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-27T11:17:30.819Z",
+      "fetched_at": "2026-04-28T11:17:19.016Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -111,7 +102,7 @@
       "currency": "BRL",
       "unit_price": 239.03,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-04-27T11:17:30.997Z",
+      "fetched_at": "2026-04-28T11:17:19.287Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -123,175 +114,13 @@
       "price": 200,
       "currency": "BRL",
       "unit_price": 200,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-04-27T11:17:53.116Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-04-28T11:17:43.293Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-04-26T10-06-30-319Z",
-        "run_date": "2026-04-26",
-        "fetched_at": "2026-04-26T10:07:00.109Z",
-        "engine_used": "engine3_hardmode",
-        "source": "adapter",
-        "status": "ok"
-      }
+      "status": "ok"
     }
   ],
-  "failures": [
-    {
-      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "status": "failed",
-      "fetched_at": "2026-04-27T11:17:53.116Z",
-      "attempts": [
-        {
-          "engine": "engine1_http",
-          "ok": false,
-          "elapsed_ms": 1080,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5279,
-          "artifact_dir": null,
-          "retry_attempts": [
-            {
-              "attempt": 1,
-              "error": "Amazon anti-bot or captcha page detected",
-              "error_code": "captcha_or_block",
-              "error_detail": "Amazon anti-bot or captcha page detected",
-              "http_status": 200,
-              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-              "content_type": "text/html",
-              "html_size": 5279,
-              "candidates_checked": 0,
-              "top_candidates": []
-            }
-          ]
-        },
-        {
-          "engine": "engine2_browser",
-          "ok": false,
-          "elapsed_ms": 2503,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-04-27T11-17-29-734Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
-        },
-        {
-          "engine": "engine3_hardmode",
-          "ok": false,
-          "elapsed_ms": 8252,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-04-27T11-17-29-734Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
-        }
-      ],
-      "engine": "engine3_hardmode",
-      "last_error": "Amazon anti-bot or captcha page detected",
-      "error_code": "captcha_or_block",
-      "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-04-27T11-17-29-734Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
-    },
-    {
-      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
-      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-      "status": "failed",
-      "fetched_at": "2026-04-27T11:17:53.116Z",
-      "attempts": [
-        {
-          "engine": "engine1_http",
-          "ok": false,
-          "elapsed_ms": 76,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-          "content_type": "text/html",
-          "html_size": 5275,
-          "artifact_dir": null,
-          "retry_attempts": [
-            {
-              "attempt": 1,
-              "error": "Amazon anti-bot or captcha page detected",
-              "error_code": "captcha_or_block",
-              "error_detail": "Amazon anti-bot or captcha page detected",
-              "http_status": 200,
-              "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-              "content_type": "text/html",
-              "html_size": 5275,
-              "candidates_checked": 0,
-              "top_candidates": []
-            }
-          ]
-        },
-        {
-          "engine": "engine2_browser",
-          "ok": false,
-          "elapsed_ms": 2534,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-          "content_type": "text/html",
-          "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-04-27T11-17-29-734Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
-        },
-        {
-          "engine": "engine3_hardmode",
-          "ok": false,
-          "elapsed_ms": 7980,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-          "content_type": "text/html",
-          "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-04-27T11-17-29-734Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
-        }
-      ],
-      "engine": "engine3_hardmode",
-      "last_error": "Amazon anti-bot or captcha page detected",
-      "error_code": "captcha_or_block",
-      "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-04-27T11-17-29-734Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
-    }
-  ],
-  "run_file": "2026-04-27T11-17-29-734Z.json"
+  "failures": [],
+  "run_file": "2026-04-28T11-17-18-368Z.json"
 }
