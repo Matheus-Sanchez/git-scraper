@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-05-02T10-10-47-612Z",
-  "generated_at": "2026-05-02T10:10:47.612Z",
+  "run_id": "2026-05-03T10-16-34-445Z",
+  "generated_at": "2026-05-03T10:16:34.445Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
-    "success_count": 6,
-    "failure_count": 1,
-    "run_duration_ms": 34052,
+    "success_count": 5,
+    "failure_count": 2,
+    "run_duration_ms": 25241,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 4,
         "failed": 3,
-        "avg_time_ms": 617
+        "avg_time_ms": 906
       },
       "engine2_browser": {
         "attempted": 3,
-        "success": 0,
-        "failed": 3,
-        "avg_time_ms": 2626
+        "success": 1,
+        "failed": 2,
+        "avg_time_ms": 3309
       },
       "engine3_hardmode": {
-        "attempted": 3,
-        "success": 2,
-        "failed": 1,
-        "avg_time_ms": 9876
+        "attempted": 2,
+        "success": 0,
+        "failed": 2,
+        "avg_time_ms": 8992
       }
     }
   },
@@ -37,15 +37,15 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-02T10:11:21.661Z",
+      "fetched_at": "2026-05-03T10:16:59.683Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-01T10-43-20-866Z",
-        "run_date": "2026-05-01",
-        "fetched_at": "2026-05-01T10:43:36.948Z",
+        "run_id": "2026-05-02T10-10-47-612Z",
+        "run_date": "2026-05-02",
+        "fetched_at": "2026-05-02T10:11:21.661Z",
         "engine_used": "carry_forward",
         "source": "adapter",
         "status": "carried_forward"
@@ -58,11 +58,20 @@
       "price": 529,
       "currency": "BRL",
       "unit_price": 529,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-05-02T10:11:09.538Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-05-03T10:16:59.683Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "carried_forward",
+      "carried_forward_reason": "captcha_or_block",
+      "carried_forward_from": {
+        "run_id": "2026-05-02T10-10-47-612Z",
+        "run_date": "2026-05-02",
+        "fetched_at": "2026-05-02T10:11:09.538Z",
+        "engine_used": "engine3_hardmode",
+        "source": "adapter",
+        "status": "ok"
+      }
     },
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
@@ -72,7 +81,7 @@
       "currency": "BRL",
       "unit_price": 339.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-02T10:10:48.652Z",
+      "fetched_at": "2026-05-03T10:16:36.183Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -85,7 +94,7 @@
       "currency": "BRL",
       "unit_price": 167.7,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-02T10:10:48.613Z",
+      "fetched_at": "2026-05-03T10:16:35.868Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -98,7 +107,7 @@
       "currency": "BRL",
       "unit_price": 5003.1,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-02T10:10:48.681Z",
+      "fetched_at": "2026-05-03T10:16:35.819Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -111,7 +120,7 @@
       "currency": "BRL",
       "unit_price": 238.66,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-02T10:10:48.862Z",
+      "fetched_at": "2026-05-03T10:16:36.251Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -123,8 +132,8 @@
       "price": 195,
       "currency": "BRL",
       "unit_price": 195,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-05-02T10:11:21.580Z",
+      "engine_used": "engine2_browser",
+      "fetched_at": "2026-05-03T10:16:41.525Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -136,12 +145,12 @@
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
       "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-05-02T10:11:21.661Z",
+      "fetched_at": "2026-05-03T10:16:59.683Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 647,
+          "elapsed_ms": 749,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -171,7 +180,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2638,
+          "elapsed_ms": 2657,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -182,12 +191,12 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-02T10-10-47-612Z/echo-pop-5f33e662/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-03T10-16-34-445Z/echo-pop-5f33e662/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 7643,
+          "elapsed_ms": 8754,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -198,15 +207,91 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-02T10-10-47-612Z/echo-pop-5f33e662/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-03T10-16-34-445Z/echo-pop-5f33e662/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-02T10-10-47-612Z/echo-pop-5f33e662/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-03T10-16-34-445Z/echo-pop-5f33e662/engine3_hardmode"
+    },
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "status": "failed",
+      "fetched_at": "2026-05-03T10:16:59.683Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 762,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5279,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+              "content_type": "text/html",
+              "html_size": 5279,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2694,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-05-03T10-16-34-445Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 9230,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-05-03T10-16-34-445Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-05-03T10-16-34-445Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     }
   ],
-  "run_file": "2026-05-02T10-10-47-612Z.json"
+  "run_file": "2026-05-03T10-16-34-445Z.json"
 }
