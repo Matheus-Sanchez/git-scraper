@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-05-09T10-16-55-389Z",
-  "generated_at": "2026-05-09T10:16:55.389Z",
+  "run_id": "2026-05-10T10-37-35-840Z",
+  "generated_at": "2026-05-10T10:37:35.840Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 5,
     "failure_count": 2,
-    "run_duration_ms": 33563,
+    "run_duration_ms": 22168,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 4,
-        "failed": 3,
-        "avg_time_ms": 784
+        "success": 5,
+        "failed": 2,
+        "avg_time_ms": 624
       },
       "engine2_browser": {
-        "attempted": 3,
+        "attempted": 2,
         "success": 0,
-        "failed": 3,
-        "avg_time_ms": 2686
+        "failed": 2,
+        "avg_time_ms": 2597
       },
       "engine3_hardmode": {
-        "attempted": 3,
-        "success": 1,
+        "attempted": 2,
+        "success": 0,
         "failed": 2,
-        "avg_time_ms": 9404
+        "avg_time_ms": 8742
       }
     }
   },
@@ -37,18 +37,18 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-09T10:17:28.950Z",
+      "fetched_at": "2026-05-10T10:37:58.005Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-08T10-48-58-416Z",
-        "run_date": "2026-05-08",
-        "fetched_at": "2026-05-08T10:49:00.582Z",
-        "engine_used": "engine1_http",
+        "run_id": "2026-05-09T10-16-55-389Z",
+        "run_date": "2026-05-09",
+        "fetched_at": "2026-05-09T10:17:28.950Z",
+        "engine_used": "carry_forward",
         "source": "adapter",
-        "status": "ok"
+        "status": "carried_forward"
       }
     },
     {
@@ -59,18 +59,18 @@
       "currency": "BRL",
       "unit_price": 469.92,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-09T10:17:28.950Z",
+      "fetched_at": "2026-05-10T10:37:58.005Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-08T10-48-58-416Z",
-        "run_date": "2026-05-08",
-        "fetched_at": "2026-05-08T10:49:00.792Z",
-        "engine_used": "engine1_http",
+        "run_id": "2026-05-09T10-16-55-389Z",
+        "run_date": "2026-05-09",
+        "fetched_at": "2026-05-09T10:17:28.950Z",
+        "engine_used": "carry_forward",
         "source": "adapter",
-        "status": "ok"
+        "status": "carried_forward"
       }
     },
     {
@@ -81,7 +81,7 @@
       "currency": "BRL",
       "unit_price": 199.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-09T10:16:56.527Z",
+      "fetched_at": "2026-05-10T10:37:36.727Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -94,7 +94,7 @@
       "currency": "BRL",
       "unit_price": 152.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-09T10:16:56.558Z",
+      "fetched_at": "2026-05-10T10:37:36.689Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -107,7 +107,7 @@
       "currency": "BRL",
       "unit_price": 4904.36,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-09T10:16:56.891Z",
+      "fetched_at": "2026-05-10T10:37:36.754Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -120,7 +120,7 @@
       "currency": "BRL",
       "unit_price": 237.81,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-09T10:16:56.957Z",
+      "fetched_at": "2026-05-10T10:37:36.831Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -132,8 +132,8 @@
       "price": 189.9,
       "currency": "BRL",
       "unit_price": 189.9,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-05-09T10:17:28.869Z",
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-05-10T10:37:37.504Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -145,12 +145,12 @@
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
       "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-05-09T10:17:28.950Z",
+      "fetched_at": "2026-05-10T10:37:58.005Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 962,
+          "elapsed_ms": 469,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -180,7 +180,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2712,
+          "elapsed_ms": 2598,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -191,12 +191,12 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-09T10-16-55-389Z/echo-pop-5f33e662/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/echo-pop-5f33e662/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 8998,
+          "elapsed_ms": 9036,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -207,26 +207,26 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-09T10-16-55-389Z/echo-pop-5f33e662/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/echo-pop-5f33e662/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-09T10-16-55-389Z/echo-pop-5f33e662/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/echo-pop-5f33e662/engine3_hardmode"
     },
     {
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
       "status": "failed",
-      "fetched_at": "2026-05-09T10:17:28.950Z",
+      "fetched_at": "2026-05-10T10:37:58.005Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 982,
+          "elapsed_ms": 478,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -256,7 +256,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2630,
+          "elapsed_ms": 2595,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -267,12 +267,12 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-05-09T10-16-55-389Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9272,
+          "elapsed_ms": 8447,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -283,15 +283,15 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-05-09T10-16-55-389Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-09T10-16-55-389Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     }
   ],
-  "run_file": "2026-05-09T10-16-55-389Z.json"
+  "run_file": "2026-05-10T10-37-35-840Z.json"
 }
