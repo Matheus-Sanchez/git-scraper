@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-05-10T10-37-35-840Z",
-  "generated_at": "2026-05-10T10:37:35.840Z",
+  "run_id": "2026-05-11T12-22-49-373Z",
+  "generated_at": "2026-05-11T12:22:49.373Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
-    "success_count": 5,
-    "failure_count": 2,
-    "run_duration_ms": 22168,
+    "success_count": 6,
+    "failure_count": 1,
+    "run_duration_ms": 25402,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 5,
         "failed": 2,
-        "avg_time_ms": 624
+        "avg_time_ms": 612
       },
       "engine2_browser": {
         "attempted": 2,
         "success": 0,
         "failed": 2,
-        "avg_time_ms": 2597
+        "avg_time_ms": 2548
       },
       "engine3_hardmode": {
         "attempted": 2,
-        "success": 0,
-        "failed": 2,
-        "avg_time_ms": 8742
+        "success": 1,
+        "failed": 1,
+        "avg_time_ms": 9710
       }
     }
   },
@@ -37,15 +37,15 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-10T10:37:58.005Z",
+      "fetched_at": "2026-05-11T12:23:14.771Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-09T10-16-55-389Z",
-        "run_date": "2026-05-09",
-        "fetched_at": "2026-05-09T10:17:28.950Z",
+        "run_id": "2026-05-10T10-37-35-840Z",
+        "run_date": "2026-05-10",
+        "fetched_at": "2026-05-10T10:37:58.005Z",
         "engine_used": "carry_forward",
         "source": "adapter",
         "status": "carried_forward"
@@ -55,23 +55,14 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 469.92,
+      "price": 539.99,
       "currency": "BRL",
-      "unit_price": 469.92,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-05-10T10:37:58.005Z",
+      "unit_price": 539.99,
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-05-11T12:23:14.727Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "carried_forward",
-      "carried_forward_reason": "captcha_or_block",
-      "carried_forward_from": {
-        "run_id": "2026-05-09T10-16-55-389Z",
-        "run_date": "2026-05-09",
-        "fetched_at": "2026-05-09T10:17:28.950Z",
-        "engine_used": "carry_forward",
-        "source": "adapter",
-        "status": "carried_forward"
-      }
+      "status": "ok"
     },
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
@@ -81,7 +72,7 @@
       "currency": "BRL",
       "unit_price": 199.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-10T10:37:36.727Z",
+      "fetched_at": "2026-05-11T12:22:50.147Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -94,7 +85,7 @@
       "currency": "BRL",
       "unit_price": 152.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-10T10:37:36.689Z",
+      "fetched_at": "2026-05-11T12:22:50.231Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -107,7 +98,7 @@
       "currency": "BRL",
       "unit_price": 4904.36,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-10T10:37:36.754Z",
+      "fetched_at": "2026-05-11T12:22:50.198Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -120,7 +111,7 @@
       "currency": "BRL",
       "unit_price": 237.81,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-10T10:37:36.831Z",
+      "fetched_at": "2026-05-11T12:22:50.349Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -133,7 +124,7 @@
       "currency": "BRL",
       "unit_price": 189.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-10T10:37:37.504Z",
+      "fetched_at": "2026-05-11T12:22:51.092Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -145,12 +136,12 @@
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
       "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-05-10T10:37:58.005Z",
+      "fetched_at": "2026-05-11T12:23:14.771Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 469,
+          "elapsed_ms": 433,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -180,7 +171,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2598,
+          "elapsed_ms": 2523,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -191,12 +182,12 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/echo-pop-5f33e662/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-11T12-22-49-373Z/echo-pop-5f33e662/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9036,
+          "elapsed_ms": 8940,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -207,91 +198,15 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/echo-pop-5f33e662/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-11T12-22-49-373Z/echo-pop-5f33e662/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/echo-pop-5f33e662/engine3_hardmode"
-    },
-    {
-      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "status": "failed",
-      "fetched_at": "2026-05-10T10:37:58.005Z",
-      "attempts": [
-        {
-          "engine": "engine1_http",
-          "ok": false,
-          "elapsed_ms": 478,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5279,
-          "artifact_dir": null,
-          "retry_attempts": [
-            {
-              "attempt": 1,
-              "error": "Amazon anti-bot or captcha page detected",
-              "error_code": "captcha_or_block",
-              "error_detail": "Amazon anti-bot or captcha page detected",
-              "http_status": 200,
-              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-              "content_type": "text/html",
-              "html_size": 5279,
-              "candidates_checked": 0,
-              "top_candidates": []
-            }
-          ]
-        },
-        {
-          "engine": "engine2_browser",
-          "ok": false,
-          "elapsed_ms": 2595,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
-        },
-        {
-          "engine": "engine3_hardmode",
-          "ok": false,
-          "elapsed_ms": 8447,
-          "error": "Amazon anti-bot or captcha page detected",
-          "error_code": "captcha_or_block",
-          "error_detail": "Amazon anti-bot or captcha page detected",
-          "source": null,
-          "confidence": null,
-          "price": null,
-          "http_status": 200,
-          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
-          "content_type": "text/html",
-          "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
-        }
-      ],
-      "engine": "engine3_hardmode",
-      "last_error": "Amazon anti-bot or captcha page detected",
-      "error_code": "captcha_or_block",
-      "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-10T10-37-35-840Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-11T12-22-49-373Z/echo-pop-5f33e662/engine3_hardmode"
     }
   ],
-  "run_file": "2026-05-10T10-37-35-840Z.json"
+  "run_file": "2026-05-11T12-22-49-373Z.json"
 }
