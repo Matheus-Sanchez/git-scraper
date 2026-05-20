@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-05-19T12-20-27-655Z",
-  "generated_at": "2026-05-19T12:20:27.655Z",
+  "run_id": "2026-05-20T12-03-53-228Z",
+  "generated_at": "2026-05-20T12:03:53.228Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 4,
     "failure_count": 3,
-    "run_duration_ms": 32852,
+    "run_duration_ms": 32662,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 4,
         "failed": 3,
-        "avg_time_ms": 556
+        "avg_time_ms": 700
       },
       "engine2_browser": {
         "attempted": 3,
         "success": 0,
         "failed": 3,
-        "avg_time_ms": 2573
+        "avg_time_ms": 2900
       },
       "engine3_hardmode": {
         "attempted": 3,
         "success": 0,
         "failed": 3,
-        "avg_time_ms": 9355
+        "avg_time_ms": 9182
       }
     }
   },
@@ -37,18 +37,18 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-19T12:21:00.503Z",
+      "fetched_at": "2026-05-20T12:04:25.887Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-18T12-47-43-769Z",
-        "run_date": "2026-05-18",
-        "fetched_at": "2026-05-18T12:47:45.793Z",
-        "engine_used": "engine1_http",
+        "run_id": "2026-05-19T12-20-27-655Z",
+        "run_date": "2026-05-19",
+        "fetched_at": "2026-05-19T12:21:00.503Z",
+        "engine_used": "carry_forward",
         "source": "adapter",
-        "status": "ok"
+        "status": "carried_forward"
       }
     },
     {
@@ -59,18 +59,18 @@
       "currency": "BRL",
       "unit_price": 156,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-19T12:21:00.504Z",
+      "fetched_at": "2026-05-20T12:04:25.887Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-18T12-47-43-769Z",
-        "run_date": "2026-05-18",
-        "fetched_at": "2026-05-18T12:47:46.018Z",
-        "engine_used": "engine1_http",
+        "run_id": "2026-05-19T12-20-27-655Z",
+        "run_date": "2026-05-19",
+        "fetched_at": "2026-05-19T12:21:00.504Z",
+        "engine_used": "carry_forward",
         "source": "adapter",
-        "status": "ok"
+        "status": "carried_forward"
       }
     },
     {
@@ -81,7 +81,7 @@
       "currency": "BRL",
       "unit_price": 187.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-19T12:20:28.564Z",
+      "fetched_at": "2026-05-20T12:03:54.307Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -94,7 +94,7 @@
       "currency": "BRL",
       "unit_price": 151.46,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-19T12:20:28.662Z",
+      "fetched_at": "2026-05-20T12:03:54.339Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -107,7 +107,7 @@
       "currency": "BRL",
       "unit_price": 5107.76,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-19T12:20:28.529Z",
+      "fetched_at": "2026-05-20T12:03:54.408Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -116,11 +116,11 @@
       "product_id": "teclado-logitech-k835",
       "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
       "name": "Teclado Logitech K835 TKL",
-      "price": 237.81,
+      "price": 236.58,
       "currency": "BRL",
-      "unit_price": 237.81,
+      "unit_price": 236.58,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-19T12:20:28.756Z",
+      "fetched_at": "2026-05-20T12:03:54.729Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -133,18 +133,18 @@
       "currency": "BRL",
       "unit_price": 189.9,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-05-19T12:21:00.504Z",
+      "fetched_at": "2026-05-20T12:04:25.887Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "carried_forward",
       "carried_forward_reason": "captcha_or_block",
       "carried_forward_from": {
-        "run_id": "2026-05-18T12-47-43-769Z",
-        "run_date": "2026-05-18",
-        "fetched_at": "2026-05-18T12:47:46.318Z",
-        "engine_used": "engine1_http",
+        "run_id": "2026-05-19T12-20-27-655Z",
+        "run_date": "2026-05-19",
+        "fetched_at": "2026-05-19T12:21:00.504Z",
+        "engine_used": "carry_forward",
         "source": "adapter",
-        "status": "ok"
+        "status": "carried_forward"
       }
     }
   ],
@@ -154,12 +154,12 @@
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
       "name": "Echo Pop",
       "status": "failed",
-      "fetched_at": "2026-05-19T12:21:00.503Z",
+      "fetched_at": "2026-05-20T12:04:25.887Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 329,
+          "elapsed_ms": 554,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -189,7 +189,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2570,
+          "elapsed_ms": 2906,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -200,12 +200,12 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/echo-pop-5f33e662/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/echo-pop-5f33e662/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9589,
+          "elapsed_ms": 9652,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -216,26 +216,26 @@
           "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
           "content_type": "text/html",
           "html_size": 5669,
-          "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/echo-pop-5f33e662/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/echo-pop-5f33e662/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/echo-pop-5f33e662/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/echo-pop-5f33e662/engine3_hardmode"
     },
     {
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
       "status": "failed",
-      "fetched_at": "2026-05-19T12:21:00.504Z",
+      "fetched_at": "2026-05-20T12:04:25.887Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 342,
+          "elapsed_ms": 565,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -265,7 +265,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2577,
+          "elapsed_ms": 2892,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -276,12 +276,12 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9129,
+          "elapsed_ms": 9379,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -292,26 +292,26 @@
           "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
           "content_type": "text/html",
           "html_size": 5720,
-          "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
     },
     {
       "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
       "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
       "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
       "status": "failed",
-      "fetched_at": "2026-05-19T12:21:00.504Z",
+      "fetched_at": "2026-05-20T12:04:25.887Z",
       "attempts": [
         {
           "engine": "engine1_http",
           "ok": false,
-          "elapsed_ms": 93,
+          "elapsed_ms": 110,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -341,7 +341,7 @@
         {
           "engine": "engine2_browser",
           "ok": false,
-          "elapsed_ms": 2573,
+          "elapsed_ms": 2902,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -352,12 +352,12 @@
           "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
           "content_type": "text/html",
           "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+          "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
         },
         {
           "engine": "engine3_hardmode",
           "ok": false,
-          "elapsed_ms": 9348,
+          "elapsed_ms": 8516,
           "error": "Amazon anti-bot or captcha page detected",
           "error_code": "captcha_or_block",
           "error_detail": "Amazon anti-bot or captcha page detected",
@@ -368,15 +368,15 @@
           "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
           "content_type": "text/html",
           "html_size": 5711,
-          "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+          "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
         }
       ],
       "engine": "engine3_hardmode",
       "last_error": "Amazon anti-bot or captcha page detected",
       "error_code": "captcha_or_block",
       "error_detail": "Amazon anti-bot or captcha page detected",
-      "artifact_dir": ".cache/debug/2026-05-19T12-20-27-655Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+      "artifact_dir": ".cache/debug/2026-05-20T12-03-53-228Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
     }
   ],
-  "run_file": "2026-05-19T12-20-27-655Z.json"
+  "run_file": "2026-05-20T12-03-53-228Z.json"
 }
