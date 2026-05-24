@@ -1,24 +1,25 @@
 {
-  "run_id": "2026-05-23T10-43-37-455Z",
-  "generated_at": "2026-05-23T10:43:37.455Z",
+  "run_id": "2026-04-18T10-01-51-499Z",
+  "run_date": "2026-04-18",
+  "generated_at": "2026-04-18T10:01:51.499Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 2858,
+    "run_duration_ms": 7203,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 7,
-        "failed": 0,
-        "avg_time_ms": 1271
+        "success": 4,
+        "failed": 3,
+        "avg_time_ms": 615
       },
       "engine2_browser": {
-        "attempted": 0,
-        "success": 0,
+        "attempted": 3,
+        "success": 3,
         "failed": 0,
-        "avg_time_ms": 0
+        "avg_time_ms": 5336
       },
       "engine3_hardmode": {
         "attempted": 0,
@@ -28,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -36,8 +37,8 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:40.005Z",
+      "engine_used": "engine2_browser",
+      "fetched_at": "2026-04-18T10:01:58.327Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -46,11 +47,11 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 721,
+      "price": 54.9,
       "currency": "BRL",
-      "unit_price": 721,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:39.660Z",
+      "unit_price": 54.9,
+      "engine_used": "engine2_browser",
+      "fetched_at": "2026-04-18T10:01:57.961Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
@@ -59,11 +60,11 @@
       "product_id": "headset-hyperx-cloud-stinger-2",
       "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
       "name": "Headset HyperX Cloud Stinger 2",
-      "price": 187.99,
+      "price": 279.99,
       "currency": "BRL",
-      "unit_price": 187.99,
+      "unit_price": 279.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.374Z",
+      "fetched_at": "2026-04-18T10:01:52.475Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -72,11 +73,11 @@
       "product_id": "mouse-logitech-g203",
       "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
       "name": "Mouse Logitech G203 Lightsync",
-      "price": 151.46,
+      "price": 167.81,
       "currency": "BRL",
-      "unit_price": 151.46,
+      "unit_price": 167.81,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.327Z",
+      "fetched_at": "2026-04-18T10:01:52.533Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -85,11 +86,11 @@
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
-      "price": 5107.76,
+      "price": 4705.42,
       "currency": "BRL",
-      "unit_price": 5107.76,
+      "unit_price": 4705.42,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.542Z",
+      "fetched_at": "2026-04-18T10:01:52.509Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -98,11 +99,11 @@
       "product_id": "teclado-logitech-k835",
       "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
       "name": "Teclado Logitech K835 TKL",
-      "price": 236.58,
+      "price": 249,
       "currency": "BRL",
-      "unit_price": 236.58,
+      "unit_price": 249,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.834Z",
+      "fetched_at": "2026-04-18T10:01:52.775Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok"
@@ -114,13 +115,12 @@
       "price": 189.9,
       "currency": "BRL",
       "unit_price": 189.9,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:40.312Z",
+      "engine_used": "engine2_browser",
+      "fetched_at": "2026-04-18T10:01:58.659Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok"
     }
   ],
-  "failures": [],
-  "run_file": "2026-05-23T10-43-37-455Z.json"
+  "failures": []
 }

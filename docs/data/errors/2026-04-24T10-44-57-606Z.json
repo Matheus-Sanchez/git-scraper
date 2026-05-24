@@ -1,0 +1,103 @@
+{
+  "run_id": "2026-04-24T10-44-57-606Z",
+  "run_date": "2026-04-24",
+  "generated_at": "2026-04-24T10:44:57.606Z",
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 5,
+      "failed": 2,
+      "avg_time_ms": 560
+    },
+    "engine2_browser": {
+      "attempted": 2,
+      "success": 1,
+      "failed": 1,
+      "avg_time_ms": 3553
+    },
+    "engine3_hardmode": {
+      "attempted": 1,
+      "success": 0,
+      "failed": 1,
+      "avg_time_ms": 8087
+    }
+  },
+  "errors": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
+      "status": "failed",
+      "fetched_at": "2026-04-24T10:45:13.243Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 386,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5218,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+              "content_type": "text/html",
+              "html_size": 5218,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2557,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-24T10-44-57-606Z/echo-pop-5f33e662/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 8087,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-24T10-44-57-606Z/echo-pop-5f33e662/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-24T10-44-57-606Z/echo-pop-5f33e662/engine3_hardmode"
+    }
+  ]
+}

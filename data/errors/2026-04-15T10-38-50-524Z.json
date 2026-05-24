@@ -1,0 +1,103 @@
+{
+  "run_id": "2026-04-15T10-38-50-524Z",
+  "run_date": "2026-04-15",
+  "generated_at": "2026-04-15T10:38:50.524Z",
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 5,
+      "failed": 2,
+      "avg_time_ms": 728
+    },
+    "engine2_browser": {
+      "attempted": 2,
+      "success": 0,
+      "failed": 2,
+      "avg_time_ms": 2561
+    },
+    "engine3_hardmode": {
+      "attempted": 2,
+      "success": 1,
+      "failed": 1,
+      "avg_time_ms": 9202
+    }
+  },
+  "errors": [
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "status": "failed",
+      "fetched_at": "2026-04-15T10:39:13.372Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 659,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5279,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+              "content_type": "text/html",
+              "html_size": 5279,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2566,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-04-15T10-38-50-524Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 9087,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+          "content_type": "text/html",
+          "html_size": 5720,
+          "artifact_dir": ".cache/debug/2026-04-15T10-38-50-524Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-15T10-38-50-524Z/haiz-monitor-gamer-25-144hz--1ca0f11f/engine3_hardmode"
+    }
+  ]
+}

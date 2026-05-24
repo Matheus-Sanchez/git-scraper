@@ -1,0 +1,179 @@
+{
+  "run_id": "2026-04-19T10-01-30-050Z",
+  "run_date": "2026-04-19",
+  "generated_at": "2026-04-19T10:01:30.050Z",
+  "engine_summary": {
+    "engine1_http": {
+      "attempted": 7,
+      "success": 4,
+      "failed": 3,
+      "avg_time_ms": 550
+    },
+    "engine2_browser": {
+      "attempted": 3,
+      "success": 1,
+      "failed": 2,
+      "avg_time_ms": 3196
+    },
+    "engine3_hardmode": {
+      "attempted": 2,
+      "success": 0,
+      "failed": 2,
+      "avg_time_ms": 8468
+    }
+  },
+  "errors": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
+      "status": "failed",
+      "fetched_at": "2026-04-19T10:01:52.777Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 551,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5218,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+              "content_type": "text/html",
+              "html_size": 5218,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2617,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-19T10-01-30-050Z/echo-pop-5f33e662/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 8476,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+          "content_type": "text/html",
+          "html_size": 5669,
+          "artifact_dir": ".cache/debug/2026-04-19T10-01-30-050Z/echo-pop-5f33e662/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-19T10-01-30-050Z/echo-pop-5f33e662/engine3_hardmode"
+    },
+    {
+      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
+      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+      "status": "failed",
+      "fetched_at": "2026-04-19T10:01:52.777Z",
+      "attempts": [
+        {
+          "engine": "engine1_http",
+          "ok": false,
+          "elapsed_ms": 80,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5275,
+          "artifact_dir": null,
+          "retry_attempts": [
+            {
+              "attempt": 1,
+              "error": "Amazon anti-bot or captcha page detected",
+              "error_code": "captcha_or_block",
+              "error_detail": "Amazon anti-bot or captcha page detected",
+              "http_status": 200,
+              "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+              "content_type": "text/html",
+              "html_size": 5275,
+              "candidates_checked": 0,
+              "top_candidates": []
+            }
+          ]
+        },
+        {
+          "engine": "engine2_browser",
+          "ok": false,
+          "elapsed_ms": 2621,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5711,
+          "artifact_dir": ".cache/debug/2026-04-19T10-01-30-050Z/xiaomi-smart-band-9-active-v-b56deabe/engine2_browser"
+        },
+        {
+          "engine": "engine3_hardmode",
+          "ok": false,
+          "elapsed_ms": 8459,
+          "error": "Amazon anti-bot or captcha page detected",
+          "error_code": "captcha_or_block",
+          "error_detail": "Amazon anti-bot or captcha page detected",
+          "source": null,
+          "confidence": null,
+          "price": null,
+          "http_status": 200,
+          "final_url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+          "content_type": "text/html",
+          "html_size": 5711,
+          "artifact_dir": ".cache/debug/2026-04-19T10-01-30-050Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+        }
+      ],
+      "engine": "engine3_hardmode",
+      "last_error": "Amazon anti-bot or captcha page detected",
+      "error_code": "captcha_or_block",
+      "error_detail": "Amazon anti-bot or captcha page detected",
+      "artifact_dir": ".cache/debug/2026-04-19T10-01-30-050Z/xiaomi-smart-band-9-active-v-b56deabe/engine3_hardmode"
+    }
+  ]
+}
