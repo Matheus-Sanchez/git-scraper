@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-05-23T10-43-37-455Z",
-  "generated_at": "2026-05-23T10:43:37.455Z",
+  "run_id": "2026-05-24T10-50-44-914Z",
+  "generated_at": "2026-05-24T10:50:44.914Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 2858,
+    "run_duration_ms": 37626,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 7,
-        "failed": 0,
-        "avg_time_ms": 1271
+        "success": 4,
+        "failed": 3,
+        "avg_time_ms": 588
       },
       "engine2_browser": {
-        "attempted": 0,
+        "attempted": 3,
         "success": 0,
-        "failed": 0,
-        "avg_time_ms": 0
+        "failed": 3,
+        "avg_time_ms": 2594
       },
       "engine3_hardmode": {
-        "attempted": 0,
-        "success": 0,
+        "attempted": 3,
+        "success": 3,
         "failed": 0,
-        "avg_time_ms": 0
+        "avg_time_ms": 11128
       }
     }
   },
@@ -36,24 +36,28 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:40.005Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-05-24T10:50:59.958Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "amazon",
+      "store_support_level": "dedicated_validated"
     },
     {
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 721,
+      "price": 559.99,
       "currency": "BRL",
-      "unit_price": 721,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:39.660Z",
+      "unit_price": 559.99,
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-05-24T10:51:10.988Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "amazon",
+      "store_support_level": "dedicated_validated"
     },
     {
       "product_id": "headset-hyperx-cloud-stinger-2",
@@ -63,10 +67,12 @@
       "currency": "BRL",
       "unit_price": 187.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.374Z",
+      "fetched_at": "2026-05-24T10:50:45.892Z",
       "source": "json-ld",
       "confidence": 0.97,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
     },
     {
       "product_id": "mouse-logitech-g203",
@@ -76,10 +82,12 @@
       "currency": "BRL",
       "unit_price": 151.46,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.327Z",
+      "fetched_at": "2026-05-24T10:50:45.926Z",
       "source": "json-ld",
       "confidence": 0.97,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
     },
     {
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
@@ -89,10 +97,12 @@
       "currency": "BRL",
       "unit_price": 5107.76,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.542Z",
+      "fetched_at": "2026-05-24T10:50:45.964Z",
       "source": "json-ld",
       "confidence": 0.97,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
     },
     {
       "product_id": "teclado-logitech-k835",
@@ -102,10 +112,12 @@
       "currency": "BRL",
       "unit_price": 236.58,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:38.834Z",
+      "fetched_at": "2026-05-24T10:50:46.033Z",
       "source": "json-ld",
       "confidence": 0.97,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
     },
     {
       "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
@@ -114,13 +126,15 @@
       "price": 189.9,
       "currency": "BRL",
       "unit_price": 189.9,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-05-23T10:43:40.312Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-05-24T10:51:22.491Z",
       "source": "adapter",
       "confidence": 0.85,
-      "status": "ok"
+      "status": "ok",
+      "adapter": "amazon",
+      "store_support_level": "dedicated_validated"
     }
   ],
   "failures": [],
-  "run_file": "2026-05-23T10-43-37-455Z.json"
+  "run_file": "2026-05-24T10-50-44-914Z.json"
 }
