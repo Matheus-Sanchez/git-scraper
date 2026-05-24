@@ -9,6 +9,7 @@ import {
   hasDisqualifyingContext,
   hasInstallmentContext,
   hasOldPriceContext,
+  hasPixBoletoHint,
   isCandidatePricePlausible,
   priorityBySource,
 } from './heuristics.js';
@@ -261,6 +262,7 @@ function scoreCandidate(candidate, candidates) {
 
   let score = priorityBySource(candidate.source) * 100;
   if (hasCurrentPriceContext(candidate.context)) score += 12;
+  if (hasPixBoletoHint(candidate.context)) score += 8;
 
   // If both "de" and "por" appear, favor the lower plausible one.
   if (/(\bde\b).*(\bpor\b)/i.test(candidate.context)) {

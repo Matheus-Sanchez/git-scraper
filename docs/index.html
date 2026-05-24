@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Price Tracker Dashboard</title>
+    <title>Dashboard de Preços</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -14,33 +15,33 @@
       <header class="hero hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Git Scraper</p>
-          <h1>Dashboard de Precos</h1>
+          <h1>Operação de Preços</h1>
           <p class="subtitle">
-            Monitoramento diario com scraping em cascata, categorizacao visual e historico por produto/categoria.
+            GitHub Pages / Actions / JSON
           </p>
           <div class="hero-actions">
-            <a class="btn btn-ghost" href="./manage.html">Gerenciar Produtos</a>
-            <button id="open-add-modal" class="btn btn-primary" type="button">Adicionar Produto</button>
+            <a class="btn btn-ghost" href="./manage.html">Produtos</a>
+            <button id="open-add-modal" class="btn btn-primary" type="button">Adicionar</button>
             <a
               id="latest-json-link"
               class="btn btn-ghost"
               href="./data/latest.json"
               target="_blank"
               rel="noopener noreferrer"
-            >Ver latest.json</a>
+            >latest.json</a>
           </div>
           <p class="warning">
-            Adicionar produto cria uma Issue e o bot adiciona automaticamente.
+            Adicionar produto cria uma issue e o bot atualiza o catálogo automaticamente.
           </p>
         </div>
 
         <aside class="hero-rail">
           <article class="hero-panel">
             <div class="section-heading compact">
-              <div>
-                <p class="section-kicker">Pulse</p>
-                <h2>Leitura Executiva</h2>
-              </div>
+            <div>
+              <p class="section-kicker">Pulse</p>
+              <h2>Saúde da Coleta</h2>
+            </div>
               <span id="generated-at" class="meta-pill">Carregando...</span>
             </div>
             <div id="hero-metrics" class="hero-metrics-grid"></div>
@@ -48,13 +49,82 @@
         </aside>
       </header>
 
-      <section class="analytics-grid" aria-label="Visao geral">
+      <nav class="dashboard-nav" aria-label="Navegação do dashboard">
+        <a href="#overview">Resumo</a>
+        <a href="#diagnostics">Diagnósticos</a>
+        <a href="#insights">Oportunidades</a>
+        <a href="#history-section">Histórico</a>
+        <a href="#inventory">Produtos</a>
+      </nav>
+
+      <section id="overview" class="overview-layout" aria-label="Resumo geral">
+        <article class="card narrative-panel" aria-labelledby="overview-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Resumo Geral</p>
+              <h2 id="overview-title">Situação da Operação</h2>
+            </div>
+            <span id="overview-status" class="meta-pill">Carregando...</span>
+          </div>
+          <p id="overall-narrative" class="narrative-copy">Carregando resumo...</p>
+          <div id="run-health-strip" class="health-strip" aria-label="Indicadores principais"></div>
+        </article>
+
+        <article class="card store-panel" aria-labelledby="store-health-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Lojas</p>
+              <h2 id="store-health-title">Saúde por Loja</h2>
+            </div>
+          </div>
+          <div id="store-health-list" class="store-health-list"></div>
+        </article>
+      </section>
+
+      <section id="diagnostics" class="diagnostics-grid" aria-label="Diagnósticos da coleta">
+        <article class="card chart-card" aria-labelledby="store-chart-title">
+          <div class="card-title-row analytics-card-header">
+            <div>
+              <p class="section-kicker">Cobertura</p>
+              <h2 id="store-chart-title">Resultado por Loja</h2>
+            </div>
+          </div>
+          <div class="chart-shell chart-shell-compact">
+            <canvas id="store-health-chart" width="640" height="300"></canvas>
+          </div>
+        </article>
+
+        <article class="card chart-card" aria-labelledby="engine-chart-title">
+          <div class="card-title-row analytics-card-header">
+            <div>
+              <p class="section-kicker">Pipeline</p>
+              <h2 id="engine-chart-title">Motores de Captura</h2>
+            </div>
+          </div>
+          <div class="chart-shell chart-shell-compact">
+            <canvas id="engine-health-chart" width="640" height="300"></canvas>
+          </div>
+        </article>
+
+        <article class="card chart-card" aria-labelledby="failure-chart-title">
+          <div class="card-title-row analytics-card-header">
+            <div>
+              <p class="section-kicker">Falhas</p>
+              <h2 id="failure-chart-title">Motivos Recentes</h2>
+            </div>
+          </div>
+          <div class="chart-shell chart-shell-compact">
+            <canvas id="failure-breakdown-chart" width="640" height="300"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="analytics-grid" aria-label="Carteira monitorada">
         <article class="card card-emphasis card-mix" aria-labelledby="category-pie-title">
           <div class="card-title-row analytics-card-header">
             <div>
-              <p class="section-kicker">Mix</p>
-              <h2 id="category-pie-title">Distribuicao por Categoria</h2>
-              <p class="section-note">Panorama do portifolio ativo para leitura rapida da cobertura por categoria.</p>
+              <p class="section-kicker">Carteira</p>
+              <h2 id="category-pie-title">Produtos por Categoria</h2>
             </div>
           </div>
           <div class="chart-shell chart-shell-pie">
@@ -66,8 +136,7 @@
           <div class="card-title-row analytics-card-header">
             <div>
               <p class="section-kicker">Run</p>
-              <h2 id="summary-title">Resumo do Ultimo Run</h2>
-              <p class="section-note">Sinais operacionais do ciclo mais recente, em uma leitura mais compacta.</p>
+              <h2 id="summary-title">Resumo da Última Execução</h2>
             </div>
           </div>
           <div id="summary-grid" class="summary-grid"></div>
@@ -76,63 +145,70 @@
         <article class="card card-focus-panel" aria-labelledby="focus-title">
           <div class="card-title-row analytics-card-header">
             <div>
-              <p class="section-kicker">Focus</p>
+              <p class="section-kicker">Foco</p>
               <h2 id="focus-title">Indicadores do Recorte</h2>
-              <p class="section-note">Melhor oferta, media e densidade do recorte aplicado no historico.</p>
             </div>
           </div>
           <div id="focus-metrics" class="focus-grid"></div>
         </article>
       </section>
 
-      <section class="card history-card" aria-labelledby="chart-title">
+      <section id="insights" class="opportunity-grid" aria-label="Oportunidades e riscos">
+        <article class="card opportunity-panel" aria-labelledby="opportunities-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Preço</p>
+              <h2 id="opportunities-title">Oportunidades</h2>
+            </div>
+          </div>
+          <div id="price-opportunities" class="opportunity-list"></div>
+        </article>
+
+        <article class="card opportunity-panel" aria-labelledby="risk-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Atenção</p>
+              <h2 id="risk-title">Risco de Captura</h2>
+            </div>
+          </div>
+          <div id="risk-list" class="opportunity-list"></div>
+        </article>
+      </section>
+
+      <section id="history-section" class="card history-card" aria-labelledby="chart-title">
         <div class="section-heading">
           <div>
-            <p class="section-kicker">Explore</p>
-            <h2 id="chart-title">Historico de Precos</h2>
-            <p class="section-note">
-              Refine o recorte sem perder o grafico de vista e compare produtos, categorias e lojas com mais clareza.
-            </p>
+            <p class="section-kicker">Análise</p>
+            <h2 id="chart-title">Histórico de Preços</h2>
           </div>
         </div>
 
-        <section class="history-toolbar-panel" aria-labelledby="command-title">
-          <div class="section-heading compact history-toolbar-heading">
-            <div>
-              <p class="section-kicker">Command Center</p>
-              <h3 id="command-title">Filtros e Ferramentas</h3>
-              <p class="section-note">
-                Pesquisa rapida, recorte por loja e navegao do historico em uma unica faixa horizontal.
-              </p>
-            </div>
-            <button id="dashboard-reset-filters" class="btn btn-ghost" type="button">Limpar filtros</button>
-          </div>
-
-          <div class="command-grid history-filter-grid">
-            <label class="control-card control-span-4" for="dashboard-search">
-              Pesquisa rapida
+        <section class="history-toolbar-panel compact-filter-panel" aria-label="Filtros do histórico">
+          <div class="filter-bar">
+            <label class="filter-field filter-search" for="dashboard-search">
+              <span>Buscar</span>
               <input id="dashboard-search" type="search" placeholder="Produto, loja, categoria ou grupo">
             </label>
 
-            <label class="control-card control-span-2" for="chart-scope">
-              Modo
+            <label class="filter-field" for="chart-scope">
+              <span>Modo</span>
               <select id="chart-scope">
                 <option value="all-products">Todos os produtos</option>
                 <option value="by-category">Produtos por categoria</option>
                 <option value="comparison-group">Comparar equivalentes</option>
-                <option value="single-product">Produto especifico</option>
+                <option value="single-product">Produto específico</option>
               </select>
             </label>
 
-            <label class="control-card control-span-2" for="site-filter">
-              Loja
+            <label class="filter-field" for="site-filter">
+              <span>Loja</span>
               <select id="site-filter">
                 <option value="__all__">Todas</option>
               </select>
             </label>
 
-            <label class="control-card control-span-2" for="status-filter">
-              Status
+            <label class="filter-field" for="status-filter">
+              <span>Status</span>
               <select id="status-filter">
                 <option value="__all__">Todos</option>
                 <option value="ok">Somente ok</option>
@@ -140,33 +216,44 @@
               </select>
             </label>
 
-            <label class="control-card control-span-2" for="history-category-filter">
-              Categoria
-              <select id="history-category-filter">
-                <option value="__all__">Todas</option>
-              </select>
-            </label>
+            <button id="dashboard-reset-filters" class="btn btn-ghost filter-reset" type="button">
+              Limpar
+            </button>
+          </div>
 
-            <label class="control-card control-span-5" for="product-select">
-              Produto
-              <select id="product-select"></select>
-            </label>
+          <details id="advanced-filters" class="filter-drawer">
+            <summary>
+              <span>Ajustes</span>
+              <small>categoria, produto, séries e zoom</small>
+            </summary>
 
-            <div class="control-card control-card-tools control-span-7">
-              <div class="tools-copy">
-                <span class="control-label">Ferramentas</span>
+            <div class="filter-drawer-grid">
+              <label class="filter-field" for="history-category-filter">
+                <span>Categoria</span>
+                <select id="history-category-filter">
+                  <option value="__all__">Todas</option>
+                </select>
+              </label>
+
+              <label id="product-filter-card" class="filter-field filter-product" for="product-select" hidden>
+                <span>Produto</span>
+                <select id="product-select"></select>
+              </label>
+
+              <div class="filter-tools">
                 <label class="toggle-chip" for="hide-legacy-series">
                   <input id="hide-legacy-series" type="checkbox" checked>
-                  Ocultar series legadas
+                  Ocultar séries legadas
                 </label>
               </div>
-              <div class="zoom-tools" aria-label="Controles de zoom">
+
+              <div class="zoom-tools compact-zoom-tools" aria-label="Controles de zoom">
                 <button id="zoom-out" class="btn btn-ghost" type="button">Zoom -</button>
                 <button id="zoom-in" class="btn btn-ghost" type="button">Zoom +</button>
-                <button id="zoom-reset" class="btn btn-ghost" type="button">Ver tudo</button>
+                <button id="zoom-reset" class="btn btn-ghost" type="button">100%</button>
               </div>
             </div>
-          </div>
+          </details>
 
           <div class="history-toolbar-footer">
             <div id="active-filter-pills" class="filter-pill-row"></div>
@@ -201,14 +288,12 @@
         </div>
       </section>
 
-      <section class="card" aria-labelledby="table-title">
+      <section id="inventory" class="card" aria-labelledby="table-title">
         <div class="section-heading">
           <div>
-            <p class="section-kicker">Operacao</p>
+            <p class="section-kicker">Operação</p>
             <h2 id="table-title">Lista de Produtos (Atual)</h2>
-            <p id="table-filter-summary" class="section-note">
-              A tabela acompanha os filtros ativos do historico.
-            </p>
+            <p id="table-filter-summary" class="section-note"></p>
           </div>
         </div>
         <div class="table-wrap">
@@ -217,9 +302,9 @@
               <tr>
                 <th>Produto</th>
                 <th>Loja</th>
-                <th>Preco Atual</th>
+                <th>Preço Atual</th>
                 <th>Menor 30d</th>
-                <th>Unitario</th>
+                <th>Unitário</th>
                 <th>Status</th>
               </tr>
             </thead>
@@ -243,7 +328,7 @@
 
         <form id="add-product-form" class="form-grid">
           <label>
-            Repositorio GitHub (owner/repo)
+            Repositório GitHub (owner/repo)
             <input type="text" id="ap-repo" required>
           </label>
 
@@ -251,8 +336,8 @@
             <div>
               <strong>Lote de produtos</strong>
               <p class="section-note">
-                Um unico envio abre uma unica issue e o workflow aplica tudo no mesmo commit.
-                Use o mesmo grupo de comparacao para produtos equivalentes em lojas diferentes.
+                Um único envio abre uma única issue e o workflow aplica tudo no mesmo commit.
+                Use o mesmo grupo de comparação para produtos equivalentes em lojas diferentes.
               </p>
             </div>
             <button id="ap-add-item" type="button" class="btn btn-ghost">Adicionar mais um</button>

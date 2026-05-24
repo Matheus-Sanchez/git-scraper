@@ -1,4 +1,4 @@
-name: Ingest Add-Product Issue
+name: Ingest Product Issues
 
 on:
   issues:

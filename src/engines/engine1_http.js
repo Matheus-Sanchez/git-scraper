@@ -3,6 +3,7 @@ import { extractPriceFromHtml } from '../extract/extract_price.js';
 import { runWithPool, sleep } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';
 import { getAdapterForUrl } from '../adapters/index.js';
+import { getStoreSupportByUrl } from '../config/support_matrix.js';
 import { roundTo2 } from '../utils/price_parse.js';
 import { fetchAmazonPriceViaPaapi } from '../providers.amazon_paapi.js';
 import {
@@ -15,9 +16,10 @@ import {
 const ENGINE_NAME = 'engine1_http';
 const MAX_HTTP_RETRIES = 2;
 
-function buildSnapshot(product, extraction) {
+function buildSnapshot(product, extraction, adapterId = null) {
   const units = Number(product.units_per_package);
   const unitPrice = Number.isFinite(units) && units > 0 ? roundTo2(extraction.price / units) : null;
+  const support = getStoreSupportByUrl(product.url);
 
   return {
     product_id: product.id,
@@ -31,6 +33,8 @@ function buildSnapshot(product, extraction) {
     source: extraction.source,
     confidence: extraction.confidence,
     status: 'ok',
+    adapter: adapterId || support.adapter,
+    store_support_level: support.support_level,
   };
 }
 
@@ -77,6 +81,7 @@ export async function runEngine1(products, { env, logger }) {
 
     const url = normalizeUrl(product.url);
     const adapter = getAdapterForUrl(url);
+    const support = getStoreSupportByUrl(url);
     const selectors = adapter.getSelectors(product);
 
     log.product('debug', product, 'Engine1 fetching product', { adapter: adapter.id });
@@ -90,7 +95,7 @@ export async function runEngine1(products, { env, logger }) {
           source: apiResult.source,
           confidence: apiResult.confidence,
         };
-        const result = adapter.postProcess(buildSnapshot(product, extraction), {
+        const result = adapter.postProcess(buildSnapshot(product, extraction, adapter.id), {
           html: '',
           extraction,
           product,
@@ -111,6 +116,8 @@ export async function runEngine1(products, { env, logger }) {
           ok: true,
           elapsed_ms: elapsedMs,
           retry_attempts: [],
+          adapter: adapter.id,
+          store_support_level: support.support_level,
           ...apiResult.engine_metadata,
           result,
         };
@@ -149,18 +156,22 @@ export async function runEngine1(products, { env, logger }) {
         });
 
         if (!extraction.ok) {
-          finalFailure = classifyAdapterFailure(
+          finalFailure = mergeFailureMetadata(classifyAdapterFailure(
             adapter,
             { html, product, extraction, engineName: ENGINE_NAME },
             classifyExtractionFailure(extraction, responseMetadata),
-          );
+          ), {
+            adapter: adapter.id,
+            store_support_level: support.support_level,
+            failure_stage: 'extract',
+          });
           retryAttempts.push({
             attempt: attemptIndex + 1,
             ...finalFailure,
           });
         } else {
           const elapsedMs = Date.now() - startedAt;
-          const result = adapter.postProcess(buildSnapshot(product, extraction), {
+          const result = adapter.postProcess(buildSnapshot(product, extraction, adapter.id), {
             html,
             extraction,
             product,
@@ -180,11 +191,17 @@ export async function runEngine1(products, { env, logger }) {
             ok: true,
             elapsed_ms: elapsedMs,
             retry_attempts: retryAttempts,
+            adapter: adapter.id,
+            store_support_level: support.support_level,
             result,
           };
         }
       } catch (error) {
-        finalFailure = classifyAxiosFailure(error, { final_url: url });
+        finalFailure = mergeFailureMetadata(classifyAxiosFailure(error, { final_url: url }), {
+          adapter: adapter.id,
+          store_support_level: support.support_level,
+          failure_stage: 'http_fetch',
+        });
         retryAttempts.push({
           attempt: attemptIndex + 1,
           ...finalFailure,
@@ -218,6 +235,8 @@ export async function runEngine1(products, { env, logger }) {
       ok: false,
       elapsed_ms: elapsedMs,
       retry_attempts: retryAttempts,
+      adapter: adapter.id,
+      store_support_level: support.support_level,
       ...failure,
     };
   });

@@ -18,6 +18,15 @@ const CATEGORY_PALETTE = [
 
 const els = {
   generatedAt: document.getElementById('generated-at'),
+  overviewStatus: document.getElementById('overview-status'),
+  overallNarrative: document.getElementById('overall-narrative'),
+  runHealthStrip: document.getElementById('run-health-strip'),
+  storeHealthList: document.getElementById('store-health-list'),
+  storeHealthCanvas: document.getElementById('store-health-chart'),
+  engineHealthCanvas: document.getElementById('engine-health-chart'),
+  failureBreakdownCanvas: document.getElementById('failure-breakdown-chart'),
+  priceOpportunities: document.getElementById('price-opportunities'),
+  riskList: document.getElementById('risk-list'),
   heroMetrics: document.getElementById('hero-metrics'),
   summaryGrid: document.getElementById('summary-grid'),
   focusMetrics: document.getElementById('focus-metrics'),
@@ -28,9 +37,12 @@ const els = {
   historyCategoryFilter: document.getElementById('history-category-filter'),
   chartScope: document.getElementById('chart-scope'),
   productSelect: document.getElementById('product-select'),
+  productFilterCard: document.getElementById('product-filter-card'),
+  advancedFilters: document.getElementById('advanced-filters'),
   hideLegacySeries: document.getElementById('hide-legacy-series'),
   dashboardResetFilters: document.getElementById('dashboard-reset-filters'),
   activeFilterPills: document.getElementById('active-filter-pills'),
+  toolbarFooter: document.querySelector('.history-toolbar-footer'),
   toolbarInsights: document.getElementById('toolbar-insights'),
   historyMain: document.getElementById('history-main'),
   historyScroll: document.getElementById('history-scroll'),
@@ -75,6 +87,9 @@ const state = {
   allDates: [],
   chart: null,
   pieChart: null,
+  storeChart: null,
+  engineChart: null,
+  failureChart: null,
   viewport: {
     startIndex: 0,
     endIndex: 0,
@@ -168,6 +183,20 @@ function formatMoney(value) {
     style: 'currency',
     currency: 'BRL',
   });
+}
+
+function formatCompactNumber(value) {
+  const numericValue = Number(value);
+  if (!Number.isFinite(numericValue)) return '-';
+  return new Intl.NumberFormat('pt-BR', {
+    maximumFractionDigits: 1,
+  }).format(numericValue);
+}
+
+function percentOf(part, total) {
+  const numericTotal = Number(total);
+  if (!Number.isFinite(numericTotal) || numericTotal <= 0) return 0;
+  return Math.round((Number(part || 0) / numericTotal) * 100);
 }
 
 function isRenderablePrice(value) {
@@ -283,7 +312,7 @@ async function detectDataRoot() {
     }
   }
 
-  throw new Error('Nao foi possivel localizar os arquivos de dados em ./data ou ../data.');
+  throw new Error('Não foi possível localizar os arquivos de dados em ./data ou ../data.');
 }
 
 async function fetchDataJson(path) {
@@ -455,8 +484,15 @@ function scopeUsesProductSelect(scope = currentScope()) {
 
 function syncControlAvailability() {
   if (!els.productSelect) return;
-  const disabled = !scopeUsesProductSelect() || els.productSelect.options.length === 0 || !els.productSelect.value;
+  const usesProductSelect = scopeUsesProductSelect();
+  const disabled = !usesProductSelect || els.productSelect.options.length === 0 || !els.productSelect.value;
   els.productSelect.disabled = disabled;
+  if (els.productFilterCard) {
+    els.productFilterCard.hidden = !usesProductSelect;
+  }
+  if (els.advancedFilters && usesProductSelect) {
+    els.advancedFilters.open = true;
+  }
 }
 
 function buildCurrentSiteOptions() {
@@ -573,12 +609,15 @@ function buildComparisonGroups() {
 function renderSummary() {
   const summary = state.latest?.summary || {};
   const engines = summary.engines || {};
+  const items = Array.isArray(state.latest?.items) ? state.latest.items : [];
+  const carriedForwardCount = items.filter((item) => isCarriedForwardSnapshot(item)).length;
 
   const rows = [
     ['Run ID', state.latest?.run_id || '-'],
     ['Total ativos', summary.total_products ?? 0],
     ['Sucesso', summary.success_count ?? 0],
     ['Falhas', summary.failure_count ?? 0],
+    ['Reaproveitados', carriedForwardCount],
     ['Duracao (ms)', summary.run_duration_ms ?? 0],
     ['E1 ok/fail', `${engines.engine1_http?.success ?? 0}/${engines.engine1_http?.failed ?? 0}`],
     ['E2 ok/fail', `${engines.engine2_browser?.success ?? 0}/${engines.engine2_browser?.failed ?? 0}`],
@@ -591,7 +630,7 @@ function renderSummary() {
 
   els.generatedAt.textContent = state.latest?.generated_at
     ? `Atualizado: ${formatDateTime(state.latest.generated_at)}`
-    : 'Sem execucao registrada';
+    : 'Sem execução registrada';
 }
 
 function renderHeroMetrics() {
@@ -603,12 +642,12 @@ function renderHeroMetrics() {
   const failure = Number(summary.failure_count || 0);
   const successRate = total > 0 ? Math.round((success / total) * 100) : 0;
   const visibleSpan = state.allDates.length > 0
-    ? `${state.allDates[0]} ate ${state.allDates[state.allDates.length - 1]}`
-    : 'sem historico';
+    ? `${state.allDates[0]} até ${state.allDates[state.allDates.length - 1]}`
+    : 'sem histórico';
 
   const cards = [
     ['Ativos', total, `${state.categories.length} categorias monitoradas`],
-    ['Taxa de sucesso', `${successRate}%`, `${success} ok / ${failure} falhas no ultimo run`],
+    ['Taxa de sucesso', `${successRate}%`, `${success} ok / ${failure} falhas na última execução`],
     ['Lojas', buildCurrentSiteOptions().length, 'Canais com dados atuais no painel'],
     ['Janela', state.allDates.length, visibleSpan],
   ];
@@ -634,6 +673,8 @@ function renderCategoryLegend(categories) {
 }
 
 function renderPieChart() {
+  if (!els.pieCanvas) return;
+
   if (state.pieChart) {
     state.pieChart.destroy();
     state.pieChart = null;
@@ -651,7 +692,7 @@ function renderPieChart() {
   const colors = labels.map((label) => colorForCategory(label));
 
   state.pieChart = new window.Chart(els.pieCanvas, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
       labels: labels.map(formatCategoryLabel),
       datasets: [
@@ -659,16 +700,32 @@ function renderPieChart() {
           label: 'Produtos por categoria',
           data: values,
           backgroundColor: colors,
-          borderWidth: 0,
+          borderColor: '#ffffff',
+          borderWidth: 3,
+          hoverOffset: 8,
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      cutout: '62%',
+      animation: {
+        duration: 520,
+        easing: 'easeOutQuart',
+      },
       plugins: {
         legend: {
           position: 'right',
+          labels: {
+            boxWidth: 10,
+            boxHeight: 10,
+            color: '#526071',
+            font: {
+              size: 12,
+              weight: 650,
+            },
+          },
         },
         tooltip: {
           callbacks: {
@@ -682,6 +739,492 @@ function renderPieChart() {
       },
     },
   });
+}
+
+function destroyChart(key) {
+  if (state[key]) {
+    state[key].destroy();
+    state[key] = null;
+  }
+}
+
+function compactChartOptions({ stacked = false, indexAxis = 'x', legend = true } = {}) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis,
+    animation: {
+      duration: 520,
+      easing: 'easeOutQuart',
+    },
+    plugins: {
+      legend: {
+        display: legend,
+        position: 'bottom',
+        labels: {
+          boxWidth: 10,
+          boxHeight: 10,
+          color: '#526071',
+          font: {
+            size: 12,
+            weight: 650,
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: '#111827',
+        titleColor: '#ffffff',
+        bodyColor: '#ffffff',
+        padding: 10,
+        callbacks: {
+          label(context) {
+            const value = Number(context.raw || 0);
+            return `${context.dataset.label || context.label}: ${formatCompactNumber(value)}`;
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        stacked,
+        grid: {
+          color: 'rgba(217, 224, 234, 0.72)',
+        },
+        ticks: {
+          color: '#526071',
+          maxRotation: 0,
+          autoSkip: true,
+        },
+        border: {
+          color: '#d9e0ea',
+        },
+      },
+      y: {
+        stacked,
+        grid: {
+          color: 'rgba(217, 224, 234, 0.72)',
+        },
+        ticks: {
+          color: '#526071',
+          precision: 0,
+        },
+        border: {
+          color: '#d9e0ea',
+        },
+      },
+    },
+  };
+}
+
+function buildStoreHealthRows() {
+  const rows = buildCurrentRows();
+  const groups = new Map();
+
+  rows.forEach((row) => {
+    const key = row.site_label || 'Site';
+    const group = groups.get(key) || {
+      site: key,
+      total: 0,
+      ok: 0,
+      failed: 0,
+      carried: 0,
+      real: 0,
+      prices: [],
+      adapters: new Set(),
+      supportLevels: new Set(),
+      failureCodes: new Map(),
+    };
+
+    group.total += 1;
+    if (row.status === 'failed') {
+      group.failed += 1;
+    } else {
+      group.ok += 1;
+    }
+
+    if (row.snapshot_status === 'carried_forward' || row.snapshot_status === 'historical_fallback' || row.carried_forward_from) {
+      group.carried += 1;
+    } else if (row.status === 'ok') {
+      group.real += 1;
+    }
+
+    if (Number.isFinite(row.current_price)) {
+      group.prices.push(Number(row.current_price));
+    }
+    if (row.adapter) group.adapters.add(row.adapter);
+    if (row.store_support_level) group.supportLevels.add(row.store_support_level);
+    if (row.error_code) {
+      group.failureCodes.set(row.error_code, (group.failureCodes.get(row.error_code) || 0) + 1);
+    }
+
+    groups.set(key, group);
+  });
+
+  return [...groups.values()]
+    .map((group) => {
+      const average = group.prices.length > 0
+        ? group.prices.reduce((sum, price) => sum + price, 0) / group.prices.length
+        : null;
+      const dominantFailure = [...group.failureCodes.entries()]
+        .sort((left, right) => right[1] - left[1])[0]?.[0] || '';
+
+      return {
+        ...group,
+        successRate: percentOf(group.ok, group.total),
+        realRate: percentOf(group.real, group.total),
+        averagePrice: average,
+        dominantFailure,
+      };
+    })
+    .sort((left, right) => {
+      if (right.failed !== left.failed) return right.failed - left.failed;
+      if (left.successRate !== right.successRate) return left.successRate - right.successRate;
+      return left.site.localeCompare(right.site);
+    });
+}
+
+function buildFailureBreakdown() {
+  const failures = Array.isArray(state.latest?.failures) ? state.latest.failures : [];
+  const counts = new Map();
+
+  failures.forEach((failure) => {
+    const code = humanizeErrorCode(failure.error_code || failure.last_error_code || 'Falha sem classificacao');
+    counts.set(code, (counts.get(code) || 0) + 1);
+  });
+
+  return [...counts.entries()]
+    .map(([label, value]) => ({ label, value }))
+    .sort((left, right) => right.value - left.value || left.label.localeCompare(right.label));
+}
+
+function renderOverallNarrative(storeRows) {
+  if (!els.overallNarrative) return;
+
+  const summary = state.latest?.summary || {};
+  const rows = buildCurrentRows();
+  const total = Number(summary.total_products ?? rows.length ?? 0);
+  const success = Number(summary.success_count ?? rows.filter((row) => row.status === 'ok').length ?? 0);
+  const failure = Number(summary.failure_count ?? rows.filter((row) => row.status === 'failed').length ?? 0);
+  const carried = rows.filter((row) => row.snapshot_status === 'carried_forward' || row.carried_forward_from).length;
+  const successRate = percentOf(success, total);
+  const failureBreakdown = buildFailureBreakdown();
+  const mainFailure = failureBreakdown[0]?.label || '';
+  const storesWithRisk = storeRows.filter((row) => row.failed > 0 || row.carried > 0).length;
+  const status = failure > 0 ? 'Atenção' : carried > 0 ? 'Monitorado' : 'Saudável';
+
+  if (els.overviewStatus) {
+    els.overviewStatus.textContent = status;
+    els.overviewStatus.dataset.state = failure > 0 ? 'danger' : carried > 0 ? 'warn' : 'ok';
+  }
+
+  const failureText = failure > 0
+    ? `A principal causa recente é ${mainFailure || 'falha sem classificação'}, com ${storesWithRisk} loja(s) exigindo revisão.`
+    : 'Nenhuma falha classificada apareceu na última execução.';
+  const carriedText = carried > 0
+    ? `${carried} preço(s) estão reaproveitados, então eles continuam visíveis mas não representam uma coleta nova.`
+    : 'Todos os preços exibidos como sucesso vieram da coleta mais recente.';
+
+  els.overallNarrative.innerHTML = `
+    A última execução cobriu <strong>${escapeHtml(total)}</strong> produto(s), com
+    <strong>${escapeHtml(successRate)}%</strong> de sucesso e <strong>${escapeHtml(failure)}</strong>
+    falha(s). ${escapeHtml(failureText)} ${escapeHtml(carriedText)}
+  `;
+}
+
+function renderRunHealthStrip(storeRows) {
+  if (!els.runHealthStrip) return;
+
+  const summary = state.latest?.summary || {};
+  const rows = buildCurrentRows();
+  const total = Number(summary.total_products ?? rows.length ?? 0);
+  const success = Number(summary.success_count ?? rows.filter((row) => row.status === 'ok').length ?? 0);
+  const failure = Number(summary.failure_count ?? rows.filter((row) => row.status === 'failed').length ?? 0);
+  const carried = rows.filter((row) => row.snapshot_status === 'carried_forward' || row.carried_forward_from).length;
+  const realSuccess = Math.max(success - carried, 0);
+  const classifiedFailures = (Array.isArray(state.latest?.failures) ? state.latest.failures : [])
+    .filter((failureItem) => failureItem.error_code || failureItem.failure_stage).length;
+  const durationMs = Number(summary.run_duration_ms || 0);
+
+  const tiles = [
+    {
+      label: 'Cobertura',
+      value: `${percentOf(success, total)}%`,
+      note: `${success}/${total || 0} produtos com preço`,
+      state: failure > 0 ? 'warn' : 'ok',
+    },
+    {
+      label: 'Coleta real',
+      value: `${realSuccess}`,
+      note: `${carried} reaproveitado(s)`,
+      state: carried > 0 ? 'warn' : 'ok',
+    },
+    {
+      label: 'Falhas classificadas',
+      value: `${classifiedFailures}/${failure}`,
+      note: failure > 0 ? 'prontas para diagnóstico' : 'sem falhas recentes',
+      state: failure > 0 ? 'danger' : 'ok',
+    },
+    {
+      label: 'Lojas saudaveis',
+      value: `${storeRows.filter((row) => row.failed === 0 && row.carried === 0).length}/${storeRows.length}`,
+      note: durationMs > 0 ? `${formatCompactNumber(durationMs / 1000)}s de execução` : 'duração indisponível',
+      state: storeRows.some((row) => row.failed > 0 || row.carried > 0) ? 'warn' : 'ok',
+    },
+  ];
+
+  els.runHealthStrip.innerHTML = tiles.map((tile) => `
+    <article class="health-tile" data-state="${escapeHtml(tile.state)}">
+      <span class="metric-label">${escapeHtml(tile.label)}</span>
+      <strong class="metric-value">${escapeHtml(tile.value)}</strong>
+      <small class="metric-note">${escapeHtml(tile.note)}</small>
+    </article>
+  `).join('');
+}
+
+function renderStoreHealthList(storeRows) {
+  if (!els.storeHealthList) return;
+
+  if (storeRows.length === 0) {
+    els.storeHealthList.innerHTML = '<div class="empty-state">Sem lojas com dados atuais.</div>';
+    return;
+  }
+
+  els.storeHealthList.innerHTML = storeRows.slice(0, 8).map((store) => {
+    const realPercent = percentOf(store.real, store.total);
+    const carriedPercent = percentOf(store.carried, store.total);
+    const failedPercent = percentOf(store.failed, store.total);
+    const statusClass = store.failed > 0 ? 'status-failed' : store.carried > 0 ? 'status-fallback' : 'status-ok';
+    const label = store.failed > 0 ? 'revisar' : store.carried > 0 ? 'fallback' : 'ok';
+    const adapter = [...store.adapters][0] || [...store.supportLevels][0] || 'adapter padrao';
+
+    return `
+      <article class="store-health-row">
+        <div class="store-health-topline">
+          <strong>${escapeHtml(store.site)}</strong>
+          <span class="status-pill ${statusClass}">${escapeHtml(label)}</span>
+        </div>
+        <div class="store-progress" aria-hidden="true">
+          <span class="progress-ok" style="width:${realPercent}%"></span>
+          <span class="progress-warn" style="width:${carriedPercent}%"></span>
+          <span class="progress-danger" style="width:${failedPercent}%"></span>
+        </div>
+        <div class="store-health-meta">
+          <span>${escapeHtml(store.real)} real</span>
+          <span>${escapeHtml(store.carried)} fallback</span>
+          <span>${escapeHtml(store.failed)} falha(s)</span>
+        </div>
+        <small>${escapeHtml(store.dominantFailure ? humanizeErrorCode(store.dominantFailure) : adapter)}</small>
+      </article>
+    `;
+  }).join('');
+}
+
+function renderStoreHealthChart(storeRows) {
+  if (!els.storeHealthCanvas) return;
+  destroyChart('storeChart');
+
+  const rows = storeRows.length > 0 ? storeRows : [{ site: 'Sem dados', real: 0, carried: 0, failed: 0 }];
+  state.storeChart = new window.Chart(els.storeHealthCanvas, {
+    type: 'bar',
+    data: {
+      labels: rows.map((row) => row.site),
+      datasets: [
+        {
+          label: 'Coleta real',
+          data: rows.map((row) => row.real),
+          backgroundColor: '#147a3d',
+          borderRadius: 6,
+        },
+        {
+          label: 'Reaproveitado',
+          data: rows.map((row) => row.carried),
+          backgroundColor: '#d69200',
+          borderRadius: 6,
+        },
+        {
+          label: 'Falha',
+          data: rows.map((row) => row.failed),
+          backgroundColor: '#b42318',
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: compactChartOptions({ stacked: true, indexAxis: 'y' }),
+  });
+}
+
+function renderEngineHealthChart() {
+  if (!els.engineHealthCanvas) return;
+  destroyChart('engineChart');
+
+  const engines = state.latest?.summary?.engines || {};
+  const entries = Object.entries(engines);
+  const rows = entries.length > 0
+    ? entries.map(([key, value]) => ({
+      label: key.replace(/^engine/i, 'E').replace(/_/g, ' ').toUpperCase(),
+      success: Number(value?.success || 0),
+      failed: Number(value?.failed || 0),
+    }))
+    : [{ label: 'Sem motores', success: 0, failed: 0 }];
+
+  state.engineChart = new window.Chart(els.engineHealthCanvas, {
+    type: 'bar',
+    data: {
+      labels: rows.map((row) => row.label),
+      datasets: [
+        {
+          label: 'Sucesso',
+          data: rows.map((row) => row.success),
+          backgroundColor: '#0f6cc0',
+          borderRadius: 6,
+        },
+        {
+          label: 'Falha',
+          data: rows.map((row) => row.failed),
+          backgroundColor: '#b42318',
+          borderRadius: 6,
+        },
+      ],
+    },
+    options: compactChartOptions({ stacked: false }),
+  });
+}
+
+function renderFailureBreakdownChart() {
+  if (!els.failureBreakdownCanvas) return;
+  destroyChart('failureChart');
+
+  const failures = buildFailureBreakdown();
+  const hasFailures = failures.length > 0;
+  const rows = hasFailures ? failures.slice(0, 6) : [{ label: 'Sem falhas', value: 1 }];
+  const colors = hasFailures
+    ? ['#b42318', '#d69200', '#7a3ea1', '#0f6cc0', '#8b1e3f', '#005f73']
+    : ['#147a3d'];
+
+  state.failureChart = new window.Chart(els.failureBreakdownCanvas, {
+    type: 'doughnut',
+    data: {
+      labels: rows.map((row) => row.label),
+      datasets: [
+        {
+          label: 'Ocorrencias',
+          data: rows.map((row) => row.value),
+          displayValues: hasFailures ? rows.map((row) => row.value) : [0],
+          backgroundColor: colors,
+          borderColor: '#ffffff',
+          borderWidth: 3,
+          hoverOffset: hasFailures ? 8 : 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '64%',
+      centerText: hasFailures
+        ? `Total: ${failures.reduce((sum, row) => sum + row.value, 0)}`
+        : 'Total: 0',
+      animation: {
+        duration: 520,
+        easing: 'easeOutQuart',
+      },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            boxWidth: 10,
+            boxHeight: 10,
+            color: '#526071',
+            font: {
+              size: 12,
+              weight: 650,
+            },
+          },
+        },
+        tooltip: {
+          callbacks: {
+            label(context) {
+              if (!hasFailures) return 'Sem falhas recentes';
+              return `${context.label}: ${context.parsed}`;
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+function renderOpportunityItem(row, kind) {
+  const gap = Number(row.price_gap_30d);
+  const isFloor = Number.isFinite(gap) && gap <= 0.01;
+  const note = kind === 'risk'
+    ? rowStatusNote(row)
+    : (isFloor ? 'No menor nível dos últimos 30 dias' : `${formatMoney(gap)} acima do menor 30d`);
+  const value = kind === 'risk'
+    ? rowStatusLabel(row)
+    : formatMoney(row.current_price);
+  const modifier = kind === 'risk'
+    ? (row.status === 'failed' ? 'is-risk' : 'is-warn')
+    : (isFloor ? 'is-good' : 'is-neutral');
+
+  return `
+    <article class="opportunity-row ${modifier}">
+      <div>
+        <strong>${escapeHtml(row.name)}</strong>
+        <small>${escapeHtml(row.site_label)} / ${escapeHtml(formatCategoryLabel(row.category))}</small>
+      </div>
+      <div class="opportunity-value">
+        <strong>${escapeHtml(value)}</strong>
+        <small>${escapeHtml(note)}</small>
+      </div>
+    </article>
+  `;
+}
+
+function renderOpportunities() {
+  const rows = buildCurrentRows();
+
+  if (els.priceOpportunities) {
+    const opportunities = rows
+      .filter((row) => row.status === 'ok' && Number.isFinite(row.current_price) && Number.isFinite(row.price_gap_30d))
+      .map((row) => ({
+        ...row,
+        opportunityScore: Number(row.price_gap_30d) / Math.max(Number(row.current_price), 1),
+      }))
+      .filter((row) => row.price_gap_30d <= Math.max(10, row.current_price * 0.05))
+      .sort((left, right) => left.opportunityScore - right.opportunityScore)
+      .slice(0, 6);
+
+    els.priceOpportunities.innerHTML = opportunities.length > 0
+      ? opportunities.map((row) => renderOpportunityItem(row, 'opportunity')).join('')
+      : '<div class="empty-state">Nenhum produto está perto do menor preço recente.</div>';
+  }
+
+  if (els.riskList) {
+    const risks = rows
+      .filter((row) => row.status === 'failed' || row.snapshot_status === 'carried_forward' || row.carried_forward_from)
+      .sort((left, right) => {
+        const leftScore = (left.status === 'failed' ? 2 : 0) + (left.carried_forward_from ? 1 : 0);
+        const rightScore = (right.status === 'failed' ? 2 : 0) + (right.carried_forward_from ? 1 : 0);
+        return rightScore - leftScore || left.name.localeCompare(right.name);
+      })
+      .slice(0, 6);
+
+    els.riskList.innerHTML = risks.length > 0
+      ? risks.map((row) => renderOpportunityItem(row, 'risk')).join('')
+      : '<div class="empty-state">Nenhum produto exige revisão agora.</div>';
+  }
+}
+
+function renderDashboardOverview() {
+  const storeRows = buildStoreHealthRows();
+  renderOverallNarrative(storeRows);
+  renderRunHealthStrip(storeRows);
+  renderStoreHealthList(storeRows);
+  renderStoreHealthChart(storeRows);
+  renderEngineHealthChart();
+  renderFailureBreakdownChart();
+  renderOpportunities();
 }
 
 function valueMap(points) {
@@ -795,7 +1338,7 @@ function renderProductSelect() {
   const previous = els.productSelect.value;
 
   if (options.length === 0) {
-    els.productSelect.innerHTML = '<option value="">Sem historico</option>';
+    els.productSelect.innerHTML = '<option value="">Sem histórico</option>';
     syncControlAvailability();
     return;
   }
@@ -1116,6 +1659,10 @@ function projectPointOnSegment(point, start, end) {
 function findNearestHistoryLineHit(chart, position) {
   const chartArea = chart?.chartArea;
   if (!chartArea) return null;
+  const chartData = chart.data || chart.config?.data || {};
+  const datasets = Array.isArray(chartData.datasets) ? chartData.datasets : [];
+  const labels = Array.isArray(chartData.labels) ? chartData.labels : [];
+  if (datasets.length === 0) return null;
 
   const { x, y } = position;
   if (x < chartArea.left || x > chartArea.right || y < chartArea.top || y > chartArea.bottom) {
@@ -1125,13 +1672,12 @@ function findNearestHistoryLineHit(chart, position) {
   const threshold = 14;
   let best = null;
 
-  chart.data.datasets.forEach((dataset, datasetIndex) => {
+  datasets.forEach((dataset, datasetIndex) => {
     const meta = chart.getDatasetMeta(datasetIndex);
     if (!meta || meta.hidden) return;
 
     const points = meta.data || [];
     const values = dataset.data || [];
-    const labels = chart.data.labels || [];
 
     for (let index = 0; index < points.length; index += 1) {
       const pointValue = values[index];
@@ -1287,24 +1833,24 @@ function fallbackLabel(snapshotLike) {
   }
 
   if (status === 'carried_forward' && snapshotLike?.carried_forward_from?.run_date) {
-    return `preco reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
+    return `preço reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
   }
 
   if (status === 'historical_fallback' && snapshotLike?.carried_forward_from?.run_date) {
-    return `preco reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
+    return `preço reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
   }
 
-  return 'preco reaproveitado do ultimo snapshot valido';
+  return 'preço reaproveitado do último snapshot válido';
 }
 
 function rowStatusLabel(row) {
-  if (row.snapshot_status === 'carried_forward') return 'fallback';
+  if (row.snapshot_status === 'carried_forward') return 'reaproveitado';
   return row.status === 'ok' ? 'ok' : 'falhou';
 }
 
 function rowStatusNote(row) {
   if (row.status === 'ok') {
-    return 'coleta validada';
+    return row.adapter ? `coleta validada via ${row.adapter}` : 'coleta validada';
   }
 
   const failure = failureSummary(row);
@@ -1315,7 +1861,7 @@ function rowStatusNote(row) {
   if (failure && carryLabel) {
     return `${failure}. ${carryLabel}`;
   }
-  return carryLabel || failure || 'exige atencao';
+  return carryLabel || failure || 'exige atenção';
 }
 
 function buildCurrentRows() {
@@ -1366,6 +1912,8 @@ function buildCurrentRows() {
       error_code: failure?.error_code || '',
       error_detail: failure?.error_detail || failure?.last_error || '',
       artifact_dir: failure?.artifact_dir || '',
+      adapter: success?.adapter || failure?.adapter || '',
+      store_support_level: success?.store_support_level || failure?.store_support_level || '',
     });
   });
 
@@ -1435,14 +1983,14 @@ function tableSummaryText(rowCount) {
   if (scope === 'comparison-group') {
     const product = state.productsById.get(selectedProductId());
     const comparisonKey = String(product?.comparison_key || '').trim() || 'sem grupo';
-    return `${rowCount} linha(s) do grupo de comparacao "${comparisonKey}" em ${categoryLabel}.`;
+    return `${rowCount} linha(s) do grupo de comparação "${comparisonKey}" em ${categoryLabel}.`;
   }
 
   if (scope === 'by-category') {
-    return `${rowCount} linha(s) sincronizadas com a visao por categoria em ${categoryLabel}.`;
+    return `${rowCount} linha(s) sincronizadas com a visão por categoria em ${categoryLabel}.`;
   }
 
-  return `${rowCount} linha(s) sincronizadas com o historico em ${categoryLabel}.`;
+  return `${rowCount} linha(s) sincronizadas com o histórico em ${categoryLabel}.`;
 }
 
 function renderActiveFilterPills() {
@@ -1456,13 +2004,15 @@ function renderActiveFilterPills() {
   if (selectedStatus() !== ALL) pills.push(`Status: ${selectedStatus()}`);
   if (selectedCategory() !== ALL) pills.push(`Categoria: ${formatCategoryLabel(selectedCategory())}`);
   if (currentScope() !== 'all-products') pills.push(`Modo: ${els.chartScope.selectedOptions[0]?.textContent || currentScope()}`);
-  if (hideLegacySeriesEnabled()) pills.push('Series legadas ocultas');
+  if (!hideLegacySeriesEnabled()) pills.push('Séries legadas visíveis');
 
   if (pills.length === 0) {
-    els.activeFilterPills.innerHTML = '<span class="filter-pill filter-pill-muted">Sem filtros adicionais</span>';
+    els.activeFilterPills.innerHTML = '';
+    if (els.toolbarFooter) els.toolbarFooter.hidden = true;
     return;
   }
 
+  if (els.toolbarFooter) els.toolbarFooter.hidden = false;
   els.activeFilterPills.innerHTML = pills
     .map((pill) => `<span class="filter-pill">${escapeHtml(pill)}</span>`)
     .join('');
@@ -1479,7 +2029,7 @@ function renderToolbarInsights(datasets) {
     : 'sem janela';
 
   const blocks = [
-    ['Itens visiveis', rows.length],
+    ['Itens visíveis', rows.length],
     ['Series', datasets.length],
     ['Lojas', visibleSites],
     ['Janela', rangeText],
@@ -1506,10 +2056,10 @@ function renderFocusMetrics(datasets) {
   const snapshots = `${range.labels.length}/${state.allDates.length}`;
 
   const cards = [
-    ['Melhor oferta', best ? `${formatMoney(best.current_price)} em ${best.site_label}` : '-', 'menor preco atual no recorte'],
-    ['Preco medio', Number.isFinite(average) ? formatMoney(average) : '-', 'media dos itens visiveis'],
-    ['Series visiveis', datasets.length, `snapshots ${snapshots}`],
-    ['Falhas no recorte', rows.filter((row) => row.status === 'failed').length, 'falhas reais e precos reaproveitados'],
+    ['Melhor oferta', best ? `${formatMoney(best.current_price)} em ${best.site_label}` : '-', 'menor preço atual no recorte'],
+    ['Preço médio', Number.isFinite(average) ? formatMoney(average) : '-', 'média dos itens visíveis'],
+    ['Séries visíveis', datasets.length, `snapshots ${snapshots}`],
+    ['Falhas no recorte', rows.filter((row) => row.status === 'failed').length, 'coletas com falha ou preço reaproveitado'],
   ];
 
   els.focusMetrics.innerHTML = cards.map(([label, value, note]) => `
@@ -1526,6 +2076,7 @@ function renderProfessionalChrome(datasets) {
   renderActiveFilterPills();
   renderToolbarInsights(datasets);
   renderFocusMetrics(datasets);
+  renderDashboardOverview();
 }
 
 function renderTable() {
@@ -1533,7 +2084,7 @@ function renderTable() {
   els.tableFilterSummary.textContent = tableSummaryText(rows.length);
 
   if (rows.length === 0) {
-    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponivel para o filtro atual.</td></tr>';
+    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponível para o filtro atual.</td></tr>';
     return;
   }
 
@@ -1553,8 +2104,12 @@ function renderTable() {
       lastCategory = row.category;
     }
 
+    const statusClass = row.snapshot_status === 'carried_forward'
+      ? 'status-fallback'
+      : (row.status === 'ok' ? 'status-ok' : 'status-failed');
+
     html.push(`
-      <tr class="table-product-row" data-product-id="${escapeHtml(row.product_id)}">
+      <tr class="table-product-row ${row.status === 'failed' ? 'is-failed' : ''} ${row.snapshot_status === 'carried_forward' ? 'is-carried-forward' : ''}" data-product-id="${escapeHtml(row.product_id)}">
         <td>
           <div class="product-name-cell">
             <strong>${escapeHtml(row.name)}</strong>
@@ -1578,18 +2133,19 @@ function renderTable() {
             <strong>${formatMoney(row.lowest_30d)}</strong>
             <small>
               ${Number.isFinite(row.price_gap_30d)
-                ? (row.price_gap_30d > 0 ? `+${formatMoney(row.price_gap_30d)} acima do piso` : 'No menor nivel da janela')
-                : 'Sem referencia'}
+                ? (row.price_gap_30d > 0 ? `+${formatMoney(row.price_gap_30d)} acima do piso` : 'No menor nível da janela')
+                : 'Sem referência'}
             </small>
           </div>
         </td>
         <td>${formatMoney(row.unit_price)}</td>
         <td>
           <div class="status-stack">
-            <span class="status-pill ${row.status === 'ok' ? 'status-ok' : 'status-failed'}">
+            <span class="status-pill ${statusClass}">
               ${rowStatusLabel(row)}
             </span>
             <small>${escapeHtml(rowStatusNote(row))}</small>
+            ${row.store_support_level ? `<small>${escapeHtml(row.store_support_level)}</small>` : ''}
           </div>
         </td>
       </tr>
@@ -1603,7 +2159,7 @@ function renderDetailPanel(datasets) {
   const scope = currentScope();
   const range = visibleRange();
   const visibleSpan = range.labels.length > 0
-    ? `${range.labels[0]} ate ${range.labels[range.labels.length - 1]}`
+    ? `${range.labels[0]} até ${range.labels[range.labels.length - 1]}`
     : 'sem dados';
 
   if (datasets.length === 0) {
@@ -1642,13 +2198,13 @@ function renderDetailPanel(datasets) {
       <div class="detail-list">
         <div class="detail-item"><span>Produto</span><strong>${escapeHtml(entry?.label || 'Produto')}</strong></div>
         <div class="detail-item"><span>Status atual</span><strong>${escapeHtml(currentStatus)}</strong></div>
-        <div class="detail-item"><span>Preco atual</span><strong>${formatMoney(currentPrice)}</strong></div>
-        <div class="detail-item"><span>Menor preco 30d</span><strong>${formatMoney(min30d)}</strong></div>
+        <div class="detail-item"><span>Preço atual</span><strong>${formatMoney(currentPrice)}</strong></div>
+        <div class="detail-item"><span>Menor preço 30d</span><strong>${formatMoney(min30d)}</strong></div>
         <div class="detail-item"><span>Spread vs piso</span><strong>${formatMoney(premiumVsFloor)}</strong></div>
         <div class="detail-item"><span>Atualizado</span><strong>${escapeHtml(formatDateTime(latest?.fetched_at || latestFailure?.fetched_at || historyFallback?.generated_at))}</strong></div>
-        ${fallbackSnapshot ? `<div class="detail-item"><span>Origem do preco</span><strong>${escapeHtml(fallbackLabel(fallbackSnapshot))}</strong></div>` : ''}
+        ${fallbackSnapshot ? `<div class="detail-item"><span>Origem do preço</span><strong>${escapeHtml(fallbackLabel(fallbackSnapshot))}</strong></div>` : ''}
         ${latestFailure ? `<div class="detail-item"><span>Falha classificada</span><strong>${escapeHtml(failureSummary(latestFailure))}</strong></div>` : ''}
-        <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
+        <div class="detail-item"><span>Janela visível</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       </div>
     `;
     return;
@@ -1667,10 +2223,10 @@ function renderDetailPanel(datasets) {
     els.detail.innerHTML = `
       <div class="detail-list">
         <div class="detail-item"><span>Grupo</span><strong>${escapeHtml(String(selected?.comparison_key || 'Sem grupo'))}</strong></div>
-        <div class="detail-item"><span>Lojas visiveis</span><strong>${rows.length}</strong></div>
-        <div class="detail-item"><span>Melhor preco atual</span><strong>${best ? `${formatMoney(best.current_price)} (${escapeHtml(best.site_label)})` : '-'}</strong></div>
-        <div class="detail-item"><span>Maior preco atual</span><strong>${worst ? `${formatMoney(worst.current_price)} (${escapeHtml(worst.site_label)})` : '-'}</strong></div>
-        <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
+        <div class="detail-item"><span>Lojas visíveis</span><strong>${rows.length}</strong></div>
+        <div class="detail-item"><span>Melhor preço atual</span><strong>${best ? `${formatMoney(best.current_price)} (${escapeHtml(best.site_label)})` : '-'}</strong></div>
+        <div class="detail-item"><span>Maior preço atual</span><strong>${worst ? `${formatMoney(worst.current_price)} (${escapeHtml(worst.site_label)})` : '-'}</strong></div>
+        <div class="detail-item"><span>Janela visível</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       </div>
     `;
     return;
@@ -1685,9 +2241,9 @@ function renderDetailPanel(datasets) {
     <div class="detail-list">
       <div class="detail-item"><span>Modo</span><strong>${escapeHtml(scopeLabel)}</strong></div>
       <div class="detail-item"><span>Filtro de categoria</span><strong>${escapeHtml(categoryLabel)}</strong></div>
-      <div class="detail-item"><span>Series ativas</span><strong>${datasets.length}</strong></div>
-      <div class="detail-item"><span>Lojas visiveis</span><strong>${visibleSites}</strong></div>
-      <div class="detail-item"><span>Janela visivel</span><strong>${escapeHtml(visibleSpan)}</strong></div>
+      <div class="detail-item"><span>Séries ativas</span><strong>${datasets.length}</strong></div>
+      <div class="detail-item"><span>Lojas visíveis</span><strong>${visibleSites}</strong></div>
+      <div class="detail-item"><span>Janela visível</span><strong>${escapeHtml(visibleSpan)}</strong></div>
       <div class="detail-item"><span>Snapshots</span><strong>${range.labels.length}/${state.allDates.length}</strong></div>
     </div>
   `;
@@ -1755,7 +2311,7 @@ function renderRunDrilldown() {
       </div>
       <div class="summary-item">
         <span class="k">Sem runs carregados</span>
-        <span class="v">O manifesto nao trouxe execucoes para esta data.</span>
+        <span class="v">O manifesto não trouxe execuções para esta data.</span>
       </div>
     `;
     return;
@@ -1764,7 +2320,7 @@ function renderRunDrilldown() {
   els.runDrilldown.innerHTML = `
     <div class="run-drilldown-header">
       <strong>Runs de ${escapeHtml(state.selectedRunDate)}</strong>
-      <small>${runs.length} execucao(oes)</small>
+      <small>${runs.length} execução(ões)</small>
     </div>
     <div class="run-drilldown-list">
       ${runs.map((run) => {
@@ -1818,7 +2374,10 @@ function historyChartOptions() {
       mode: 'nearest',
       intersect: false,
     },
-    animation: false,
+    animation: {
+      duration: 420,
+      easing: 'easeOutQuart',
+    },
     plugins: {
       legend: {
         display: false,
@@ -1833,16 +2392,27 @@ function historyChartOptions() {
           display: false,
         },
         ticks: {
+          color: '#526071',
           maxTicksLimit: 6,
+        },
+        border: {
+          color: '#d9e0ea',
         },
       },
       y: {
         beginAtZero: false,
+        grid: {
+          color: 'rgba(217, 224, 234, 0.72)',
+        },
         ticks: {
+          color: '#526071',
           maxTicksLimit: 5,
           callback(value) {
             return formatMoney(value);
           },
+        },
+        border: {
+          color: '#d9e0ea',
         },
       },
     },
@@ -2043,7 +2613,7 @@ function renderAddDrafts() {
         </label>
 
         <label>
-          Grupo de comparacao
+          Grupo de comparação
           <input
             type="text"
             data-field="comparison_key"
@@ -2060,19 +2630,19 @@ function renderAddDrafts() {
         <label>
           Ativo
           <select data-field="active">
-            <option value="true" ${draft.active === 'true' ? 'selected' : ''}>true</option>
-            <option value="false" ${draft.active === 'false' ? 'selected' : ''}>false</option>
+            <option value="true" ${draft.active === 'true' ? 'selected' : ''}>Sim</option>
+            <option value="false" ${draft.active === 'false' ? 'selected' : ''}>Não</option>
           </select>
         </label>
 
         <details class="batch-item-advanced full-width">
-          <summary>Seletores e observacoes</summary>
+          <summary>Seletores e observações</summary>
 
           <div class="form-grid compact-form-grid">
             <label class="full-width">
               Seletores CSS (um por linha)
               <textarea data-field="price_css" rows="3" placeholder=".price&#10;[itemprop='price']">${escapeHtml(draft.price_css)}</textarea>
-              <small class="field-hint">Use apenas seletores CSS, nao HTML completo.</small>
+              <small class="field-hint">Use apenas seletores CSS, não HTML completo.</small>
             </label>
 
             <label class="full-width">
@@ -2086,7 +2656,7 @@ function renderAddDrafts() {
             </label>
 
             <label class="full-width">
-              Observacoes
+              Observações
               <textarea data-field="notes" rows="2">${escapeHtml(draft.notes)}</textarea>
             </label>
           </div>
@@ -2185,7 +2755,7 @@ function buildAddOperation(draft, index) {
   }
 
   if (containsHtmlSnippet(priceCss)) {
-    throw new Error(`Produto ${index + 1}: informe apenas seletores CSS, nao HTML completo.`);
+    throw new Error(`Produto ${index + 1}: informe apenas seletores CSS, não HTML completo.`);
   }
 
   let units;

@@ -15,6 +15,11 @@ test('support matrix keeps smoke real restricted to dedicated validated stores',
     [
       ['Amazon', 'dedicated_validated', 'amazon'],
       ['KaBuM', 'dedicated_validated', 'kabum'],
+      ['Mercado Livre', 'dedicated_validated', 'mercadolivre'],
+      ['Magalu', 'dedicated_validated', 'magalu'],
+      ['Shopee', 'dedicated_validated', 'shopee'],
+      ['Pichau', 'dedicated_validated', 'pichau'],
+      ['Petz', 'dedicated_validated', 'petz'],
     ],
   );
 });
@@ -47,9 +52,33 @@ test('selectSmokeProducts keeps only active products from smoke-enabled stores',
       is_active: true,
     },
     {
+      id: 'mercadolivre-1',
+      name: 'Mercado Livre 1',
+      url: 'https://www.mercadolivre.com.br/produto/p/MLB123',
+      is_active: true,
+    },
+    {
+      id: 'magalu-1',
+      name: 'Magalu 1',
+      url: 'https://www.magazineluiza.com.br/produto/p/abc123',
+      is_active: true,
+    },
+    {
       id: 'shopee-1',
       name: 'Shopee 1',
       url: 'https://shopee.com.br/produto/123',
+      is_active: true,
+    },
+    {
+      id: 'pichau-1',
+      name: 'Pichau 1',
+      url: 'https://www.pichau.com.br/produto-gamer',
+      is_active: true,
+    },
+    {
+      id: 'petz-1',
+      name: 'Petz 1',
+      url: 'https://www.petz.com.br/produto/racao-123',
       is_active: true,
     },
     {
@@ -67,6 +96,11 @@ test('selectSmokeProducts keeps only active products from smoke-enabled stores',
     [
       ['amazon-1', 'Amazon'],
       ['kabum-1', 'KaBuM'],
+      ['mercadolivre-1', 'Mercado Livre'],
+      ['magalu-1', 'Magalu'],
+      ['shopee-1', 'Shopee'],
+      ['pichau-1', 'Pichau'],
+      ['petz-1', 'Petz'],
     ],
   );
 });

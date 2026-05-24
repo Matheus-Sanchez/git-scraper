@@ -84,3 +84,49 @@ test('extractPriceFromHtml reads Kabum fixture', async () => {
   assert.equal(extraction.ok, true);
   assert.equal(extraction.price, 174.66);
 });
+
+test('extractPriceFromHtml prefers current cash price over old, installment and cashback values', () => {
+  const html = `
+    <!doctype html>
+    <html lang="pt-BR">
+      <body>
+        <div class="old-wrapper"><span class="old-price">Preco original R$ 999,90</span></div>
+        <div class="current-wrapper"><span class="current-price">Por R$ 749,90 a vista no Pix</span></div>
+        <div class="installment-wrapper"><span class="installment">10x de R$ 89,99 sem juros</span></div>
+        <div class="cashback-wrapper"><span class="cashback">Cashback R$ 50,00</span></div>
+      </body>
+    </html>
+  `;
+
+  const extraction = extractPriceFromHtml({
+    html,
+    selectors: {
+      price_css: ['.old-price', '.current-price', '.installment', '.cashback'],
+    },
+  });
+
+  assert.equal(extraction.ok, true);
+  assert.equal(extraction.price, 749.9);
+});
+
+test('extractPriceFromHtml rejects a partir de teaser prices when a current price exists', () => {
+  const html = `
+    <!doctype html>
+    <html lang="pt-BR">
+      <body>
+        <div><span class="teaser">A partir de R$ 29,90</span></div>
+        <div><span class="current-price">Preco atual R$ 99,90</span></div>
+      </body>
+    </html>
+  `;
+
+  const extraction = extractPriceFromHtml({
+    html,
+    selectors: {
+      price_css: ['.teaser', '.current-price'],
+    },
+  });
+
+  assert.equal(extraction.ok, true);
+  assert.equal(extraction.price, 99.9);
+});

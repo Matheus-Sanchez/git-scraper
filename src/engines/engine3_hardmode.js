@@ -6,6 +6,7 @@ import { extractPriceFromHtml } from '../extract/extract_price.js';
 import { sleep } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';
 import { getAdapterForUrl } from '../adapters/index.js';
+import { getStoreSupportByUrl } from '../config/support_matrix.js';
 import { roundTo2 } from '../utils/price_parse.js';
 import {
   classifyAxiosFailure,
@@ -21,9 +22,10 @@ import { cacheDir } from '../io/paths.js';
 
 const ENGINE_NAME = 'engine3_hardmode';
 
-function buildSnapshot(product, extraction) {
+function buildSnapshot(product, extraction, adapterId = null) {
   const units = Number(product.units_per_package);
   const unitPrice = Number.isFinite(units) && units > 0 ? roundTo2(extraction.price / units) : null;
+  const support = getStoreSupportByUrl(product.url);
 
   return {
     product_id: product.id,
@@ -37,6 +39,8 @@ function buildSnapshot(product, extraction) {
     source: extraction.source,
     confidence: extraction.confidence,
     status: 'ok',
+    adapter: adapterId || support.adapter,
+    store_support_level: support.support_level,
   };
 }
 
@@ -241,6 +245,9 @@ export async function runEngine3(products, {
       engine: ENGINE_NAME,
       ok: false,
       elapsed_ms: 0,
+      adapter: getAdapterForUrl(product.url).id,
+      store_support_level: getStoreSupportByUrl(product.url).support_level,
+      failure_stage: 'browser_launch',
       ...failure,
     }));
   }
@@ -266,6 +273,7 @@ export async function runEngine3(products, {
       try {
         const url = normalizeUrl(product.url);
         adapter = getAdapterForUrl(url);
+        const support = getStoreSupportByUrl(url);
         const selectors = adapter.getSelectors(product);
         const waitOptions = adapter.getWaitOptions(ENGINE_NAME);
 
@@ -328,6 +336,9 @@ export async function runEngine3(products, {
             ok: false,
             elapsed_ms: Date.now() - startedAt,
             artifact_dir: artifactResult.artifactDir,
+            adapter: adapter.id,
+            store_support_level: support.support_level,
+            failure_stage: 'post_render',
             ...failure,
           });
           continue;
@@ -342,7 +353,7 @@ export async function runEngine3(products, {
         });
 
         if (extraction.ok) {
-          const result = adapter.postProcess(buildSnapshot(product, extraction), {
+          const result = adapter.postProcess(buildSnapshot(product, extraction, adapter.id), {
             html,
             extraction,
             product,
@@ -362,16 +373,22 @@ export async function runEngine3(products, {
             engine: ENGINE_NAME,
             ok: true,
             elapsed_ms: Date.now() - startedAt,
+            adapter: adapter.id,
+            store_support_level: support.support_level,
             result,
           });
           continue;
         }
 
-        let failure = classifyAdapterFailure(
+        let failure = mergeFailureMetadata(classifyAdapterFailure(
           adapter,
           { html, product, extraction, engineName: ENGINE_NAME },
           classifyExtractionFailure(extraction, responseMetadata),
-        );
+        ), {
+          adapter: adapter.id,
+          store_support_level: support.support_level,
+          failure_stage: 'extract',
+        });
 
         const providerOutcome = await fetchViaProvider(url, env, log);
         if (providerOutcome.html) {
@@ -383,7 +400,7 @@ export async function runEngine3(products, {
           });
 
           if (providerExtraction.ok) {
-            const snapshot = adapter.postProcess(buildSnapshot(product, providerExtraction), {
+            const snapshot = adapter.postProcess(buildSnapshot(product, providerExtraction, adapter.id), {
               html: providerOutcome.html,
               extraction: providerExtraction,
               product,
@@ -403,6 +420,8 @@ export async function runEngine3(products, {
               engine: ENGINE_NAME,
               ok: true,
               elapsed_ms: Date.now() - startedAt,
+              adapter: adapter.id,
+              store_support_level: support.support_level,
               result: {
                 ...snapshot,
                 source: `${snapshot.source}+provider`,
@@ -412,7 +431,7 @@ export async function runEngine3(products, {
             continue;
           }
 
-          failure = classifyAdapterFailure(
+          failure = mergeFailureMetadata(classifyAdapterFailure(
             adapter,
             {
               html: providerOutcome.html,
@@ -424,7 +443,11 @@ export async function runEngine3(products, {
               ...providerOutcome.metadata,
               provider: providerOutcome.metadata?.provider || 'zenrows',
             }),
-          );
+          ), {
+            adapter: adapter.id,
+            store_support_level: support.support_level,
+            failure_stage: 'provider_extract',
+          });
 
           html = providerOutcome.html;
           responseMetadata = {
@@ -459,6 +482,8 @@ export async function runEngine3(products, {
           ok: false,
           elapsed_ms: Date.now() - startedAt,
           artifact_dir: artifactResult.artifactDir,
+          adapter: adapter.id,
+          store_support_level: support.support_level,
           ...failure,
         });
 
@@ -468,6 +493,7 @@ export async function runEngine3(products, {
           elapsed_ms: Date.now() - startedAt,
         });
       } catch (error) {
+        const support = getStoreSupportByUrl(product.url);
         const failure = classifyPlaywrightFailure(error, {
           stage: 'runtime',
           metadata: {
@@ -500,6 +526,9 @@ export async function runEngine3(products, {
           ok: false,
           elapsed_ms: Date.now() - startedAt,
           artifact_dir: artifactResult.artifactDir,
+          adapter: adapter?.id || getAdapterForUrl(product.url).id,
+          store_support_level: support.support_level,
+          failure_stage: 'runtime',
           ...failure,
         });
 

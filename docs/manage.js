@@ -47,6 +47,15 @@ const state = {
   mode: 'add',
 };
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function splitLines(text) {
   return String(text || '')
     .split(/\r?\n/)
@@ -292,7 +301,7 @@ async function detectDataRoot() {
     }
   }
 
-  throw new Error('Nao foi possivel localizar products.json em ./data ou ../data.');
+  throw new Error('Não foi possível localizar products.json em ./data ou ../data.');
 }
 
 async function fetchProducts() {
@@ -378,7 +387,7 @@ function renderProductsTable() {
         <tr class="category-group-row" style="--category-color:${colorForCategory(category)}">
           <td colspan="6">
             <span class="category-row-dot"></span>
-            ${formatCategoryLabel(category)}
+            ${escapeHtml(formatCategoryLabel(category))}
           </td>
         </tr>
       `);
@@ -389,19 +398,19 @@ function renderProductsTable() {
       <tr>
         <td>
           <div class="product-name-cell">
-            <strong>${product.name}</strong>
+            <strong>${escapeHtml(product.name)}</strong>
             <span class="product-meta">
-              <a href="${product.url}" target="_blank" rel="noopener noreferrer">${product.url}</a>
+              <a href="${escapeHtml(product.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(product.url)}</a>
             </span>
           </div>
         </td>
-        <td><span class="site-pill">${siteLabel}</span></td>
-        <td>${formatCategoryLabel(category)}</td>
-        <td>${product.comparison_key ? `<span class="site-pill">${product.comparison_key}</span>` : '-'}</td>
-        <td>${product.is_active ? 'true' : 'false'}</td>
+        <td><span class="site-pill">${escapeHtml(siteLabel)}</span></td>
+        <td>${escapeHtml(formatCategoryLabel(category))}</td>
+        <td>${product.comparison_key ? `<span class="site-pill">${escapeHtml(product.comparison_key)}</span>` : '-'}</td>
+        <td><span class="status-pill ${product.is_active ? 'status-ok' : 'status-fallback'}">${product.is_active ? 'Ativo' : 'Inativo'}</span></td>
         <td class="actions-cell">
-          <button type="button" class="btn btn-ghost" data-action="edit" data-id="${product.id}">Editar</button>
-          <button type="button" class="btn btn-danger" data-action="remove" data-id="${product.id}">Remover</button>
+          <button type="button" class="btn btn-ghost" data-action="edit" data-id="${escapeHtml(product.id)}">Editar</button>
+          <button type="button" class="btn btn-danger" data-action="remove" data-id="${escapeHtml(product.id)}">Remover</button>
         </td>
       </tr>
     `);
@@ -453,7 +462,7 @@ function closeModal() {
 function buildIssueUrl({ title, payload }) {
   const repo = parseRepoInput(els.repoInput.value);
   if (!repo) {
-    alert('Informe o repositorio no formato owner/repo.');
+    alert('Informe o repositório no formato owner/repo.');
     return null;
   }
 
@@ -464,7 +473,7 @@ function buildIssueUrl({ title, payload }) {
     JSON.stringify(payload, null, 2),
     '```',
     '',
-    'Criado via pagina de gerenciamento.',
+    'Criado via página de gerenciamento.',
   ].join('\n');
 
   return `https://github.com/${repo}/issues/new?labels=manage-product&title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
@@ -480,7 +489,7 @@ function onSubmitManageForm(event) {
   const regexHints = splitLines(els.fieldRegex.value);
 
   if (containsHtmlSnippet(priceCss)) {
-    alert('No campo Seletores CSS, informe apenas seletores (ex: .a-price .a-offscreen), nao HTML copiado.');
+    alert('No campo Seletores CSS, informe apenas seletores (ex: .a-price .a-offscreen), não HTML copiado.');
     return;
   }
 
@@ -502,7 +511,7 @@ function onSubmitManageForm(event) {
   };
 
   if (!payload.name || !payload.url) {
-    alert('Nome e URL sao obrigatorios.');
+    alert('Nome e URL são obrigatórios.');
     return;
   }
 

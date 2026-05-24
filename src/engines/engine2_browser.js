@@ -3,6 +3,7 @@ import { extractPriceFromHtml } from '../extract/extract_price.js';
 import { runWithPool, sleep } from '../utils/pool.js';
 import { normalizeUrl } from '../utils/url.js';
 import { getAdapterForUrl } from '../adapters/index.js';
+import { getStoreSupportByUrl } from '../config/support_matrix.js';
 import { roundTo2 } from '../utils/price_parse.js';
 import {
   classifyExtractionFailure,
@@ -16,9 +17,10 @@ import {
 
 const ENGINE_NAME = 'engine2_browser';
 
-function buildSnapshot(product, extraction) {
+function buildSnapshot(product, extraction, adapterId = null) {
   const units = Number(product.units_per_package);
   const unitPrice = Number.isFinite(units) && units > 0 ? roundTo2(extraction.price / units) : null;
+  const support = getStoreSupportByUrl(product.url);
 
   return {
     product_id: product.id,
@@ -32,6 +34,8 @@ function buildSnapshot(product, extraction) {
     source: extraction.source,
     confidence: extraction.confidence,
     status: 'ok',
+    adapter: adapterId || support.adapter,
+    store_support_level: support.support_level,
   };
 }
 
@@ -94,6 +98,9 @@ export async function runEngine2(products, {
       engine: ENGINE_NAME,
       ok: false,
       elapsed_ms: 0,
+      adapter: getAdapterForUrl(product.url).id,
+      store_support_level: getStoreSupportByUrl(product.url).support_level,
+      failure_stage: 'browser_launch',
       ...failure,
     }));
   }
@@ -110,6 +117,7 @@ export async function runEngine2(products, {
       try {
         const url = normalizeUrl(product.url);
         adapter = getAdapterForUrl(url);
+        const support = getStoreSupportByUrl(url);
         const selectors = adapter.getSelectors(product);
         const waitOptions = adapter.getWaitOptions(ENGINE_NAME);
 
@@ -176,6 +184,9 @@ export async function runEngine2(products, {
             ok: false,
             elapsed_ms: elapsedMs,
             artifact_dir: artifactDir,
+            adapter: adapter.id,
+            store_support_level: support.support_level,
+            failure_stage: 'post_render',
             ...failure,
           };
         }
@@ -191,11 +202,15 @@ export async function runEngine2(products, {
 
         const elapsedMs = Date.now() - startedAt;
         if (!extraction.ok) {
-          const failure = classifyAdapterFailure(
+          const failure = mergeFailureMetadata(classifyAdapterFailure(
             adapter,
             { html, product, extraction, engineName: ENGINE_NAME },
             classifyExtractionFailure(extraction, responseMetadata),
-          );
+          ), {
+            adapter: adapter.id,
+            store_support_level: support.support_level,
+            failure_stage: 'extract',
+          });
           const paths = await prepareDebugArtifactPaths({
             runId,
             productId: product.id,
@@ -219,11 +234,13 @@ export async function runEngine2(products, {
             ok: false,
             elapsed_ms: elapsedMs,
             artifact_dir: artifactDir,
+            adapter: adapter.id,
+            store_support_level: support.support_level,
             ...failure,
           };
         }
 
-        const result = adapter.postProcess(buildSnapshot(product, extraction), {
+        const result = adapter.postProcess(buildSnapshot(product, extraction, adapter.id), {
           html,
           extraction,
           product,
@@ -241,10 +258,13 @@ export async function runEngine2(products, {
           engine: ENGINE_NAME,
           ok: true,
           elapsed_ms: elapsedMs,
+          adapter: adapter.id,
+          store_support_level: support.support_level,
           result,
         };
       } catch (error) {
         const elapsedMs = Date.now() - startedAt;
+        const support = getStoreSupportByUrl(product.url);
         const failure = classifyPlaywrightFailure(error, {
           stage: 'navigation',
           metadata: {
@@ -290,6 +310,9 @@ export async function runEngine2(products, {
           ok: false,
           elapsed_ms: elapsedMs,
           artifact_dir: artifactDir,
+          adapter: adapter?.id || getAdapterForUrl(product.url).id,
+          store_support_level: support.support_level,
+          failure_stage: 'navigation',
           ...failure,
         };
       } finally {

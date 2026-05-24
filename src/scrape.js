@@ -45,6 +45,11 @@ function toFailureEntry(trail) {
       source: item.result?.source || null,
       confidence: item.result?.confidence || null,
       price: item.result?.price || null,
+      adapter: item.adapter || item.result?.adapter || null,
+      store_support_level: item.store_support_level || item.result?.store_support_level || null,
+      failure_stage: item.failure_stage || null,
+      candidates_checked: item.candidates_checked || null,
+      top_candidates: Array.isArray(item.top_candidates) ? item.top_candidates : undefined,
       http_status: item.http_status || null,
       final_url: item.final_url || null,
       content_type: item.content_type || null,
@@ -57,6 +62,11 @@ function toFailureEntry(trail) {
     error_code: lastErrorAttempt?.error_code || 'unexpected_error',
     error_detail: lastErrorAttempt?.error_detail || lastErrorAttempt?.error || 'unknown',
     artifact_dir: lastErrorAttempt?.artifact_dir || null,
+    adapter: lastErrorAttempt?.adapter || lastAttempt?.adapter || null,
+    store_support_level: lastErrorAttempt?.store_support_level || lastAttempt?.store_support_level || null,
+    failure_stage: lastErrorAttempt?.failure_stage || null,
+    candidates_checked: lastErrorAttempt?.candidates_checked || null,
+    top_candidates: Array.isArray(lastErrorAttempt?.top_candidates) ? lastErrorAttempt.top_candidates : undefined,
   };
 }
 
@@ -155,6 +165,8 @@ function toCarriedForwardResult(failure, previousResult, generatedAt) {
     source: previousResult.source || 'carry_forward',
     confidence: Number.isFinite(Number(previousResult.confidence)) ? Number(previousResult.confidence) : null,
     status: 'carried_forward',
+    adapter: previousResult.adapter || failure.adapter || null,
+    store_support_level: previousResult.store_support_level || failure.store_support_level || null,
     carried_forward_reason: failure.error_code || 'scrape_failed',
     carried_forward_from: {
       run_id: previousResult.run_id || null,

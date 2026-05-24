@@ -14,11 +14,11 @@ Esta matriz define quais lojas estao oficialmente suportadas, qual o nivel de va
 | --- | --- | --- | --- | --- | --- |
 | Amazon | `amazon.com.br`, `amazon.com` | `dedicated_validated` | Sim | Sim | Adapter Amazon + fixtures verdes + ao menos 1 sucesso direto no smoke real |
 | KaBuM | `kabum.com.br` | `dedicated_validated` | Sim | Sim | Adapter KaBuM + fixtures verdes + ao menos 1 sucesso direto no smoke real |
-| Mercado Livre | `mercadolivre.com.br` | `backlog` | Nao | Nao | Nao suportado oficialmente no momento |
-| Magalu | `magazineluiza.com.br`, `magalu.com` | `backlog` | Nao | Nao | Nao suportado oficialmente no momento |
-| Shopee | `shopee.com.br` | `backlog` | Nao | Nao | Nao suportado oficialmente no momento |
-| Pichau | `pichau.com.br` | `backlog` | Nao | Nao | Nao suportado oficialmente no momento |
-| Petz | `petz.com.br` | `backlog` | Nao | Nao | Nao suportado oficialmente no momento |
+| Mercado Livre | `mercadolivre.com.br` | `dedicated_validated` | Sim | Sim quando houver produto ativo | Adapter Mercado Livre + fixtures verdes + ao menos 1 sucesso direto no smoke real quando selecionado |
+| Magalu | `magazineluiza.com.br`, `magalu.com` | `dedicated_validated` | Sim | Sim quando houver produto ativo | Adapter Magalu + fixtures verdes + ao menos 1 sucesso direto no smoke real quando selecionado |
+| Shopee | `shopee.com.br` | `dedicated_validated` | Sim | Sim quando houver produto ativo | Adapter Shopee + fixtures verdes + ao menos 1 sucesso direto no smoke real quando selecionado |
+| Pichau | `pichau.com.br` | `dedicated_validated` | Sim | Sim quando houver produto ativo | Adapter Pichau + fixtures verdes + ao menos 1 sucesso direto no smoke real quando selecionado |
+| Petz | `petz.com.br` | `dedicated_validated` | Sim | Sim quando houver produto ativo | Adapter Petz + fixtures verdes + ao menos 1 sucesso direto no smoke real quando selecionado |
 | Outros dominios | demais dominios | `generic_unvalidated` | Nao | Nao | Apenas fallback heuristico, sem garantia operacional |
 
 ## Regras de aceite por loja

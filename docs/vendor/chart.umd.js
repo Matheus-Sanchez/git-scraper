@@ -291,8 +291,13 @@
 
     draw() {
       const type = this.config.type || 'line';
-      if (type === 'pie') {
+      if (type === 'pie' || type === 'doughnut') {
         this.drawPie();
+        return;
+      }
+
+      if (type === 'bar') {
+        this.drawBar();
         return;
       }
 
@@ -586,17 +591,201 @@
       }
     }
 
+    drawBar() {
+      const data = this.config.data || {};
+      const options = this.config.options || {};
+      const labels = Array.isArray(data.labels) ? data.labels : [];
+      const datasets = Array.isArray(data.datasets) ? data.datasets : [];
+      const horizontal = options.indexAxis === 'y';
+      const stacked = Boolean(horizontal ? options.scales?.x?.stacked : options.scales?.y?.stacked);
+      const { width, height } = this.prepareSurface();
+      const ctx = this.ctx;
+
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, width, height);
+
+      const values = datasets.map((dataset) => (Array.isArray(dataset.data) ? dataset.data : [])
+        .map((value) => (isFiniteNumber(value) ? Math.max(0, Number(value)) : 0)));
+      const labelCount = labels.length;
+      if (!labelCount || datasets.length === 0) {
+        ctx.fillStyle = '#6b7280';
+        ctx.font = '14px Segoe UI, sans-serif';
+        ctx.fillText('Sem dados para o grafico.', 22, 30);
+        this.chartArea = null;
+        this.datasetMeta = [];
+        return;
+      }
+
+      const maxValue = labels.reduce((max, label, labelIndex) => {
+        const labelValues = values.map((datasetValues) => datasetValues[labelIndex] || 0);
+        const localMax = stacked
+          ? labelValues.reduce((sum, value) => sum + value, 0)
+          : Math.max(...labelValues, 0);
+        return Math.max(max, localMax);
+      }, 0);
+      const ticks = createNiceTicks(0, Math.max(maxValue, 1), 5);
+      const domainMax = Math.max(...ticks, 1);
+
+      const pad = horizontal
+        ? { top: 18, right: 28, bottom: 38, left: 86 }
+        : { top: 18, right: 24, bottom: 46, left: 58 };
+      const chartWidth = Math.max(20, width - pad.left - pad.right);
+      const chartHeight = Math.max(20, height - pad.top - pad.bottom);
+      this.chartArea = {
+        left: pad.left,
+        top: pad.top,
+        right: pad.left + chartWidth,
+        bottom: pad.top + chartHeight,
+      };
+
+      this.datasetMeta = datasets.map((dataset) => ({
+        hidden: Boolean(dataset.hidden),
+        label: dataset.label,
+        data: Array.from({ length: labelCount }, () => null),
+      }));
+
+      ctx.strokeStyle = '#edf1f6';
+      ctx.lineWidth = 1;
+      ctx.fillStyle = '#6b7280';
+      ctx.font = '12px Segoe UI, sans-serif';
+
+      if (horizontal) {
+        ticks.forEach((tick) => {
+          const x = this.chartArea.left + (Number(tick) / domainMax) * chartWidth;
+          ctx.beginPath();
+          ctx.moveTo(x, this.chartArea.top);
+          ctx.lineTo(x, this.chartArea.bottom);
+          ctx.stroke();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText(String(tick), x, this.chartArea.bottom + 10);
+        });
+
+        const band = chartHeight / labelCount;
+        const barGroupHeight = Math.min(32, Math.max(14, band * 0.58));
+        labels.forEach((label, labelIndex) => {
+          const yCenter = this.chartArea.top + band * labelIndex + band / 2;
+          ctx.textAlign = 'right';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#6b7280';
+          ctx.fillText(String(label), this.chartArea.left - 10, yCenter);
+
+          if (stacked) {
+            let currentX = this.chartArea.left;
+            datasets.forEach((dataset, datasetIndex) => {
+              const value = values[datasetIndex][labelIndex] || 0;
+              if (value <= 0) return;
+              const barWidth = (value / domainMax) * chartWidth;
+              const barY = yCenter - barGroupHeight / 2;
+              drawRoundedRect(ctx, currentX, barY, Math.max(barWidth, 1), barGroupHeight, Number(dataset.borderRadius || 5));
+              ctx.fillStyle = dataset.backgroundColor || dataset.borderColor || '#0f7a62';
+              ctx.fill();
+              this.datasetMeta[datasetIndex].data[labelIndex] = {
+                x: currentX + barWidth,
+                y: yCenter,
+                value,
+                index: labelIndex,
+              };
+              currentX += barWidth;
+            });
+            return;
+          }
+
+          const perDatasetHeight = Math.max(7, barGroupHeight / Math.max(datasets.length, 1));
+          datasets.forEach((dataset, datasetIndex) => {
+            const value = values[datasetIndex][labelIndex] || 0;
+            const barWidth = (value / domainMax) * chartWidth;
+            const barY = yCenter - barGroupHeight / 2 + datasetIndex * perDatasetHeight;
+            drawRoundedRect(ctx, this.chartArea.left, barY, Math.max(barWidth, 1), perDatasetHeight - 2, Number(dataset.borderRadius || 5));
+            ctx.fillStyle = dataset.backgroundColor || dataset.borderColor || '#0f7a62';
+            ctx.fill();
+            this.datasetMeta[datasetIndex].data[labelIndex] = {
+              x: this.chartArea.left + barWidth,
+              y: barY + perDatasetHeight / 2,
+              value,
+              index: labelIndex,
+            };
+          });
+        });
+        return;
+      }
+
+      ticks.forEach((tick) => {
+        const y = this.chartArea.bottom - (Number(tick) / domainMax) * chartHeight;
+        ctx.beginPath();
+        ctx.moveTo(this.chartArea.left, y);
+        ctx.lineTo(this.chartArea.right, y);
+        ctx.stroke();
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#6b7280';
+        ctx.fillText(String(tick), this.chartArea.left - 10, y);
+      });
+
+      const band = chartWidth / labelCount;
+      const groupWidth = Math.min(68, Math.max(28, band * 0.58));
+      labels.forEach((label, labelIndex) => {
+        const xCenter = this.chartArea.left + band * labelIndex + band / 2;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = '#6b7280';
+        ctx.fillText(String(label), xCenter, this.chartArea.bottom + 12);
+
+        if (stacked) {
+          let currentY = this.chartArea.bottom;
+          datasets.forEach((dataset, datasetIndex) => {
+            const value = values[datasetIndex][labelIndex] || 0;
+            if (value <= 0) return;
+            const barHeight = (value / domainMax) * chartHeight;
+            const barX = xCenter - groupWidth / 2;
+            currentY -= barHeight;
+            drawRoundedRect(ctx, barX, currentY, groupWidth, Math.max(barHeight, 1), Number(dataset.borderRadius || 5));
+            ctx.fillStyle = dataset.backgroundColor || dataset.borderColor || '#0f7a62';
+            ctx.fill();
+            this.datasetMeta[datasetIndex].data[labelIndex] = {
+              x: xCenter,
+              y: currentY,
+              value,
+              index: labelIndex,
+            };
+          });
+          return;
+        }
+
+        const barWidth = Math.max(8, groupWidth / Math.max(datasets.length, 1) - 3);
+        const startX = xCenter - ((barWidth + 3) * datasets.length - 3) / 2;
+        datasets.forEach((dataset, datasetIndex) => {
+          const value = values[datasetIndex][labelIndex] || 0;
+          const barHeight = (value / domainMax) * chartHeight;
+          const barX = startX + datasetIndex * (barWidth + 3);
+          const barY = this.chartArea.bottom - barHeight;
+          drawRoundedRect(ctx, barX, barY, barWidth, Math.max(barHeight, 1), Number(dataset.borderRadius || 5));
+          ctx.fillStyle = dataset.backgroundColor || dataset.borderColor || '#0f7a62';
+          ctx.fill();
+          this.datasetMeta[datasetIndex].data[labelIndex] = {
+            x: barX + barWidth / 2,
+            y: barY,
+            value,
+            index: labelIndex,
+          };
+        });
+      });
+    }
+
     drawPie() {
       const data = this.config.data || {};
+      const options = this.config.options || {};
+      const type = this.config.type || 'pie';
       const labels = Array.isArray(data.labels) ? data.labels : [];
       const datasets = Array.isArray(data.datasets) ? data.datasets : [];
       const primary = datasets[0] || { data: [] };
       const values = (primary.data || []).map((value) => Number(value));
+      const displayValues = Array.isArray(primary.displayValues) ? primary.displayValues : null;
       const colors = Array.isArray(primary.backgroundColor) ? primary.backgroundColor : [];
       const { width, height } = this.prepareSurface();
       const ctx = this.ctx;
 
-      ctx.fillStyle = '#fffdf8';
+      ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, width, height);
 
       const validValues = values.map((value) => (Number.isFinite(value) && value > 0 ? value : 0));
@@ -611,6 +800,13 @@
       const centerX = width * 0.34;
       const centerY = height * 0.52;
       const radius = Math.min(width, height) * 0.3;
+      const rawCutout = options.cutout;
+      const cutoutRatio = type === 'doughnut'
+        ? (typeof rawCutout === 'string' && rawCutout.endsWith('%')
+          ? Number.parseFloat(rawCutout) / 100
+          : Number(rawCutout || 0.58))
+        : 0;
+      const innerRadius = radius * clamp(cutoutRatio, 0, 0.82);
       let start = -Math.PI / 2;
 
       validValues.forEach((value, index) => {
@@ -619,11 +815,21 @@
         const ratio = value / total;
         const end = start + ratio * Math.PI * 2;
         ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, start, end);
+        if (innerRadius > 0) {
+          ctx.arc(centerX, centerY, radius, start, end);
+          ctx.arc(centerX, centerY, innerRadius, end, start, true);
+        } else {
+          ctx.moveTo(centerX, centerY);
+          ctx.arc(centerX, centerY, radius, start, end);
+        }
         ctx.closePath();
         ctx.fillStyle = colors[index] || '#0f7a62';
         ctx.fill();
+        if (primary.borderColor && Number(primary.borderWidth || 0) > 0) {
+          ctx.strokeStyle = primary.borderColor;
+          ctx.lineWidth = Number(primary.borderWidth || 0);
+          ctx.stroke();
+        }
         start = end;
       });
 
@@ -631,7 +837,7 @@
       ctx.font = '13px Segoe UI, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(`Total: ${total}`, centerX, centerY);
+      ctx.fillText(options.centerText || `Total: ${total}`, centerX, centerY);
 
       ctx.font = '12px Segoe UI, sans-serif';
       ctx.textAlign = 'left';
@@ -640,7 +846,7 @@
         ctx.fillStyle = colors[index] || '#0f7a62';
         ctx.fillRect(width * 0.62, y - 8, 10, 10);
         ctx.fillStyle = '#334155';
-        ctx.fillText(`${label} (${validValues[index] || 0})`, width * 0.62 + 16, y);
+        ctx.fillText(`${label} (${displayValues ? displayValues[index] : (validValues[index] || 0)})`, width * 0.62 + 16, y);
       });
     }
   }

@@ -303,6 +303,18 @@ test('failed scrape carries forward the last valid price into the current snapsh
             error: 'Amazon anti-bot or captcha page detected',
             error_code: 'captcha_or_block',
             error_detail: 'Amazon anti-bot or captcha page detected',
+            adapter: 'generic',
+            store_support_level: 'generic_unvalidated',
+            failure_stage: 'extract',
+            candidates_checked: 2,
+            top_candidates: [
+              {
+                price: 10,
+                source: 'regex',
+                context: 'captcha placeholder',
+                score: null,
+              },
+            ],
           }));
         },
         async runEngine2() {
@@ -327,8 +339,22 @@ test('failed scrape carries forward the last valid price into the current snapsh
     assert.equal(latest.items[0].engine_used, 'carry_forward');
     assert.equal(latest.items[0].carried_forward_from.run_id, previousRunId);
     assert.equal(currentRun.results[0].status, 'carried_forward');
+    assert.equal(currentRun.results[0].adapter, 'generic');
+    assert.equal(currentRun.results[0].store_support_level, 'generic_unvalidated');
     assert.equal(currentRun.failures[0].engine, 'engine1_http');
     assert.equal(currentRun.failures[0].error_code, 'captcha_or_block');
     assert.equal(currentRun.failures[0].artifact_dir, null);
+    assert.equal(currentRun.failures[0].adapter, 'generic');
+    assert.equal(currentRun.failures[0].failure_stage, 'extract');
+    assert.equal(currentRun.failures[0].candidates_checked, 2);
+    assert.deepEqual(currentRun.failures[0].top_candidates, [
+      {
+        price: 10,
+        source: 'regex',
+        context: 'captcha placeholder',
+        score: null,
+      },
+    ]);
+    assert.deepEqual(currentRun.failures[0].attempts[0].top_candidates, currentRun.failures[0].top_candidates);
   });
 });

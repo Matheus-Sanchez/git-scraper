@@ -10,6 +10,7 @@ import {
 
 test('installment contexts are detected', () => {
   assert.equal(hasInstallmentContext('10x de R$ 39,90 sem juros'), true);
+  assert.equal(hasInstallmentContext('em ate 12x de R$ 29,90'), true);
   assert.equal(hasInstallmentContext('assinatura mensal R$ 19,90'), true);
   assert.equal(hasInstallmentContext('por R$ 99,90 no pix'), false);
 });
@@ -18,6 +19,8 @@ test('old and current contexts are detected', () => {
   const text = 'de: R$ 199,90 por R$ 149,90';
   assert.equal(hasOldPriceContext(text), true);
   assert.equal(hasCurrentPriceContext(text), true);
+  assert.equal(hasOldPriceContext('Preco original R$ 199,90'), true);
+  assert.equal(hasCurrentPriceContext('R$ 149,90 a vista no Pix'), true);
 });
 
 test('plausibility filters invalid prices', () => {

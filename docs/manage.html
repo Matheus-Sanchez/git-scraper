@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gerenciar Produtos</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -12,13 +13,13 @@
 
     <main class="page">
       <header class="hero">
-        <p class="eyebrow">Git Scraper</p>
-        <h1>Gerenciar Produtos</h1>
-        <p class="subtitle">
-          Esta pagina nao altera o arquivo direto. Cada acao abre uma Issue para o bot aplicar add/edit/remove.
-        </p>
+        <div class="hero-copy">
+          <p class="eyebrow">Git Scraper</p>
+          <h1>Produtos</h1>
+          <p class="subtitle">Catálogo versionado / Issues / Actions</p>
+        </div>
         <div class="hero-actions">
-          <a class="btn btn-ghost" href="./index.html">Voltar ao Dashboard</a>
+          <a class="btn btn-ghost" href="./index.html">Dashboard</a>
           <button id="open-add" class="btn btn-primary" type="button">Novo Produto</button>
         </div>
       </header>
@@ -26,27 +27,27 @@
       <section class="card" aria-labelledby="manage-title">
         <div class="card-title-row">
           <div>
-            <h2 id="manage-title">Lista de Produtos</h2>
-            <p class="section-note">Use o grupo de comparacao para relacionar o mesmo produto em lojas diferentes.</p>
+            <p class="section-kicker">Catálogo</p>
+            <h2 id="manage-title">Produtos Monitorados</h2>
           </div>
-          <label class="inline-field" for="repo-input">
-            Repositorio
+          <label class="filter-field manage-repo-field" for="repo-input">
+            <span>Repositório</span>
             <input id="repo-input" type="text" placeholder="owner/repo">
           </label>
         </div>
 
         <div id="manage-stats" class="stats-strip"></div>
 
-        <div class="manage-toolbar">
-          <label class="inline-field" for="category-filter">
-            Categoria
+        <div class="manage-toolbar filter-bar manage-filter-bar">
+          <label class="filter-field" for="category-filter">
+            <span>Categoria</span>
             <select id="category-filter">
               <option value="__all__">Todas</option>
             </select>
           </label>
 
-          <label class="inline-field" for="active-filter">
-            Status
+          <label class="filter-field" for="active-filter">
+            <span>Status</span>
             <select id="active-filter">
               <option value="__all__">Todos</option>
               <option value="active">Ativos</option>
@@ -54,8 +55,8 @@
             </select>
           </label>
 
-          <label class="inline-field" for="search-input">
-            Busca
+          <label class="filter-field filter-search" for="search-input">
+            <span>Busca</span>
             <input id="search-input" type="text" placeholder="Nome, URL, loja ou grupo">
           </label>
         </div>
@@ -67,9 +68,9 @@
                 <th>Nome</th>
                 <th>Loja</th>
                 <th>Categoria</th>
-                <th>Grupo Comparacao</th>
+                <th>Grupo Comparação</th>
                 <th>Ativo</th>
-                <th>Acoes</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody id="products-manage-tbody">
@@ -109,7 +110,7 @@
           </label>
 
           <label>
-            Grupo de comparacao
+            Grupo de comparação
             <input id="mf-comparison-key" type="text" placeholder="mouse-g203">
           </label>
 
@@ -121,15 +122,15 @@
           <label>
             Ativo
             <select id="mf-active">
-              <option value="true">true</option>
-              <option value="false">false</option>
+              <option value="true">Sim</option>
+              <option value="false">Não</option>
             </select>
           </label>
 
           <label class="full-width">
             Seletores CSS (um por linha)
             <textarea id="mf-price-css" rows="3"></textarea>
-            <small class="field-hint">Use apenas seletores CSS (ex: <code>.a-price .a-offscreen</code>), nao HTML completo.</small>
+            <small class="field-hint">Use apenas seletores CSS (ex: <code>.a-price .a-offscreen</code>), não HTML completo.</small>
           </label>
 
           <label class="full-width">
@@ -143,12 +144,12 @@
           </label>
 
           <label class="full-width">
-            Observacoes
+            Observações
             <textarea id="mf-notes" rows="2"></textarea>
           </label>
 
           <div class="form-actions full-width">
-            <button type="submit" class="btn btn-primary">Abrir Issue de Alteracao</button>
+            <button type="submit" class="btn btn-primary">Abrir Issue de Alteração</button>
           </div>
         </form>
       </div>

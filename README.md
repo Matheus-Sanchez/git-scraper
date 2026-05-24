@@ -16,11 +16,11 @@ Price tracker pessoal com scraping em cascata, persistencia em JSON no proprio r
 | --- | --- | --- |
 | Amazon | Dedicated validated | Regressao por dominio + smoke real |
 | KaBuM | Dedicated validated | Regressao por dominio + smoke real |
-| Mercado Livre | Backlog | Ainda sem adapter dedicado validado |
-| Magalu | Backlog | Ainda sem adapter dedicado validado |
-| Shopee | Backlog | Ainda sem adapter dedicado validado |
-| Pichau | Backlog | Ainda sem adapter dedicado validado |
-| Petz | Backlog | Ainda sem adapter dedicado validado |
+| Mercado Livre | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
+| Magalu | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
+| Shopee | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
+| Pichau | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
+| Petz | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
 | Outros dominios | Generic unvalidated | Sem suporte validado por regressao |
 
 `Adapter dedicado e validado` significa que o dominio possui roteamento explicito em `src/adapters/` e casos de regressao na suite.
@@ -153,7 +153,7 @@ Para endurecer merge em producao, configure branch protection no GitHub para exi
 
 ### Ingest de Issue
 
-Workflow: `.github/workflows/ingest_issue.yml`
+Workflow: `.github/workflows/ingest_issue.yml` (`Ingest Product Issues`)
 
 Processa Issues para `add`, `edit`, `remove` e `batch`, valida o payload e atualiza o catalogo espelhado.
 
@@ -161,7 +161,7 @@ Executa automaticamente em `opened`, `edited`, `labeled` e `reopened`, e tambem 
 
 Replay manual:
 
-- abra `Actions > Ingest Add-Product Issue > Run workflow`
+- abra `Actions > Ingest Product Issues > Run workflow`
 - opcionalmente informe `issue_numbers` como lista separada por virgula
 - se `issue_numbers` ficar vazio, o workflow processa todas as Issues abertas com label `add-product` ou `manage-product`, ou titulo iniciado por `[ADD PRODUCT]` / `[MANAGE PRODUCT]`
 
