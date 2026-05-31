@@ -1,5 +1,6 @@
 {
   "run_id": "2026-05-31T11-06-10-963Z",
+  "run_date": "2026-05-31",
   "generated_at": "2026-05-31T11:06:10.963Z",
   "currency": "BRL",
   "summary": {
@@ -28,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -352,6 +353,5 @@
       "candidates_checked": null,
       "top_candidates": []
     }
-  ],
-  "run_file": "2026-05-31T11-06-10-963Z.json"
+  ]
 }
