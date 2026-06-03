@@ -1,18 +1,18 @@
 {
-  "run_id": "2026-06-02T12-50-54-515Z",
-  "generated_at": "2026-06-02T12:50:54.515Z",
+  "run_id": "2026-06-03T14-06-20-223Z",
+  "generated_at": "2026-06-03T14:06:20.223Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 3920,
+    "run_duration_ms": 3266,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 7,
         "failed": 0,
-        "avg_time_ms": 1631
+        "avg_time_ms": 1421
       },
       "engine2_browser": {
         "attempted": 0,
@@ -37,7 +37,7 @@
       "currency": "BRL",
       "unit_price": 379,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:57.148Z",
+      "fetched_at": "2026-06-03T14:06:22.610Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -52,7 +52,7 @@
       "currency": "BRL",
       "unit_price": 460,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:56.775Z",
+      "fetched_at": "2026-06-03T14:06:22.832Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -67,7 +67,7 @@
       "currency": "BRL",
       "unit_price": 169.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:56.365Z",
+      "fetched_at": "2026-06-03T14:06:21.632Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -78,11 +78,11 @@
       "product_id": "mouse-logitech-g203",
       "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
       "name": "Mouse Logitech G203 Lightsync",
-      "price": 143.04,
+      "price": 141.61,
       "currency": "BRL",
-      "unit_price": 143.04,
+      "unit_price": 141.61,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:56.401Z",
+      "fetched_at": "2026-06-03T14:06:21.672Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -97,7 +97,7 @@
       "currency": "BRL",
       "unit_price": 5109.04,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:56.807Z",
+      "fetched_at": "2026-06-03T14:06:21.814Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -112,7 +112,7 @@
       "currency": "BRL",
       "unit_price": 182.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:57.173Z",
+      "fetched_at": "2026-06-03T14:06:21.994Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -127,7 +127,7 @@
       "currency": "BRL",
       "unit_price": 195.88,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-02T12:50:58.434Z",
+      "fetched_at": "2026-06-03T14:06:23.488Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -136,5 +136,5 @@
     }
   ],
   "failures": [],
-  "run_file": "2026-06-02T12-50-54-515Z.json"
+  "run_file": "2026-06-03T14-06-20-223Z.json"
 }
