@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-06-05T12-19-35-229Z",
-  "generated_at": "2026-06-05T12:19:35.229Z",
+  "run_id": "2026-06-06T10-59-14-949Z",
+  "generated_at": "2026-06-06T10:59:14.949Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 6720,
+    "run_duration_ms": 29265,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 7,
-        "failed": 0,
-        "avg_time_ms": 3503
+        "success": 4,
+        "failed": 3,
+        "avg_time_ms": 479
       },
       "engine2_browser": {
-        "attempted": 0,
-        "success": 0,
-        "failed": 0,
-        "avg_time_ms": 0
+        "attempted": 3,
+        "success": 1,
+        "failed": 2,
+        "avg_time_ms": 3184
       },
       "engine3_hardmode": {
-        "attempted": 0,
-        "success": 0,
+        "attempted": 2,
+        "success": 2,
         "failed": 0,
-        "avg_time_ms": 0
+        "avg_time_ms": 11021
       }
     }
   },
@@ -36,8 +36,8 @@
       "price": 379,
       "currency": "BRL",
       "unit_price": 379,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:40.886Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-06-06T10:59:32.458Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -48,11 +48,11 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 460,
+      "price": 61.04,
       "currency": "BRL",
-      "unit_price": 460,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:41.089Z",
+      "unit_price": 61.04,
+      "engine_used": "engine2_browser",
+      "fetched_at": "2026-06-06T10:59:21.642Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -67,7 +67,7 @@
       "currency": "BRL",
       "unit_price": 169.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:40.197Z",
+      "fetched_at": "2026-06-06T10:59:15.776Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -82,7 +82,7 @@
       "currency": "BRL",
       "unit_price": 141.61,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:40.155Z",
+      "fetched_at": "2026-06-06T10:59:15.735Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -93,11 +93,11 @@
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
-      "price": 5689.8,
+      "price": 5829,
       "currency": "BRL",
-      "unit_price": 5689.8,
+      "unit_price": 5829,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:40.432Z",
+      "fetched_at": "2026-06-06T10:59:15.820Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -112,7 +112,7 @@
       "currency": "BRL",
       "unit_price": 182.9,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:41.607Z",
+      "fetched_at": "2026-06-06T10:59:15.865Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -126,8 +126,8 @@
       "price": 195.88,
       "currency": "BRL",
       "unit_price": 195.88,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-06-05T12:19:41.948Z",
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-06-06T10:59:43.853Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -136,5 +136,5 @@
     }
   ],
   "failures": [],
-  "run_file": "2026-06-05T12-19-35-229Z.json"
+  "run_file": "2026-06-06T10-59-14-949Z.json"
 }
