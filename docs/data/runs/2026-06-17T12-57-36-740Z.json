@@ -1,5 +1,6 @@
 {
   "run_id": "2026-06-17T12-57-36-740Z",
+  "run_date": "2026-06-17",
   "generated_at": "2026-06-17T12:57:36.740Z",
   "currency": "BRL",
   "summary": {
@@ -28,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -135,6 +136,5 @@
       "store_support_level": "dedicated_validated"
     }
   ],
-  "failures": [],
-  "run_file": "2026-06-17T12-57-36-740Z.json"
+  "failures": []
 }
