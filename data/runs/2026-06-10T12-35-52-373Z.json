@@ -1,31 +1,19 @@
 {
-<<<<<<< HEAD
-  "run_id": "2026-06-23T22-46-12-947Z",
-  "generated_at": "2026-06-23T22:46:12.947Z",
-=======
-  "run_id": "2026-06-23T12-15-14-427Z",
-  "generated_at": "2026-06-23T12:15:14.427Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+  "run_id": "2026-06-10T12-35-52-373Z",
+  "run_date": "2026-06-10",
+  "generated_at": "2026-06-10T12:35:52.373Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-<<<<<<< HEAD
-    "run_duration_ms": 3520,
-=======
-    "run_duration_ms": 2965,
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+    "run_duration_ms": 2519,
     "engines": {
       "engine1_http": {
         "attempted": 7,
         "success": 7,
         "failed": 0,
-<<<<<<< HEAD
-        "avg_time_ms": 1226
-=======
-        "avg_time_ms": 1094
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+        "avg_time_ms": 1111
       },
       "engine2_browser": {
         "attempted": 0,
@@ -41,7 +29,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
@@ -50,11 +38,7 @@
       "currency": "BRL",
       "unit_price": 459,
       "engine_used": "engine1_http",
-<<<<<<< HEAD
-      "fetched_at": "2026-06-23T22:46:14.520Z",
-=======
-      "fetched_at": "2026-06-23T12:15:16.042Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:54.620Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -65,19 +49,11 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-<<<<<<< HEAD
-      "price": 206.15,
+      "price": 569.48,
       "currency": "BRL",
-      "unit_price": 206.15,
+      "unit_price": 569.48,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-23T22:46:14.693Z",
-=======
-      "price": 460,
-      "currency": "BRL",
-      "unit_price": 460,
-      "engine_used": "engine1_http",
-      "fetched_at": "2026-06-23T12:15:16.349Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:54.362Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -92,11 +68,7 @@
       "currency": "BRL",
       "unit_price": 169.99,
       "engine_used": "engine1_http",
-<<<<<<< HEAD
-      "fetched_at": "2026-06-23T22:46:13.670Z",
-=======
-      "fetched_at": "2026-06-23T12:15:15.165Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:53.234Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -107,15 +79,11 @@
       "product_id": "mouse-logitech-g203",
       "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
       "name": "Mouse Logitech G203 Lightsync",
-      "price": 143.04,
+      "price": 141.61,
       "currency": "BRL",
-      "unit_price": 143.04,
+      "unit_price": 141.61,
       "engine_used": "engine1_http",
-<<<<<<< HEAD
-      "fetched_at": "2026-06-23T22:46:13.972Z",
-=======
-      "fetched_at": "2026-06-23T12:15:15.201Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:53.190Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -126,15 +94,11 @@
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
       "name": "Notebook Acer Aspire GO 15",
-      "price": 5829,
+      "price": 4339.6,
       "currency": "BRL",
-      "unit_price": 5829,
+      "unit_price": 4339.6,
       "engine_used": "engine1_http",
-<<<<<<< HEAD
-      "fetched_at": "2026-06-23T22:46:14.286Z",
-=======
-      "fetched_at": "2026-06-23T12:15:15.376Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:53.364Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -145,15 +109,11 @@
       "product_id": "teclado-logitech-k835",
       "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
       "name": "Teclado Logitech K835 TKL",
-      "price": 162.78,
+      "price": 182.9,
       "currency": "BRL",
-      "unit_price": 162.78,
+      "unit_price": 182.9,
       "engine_used": "engine1_http",
-<<<<<<< HEAD
-      "fetched_at": "2026-06-23T22:46:14.846Z",
-=======
-      "fetched_at": "2026-06-23T12:15:15.668Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:53.489Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -164,15 +124,11 @@
       "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
       "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
       "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-      "price": 183.98,
+      "price": 195.78,
       "currency": "BRL",
-      "unit_price": 183.98,
+      "unit_price": 195.78,
       "engine_used": "engine1_http",
-<<<<<<< HEAD
-      "fetched_at": "2026-06-23T22:46:16.466Z",
-=======
-      "fetched_at": "2026-06-23T12:15:17.391Z",
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+      "fetched_at": "2026-06-10T12:35:54.891Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -180,10 +136,5 @@
       "store_support_level": "dedicated_validated"
     }
   ],
-  "failures": [],
-<<<<<<< HEAD
-  "run_file": "2026-06-23T22-46-12-947Z.json"
-=======
-  "run_file": "2026-06-23T12-15-14-427Z.json"
->>>>>>> 4f7e82182056e9e6fa401fe9f2f34407ed2f88c5
+  "failures": []
 }
