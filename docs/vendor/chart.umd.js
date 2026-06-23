@@ -113,6 +113,23 @@
     return value;
   }
 
+  function resolveTheme(options) {
+    const theme = options?.theme || {};
+    return {
+      axis: theme.axis || '#61706a',
+      badgeBackground: theme.badgeBackground || '#ffffff',
+      canvasBackground: theme.canvasBackground || '#fffdfb',
+      centerText: theme.centerText || '#1f2937',
+      chartAreaBackground: theme.chartAreaBackground || '#fffdfd',
+      chartAreaBorder: theme.chartAreaBorder || '#e8ded0',
+      emptyText: theme.emptyText || '#5b6b66',
+      grid: theme.grid || '#e7ece9',
+      hoverLine: theme.hoverLine || '#3f5b54',
+      legendText: theme.legendText || '#334155',
+      pointFill: theme.pointFill || '#ffffff',
+    };
+  }
+
   function formatCurrency(value) {
     return Number(value).toLocaleString('pt-BR', {
       style: 'currency',
@@ -307,12 +324,13 @@
     drawLine() {
       const data = this.config.data || {};
       const options = this.config.options || {};
+      const theme = resolveTheme(options);
       const labels = Array.isArray(data.labels) ? data.labels : [];
       const datasets = Array.isArray(data.datasets) ? data.datasets : [];
       const { width, height } = this.prepareSurface();
       const ctx = this.ctx;
 
-      ctx.fillStyle = '#fffdfb';
+      ctx.fillStyle = theme.canvasBackground;
       ctx.fillRect(0, 0, width, height);
 
       const allValues = collectLineValues(datasets);
@@ -329,7 +347,7 @@
         : (value) => formatAxisDate(value);
 
       if (allValues.length === 0) {
-        ctx.fillStyle = '#5b6b66';
+        ctx.fillStyle = theme.emptyText;
         ctx.font = '13px Segoe UI, sans-serif';
         ctx.fillText('Sem dados para o periodo selecionado.', 22, 30);
         this.chartArea = null;
@@ -375,19 +393,19 @@
       };
 
       drawRoundedRect(ctx, this.chartArea.left, this.chartArea.top, chartWidth, chartHeight, 16);
-      ctx.fillStyle = '#fffdfd';
+      ctx.fillStyle = theme.chartAreaBackground;
       ctx.fill();
-      ctx.strokeStyle = '#e8ded0';
+      ctx.strokeStyle = theme.chartAreaBorder;
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      ctx.strokeStyle = '#e7ece9';
+      ctx.strokeStyle = theme.grid;
       ctx.lineWidth = 1;
       ctx.setLineDash([3, 6]);
       ctx.font = '12px Segoe UI, sans-serif';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#61706a';
+      ctx.fillStyle = theme.axis;
 
       yTicks.forEach((tickValue) => {
         const ratio = 1 - ((tickValue - domainMin) / domainSpan);
@@ -402,7 +420,7 @@
       });
 
       ctx.setLineDash([]);
-      ctx.strokeStyle = '#d7dfda';
+      ctx.strokeStyle = theme.chartAreaBorder;
       ctx.beginPath();
       ctx.moveTo(this.chartArea.left, this.chartArea.bottom);
       ctx.lineTo(this.chartArea.right, this.chartArea.bottom);
@@ -417,7 +435,7 @@
 
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
-      ctx.fillStyle = '#61706a';
+      ctx.fillStyle = theme.axis;
 
       [...xLabelIndices].sort((left, right) => left - right).forEach((index) => {
         const x = labels.length <= 1
@@ -527,7 +545,7 @@
 
             ctx.beginPath();
             ctx.arc(lastPoint.x, lastPoint.y, outerRadius, 0, Math.PI * 2);
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = theme.badgeBackground;
             ctx.fill();
             ctx.lineWidth = 2;
             ctx.strokeStyle = alphaColor(lineColor, deEmphasize ? 0.45 : 1);
@@ -553,7 +571,7 @@
             ctx.stroke();
 
             drawRoundedRect(ctx, badgeX, badgeY, badgeWidth, badgeHeight, 12);
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = theme.badgeBackground;
             ctx.fill();
             ctx.strokeStyle = alphaColor(lineColor, 0.32);
             ctx.lineWidth = 1;
@@ -576,14 +594,14 @@
         ctx.beginPath();
         ctx.moveTo(hoverX, this.chartArea.top);
         ctx.lineTo(hoverX, this.chartArea.bottom);
-        ctx.strokeStyle = alphaColor('#3f5b54', 0.32);
+        ctx.strokeStyle = alphaColor(theme.hoverLine, 0.32);
         ctx.lineWidth = 1;
         ctx.stroke();
         ctx.setLineDash([]);
 
         ctx.beginPath();
         ctx.arc(hoverX, hoverY, 5.2, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = theme.pointFill;
         ctx.fill();
         ctx.lineWidth = 2.2;
         ctx.strokeStyle = hoverColor;
@@ -594,6 +612,7 @@
     drawBar() {
       const data = this.config.data || {};
       const options = this.config.options || {};
+      const theme = resolveTheme(options);
       const labels = Array.isArray(data.labels) ? data.labels : [];
       const datasets = Array.isArray(data.datasets) ? data.datasets : [];
       const horizontal = options.indexAxis === 'y';
@@ -601,14 +620,14 @@
       const { width, height } = this.prepareSurface();
       const ctx = this.ctx;
 
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = theme.canvasBackground;
       ctx.fillRect(0, 0, width, height);
 
       const values = datasets.map((dataset) => (Array.isArray(dataset.data) ? dataset.data : [])
         .map((value) => (isFiniteNumber(value) ? Math.max(0, Number(value)) : 0)));
       const labelCount = labels.length;
       if (!labelCount || datasets.length === 0) {
-        ctx.fillStyle = '#6b7280';
+        ctx.fillStyle = theme.emptyText;
         ctx.font = '14px Segoe UI, sans-serif';
         ctx.fillText('Sem dados para o grafico.', 22, 30);
         this.chartArea = null;
@@ -644,9 +663,9 @@
         data: Array.from({ length: labelCount }, () => null),
       }));
 
-      ctx.strokeStyle = '#edf1f6';
+      ctx.strokeStyle = theme.grid;
       ctx.lineWidth = 1;
-      ctx.fillStyle = '#6b7280';
+      ctx.fillStyle = theme.axis;
       ctx.font = '12px Segoe UI, sans-serif';
 
       if (horizontal) {
@@ -667,7 +686,7 @@
           const yCenter = this.chartArea.top + band * labelIndex + band / 2;
           ctx.textAlign = 'right';
           ctx.textBaseline = 'middle';
-          ctx.fillStyle = '#6b7280';
+          ctx.fillStyle = theme.axis;
           ctx.fillText(String(label), this.chartArea.left - 10, yCenter);
 
           if (stacked) {
@@ -718,7 +737,7 @@
         ctx.stroke();
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = '#6b7280';
+        ctx.fillStyle = theme.axis;
         ctx.fillText(String(tick), this.chartArea.left - 10, y);
       });
 
@@ -728,7 +747,7 @@
         const xCenter = this.chartArea.left + band * labelIndex + band / 2;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
-        ctx.fillStyle = '#6b7280';
+        ctx.fillStyle = theme.axis;
         ctx.fillText(String(label), xCenter, this.chartArea.bottom + 12);
 
         if (stacked) {
@@ -775,6 +794,7 @@
     drawPie() {
       const data = this.config.data || {};
       const options = this.config.options || {};
+      const theme = resolveTheme(options);
       const type = this.config.type || 'pie';
       const labels = Array.isArray(data.labels) ? data.labels : [];
       const datasets = Array.isArray(data.datasets) ? data.datasets : [];
@@ -785,13 +805,13 @@
       const { width, height } = this.prepareSurface();
       const ctx = this.ctx;
 
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = theme.canvasBackground;
       ctx.fillRect(0, 0, width, height);
 
       const validValues = values.map((value) => (Number.isFinite(value) && value > 0 ? value : 0));
       const total = validValues.reduce((sum, value) => sum + value, 0);
       if (total <= 0) {
-        ctx.fillStyle = '#6b7280';
+        ctx.fillStyle = theme.emptyText;
         ctx.font = '14px Segoe UI, sans-serif';
         ctx.fillText('Sem dados de categoria.', 22, 30);
         return;
@@ -833,7 +853,7 @@
         start = end;
       });
 
-      ctx.fillStyle = '#1f2937';
+      ctx.fillStyle = theme.centerText;
       ctx.font = '13px Segoe UI, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -845,7 +865,7 @@
         const y = 28 + index * 20;
         ctx.fillStyle = colors[index] || '#0f7a62';
         ctx.fillRect(width * 0.62, y - 8, 10, 10);
-        ctx.fillStyle = '#334155';
+        ctx.fillStyle = theme.legendText;
         ctx.fillText(`${label} (${displayValues ? displayValues[index] : (validValues[index] || 0)})`, width * 0.62 + 16, y);
       });
     }

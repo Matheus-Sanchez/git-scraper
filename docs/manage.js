@@ -589,6 +589,9 @@ async function init() {
 }
 
 els.openAdd.addEventListener('click', () => openModal('add', null));
+document.querySelectorAll('[data-open-manage-add]').forEach((button) => {
+  button.addEventListener('click', () => openModal('add', null));
+});
 els.closeModal.addEventListener('click', closeModal);
 els.modal.addEventListener('click', (event) => {
   if (event.target.dataset.closeModal === 'true') {

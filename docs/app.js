@@ -4,17 +4,79 @@ const ALL = '__all__';
 let resolvedDataRoot = null;
 let draftCounter = 1;
 
-const CATEGORY_PALETTE = [
-  '#0f7a62',
-  '#b54708',
-  '#7a3ea1',
-  '#0f6cc0',
-  '#b42318',
-  '#1f7a1f',
-  '#8a5a00',
-  '#005f73',
-  '#8b1e3f',
+let CATEGORY_PALETTE = [
+  '#58a6ff',
+  '#9e6a03',
+  '#238636',
+  '#afc6ff',
+  '#da3633',
+  '#76a1ff',
+  '#c1c7d0',
+  '#2ea043',
+  '#f0883e',
 ];
+
+let CHART_THEME = {
+  axis: '#8b949e',
+  badgeBackground: '#0d1117',
+  canvasBackground: '#060f16',
+  centerText: '#c0c7d4',
+  chartAreaBackground: '#0b141c',
+  chartAreaBorder: '#30363d',
+  emptyText: '#8b949e',
+  grid: 'rgba(139, 148, 158, 0.24)',
+  hoverLine: '#8b949e',
+  border: '#30363d',
+  legendText: '#c0c7d4',
+  pointFill: '#060f16',
+  surface: '#060f16',
+  tooltip: '#21262d',
+  text: '#f0f6fc',
+  accent: '#58a6ff',
+  ok: '#238636',
+  warn: '#9e6a03',
+  danger: '#da3633',
+};
+
+function themeCssValue(name, fallback) {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return value || fallback;
+}
+
+function buildCategoryPaletteFromCss() {
+  return Array.from({ length: 9 }, (_, index) => themeCssValue(`--category-${index + 1}`, CATEGORY_PALETTE[index]));
+}
+
+function buildChartThemeFromCss() {
+  return {
+    axis: themeCssValue('--chart-axis', '#8b949e'),
+    badgeBackground: themeCssValue('--chart-badge-bg', '#0d1117'),
+    canvasBackground: themeCssValue('--chart-bg', '#060f16'),
+    centerText: themeCssValue('--chart-center', '#c0c7d4'),
+    chartAreaBackground: themeCssValue('--chart-area-bg', '#0b141c'),
+    chartAreaBorder: themeCssValue('--chart-border', '#30363d'),
+    emptyText: themeCssValue('--chart-empty', '#8b949e'),
+    grid: themeCssValue('--chart-grid', 'rgba(139, 148, 158, 0.24)'),
+    hoverLine: themeCssValue('--chart-hover', '#8b949e'),
+    border: themeCssValue('--chart-border', '#30363d'),
+    legendText: themeCssValue('--chart-legend', '#c0c7d4'),
+    pointFill: themeCssValue('--chart-point', '#060f16'),
+    surface: themeCssValue('--chart-bg', '#060f16'),
+    tooltip: themeCssValue('--chart-tooltip', '#21262d'),
+    text: themeCssValue('--chart-text', '#f0f6fc'),
+    accent: themeCssValue('--accent', '#58a6ff'),
+    ok: themeCssValue('--ok', '#238636'),
+    warn: themeCssValue('--warn', '#9e6a03'),
+    danger: themeCssValue('--danger', '#da3633'),
+  };
+}
+
+function refreshThemeTokens() {
+  CATEGORY_PALETTE = buildCategoryPaletteFromCss();
+  CHART_THEME = buildChartThemeFromCss();
+}
+
+refreshThemeTokens();
 
 const els = {
   generatedAt: document.getElementById('generated-at'),
@@ -32,6 +94,7 @@ const els = {
   focusMetrics: document.getElementById('focus-metrics'),
   tbody: document.getElementById('products-tbody'),
   dashboardSearch: document.getElementById('dashboard-search'),
+  globalDashboardSearch: document.getElementById('global-dashboard-search'),
   siteFilter: document.getElementById('site-filter'),
   statusFilter: document.getElementById('status-filter'),
   historyCategoryFilter: document.getElementById('history-category-filter'),
@@ -356,7 +419,7 @@ function manifestDailyEntries() {
 }
 
 function colorForCategory(category) {
-  return state.colorsByCategory.get(normalizeCategory(category)) || '#0f7a62';
+  return state.colorsByCategory.get(normalizeCategory(category)) || CHART_THEME.accent;
 }
 
 function setFilterOptions(select, categories) {
@@ -700,13 +763,14 @@ function renderPieChart() {
           label: 'Produtos por categoria',
           data: values,
           backgroundColor: colors,
-          borderColor: '#ffffff',
-          borderWidth: 3,
+          borderColor: CHART_THEME.surface,
+          borderWidth: 2,
           hoverOffset: 8,
         },
       ],
     },
     options: {
+      theme: CHART_THEME,
       responsive: true,
       maintainAspectRatio: false,
       cutout: '62%',
@@ -720,7 +784,7 @@ function renderPieChart() {
           labels: {
             boxWidth: 10,
             boxHeight: 10,
-            color: '#526071',
+            color: CHART_THEME.axis,
             font: {
               size: 12,
               weight: 650,
@@ -750,6 +814,7 @@ function destroyChart(key) {
 
 function compactChartOptions({ stacked = false, indexAxis = 'x', legend = true } = {}) {
   return {
+    theme: CHART_THEME,
     responsive: true,
     maintainAspectRatio: false,
     indexAxis,
@@ -764,7 +829,7 @@ function compactChartOptions({ stacked = false, indexAxis = 'x', legend = true }
         labels: {
           boxWidth: 10,
           boxHeight: 10,
-          color: '#526071',
+          color: CHART_THEME.axis,
           font: {
             size: 12,
             weight: 650,
@@ -772,9 +837,9 @@ function compactChartOptions({ stacked = false, indexAxis = 'x', legend = true }
         },
       },
       tooltip: {
-        backgroundColor: '#111827',
-        titleColor: '#ffffff',
-        bodyColor: '#ffffff',
+        backgroundColor: CHART_THEME.tooltip,
+        titleColor: CHART_THEME.text,
+        bodyColor: CHART_THEME.text,
         padding: 10,
         callbacks: {
           label(context) {
@@ -788,28 +853,28 @@ function compactChartOptions({ stacked = false, indexAxis = 'x', legend = true }
       x: {
         stacked,
         grid: {
-          color: 'rgba(217, 224, 234, 0.72)',
+          color: CHART_THEME.grid,
         },
         ticks: {
-          color: '#526071',
+          color: CHART_THEME.axis,
           maxRotation: 0,
           autoSkip: true,
         },
         border: {
-          color: '#d9e0ea',
+          color: CHART_THEME.border,
         },
       },
       y: {
         stacked,
         grid: {
-          color: 'rgba(217, 224, 234, 0.72)',
+          color: CHART_THEME.grid,
         },
         ticks: {
-          color: '#526071',
+          color: CHART_THEME.axis,
           precision: 0,
         },
         border: {
-          color: '#d9e0ea',
+          color: CHART_THEME.border,
         },
       },
     },
@@ -1032,19 +1097,19 @@ function renderStoreHealthChart(storeRows) {
         {
           label: 'Coleta real',
           data: rows.map((row) => row.real),
-          backgroundColor: '#147a3d',
+          backgroundColor: CHART_THEME.ok,
           borderRadius: 6,
         },
         {
           label: 'Reaproveitado',
           data: rows.map((row) => row.carried),
-          backgroundColor: '#d69200',
+          backgroundColor: CHART_THEME.warn,
           borderRadius: 6,
         },
         {
           label: 'Falha',
           data: rows.map((row) => row.failed),
-          backgroundColor: '#b42318',
+          backgroundColor: CHART_THEME.danger,
           borderRadius: 6,
         },
       ],
@@ -1075,13 +1140,13 @@ function renderEngineHealthChart() {
         {
           label: 'Sucesso',
           data: rows.map((row) => row.success),
-          backgroundColor: '#0f6cc0',
+          backgroundColor: CHART_THEME.accent,
           borderRadius: 6,
         },
         {
           label: 'Falha',
           data: rows.map((row) => row.failed),
-          backgroundColor: '#b42318',
+          backgroundColor: CHART_THEME.danger,
           borderRadius: 6,
         },
       ],
@@ -1098,8 +1163,8 @@ function renderFailureBreakdownChart() {
   const hasFailures = failures.length > 0;
   const rows = hasFailures ? failures.slice(0, 6) : [{ label: 'Sem falhas', value: 1 }];
   const colors = hasFailures
-    ? ['#b42318', '#d69200', '#7a3ea1', '#0f6cc0', '#8b1e3f', '#005f73']
-    : ['#147a3d'];
+    ? [CHART_THEME.danger, CHART_THEME.warn, ...CATEGORY_PALETTE].slice(0, 6)
+    : [CHART_THEME.ok];
 
   state.failureChart = new window.Chart(els.failureBreakdownCanvas, {
     type: 'doughnut',
@@ -1111,13 +1176,14 @@ function renderFailureBreakdownChart() {
           data: rows.map((row) => row.value),
           displayValues: hasFailures ? rows.map((row) => row.value) : [0],
           backgroundColor: colors,
-          borderColor: '#ffffff',
-          borderWidth: 3,
+          borderColor: CHART_THEME.surface,
+          borderWidth: 2,
           hoverOffset: hasFailures ? 8 : 0,
         },
       ],
     },
     options: {
+      theme: CHART_THEME,
       responsive: true,
       maintainAspectRatio: false,
       cutout: '64%',
@@ -1134,7 +1200,7 @@ function renderFailureBreakdownChart() {
           labels: {
             boxWidth: 10,
             boxHeight: 10,
-            color: '#526071',
+            color: CHART_THEME.axis,
             font: {
               size: 12,
               weight: 650,
@@ -2368,6 +2434,7 @@ function focusProduct(productId) {
 
 function historyChartOptions() {
   return {
+    theme: CHART_THEME,
     responsive: true,
     maintainAspectRatio: false,
     interaction: {
@@ -2392,27 +2459,27 @@ function historyChartOptions() {
           display: false,
         },
         ticks: {
-          color: '#526071',
+          color: CHART_THEME.axis,
           maxTicksLimit: 6,
         },
         border: {
-          color: '#d9e0ea',
+          color: CHART_THEME.border,
         },
       },
       y: {
         beginAtZero: false,
         grid: {
-          color: 'rgba(217, 224, 234, 0.72)',
+          color: CHART_THEME.grid,
         },
         ticks: {
-          color: '#526071',
+          color: CHART_THEME.axis,
           maxTicksLimit: 5,
           callback(value) {
             return formatMoney(value);
           },
         },
         border: {
-          color: '#d9e0ea',
+          color: CHART_THEME.border,
         },
       },
     },
@@ -2840,17 +2907,35 @@ function onChartScopeChange() {
 }
 
 function onDashboardFilterChange() {
+  if (els.globalDashboardSearch && document.activeElement !== els.globalDashboardSearch) {
+    els.globalDashboardSearch.value = els.dashboardSearch?.value || '';
+  }
+  renderLinkedViews({ preserveZoom: true });
+}
+
+function onGlobalDashboardSearch() {
+  if (!els.globalDashboardSearch || !els.dashboardSearch) return;
+  els.dashboardSearch.value = els.globalDashboardSearch.value;
   renderLinkedViews({ preserveZoom: true });
 }
 
 function resetDashboardFilters() {
   if (els.dashboardSearch) els.dashboardSearch.value = '';
+  if (els.globalDashboardSearch) els.globalDashboardSearch.value = '';
   if (els.siteFilter) els.siteFilter.value = ALL;
   if (els.statusFilter) els.statusFilter.value = ALL;
   if (els.hideLegacySeries) els.hideLegacySeries.checked = true;
   if (els.historyCategoryFilter) els.historyCategoryFilter.value = ALL;
   if (els.chartScope) els.chartScope.value = 'all-products';
   renderLinkedViews({ preserveZoom: true });
+}
+
+function onThemeChange() {
+  refreshThemeTokens();
+  buildCategoryColors(state.categories);
+  renderCategoryLegend(state.categories);
+  renderPieChart();
+  renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
 }
 
 function renderLinkedViews({ preserveZoom = false, preserveProductSelect = false } = {}) {
@@ -2924,6 +3009,8 @@ async function init() {
 }
 
 els.dashboardSearch.addEventListener('input', onDashboardFilterChange);
+els.globalDashboardSearch?.addEventListener('input', onGlobalDashboardSearch);
+window.addEventListener('git-scraper-theme-change', onThemeChange);
 els.siteFilter.addEventListener('change', onDashboardFilterChange);
 els.statusFilter.addEventListener('change', onDashboardFilterChange);
 els.historyCategoryFilter.addEventListener('change', () => {
@@ -2965,6 +3052,9 @@ els.tbody.addEventListener('click', (event) => {
 });
 
 els.openModal.addEventListener('click', openModal);
+document.querySelectorAll('[data-open-add-modal]').forEach((button) => {
+  button.addEventListener('click', openModal);
+});
 els.closeModal.addEventListener('click', closeModal);
 els.modal.addEventListener('click', (event) => {
   if (event.target.dataset.closeModal === 'true') {

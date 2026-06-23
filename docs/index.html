@@ -5,11 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard de Preços</title>
     <link rel="icon" href="data:,">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+      (() => {
+        try {
+          document.documentElement.dataset.theme = localStorage.getItem('git-scraper-theme') || 'dark';
+        } catch {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
     <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+    <div class="app-shell">
+      <aside class="side-nav" aria-label="Navegação principal">
+        <div class="side-brand">
+          <strong>Git Scraper</strong>
+          <span>v2.4.0-stable</span>
+        </div>
+
+        <nav class="side-nav-links" aria-label="Seções">
+          <a class="is-active" href="#overview">Dashboard</a>
+          <a href="#diagnostics">Analytics</a>
+          <a href="#inventory">Repositories</a>
+          <a href="#history-section">Operations</a>
+        </nav>
+
+        <div class="side-nav-footer">
+          <button class="btn btn-primary side-cta" type="button" data-open-add-modal>+ New Scraper</button>
+          <a href="./manage.html">Settings</a>
+          <a href="./data/latest.json" target="_blank" rel="noopener noreferrer">Documentation</a>
+        </div>
+      </aside>
+
+      <div class="app-content">
+        <header class="topbar">
+          <div class="topbar-title">
+            <span class="topbar-icon" aria-hidden="true">$</span>
+            <strong>Operação de Preços</strong>
+          </div>
+
+          <nav class="topbar-nav" aria-label="Navegação do dashboard">
+            <a class="is-active" href="#overview">Resumo</a>
+            <a href="#diagnostics">Diagnósticos</a>
+            <a href="#history-section">Histórico</a>
+          </nav>
+
+          <div class="topbar-actions">
+            <label class="topbar-search" for="global-dashboard-search">
+              <span>Buscar produtos</span>
+              <input id="global-dashboard-search" type="search" placeholder="Buscar produtos...">
+            </label>
+            <a
+              id="latest-json-link"
+              class="btn btn-ghost"
+              href="./data/latest.json"
+              target="_blank"
+              rel="noopener noreferrer"
+            >latest.json</a>
+            <button class="btn btn-ghost theme-toggle" type="button" data-theme-toggle>Tema claro</button>
+            <button id="open-add-modal" class="btn btn-primary" type="button">Adicionar</button>
+          </div>
+        </header>
 
     <main class="page">
       <header class="hero hero-grid">
@@ -19,17 +82,6 @@
           <p class="subtitle">
             GitHub Pages / Actions / JSON
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-ghost" href="./manage.html">Produtos</a>
-            <button id="open-add-modal" class="btn btn-primary" type="button">Adicionar</button>
-            <a
-              id="latest-json-link"
-              class="btn btn-ghost"
-              href="./data/latest.json"
-              target="_blank"
-              rel="noopener noreferrer"
-            >latest.json</a>
-          </div>
           <p class="warning">
             Adicionar produto cria uma issue e o bot atualiza o catálogo automaticamente.
           </p>
@@ -317,6 +369,8 @@
         </div>
       </section>
     </main>
+      </div>
+    </div>
 
     <div id="add-modal" class="modal" aria-hidden="true">
       <div class="modal-overlay" data-close-modal="true"></div>
@@ -354,6 +408,7 @@
     </div>
 
     <script src="./vendor/chart.umd.js"></script>
+    <script src="./theme.js"></script>
     <script type="module" src="./app.js"></script>
   </body>
 </html>
