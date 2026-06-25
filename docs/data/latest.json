@@ -1,30 +1,30 @@
 {
-  "run_id": "2026-06-24T12-01-06-837Z",
-  "generated_at": "2026-06-24T12:01:06.837Z",
+  "run_id": "2026-06-25T11-49-41-895Z",
+  "generated_at": "2026-06-25T11:49:41.895Z",
   "currency": "BRL",
   "summary": {
     "total_products": 7,
     "success_count": 7,
     "failure_count": 0,
-    "run_duration_ms": 27404,
+    "run_duration_ms": 3684,
     "engines": {
       "engine1_http": {
         "attempted": 7,
-        "success": 5,
-        "failed": 2,
-        "avg_time_ms": 1277
+        "success": 7,
+        "failed": 0,
+        "avg_time_ms": 1550
       },
       "engine2_browser": {
-        "attempted": 2,
+        "attempted": 0,
         "success": 0,
-        "failed": 2,
-        "avg_time_ms": 2647
+        "failed": 0,
+        "avg_time_ms": 0
       },
       "engine3_hardmode": {
-        "attempted": 2,
-        "success": 2,
+        "attempted": 0,
+        "success": 0,
         "failed": 0,
-        "avg_time_ms": 10689
+        "avg_time_ms": 0
       }
     }
   },
@@ -33,13 +33,13 @@
       "product_id": "echo-pop-5f33e662",
       "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
       "name": "Echo Pop",
-      "price": 0.07,
+      "price": 379,
       "currency": "BRL",
-      "unit_price": 0.07,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-06-24T12:01:23.003Z",
-      "source": "regex",
-      "confidence": 0.58,
+      "unit_price": 379,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-25T11:49:44.527Z",
+      "source": "adapter",
+      "confidence": 0.85,
       "status": "ok",
       "adapter": "amazon",
       "store_support_level": "dedicated_validated"
@@ -48,11 +48,11 @@
       "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
       "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
       "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-      "price": 526.9,
+      "price": 442.1,
       "currency": "BRL",
-      "unit_price": 526.9,
+      "unit_price": 442.1,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-24T12:01:08.778Z",
+      "fetched_at": "2026-06-25T11:49:44.193Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -67,7 +67,7 @@
       "currency": "BRL",
       "unit_price": 169.99,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-24T12:01:08.573Z",
+      "fetched_at": "2026-06-25T11:49:43.442Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -82,7 +82,7 @@
       "currency": "BRL",
       "unit_price": 143.04,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-24T12:01:08.827Z",
+      "fetched_at": "2026-06-25T11:49:43.401Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -97,7 +97,7 @@
       "currency": "BRL",
       "unit_price": 5829,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-24T12:01:08.956Z",
+      "fetched_at": "2026-06-25T11:49:43.760Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -112,7 +112,7 @@
       "currency": "BRL",
       "unit_price": 257.39,
       "engine_used": "engine1_http",
-      "fetched_at": "2026-06-24T12:01:09.557Z",
+      "fetched_at": "2026-06-25T11:49:44.217Z",
       "source": "json-ld",
       "confidence": 0.97,
       "status": "ok",
@@ -126,8 +126,8 @@
       "price": 183.98,
       "currency": "BRL",
       "unit_price": 183.98,
-      "engine_used": "engine3_hardmode",
-      "fetched_at": "2026-06-24T12:01:34.191Z",
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-25T11:49:45.578Z",
       "source": "adapter",
       "confidence": 0.85,
       "status": "ok",
@@ -136,5 +136,5 @@
     }
   ],
   "failures": [],
-  "run_file": "2026-06-24T12-01-06-837Z.json"
+  "run_file": "2026-06-25T11-49-41-895Z.json"
 }
