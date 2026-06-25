@@ -20,14 +20,14 @@
     "preferred_terms": [
       "alexa"
     ],
-    "excluded_terms": [],
-    "is_active": true
+    "is_active": true,
+    "excluded_terms": []
   },
   {
-    "id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-    "name": "Monitor gamer",
-    "characteristics": "25 polegadas 144Hz IPS FHD HDMI DisplayPort VESA",
-    "category": "hardware",
+    "id": "exemplo-fralda-tamanho-g",
+    "name": "Fralda",
+    "characteristics": "tamanho G",
+    "category": "higiene",
     "stores": [
       "amazon",
       "kabum",
@@ -38,15 +38,19 @@
       "petz"
     ],
     "required_terms": [
-      "monitor"
+      "fralda"
     ],
-    "preferred_terms": [
-      "25",
-      "144hz",
-      "ips"
-    ],
-    "excluded_terms": [],
-    "is_active": true
+    "required_attributes": {
+      "size": "G"
+    },
+    "unit_rule": {
+      "basis": "unit",
+      "label": "fralda"
+    },
+    "is_active": false,
+    "notes": "Exemplo: tamanho G e obrigatorio; quantidade do pacote e usada para preco por unidade.",
+    "preferred_terms": [],
+    "excluded_terms": []
   },
   {
     "id": "headset-hyperx-cloud-stinger-2",
@@ -70,109 +74,8 @@
     "preferred_terms": [
       "2"
     ],
-    "excluded_terms": [],
-    "is_active": true
-  },
-  {
-    "id": "mouse-logitech-g203",
-    "name": "Mouse Logitech G203 Lightsync",
-    "characteristics": "RGB 6 botoes 8000 DPI preto",
-    "category": "perifericos",
-    "stores": [
-      "amazon",
-      "kabum",
-      "mercadolivre",
-      "magalu",
-      "shopee",
-      "pichau",
-      "petz"
-    ],
-    "required_terms": [
-      "logitech",
-      "g203"
-    ],
-    "preferred_terms": [
-      "lightsync"
-    ],
-    "excluded_terms": [],
-    "is_active": true
-  },
-  {
-    "id": "notebook-acer-aspire-go-15-f27ed9a1",
-    "name": "Notebook Acer Aspire GO 15",
-    "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
-    "category": "hardware",
-    "stores": [
-      "amazon",
-      "kabum",
-      "mercadolivre",
-      "magalu",
-      "shopee",
-      "pichau",
-      "petz"
-    ],
-    "required_terms": [
-      "notebook",
-      "acer"
-    ],
-    "preferred_terms": [
-      "aspire",
-      "go",
-      "15"
-    ],
-    "excluded_terms": [],
-    "is_active": true
-  },
-  {
-    "id": "teclado-logitech-k835",
-    "name": "Teclado Logitech K835 TKL",
-    "characteristics": "mecanico switch red ABNT2 branco",
-    "category": "perifericos",
-    "stores": [
-      "amazon",
-      "kabum",
-      "mercadolivre",
-      "magalu",
-      "shopee",
-      "pichau",
-      "petz"
-    ],
-    "required_terms": [
-      "logitech",
-      "k835"
-    ],
-    "preferred_terms": [
-      "tkl"
-    ],
-    "excluded_terms": [],
-    "is_active": true
-  },
-  {
-    "id": "xiaomi-smart-band-9-active-v-b56deabe",
-    "name": "Xiaomi Smart Band 9 Active",
-    "characteristics": "versao global preta",
-    "category": "hardware",
-    "stores": [
-      "amazon",
-      "kabum",
-      "mercadolivre",
-      "magalu",
-      "shopee",
-      "pichau",
-      "petz"
-    ],
-    "required_terms": [
-      "xiaomi",
-      "smart",
-      "band",
-      "9"
-    ],
-    "preferred_terms": [
-      "active",
-      "global"
-    ],
-    "excluded_terms": [],
-    "is_active": true
+    "is_active": true,
+    "excluded_terms": []
   },
   {
     "id": "exemplo-memoria-ram-ddr4-16gb",
@@ -198,15 +101,16 @@
     "preferred_attributes": {
       "capacity_total_gb": 16
     },
-    "excluded_terms": [],
     "is_active": false,
-    "notes": "Exemplo: DDR4 e obrigatorio; 16GB e prioridade secundaria; velocidade em MHz fica neutra."
+    "notes": "Exemplo: DDR4 e obrigatorio; 16GB e prioridade secundaria; velocidade em MHz fica neutra.",
+    "preferred_terms": [],
+    "excluded_terms": []
   },
   {
-    "id": "exemplo-fralda-tamanho-g",
-    "name": "Fralda",
-    "characteristics": "tamanho G",
-    "category": "higiene",
+    "id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+    "name": "Monitor gamer",
+    "characteristics": "25 polegadas 144Hz IPS FHD HDMI DisplayPort VESA",
+    "category": "hardware",
     "stores": [
       "amazon",
       "kabum",
@@ -217,17 +121,139 @@
       "petz"
     ],
     "required_terms": [
-      "fralda"
+      "monitor"
     ],
-    "required_attributes": {
-      "size": "G"
-    },
-    "excluded_terms": [],
+    "preferred_terms": [
+      "25",
+      "144hz",
+      "ips"
+    ],
+    "is_active": true,
+    "excluded_terms": []
+  },
+  {
+    "id": "mouse-logitech-g203",
+    "name": "Mouse Logitech G203 Lightsync",
+    "characteristics": "RGB 6 botoes 8000 DPI preto",
+    "category": "perifericos",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "logitech",
+      "g203"
+    ],
+    "preferred_terms": [
+      "lightsync"
+    ],
+    "is_active": true,
+    "excluded_terms": []
+  },
+  {
+    "id": "notebook-acer-aspire-go-15-f27ed9a1",
+    "name": "Notebook Acer Aspire GO 15",
+    "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
+    "category": "hardware",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "notebook",
+      "acer"
+    ],
+    "preferred_terms": [
+      "aspire",
+      "go",
+      "15"
+    ],
+    "is_active": true,
+    "excluded_terms": []
+  },
+  {
+    "id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+    "name": "SanDisk Flash Drive USB Tipo C Ultra Luxe",
+    "characteristics": "tipo c",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "usb 3 2"
+    ],
     "unit_rule": {
       "basis": "unit",
-      "label": "fralda"
+      "label": "unit"
     },
-    "is_active": false,
-    "notes": "Exemplo: tamanho G e obrigatorio; quantidade do pacote e usada para preco por unidade."
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
+    "id": "teclado-logitech-k835",
+    "name": "Teclado Logitech K835 TKL",
+    "characteristics": "mecanico switch red ABNT2 branco",
+    "category": "perifericos",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "logitech",
+      "k835"
+    ],
+    "preferred_terms": [
+      "tkl"
+    ],
+    "is_active": true,
+    "excluded_terms": []
+  },
+  {
+    "id": "xiaomi-smart-band-9-active-v-b56deabe",
+    "name": "Xiaomi Smart Band 9 Active",
+    "characteristics": "versao global preta",
+    "category": "hardware",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "xiaomi",
+      "smart",
+      "band",
+      "9"
+    ],
+    "preferred_terms": [
+      "active",
+      "global"
+    ],
+    "is_active": true,
+    "excluded_terms": []
   }
 ]
