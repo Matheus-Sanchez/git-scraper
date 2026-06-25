@@ -182,6 +182,34 @@
     "excluded_terms": []
   },
   {
+    "id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+    "name": "SanDisk Cartão de memória Ultra MicroSDXC",
+    "characteristics": "Cartão Micro SD",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "sandisk",
+      "cartao",
+      "memoria",
+      "ultra",
+      "microsdxc"
+    ],
+    "unit_rule": {
+      "basis": "gb",
+      "label": "gb"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
     "name": "SanDisk Flash Drive USB Tipo C Ultra Luxe",
     "characteristics": "tipo c",
