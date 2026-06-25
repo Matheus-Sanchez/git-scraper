@@ -10,6 +10,7 @@ Os testes precisam garantir:
 - classificacao previsivel de erros e observabilidade minima
 - continuidade dos dados persistidos e integridade do historico
 - regressao por loja suportada sem depender da internet em PR
+- ranking generico de ofertas por restricoes obrigatorias, prioridades e preco unitario
 - separacao clara entre validacao de PR e validacao real contra sites externos
 
 ## 2. Principios obrigatorios
@@ -30,14 +31,14 @@ Toda falha persistida no pipeline deve carregar no minimo:
 - `error_code`
 - `error_detail`
 - `engine`
-- `artifact_dir`
+- contexto operacional suficiente para diagnostico (`store_errors`, `stores_checked`, `offers_checked` ou artifacto quando houver)
 
 Fatal errors fora dos engines tambem devem carregar `engine: "pipeline"` para manter o contrato uniforme.
 
 ### CI separado de smoke real
 
 - `CI`: roda localmente e no GitHub Actions a cada `push` e `pull_request`; usa apenas fixtures e ambiente controlado.
-- `Smoke real`: roda em workflow separado, manual ou agendado, com internet e Chromium real.
+- `Smoke real`: roda em workflow separado, manual ou agendado, com internet, Lightpanda e Chromium fallback.
 
 ## 3. Camadas da suite
 
@@ -56,9 +57,11 @@ Cobertura principal:
 - parser de preco
 - heuristicas
 - ingest de issue
+- adapters de busca
+- ranking e normalizacao de atributos
 - matriz de suporte e selecao de smoke
 
-### Fixtures e regressao por dominio
+### Fixtures e regressao por loja
 
 Comando:
 
@@ -68,9 +71,9 @@ npm run test:fixtures
 
 Cobertura principal:
 
-- extracao com fixtures HTML deterministicas
-- roteamento de adapter por URL
-- regressao por dominio para lojas com suporte validado
+- extracao de ofertas em fixtures HTML deterministicas
+- montagem de URL de busca por loja
+- regressao por loja para adapters com suporte validado
 
 ### Integracao local
 
@@ -86,7 +89,8 @@ Cobertura principal:
 - persistencia de `latest.json`, `runs/index.json`, `runs/<run_id>.json` e `errors/<run_id>.json`
 - espelhamento entre `data/` e `docs/data/`
 - continuidade de historico com carry-forward
-- comportamento dos engines browser com Playwright mockado
+- persistencia de `latest.items` e `latest.offers`
+- Lightpanda mockado e fallback Chromium no pipeline de busca
 
 ### Gate de cobertura minima por area critica
 
@@ -120,19 +124,19 @@ A matriz oficial fica em `docs/matriz-suporte.md`.
 
 Regra de aceite por loja suportada:
 
-- a loja precisa ter adapter dedicado
-- a loja precisa passar regressao deterministica por fixture
+- a loja precisa ter adapter de busca dedicado
+- a loja precisa passar regressao deterministica por fixture de busca
 - o smoke real precisa obter pelo menos um sucesso direto na execucao atual
 - `carried_forward` nao conta como loja saudavel no smoke real
 
-Hoje apenas Amazon e KaBuM estao em `dedicated_validated`.
+Amazon, KaBuM, Mercado Livre, Magalu, Shopee, Pichau e Petz estao em `dedicated_validated`.
 
 ## 5. Flakiness e retries
 
 Politica:
 
 - sem retry em suites de PR
-- retry controlado apenas em `engine1_http` para falhas transitorias HTTP
+- fallback controlado de Lightpanda para Chromium local quando CDP ou navegacao falham
 - smoke real pode falhar por bloqueio, captcha ou mudanca de DOM; nesses casos o artifacto deve ser publicado para analise
 - flakiness nunca deve ser mascarada em CI principal
 
@@ -169,6 +173,7 @@ Passos obrigatorios:
 
 - `npm ci`
 - `npx playwright install --with-deps chromium`
+- inicializacao do container Lightpanda
 - `npm run smoke:real`
 
 Resultado esperado:
@@ -208,6 +213,5 @@ Veja:
 
 ### Artefatos relevantes
 
-- `.cache/debug/**`: HTML, screenshot e metadata de falhas de browser
 - `.cache/smoke-real/summary.json`: resumo por loja do smoke real
 - `.cache/smoke-real/workspace/data/**`: snapshot temporario gerado pelo smoke real

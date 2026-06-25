@@ -1,46 +1,77 @@
-name: Adicionar Produto
+name: Adicionar Intencao de Busca
 labels: [add-product]
-description: Solicitar monitoramento de um novo produto no scraper.
+description: Solicitar monitoramento de uma nova intencao de compra.
 title: "[ADD PRODUCT] "
 body:
   - type: markdown
     attributes:
       value: |
-        Envie os dados abaixo. O bot valida e adiciona automaticamente em `data/products.json`.
+        Envie o que deve ser pesquisado nas lojas. URLs de anuncios nao sao aceitas no catalogo.
   - type: input
     id: name
     attributes:
       label: Nome do produto
-      description: Nome exibido no dashboard.
-      placeholder: Cafe Torrado e Moido 500g
+      description: Nome base da busca.
+      placeholder: Memoria RAM
     validations:
       required: true
   - type: input
-    id: url
+    id: characteristics
     attributes:
-      label: URL do produto
-      description: URL completa HTTP/HTTPS.
-      placeholder: https://loja.exemplo.com/produto/abc
-    validations:
-      required: true
+      label: Caracteristicas
+      description: Detalhes pesquisaveis. Use restricoes abaixo para separar obrigatorio de preferencial.
+      placeholder: DDR4 16GB
   - type: input
     id: category
     attributes:
       label: Categoria
       description: Opcional.
-      placeholder: mercado
-  - type: input
-    id: comparison_key
+      placeholder: hardware
+  - type: textarea
+    id: stores
     attributes:
-      label: Grupo de comparacao
-      description: Opcional. Use o mesmo valor para o mesmo produto em lojas diferentes.
-      placeholder: cafe-500g-tradicional
-  - type: input
-    id: units_per_package
+      label: Lojas
+      description: Opcional. Vazio usa todas as lojas suportadas. Uma por linha.
+      placeholder: |
+        amazon
+        kabum
+  - type: textarea
+    id: required_terms
     attributes:
-      label: Unidades por pacote
-      description: Opcional. Exemplo: 12
-      placeholder: "1"
+      label: Termos obrigatorios
+      description: Filtro duro. Exemplo: ddr4.
+  - type: textarea
+    id: preferred_terms
+    attributes:
+      label: Termos preferenciais
+      description: Prioridade de ranking, nao filtro duro. Exemplo: 16gb.
+  - type: textarea
+    id: excluded_terms
+    attributes:
+      label: Termos banidos
+      description: Opcional. Exemplo: usado.
+  - type: textarea
+    id: required_attributes
+    attributes:
+      label: Atributos obrigatorios
+      description: JSON opcional. Exemplo para RAM DDR4 ou fralda tamanho G.
+      render: json
+      placeholder: |
+        {"memory_type":"ddr4"}
+  - type: textarea
+    id: preferred_attributes
+    attributes:
+      label: Atributos preferenciais
+      description: JSON opcional. Exemplo para priorizar 16GB sem tornar obrigatorio.
+      render: json
+      placeholder: |
+        {"capacity_total_gb":16}
+  - type: input
+    id: unit_rule
+    attributes:
+      label: Unidade base
+      description: Opcional. Valores: unit, gb, kg, g, l, ml.
+      placeholder: unit
   - type: dropdown
     id: is_active
     attributes:
@@ -49,29 +80,6 @@ body:
         - true
         - false
       default: 0
-  - type: textarea
-    id: selectors_price_css
-    attributes:
-      label: Seletores CSS (um por linha)
-      description: Opcional.
-      placeholder: |
-        .price
-        [itemprop="price"]
-  - type: textarea
-    id: selectors_jsonld_paths
-    attributes:
-      label: JSON-LD paths (um por linha)
-      description: Opcional.
-      placeholder: |
-        offers.price
-        offers[0].price
-  - type: textarea
-    id: selectors_regex_hints
-    attributes:
-      label: Regex hints (um por linha)
-      description: Opcional.
-      placeholder: |
-        R\$\s*\d{1,4},\d{2}
   - type: textarea
     id: notes
     attributes:
@@ -85,16 +93,11 @@ body:
       render: json
       placeholder: |
         {
-          "name": "Produto X",
-          "url": "https://site.com/item",
-          "category": "categoria",
-          "comparison_key": "produto-x",
-          "units_per_package": 1,
-          "is_active": true,
-          "selectors": {
-            "price_css": [".price"],
-            "jsonld_paths": ["offers.price"],
-            "regex_hints": ["R\\$\\s*\\d{1,4},\\d{2}"]
-          },
-          "notes": "Opcional"
+          "name": "Fralda",
+          "characteristics": "tamanho G",
+          "category": "higiene",
+          "required_terms": ["fralda"],
+          "required_attributes": {"size": "G"},
+          "unit_rule": {"basis": "unit"},
+          "is_active": true
         }

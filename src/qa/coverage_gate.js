@@ -24,14 +24,12 @@ const coverageAreas = [
     thresholds: { lines: 60, branches: 50, functions: 60 },
     includes: [
       'src/scrape.js',
-      'src/engines/*.js',
-      'src/extract/*.js',
-      'src/adapters/*.js',
+      'src/engines/engine_search.js',
+      'src/search/*.js',
     ],
     tests: [
-      'test/extract_price.test.js',
-      'test/site_regression.test.js',
-      'test/browser_engines.test.js',
+      'test/search_adapters.test.js',
+      'test/search_ranking.test.js',
       'test/scrape_pipeline.test.js',
     ],
   },

@@ -2,140 +2,232 @@
   {
     "id": "echo-pop-5f33e662",
     "name": "Echo Pop",
-    "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
-    "category": "casa inteligente",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "#corePriceDisplay_desktop_feature_div .a-offscreen",
-        "#corePrice_feature_div .a-offscreen"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "offers[0].price",
-        "price"
-      ]
-    }
+    "characteristics": "alto-falante inteligente com Alexa",
+    "category": "casa-inteligente",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "echo",
+      "pop"
+    ],
+    "preferred_terms": [
+      "alexa"
+    ],
+    "excluded_terms": [],
+    "is_active": true
   },
   {
     "id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-    "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
-    "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+    "name": "Monitor gamer",
+    "characteristics": "25 polegadas 144Hz IPS FHD HDMI DisplayPort VESA",
     "category": "hardware",
-    "comparison_key": "monitor-25",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "#corePriceDisplay_desktop_feature_div .a-offscreen",
-        "#corePrice_feature_div .a-offscreen"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "offers[0].price",
-        "price"
-      ]
-    }
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "monitor"
+    ],
+    "preferred_terms": [
+      "25",
+      "144hz",
+      "ips"
+    ],
+    "excluded_terms": [],
+    "is_active": true
   },
   {
     "id": "headset-hyperx-cloud-stinger-2",
     "name": "Headset HyperX Cloud Stinger 2",
-    "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
+    "characteristics": "driver 50mm multiplataforma preto",
     "category": "audio",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "[data-testid='price-current']",
-        ".finalPrice",
-        ".priceCard"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "price"
-      ]
-    },
-    "notes": "Substitui item que retornava erro de acesso no ambiente atual."
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "hyperx",
+      "cloud",
+      "stinger"
+    ],
+    "preferred_terms": [
+      "2"
+    ],
+    "excluded_terms": [],
+    "is_active": true
   },
   {
     "id": "mouse-logitech-g203",
     "name": "Mouse Logitech G203 Lightsync",
-    "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
+    "characteristics": "RGB 6 botoes 8000 DPI preto",
     "category": "perifericos",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "[data-testid='price-current']",
-        ".finalPrice",
-        ".priceCard"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "price"
-      ]
-    },
-    "notes": "Link atualizado para produto ativo, evitando item com URL quebrada."
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "logitech",
+      "g203"
+    ],
+    "preferred_terms": [
+      "lightsync"
+    ],
+    "excluded_terms": [],
+    "is_active": true
   },
   {
     "id": "notebook-acer-aspire-go-15-f27ed9a1",
     "name": "Notebook Acer Aspire GO 15",
-    "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
+    "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
     "category": "hardware",
-    "comparison_key": "notebook-acer",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "[data-testid='price-current']",
-        ".finalPrice",
-        ".priceCard"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "offers[0].price",
-        "price"
-      ]
-    }
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "notebook",
+      "acer"
+    ],
+    "preferred_terms": [
+      "aspire",
+      "go",
+      "15"
+    ],
+    "excluded_terms": [],
+    "is_active": true
   },
   {
     "id": "teclado-logitech-k835",
     "name": "Teclado Logitech K835 TKL",
-    "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
+    "characteristics": "mecanico switch red ABNT2 branco",
     "category": "perifericos",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "[data-testid='price-current']",
-        ".finalPrice",
-        ".priceCard"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "price"
-      ]
-    },
-    "notes": "Substitui item sem preco por URL invalida."
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "logitech",
+      "k835"
+    ],
+    "preferred_terms": [
+      "tkl"
+    ],
+    "excluded_terms": [],
+    "is_active": true
   },
   {
     "id": "xiaomi-smart-band-9-active-v-b56deabe",
-    "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
-    "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
-    "category": "Hardware",
-    "units_per_package": 1,
-    "is_active": true,
-    "selectors": {
-      "price_css": [
-        "#corePriceDisplay_desktop_feature_div .a-offscreen",
-        "#corePrice_feature_div .a-offscreen"
-      ],
-      "jsonld_paths": [
-        "offers.price",
-        "offers[0].price",
-        "price"
-      ]
-    }
+    "name": "Xiaomi Smart Band 9 Active",
+    "characteristics": "versao global preta",
+    "category": "hardware",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "xiaomi",
+      "smart",
+      "band",
+      "9"
+    ],
+    "preferred_terms": [
+      "active",
+      "global"
+    ],
+    "excluded_terms": [],
+    "is_active": true
+  },
+  {
+    "id": "exemplo-memoria-ram-ddr4-16gb",
+    "name": "Memoria RAM",
+    "characteristics": "DDR4 16GB",
+    "category": "hardware",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "memoria",
+      "ram"
+    ],
+    "required_attributes": {
+      "memory_type": "ddr4"
+    },
+    "preferred_attributes": {
+      "capacity_total_gb": 16
+    },
+    "excluded_terms": [],
+    "is_active": false,
+    "notes": "Exemplo: DDR4 e obrigatorio; 16GB e prioridade secundaria; velocidade em MHz fica neutra."
+  },
+  {
+    "id": "exemplo-fralda-tamanho-g",
+    "name": "Fralda",
+    "characteristics": "tamanho G",
+    "category": "higiene",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "fralda"
+    ],
+    "required_attributes": {
+      "size": "G"
+    },
+    "excluded_terms": [],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "fralda"
+    },
+    "is_active": false,
+    "notes": "Exemplo: tamanho G e obrigatorio; quantidade do pacote e usada para preco por unidade."
   }
 ]

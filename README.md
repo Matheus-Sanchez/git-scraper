@@ -1,31 +1,30 @@
 # Git Scraper
 
-Price tracker pessoal com scraping em cascata, persistencia em JSON no proprio repositorio, dashboard estatico em GitHub Pages e gestao de catalogo via GitHub Issue.
+Price tracker pessoal por intencao de compra, com busca em lojas suportadas, ranking de ofertas, persistencia em JSON no proprio repositorio, dashboard estatico em GitHub Pages e gestao de catalogo via GitHub Issue.
 
 ## O que este projeto faz
 
-- Monitora produtos cadastrados em `data/products.json`.
-- Usa tres engines em cascata para maximizar a chance de extracao.
+- Monitora intencoes de compra cadastradas em `data/products.json`.
+- Pesquisa essas intencoes nas lojas suportadas e descobre as URLs das ofertas durante a execucao.
+- Usa Lightpanda via CDP como engine principal e Chromium/Playwright local como fallback tecnico.
+- Ranqueia ofertas por restricoes obrigatorias, prioridades e preco total ou preco unitario.
 - Persiste snapshots e erros em `data/` e espelha os JSONs para `docs/data/`.
 - Publica um dashboard estatico sem backend em `docs/`.
-- Permite adicionar, editar e remover produtos via GitHub Issue.
+- Permite adicionar, editar e remover intencoes via GitHub Issue.
 
 ## Matriz de suporte atual
 
 | Loja | Nivel | Validacao atual |
 | --- | --- | --- |
-| Amazon | Dedicated validated | Regressao por dominio + smoke real |
-| KaBuM | Dedicated validated | Regressao por dominio + smoke real |
-| Mercado Livre | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
-| Magalu | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
-| Shopee | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
-| Pichau | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
-| Petz | Dedicated validated | Regressao por dominio + smoke real quando houver produto ativo |
-| Outros dominios | Generic unvalidated | Sem suporte validado por regressao |
+| Amazon | Dedicated validated | Adapter de busca + smoke real |
+| KaBuM | Dedicated validated | Adapter de busca + smoke real |
+| Mercado Livre | Dedicated validated | Adapter de busca + smoke real |
+| Magalu | Dedicated validated | Adapter de busca + smoke real |
+| Shopee | Dedicated validated | Adapter de busca + smoke real |
+| Pichau | Dedicated validated | Adapter de busca + smoke real |
+| Petz | Dedicated validated | Adapter de busca + smoke real |
 
-`Adapter dedicado e validado` significa que o dominio possui roteamento explicito em `src/adapters/` e casos de regressao na suite.
-
-`Fallback generico` significa apenas tentativa heuristica via `genericAdapter`, sem compromisso de suporte estavel.
+`Dedicated validated` significa que a loja possui adapter de busca em `src/search/store_adapters.js`, fixture deterministica e smoke real habilitado.
 
 Detalhes operacionais e criterio de aceite por loja:
 
@@ -35,31 +34,44 @@ Detalhes operacionais e criterio de aceite por loja:
 
 ### Catalogo
 
-Os produtos ativos ficam em `data/products.json` e sao espelhados em `docs/data/products.json`.
+As intencoes ativas ficam em `data/products.json` e sao espelhadas em `docs/data/products.json`.
 
-Campos suportados por produto:
+Campos suportados por intencao:
 
 - `id`
 - `name`
-- `url`
+- `characteristics`
 - `category`
-- `comparison_key`
-- `units_per_package`
+- `stores`
+- `required_terms`
+- `preferred_terms`
+- `excluded_terms`
+- `required_attributes`
+- `preferred_attributes`
+- `unit_rule`
 - `is_active`
-- `selectors.price_css`
-- `selectors.jsonld_paths`
-- `selectors.regex_hints`
 - `notes`
+
+Campos legados de cadastro por anuncio direto, como `url`, `selectors`, `units_per_package` e `mode: "url"`, sao rejeitados pelo schema e pela ingestao.
 
 ### Pipeline de scraping
 
-Ordem atual de execucao:
+Fluxo atual:
 
-1. `engine1_http`
-2. `engine2_browser`
-3. `engine3_hardmode`
+1. monta a query com `name + characteristics`;
+2. cria a URL de busca por loja;
+3. conecta no Lightpanda via `LIGHTPANDA_CDP_URL`;
+4. extrai ofertas da pagina de busca;
+5. usa Chromium/Playwright local como fallback quando Lightpanda falha;
+6. normaliza atributos encontrados no titulo;
+7. rejeita ofertas sem titulo, preco ou URL descoberta;
+8. aplica `required_terms`, `required_attributes` e `excluded_terms`;
+9. ordena por prioridade e depois por `unit_price` ou preco total.
 
-Produtos Amazon ainda podem usar a Amazon PA-API antes do fallback HTML/browser quando as credenciais estao configuradas.
+Exemplos de modelagem:
+
+- RAM DDR4: `required_attributes.memory_type = "ddr4"`, capacidade em `preferred_attributes.capacity_total_gb`, velocidade sem regra obrigatoria.
+- Fralda tamanho G: `required_attributes.size = "G"` e `unit_rule.basis = "unit"` para comparar preco por unidade do pacote.
 
 ### Persistencia
 
@@ -76,6 +88,8 @@ O manifesto `data/runs/index.json` mantem:
 - `files` para compatibilidade com formato legado
 - `runs` com metadados detalhados
 - `daily` para drilldown diario no dashboard
+
+`latest.items` guarda a melhor oferta por intencao. `latest.offers` guarda as top ofertas por loja. URLs aparecem apenas nessas ofertas descobertas.
 
 ## Testes e qualidade
 
@@ -97,9 +111,9 @@ Significado:
 
 - `npm run lint`: valida `src/`, `test/`, `.github/scripts/` e `scripts/`
 - `npm run validate:catalog`: valida `data/products.json` com o schema do catalogo
-- `npm run test:unit`: parser, heuristicas, falhas, schema, ingest e provider Amazon
-- `npm run test:fixtures`: extracao e regressao por dominio com fixtures deterministicas
-- `npm run test:integration`: pipeline, persistencia, manifesto e continuidade de dados
+- `npm run test:unit`: parser, heuristicas, falhas, schema, ingest, adapters de busca, ranking e smoke
+- `npm run test:fixtures`: extracao legada e regressao por loja com fixtures deterministicas
+- `npm run test:integration`: pipeline de busca, persistencia, manifesto e continuidade de dados
 - `npm run test:coverage:critical`: piso minimo de cobertura por area critica
 - `npm run test:ci`: suite oficial de pre-commit e CI
 - `npm run smoke:real`: smoke real para lojas suportadas, com artifactos em `.cache/smoke-real/`
@@ -132,6 +146,7 @@ Executa em `workflow_dispatch` e `schedule`:
 
 - `npm ci`
 - instalacao do Chromium do Playwright
+- inicializacao do Lightpanda via Docker
 - `npm run smoke:real`
 
 O smoke real nao bloqueia PR. Ele gera `.cache/smoke-real/summary.json` e publica artifacts para analise quando ha drift real de DOM, captcha ou bloqueio.
@@ -145,6 +160,7 @@ Executa:
 - `npm ci`
 - `npm run test:ci`
 - instalacao do Chromium do Playwright
+- inicializacao do Lightpanda via Docker
 - `npm run scrape`
 - commit de `data/` e `docs/data/`
 - upload de artifacts de debug quando ha falha
@@ -210,14 +226,10 @@ Copie `.env.example` para `.env` e preencha apenas as credenciais que voce realm
 - `CONCURRENCY`
 - `USER_AGENT`
 - `PROXY_URL`
-- `SCRAPING_API_KEY`
-- `AMAZON_PAAPI_ACCESS_KEY`
-- `AMAZON_PAAPI_SECRET_KEY`
-- `AMAZON_PAAPI_PARTNER_TAG`
+- `LIGHTPANDA_CDP_URL`
+- `SEARCH_TOP_N_PER_STORE`
 
-Sem `SCRAPING_API_KEY`, o hardmode continua apenas com recursos locais.
-
-Sem `AMAZON_PAAPI_*`, produtos Amazon continuam tentando HTML/browser normalmente.
+`LIGHTPANDA_CDP_URL` usa `ws://127.0.0.1:9222` por padrao. O Chromium local e apenas fallback tecnico quando a conexao CDP ou a navegacao pelo Lightpanda falhar.
 
 ## Estrutura resumida
 
@@ -238,12 +250,12 @@ Sem `AMAZON_PAAPI_*`, produtos Amazon continuam tentando HTML/browser normalment
 |   `-- manage.html
 |-- scripts/
 |-- src/
-|   |-- adapters/
 |   |-- config/
 |   |-- engines/
 |   |-- extract/
 |   |-- io/
 |   |-- schema/
+|   |-- search/
 |   `-- utils/
 `-- test/
 ```

@@ -33,12 +33,12 @@
         <nav class="side-nav-links" aria-label="Seções">
           <a href="./index.html#overview">Dashboard</a>
           <a href="./index.html#diagnostics">Analytics</a>
-          <a class="is-active" href="#manage-title">Repositories</a>
-          <a href="./index.html#history-section">Operations</a>
+          <a class="is-active" href="#manage-title">Intenções</a>
+          <a href="./index.html#history-section">Operações</a>
         </nav>
 
         <div class="side-nav-footer">
-          <button class="btn btn-primary side-cta" type="button" data-open-manage-add>+ New Scraper</button>
+          <button class="btn btn-primary side-cta" type="button" data-open-manage-add>+ Nova Busca</button>
           <a href="./index.html">Dashboard</a>
           <a href="./data/products.json" target="_blank" rel="noopener noreferrer">Products JSON</a>
         </div>
@@ -48,7 +48,7 @@
         <header class="topbar">
           <div class="topbar-title">
             <span class="topbar-icon" aria-hidden="true">#</span>
-            <strong>Produtos Monitorados</strong>
+            <strong>Intenções Monitoradas</strong>
           </div>
 
           <nav class="topbar-nav" aria-label="Navegação de gerenciamento">
@@ -60,7 +60,7 @@
           <div class="topbar-actions">
             <a class="btn btn-ghost" href="./index.html">Dashboard</a>
             <button class="btn btn-ghost theme-toggle" type="button" data-theme-toggle>Tema claro</button>
-            <button id="open-add" class="btn btn-primary" type="button">Novo Produto</button>
+            <button id="open-add" class="btn btn-primary" type="button">Nova Intenção</button>
           </div>
         </header>
 
@@ -68,8 +68,8 @@
       <header class="hero">
         <div class="hero-copy">
           <p class="eyebrow">Git Scraper</p>
-          <h1>Produtos</h1>
-          <p class="subtitle">Catálogo versionado / Issues / Actions</p>
+          <h1>Intenções</h1>
+          <p class="subtitle">Busca por loja / Issues / Actions</p>
         </div>
       </header>
 
@@ -77,7 +77,7 @@
         <div class="card-title-row">
           <div>
             <p class="section-kicker">Catálogo</p>
-            <h2 id="manage-title">Produtos Monitorados</h2>
+            <h2 id="manage-title">Intenções Monitoradas</h2>
           </div>
           <label class="filter-field manage-repo-field" for="repo-input">
             <span>Repositório</span>
@@ -106,7 +106,7 @@
 
           <label class="filter-field filter-search" for="search-input">
             <span>Busca</span>
-            <input id="search-input" type="text" placeholder="Nome, URL, loja ou grupo">
+            <input id="search-input" type="text" placeholder="Nome, características, termo ou loja">
           </label>
         </div>
 
@@ -115,9 +115,9 @@
             <thead>
               <tr>
                 <th>Nome</th>
-                <th>Loja</th>
                 <th>Categoria</th>
-                <th>Grupo Comparação</th>
+                <th>Lojas</th>
+                <th>Obrigatórios</th>
                 <th>Ativo</th>
                 <th>Ações</th>
               </tr>
@@ -144,13 +144,13 @@
           <input id="mf-product-id" type="hidden">
 
           <label>
-            Nome
+            Nome do produto
             <input id="mf-name" type="text" required>
           </label>
 
           <label>
-            URL
-            <input id="mf-url" type="url" required>
+            Características
+            <input id="mf-characteristics" type="text" placeholder="DDR4 16GB, tamanho G, 1kg...">
           </label>
 
           <label>
@@ -161,13 +161,21 @@
           </label>
 
           <label>
-            Grupo de comparação
-            <input id="mf-comparison-key" type="text" placeholder="mouse-g203">
+            Lojas
+            <textarea id="mf-stores" rows="2" placeholder="vazio = todas&#10;amazon&#10;kabum"></textarea>
           </label>
 
           <label>
-            Unidades por pacote
-            <input id="mf-units" type="number" min="1" step="1">
+            Unidade-base
+            <select id="mf-unit-basis">
+              <option value="">Sem unitário</option>
+              <option value="unit">Unidade</option>
+              <option value="gb">GB</option>
+              <option value="kg">kg</option>
+              <option value="g">g</option>
+              <option value="l">l</option>
+              <option value="ml">ml</option>
+            </select>
           </label>
 
           <label>
@@ -179,19 +187,30 @@
           </label>
 
           <label class="full-width">
-            Seletores CSS (um por linha)
-            <textarea id="mf-price-css" rows="3"></textarea>
-            <small class="field-hint">Use apenas seletores CSS (ex: <code>.a-price .a-offscreen</code>), não HTML completo.</small>
+            Termos obrigatórios
+            <textarea id="mf-required-terms" rows="3" placeholder="ddr4&#10;fralda"></textarea>
+            <small class="field-hint">Filtro duro: se faltar, a oferta é rejeitada.</small>
           </label>
 
           <label class="full-width">
-            JSON-LD paths (um por linha)
-            <textarea id="mf-jsonld" rows="3"></textarea>
+            Termos preferenciais
+            <textarea id="mf-preferred-terms" rows="3" placeholder="16gb&#10;bluetooth"></textarea>
+            <small class="field-hint">Prioridade de ranking: se faltar, a oferta ainda pode concorrer.</small>
           </label>
 
           <label class="full-width">
-            Regex hints (um por linha)
-            <textarea id="mf-regex" rows="2"></textarea>
+            Termos banidos
+            <textarea id="mf-excluded-terms" rows="2" placeholder="usado&#10;reembalado"></textarea>
+          </label>
+
+          <label class="full-width">
+            Atributos obrigatórios JSON
+            <textarea id="mf-required-attributes" rows="3" placeholder='{"memory_type":"ddr4"} ou {"size":"G"}'></textarea>
+          </label>
+
+          <label class="full-width">
+            Atributos preferenciais JSON
+            <textarea id="mf-preferred-attributes" rows="3" placeholder='{"capacity_total_gb":16}'></textarea>
           </label>
 
           <label class="full-width">

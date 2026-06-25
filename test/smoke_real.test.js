@@ -34,57 +34,15 @@ test('parseSmokeProductIds normalizes comma-separated product identifiers', () =
 test('selectSmokeProducts keeps only active products from smoke-enabled stores', () => {
   const selected = selectSmokeProducts([
     {
-      id: 'amazon-1',
-      name: 'Amazon 1',
-      url: 'https://www.amazon.com.br/dp/ABC',
+      id: 'intent-all-stores',
+      name: 'Produto multi loja',
+      stores: ['amazon', 'kabum', 'mercadolivre', 'magalu', 'shopee', 'pichau', 'petz'],
       is_active: true,
     },
     {
-      id: 'amazon-2',
-      name: 'Amazon 2',
-      url: 'https://www.amazon.com.br/dp/DEF',
-      is_active: true,
-    },
-    {
-      id: 'kabum-1',
-      name: 'Kabum 1',
-      url: 'https://www.kabum.com.br/produto/123',
-      is_active: true,
-    },
-    {
-      id: 'mercadolivre-1',
-      name: 'Mercado Livre 1',
-      url: 'https://www.mercadolivre.com.br/produto/p/MLB123',
-      is_active: true,
-    },
-    {
-      id: 'magalu-1',
-      name: 'Magalu 1',
-      url: 'https://www.magazineluiza.com.br/produto/p/abc123',
-      is_active: true,
-    },
-    {
-      id: 'shopee-1',
-      name: 'Shopee 1',
-      url: 'https://shopee.com.br/produto/123',
-      is_active: true,
-    },
-    {
-      id: 'pichau-1',
-      name: 'Pichau 1',
-      url: 'https://www.pichau.com.br/produto-gamer',
-      is_active: true,
-    },
-    {
-      id: 'petz-1',
-      name: 'Petz 1',
-      url: 'https://www.petz.com.br/produto/racao-123',
-      is_active: true,
-    },
-    {
-      id: 'amazon-inativo',
-      name: 'Amazon Inativo',
-      url: 'https://www.amazon.com.br/dp/GHI',
+      id: 'intent-inactive',
+      name: 'Produto inativo',
+      stores: ['amazon'],
       is_active: false,
     },
   ], {
@@ -94,13 +52,13 @@ test('selectSmokeProducts keeps only active products from smoke-enabled stores',
   assert.deepEqual(
     selected.map((product) => [product.id, product.smoke_store]),
     [
-      ['amazon-1', 'Amazon'],
-      ['kabum-1', 'KaBuM'],
-      ['mercadolivre-1', 'Mercado Livre'],
-      ['magalu-1', 'Magalu'],
-      ['shopee-1', 'Shopee'],
-      ['pichau-1', 'Pichau'],
-      ['petz-1', 'Petz'],
+      ['intent-all-stores-amazon', 'Amazon'],
+      ['intent-all-stores-kabum', 'KaBuM'],
+      ['intent-all-stores-mercadolivre', 'Mercado Livre'],
+      ['intent-all-stores-magalu', 'Magalu'],
+      ['intent-all-stores-shopee', 'Shopee'],
+      ['intent-all-stores-pichau', 'Pichau'],
+      ['intent-all-stores-petz', 'Petz'],
     ],
   );
 });
@@ -108,22 +66,22 @@ test('selectSmokeProducts keeps only active products from smoke-enabled stores',
 test('selectSmokeProducts respects explicit product ids', () => {
   const selected = selectSmokeProducts([
     {
-      id: 'amazon-1',
-      name: 'Amazon 1',
-      url: 'https://www.amazon.com.br/dp/ABC',
+      id: 'intent-1',
+      name: 'Produto 1',
+      stores: ['amazon'],
       is_active: true,
     },
     {
-      id: 'kabum-1',
-      name: 'Kabum 1',
-      url: 'https://www.kabum.com.br/produto/123',
+      id: 'intent-2',
+      name: 'Produto 2',
+      stores: ['kabum'],
       is_active: true,
     },
   ], {
-    productIds: ['kabum-1'],
+    productIds: ['intent-2'],
   });
 
-  assert.deepEqual(selected.map((product) => product.id), ['kabum-1']);
+  assert.deepEqual(selected.map((product) => product.id), ['intent-2-kabum']);
 });
 
 test('summarizeSmokeRun fails stores that only carried forward or errored', () => {
@@ -131,14 +89,16 @@ test('summarizeSmokeRun fails stores that only carried forward or errored', () =
     {
       id: 'amazon-1',
       name: 'Amazon 1',
-      url: 'https://www.amazon.com.br/dp/ABC',
       is_active: true,
+      smoke_store: 'Amazon',
+      smoke_support_level: 'dedicated_validated',
     },
     {
       id: 'kabum-1',
       name: 'Kabum 1',
-      url: 'https://www.kabum.com.br/produto/123',
       is_active: true,
+      smoke_store: 'KaBuM',
+      smoke_support_level: 'dedicated_validated',
     },
   ];
 
@@ -149,7 +109,7 @@ test('summarizeSmokeRun fails stores that only carried forward or errored', () =
         {
           product_id: 'amazon-1',
           status: 'ok',
-          engine_used: 'engine1_http',
+          engine_used: 'lightpanda_search',
         },
         {
           product_id: 'kabum-1',

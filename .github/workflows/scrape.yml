@@ -38,17 +38,18 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Start Lightpanda CDP server
+        run: docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:nightly
+
       - name: Run scraper
         env:
           DEBUG: ${{ vars.DEBUG }}
-          SCRAPING_API_KEY: ${{ secrets.SCRAPING_API_KEY }}
-          AMAZON_PAAPI_ACCESS_KEY: ${{ secrets.AMAZON_PAAPI_ACCESS_KEY }}
-          AMAZON_PAAPI_SECRET_KEY: ${{ secrets.AMAZON_PAAPI_SECRET_KEY }}
-          AMAZON_PAAPI_PARTNER_TAG: ${{ vars.AMAZON_PAAPI_PARTNER_TAG }}
           HTTP_TIMEOUT_MS: ${{ vars.HTTP_TIMEOUT_MS }}
           CONCURRENCY: ${{ vars.CONCURRENCY }}
           USER_AGENT: ${{ vars.USER_AGENT }}
           PROXY_URL: ${{ secrets.PROXY_URL }}
+          LIGHTPANDA_CDP_URL: ws://127.0.0.1:9222
+          SEARCH_TOP_N_PER_STORE: ${{ vars.SEARCH_TOP_N_PER_STORE }}
         run: npm run scrape
 
       - name: Commit data changes
@@ -65,10 +66,10 @@ jobs:
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin HEAD:"${GITHUB_REF_NAME}"
 
-      - name: Upload debug artifacts
+      - name: Upload cache artifacts
         if: failure()
         uses: actions/upload-artifact@v6
         with:
-          name: scrape-debug-${{ github.run_id }}
-          path: .cache/debug
+          name: scrape-cache-${{ github.run_id }}
+          path: .cache
           if-no-files-found: ignore

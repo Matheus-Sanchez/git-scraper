@@ -1,12 +1,13 @@
-name: Gerenciar Produto
+name: Gerenciar Intencao
 labels: [manage-product]
-description: Adicionar, editar ou remover produtos de data/products.json.
+description: Adicionar, editar ou remover intencoes de busca de data/products.json.
 title: "[MANAGE PRODUCT] "
 body:
   - type: markdown
     attributes:
       value: |
         Escolha a acao. O bot valida e aplica a alteracao no arquivo `data/products.json`.
+        URLs diretas de anuncios nao sao aceitas.
   - type: dropdown
     id: action
     attributes:
@@ -21,39 +22,62 @@ body:
   - type: input
     id: product_id
     attributes:
-      label: ID do produto
+      label: ID da intencao
       description: Obrigatorio para edit/remove. Em add pode ficar vazio.
-      placeholder: ssd-1tb-kabum
+      placeholder: memoria-ram-ddr4
   - type: input
     id: name
     attributes:
       label: Nome do produto
       description: Obrigatorio em add. Opcional em edit.
-      placeholder: SSD Kingston NV2 1TB
+      placeholder: Memoria RAM
   - type: input
-    id: url
+    id: characteristics
     attributes:
-      label: URL do produto
-      description: Obrigatorio em add. Em edit use para trocar URL.
-      placeholder: https://loja.exemplo.com/produto/abc
+      label: Caracteristicas
+      description: Detalhes pesquisaveis.
+      placeholder: DDR4 16GB
   - type: input
     id: category
     attributes:
       label: Categoria
       description: Opcional.
       placeholder: hardware
-  - type: input
-    id: comparison_key
+  - type: textarea
+    id: stores
     attributes:
-      label: Grupo de comparacao
-      description: Opcional. Use o mesmo valor para comparar o mesmo produto em lojas diferentes.
-      placeholder: mouse-g203
-  - type: input
-    id: units_per_package
+      label: Lojas
+      description: Opcional. Vazio usa todas as lojas suportadas. Uma por linha.
+  - type: textarea
+    id: required_terms
     attributes:
-      label: Unidades por pacote
+      label: Termos obrigatorios
+      description: Filtro duro.
+  - type: textarea
+    id: preferred_terms
+    attributes:
+      label: Termos preferenciais
+      description: Prioridade de ranking, nao filtro duro.
+  - type: textarea
+    id: excluded_terms
+    attributes:
+      label: Termos banidos
       description: Opcional.
-      placeholder: "1"
+  - type: textarea
+    id: required_attributes
+    attributes:
+      label: Atributos obrigatorios
+      render: json
+  - type: textarea
+    id: preferred_attributes
+    attributes:
+      label: Atributos preferenciais
+      render: json
+  - type: input
+    id: unit_rule
+    attributes:
+      label: Unidade base
+      description: Opcional. Valores: unit, gb, kg, g, l, ml.
   - type: dropdown
     id: is_active
     attributes:
@@ -62,21 +86,6 @@ body:
         - true
         - false
       default: 0
-  - type: textarea
-    id: selectors_price_css
-    attributes:
-      label: Seletores CSS (um por linha)
-      description: Opcional.
-  - type: textarea
-    id: selectors_jsonld_paths
-    attributes:
-      label: JSON-LD paths (um por linha)
-      description: Opcional.
-  - type: textarea
-    id: selectors_regex_hints
-    attributes:
-      label: Regex hints (um por linha)
-      description: Opcional.
   - type: textarea
     id: notes
     attributes:
@@ -94,17 +103,10 @@ body:
           "operations": [
             {
               "action": "add",
-              "name": "Mouse G203",
-              "url": "https://loja-a.com/mouse",
-              "category": "perifericos",
-              "comparison_key": "mouse-g203"
-            },
-            {
-              "action": "add",
-              "name": "Mouse G203",
-              "url": "https://loja-b.com/mouse",
-              "category": "perifericos",
-              "comparison_key": "mouse-g203"
+              "name": "Memoria RAM",
+              "characteristics": "DDR4 16GB",
+              "required_attributes": {"memory_type": "ddr4"},
+              "preferred_attributes": {"capacity_total_gb": 16}
             }
           ]
         }

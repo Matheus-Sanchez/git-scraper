@@ -1,8 +1,6 @@
 import { env } from './config/env.js';
 import { pathToFileURL } from 'node:url';
-import { runEngine1 } from './engines/engine1_http.js';
-import { runEngine2 } from './engines/engine2_browser.js';
-import { runEngine3 } from './engines/engine3_hardmode.js';
+import { runSearchEngine } from './engines/engine_search.js';
 import { readProducts, toSafeProductReadError } from './io/products.js';
 import { findLatestSuccessfulResults, persistRunOutputs } from './io/storage.js';
 import { buildFatalFailure } from './utils/failure.js';
@@ -25,66 +23,11 @@ function summarizeEngineAttempts(allAttempts, engineName) {
   };
 }
 
-function toFailureEntry(trail) {
-  const lastErrorAttempt = [...trail.attempts].reverse().find((item) => !item.ok);
-  const lastAttempt = trail.attempts[trail.attempts.length - 1];
-
+function buildEngineSummary(attempts) {
   return {
-    product_id: trail.product.id,
-    url: trail.product.url,
-    name: trail.product.name,
-    status: 'failed',
-    fetched_at: new Date().toISOString(),
-    attempts: trail.attempts.map((item) => ({
-      engine: item.engine,
-      ok: item.ok,
-      elapsed_ms: item.elapsed_ms,
-      error: item.error || null,
-      error_code: item.error_code || null,
-      error_detail: item.error_detail || item.error || null,
-      source: item.result?.source || null,
-      confidence: item.result?.confidence || null,
-      price: item.result?.price || null,
-      adapter: item.adapter || item.result?.adapter || null,
-      store_support_level: item.store_support_level || item.result?.store_support_level || null,
-      failure_stage: item.failure_stage || null,
-      candidates_checked: item.candidates_checked || null,
-      top_candidates: Array.isArray(item.top_candidates) ? item.top_candidates : undefined,
-      http_status: item.http_status || null,
-      final_url: item.final_url || null,
-      content_type: item.content_type || null,
-      html_size: item.html_size || null,
-      artifact_dir: item.artifact_dir || null,
-      retry_attempts: Array.isArray(item.retry_attempts) ? item.retry_attempts : undefined,
-    })),
-    engine: lastErrorAttempt?.engine || lastAttempt?.engine || null,
-    last_error: lastErrorAttempt?.error || 'unknown',
-    error_code: lastErrorAttempt?.error_code || 'unexpected_error',
-    error_detail: lastErrorAttempt?.error_detail || lastErrorAttempt?.error || 'unknown',
-    artifact_dir: lastErrorAttempt?.artifact_dir || null,
-    adapter: lastErrorAttempt?.adapter || lastAttempt?.adapter || null,
-    store_support_level: lastErrorAttempt?.store_support_level || lastAttempt?.store_support_level || null,
-    failure_stage: lastErrorAttempt?.failure_stage || null,
-    candidates_checked: lastErrorAttempt?.candidates_checked || null,
-    top_candidates: Array.isArray(lastErrorAttempt?.top_candidates) ? lastErrorAttempt.top_candidates : undefined,
+    lightpanda_search: summarizeEngineAttempts(attempts, 'lightpanda_search'),
+    chromium_search: summarizeEngineAttempts(attempts, 'chromium_search'),
   };
-}
-
-function registerAttempts(trailsById, successById, attempts) {
-  for (const attempt of attempts) {
-    const productId = attempt.product.id;
-    const trail = trailsById.get(productId);
-    trail.attempts.push(attempt);
-
-    if (attempt.ok) {
-      successById.set(productId, attempt.result);
-    }
-  }
-}
-
-function findRemainingFailures(products, attempts) {
-  const successIds = new Set(attempts.filter((item) => item.ok).map((item) => item.product.id));
-  return products.filter((product) => !successIds.has(product.id));
 }
 
 function buildEmptySummary(startedAt) {
@@ -93,15 +36,46 @@ function buildEmptySummary(startedAt) {
     success_count: 0,
     failure_count: 0,
     run_duration_ms: Date.now() - startedAt,
-    engines: {
-      engine1_http: { attempted: 0, success: 0, failed: 0, avg_time_ms: 0 },
-      engine2_browser: { attempted: 0, success: 0, failed: 0, avg_time_ms: 0 },
-      engine3_hardmode: { attempted: 0, success: 0, failed: 0, avg_time_ms: 0 },
-    },
+    engines: buildEngineSummary([]),
   };
 }
 
-function buildRunPayload({ runId, runDate, generatedAt, summary, results, failures }) {
+function toFailureEntry(intent, attempts) {
+  const lastErrorAttempt = [...attempts].reverse().find((item) => !item.ok);
+  const lastAttempt = attempts[attempts.length - 1];
+
+  return {
+    product_id: intent.id,
+    intent_id: intent.id,
+    name: intent.name,
+    characteristics: intent.characteristics || '',
+    status: 'failed',
+    fetched_at: new Date().toISOString(),
+    attempts: attempts.map((item) => ({
+      engine: item.engine,
+      ok: item.ok,
+      elapsed_ms: item.elapsed_ms,
+      error: item.error || null,
+      error_code: item.error_code || null,
+      error_detail: item.error_detail || item.error || null,
+      stores_checked: item.stores_checked || null,
+      offers_checked: item.offers_checked || null,
+      rejected_offers: item.rejected_offers || null,
+      store_errors: Array.isArray(item.store_errors) ? item.store_errors : undefined,
+      result: item.ok ? item.result : undefined,
+    })),
+    engine: lastErrorAttempt?.engine || lastAttempt?.engine || null,
+    last_error: lastErrorAttempt?.error || 'unknown',
+    error_code: lastErrorAttempt?.error_code || 'unexpected_error',
+    error_detail: lastErrorAttempt?.error_detail || lastErrorAttempt?.error || 'unknown',
+    stores_checked: lastErrorAttempt?.stores_checked || null,
+    offers_checked: lastErrorAttempt?.offers_checked || null,
+    rejected_offers: lastErrorAttempt?.rejected_offers || null,
+    store_errors: Array.isArray(lastErrorAttempt?.store_errors) ? lastErrorAttempt.store_errors : undefined,
+  };
+}
+
+function buildRunPayload({ runId, runDate, generatedAt, summary, results, offers, failures }) {
   return {
     run_id: runId,
     run_date: runDate,
@@ -109,17 +83,19 @@ function buildRunPayload({ runId, runDate, generatedAt, summary, results, failur
     currency: 'BRL',
     summary,
     results,
+    offers,
     failures,
   };
 }
 
-function buildLatestPayload({ runId, generatedAt, summary, items, failures, runFile }) {
+function buildLatestPayload({ runId, generatedAt, summary, items, offers, failures, runFile }) {
   return {
     run_id: runId,
     generated_at: generatedAt,
     currency: 'BRL',
     summary,
     items,
+    offers,
     failures,
     run_file: runFile,
   };
@@ -155,19 +131,27 @@ function toCarriedForwardResult(failure, previousResult, generatedAt) {
 
   return {
     product_id: failure.product_id,
-    url: failure.url || previousResult.url,
+    intent_id: failure.intent_id || failure.product_id,
     name: failure.name || previousResult.name,
+    characteristics: failure.characteristics || previousResult.characteristics || '',
+    title: previousResult.title || previousResult.name,
+    url: previousResult.url || null,
+    store_id: previousResult.store_id || null,
+    store: previousResult.store || null,
     price: Number(previousResult.price),
     currency: previousResult.currency || 'BRL',
     unit_price: isUsablePrice(previousResult.unit_price) ? Number(previousResult.unit_price) : null,
+    unit_basis: previousResult.unit_basis || null,
+    normalized_quantity: previousResult.normalized_quantity || null,
+    attributes: previousResult.attributes || {},
+    match_score: Number.isFinite(Number(previousResult.match_score)) ? Number(previousResult.match_score) : null,
+    priority_score: Number.isFinite(Number(previousResult.priority_score)) ? Number(previousResult.priority_score) : null,
     engine_used: 'carry_forward',
     fetched_at: failure.fetched_at || generatedAt,
     source: previousResult.source || 'carry_forward',
     confidence: Number.isFinite(Number(previousResult.confidence)) ? Number(previousResult.confidence) : null,
     status: 'carried_forward',
-    adapter: previousResult.adapter || failure.adapter || null,
-    store_support_level: previousResult.store_support_level || failure.store_support_level || null,
-    carried_forward_reason: failure.error_code || 'scrape_failed',
+    carried_forward_reason: failure.error_code || 'search_failed',
     carried_forward_from: {
       run_id: previousResult.run_id || null,
       run_date: previousResult.run_date || null,
@@ -190,7 +174,7 @@ async function buildCarriedForwardResults({ failures, generatedAt, lookupPreviou
     .filter(Boolean);
 
   if (carriedForward.length > 0) {
-    baseLogger.info('Carried forward previous prices after scrape failures', {
+    baseLogger.info('Carried forward previous offers after search failures', {
       run_id: runId,
       carried_forward_count: carriedForward.length,
       product_ids: carriedForward.map((item) => item.product_id),
@@ -200,17 +184,27 @@ async function buildCarriedForwardResults({ failures, generatedAt, lookupPreviou
   return carriedForward;
 }
 
-async function persistSuccessRun({ runId, runDate, generatedAt, summary, successes, failures, status = 'success' }) {
+async function persistSuccessRun({
+  runId,
+  runDate,
+  generatedAt,
+  summary,
+  successes,
+  offers,
+  failures,
+  status = 'success',
+}) {
   const runPayload = buildRunPayload({
     runId,
     runDate,
     generatedAt,
     summary,
     results: successes,
+    offers,
     failures,
   });
 
-  const { run_file: runFile } = await persistRunOutputs({
+  return persistRunOutputs({
     runId,
     runDate,
     generatedAt,
@@ -227,13 +221,12 @@ async function persistSuccessRun({ runId, runDate, generatedAt, summary, success
       generatedAt,
       summary,
       items: successes,
+      offers,
       failures,
       runFile: `${runId}.json`,
     }),
     status,
   });
-
-  return runFile;
 }
 
 async function persistFatalRun({ runId, runDate, generatedAt, summary, fatal }) {
@@ -247,6 +240,7 @@ async function persistFatalRun({ runId, runDate, generatedAt, summary, fatal }) 
       generatedAt,
       summary,
       results: [],
+      offers: [],
       failures: [],
     }),
     errorPayload: buildErrorPayload({
@@ -262,6 +256,16 @@ async function persistFatalRun({ runId, runDate, generatedAt, summary, fatal }) 
   });
 }
 
+function finalSuccessAttempts(attempts) {
+  const out = new Map();
+  for (const attempt of attempts) {
+    if (attempt.ok) {
+      out.set(attempt.product.id, attempt);
+    }
+  }
+  return out;
+}
+
 export async function runScrape({
   runtimeEnv = env,
   baseLogger = logger,
@@ -272,22 +276,16 @@ export async function runScrape({
   const generatedAt = new Date().toISOString();
   const runDate = generatedAt.slice(0, 10);
   const runId = createRunId(generatedAt);
-  const engine1Runner = engineRunners.runEngine1 || runEngine1;
-  const engine2Runner = engineRunners.runEngine2 || runEngine2;
-  const engine3Runner = engineRunners.runEngine3 || runEngine3;
+  const searchRunner = engineRunners.runSearchEngine || runSearchEngine;
 
-  baseLogger.info('Starting scrape run', {
+  baseLogger.info('Starting search scrape run', {
     run_id: runId,
     run_date: runDate,
     concurrency: runtimeEnv.CONCURRENCY,
     timeout_ms: runtimeEnv.HTTP_TIMEOUT_MS,
-    hardmode_proxy: Boolean(runtimeEnv.PROXY_URL),
-    has_external_provider_key: Boolean(runtimeEnv.SCRAPING_API_KEY),
-    has_amazon_paapi: Boolean(
-      runtimeEnv.AMAZON_PAAPI_ACCESS_KEY
-      && runtimeEnv.AMAZON_PAAPI_SECRET_KEY
-      && runtimeEnv.AMAZON_PAAPI_PARTNER_TAG
-    ),
+    lightpanda_cdp_url: runtimeEnv.LIGHTPANDA_CDP_URL,
+    top_n_per_store: runtimeEnv.SEARCH_TOP_N_PER_STORE,
+    chromium_fallback: true,
   });
 
   let products;
@@ -307,14 +305,13 @@ export async function runScrape({
       summary,
       fatal,
     });
-    baseLogger.error('Could not read products file', { run_id: runId, error: fatal.error_detail });
+    baseLogger.error('Could not read search intent catalog', { run_id: runId, error: fatal.error_detail });
     throw new Error(fatal.error_detail);
   }
 
   const activeProducts = products.filter((product) => product.is_active);
   if (activeProducts.length === 0) {
-    baseLogger.warn('No active products found, saving empty snapshots', { run_id: runId });
-
+    baseLogger.warn('No active search intents found, saving empty snapshots', { run_id: runId });
     const summary = buildEmptySummary(startedAt);
     await persistSuccessRun({
       runId,
@@ -322,6 +319,7 @@ export async function runScrape({
       generatedAt,
       summary,
       successes: [],
+      offers: [],
       failures: [],
       status: 'success',
     });
@@ -335,45 +333,32 @@ export async function runScrape({
     };
   }
 
-  const trailsById = new Map();
-  const successById = new Map();
-
-  for (const product of activeProducts) {
-    trailsById.set(product.id, {
-      product,
-      attempts: [],
-    });
+  const attempts = await searchRunner(activeProducts, {
+    env: runtimeEnv,
+    logger: baseLogger,
+    runId,
+  });
+  const successAttempts = finalSuccessAttempts(attempts);
+  const attemptsByProductId = new Map();
+  for (const attempt of attempts) {
+    const bucket = attemptsByProductId.get(attempt.product.id) || [];
+    bucket.push(attempt);
+    attemptsByProductId.set(attempt.product.id, bucket);
   }
 
-  const attempts1 = await engine1Runner(activeProducts, {
-    env: runtimeEnv,
-    logger: baseLogger,
-    runId,
-  });
-  registerAttempts(trailsById, successById, attempts1);
-  const pendingForEngine2 = findRemainingFailures(activeProducts, attempts1);
-
-  const attempts2 = await engine2Runner(pendingForEngine2, {
-    env: runtimeEnv,
-    logger: baseLogger,
-    runId,
-  });
-  registerAttempts(trailsById, successById, attempts2);
-  const pendingForEngine3 = findRemainingFailures(pendingForEngine2, attempts2);
-
-  const attempts3 = await engine3Runner(pendingForEngine3, {
-    env: runtimeEnv,
-    logger: baseLogger,
-    runId,
-  });
-  registerAttempts(trailsById, successById, attempts3);
-
-  const allAttempts = [...attempts1, ...attempts2, ...attempts3];
-
-  const successes = [...successById.values()].sort((a, b) => a.name.localeCompare(b.name));
-  const failures = [...trailsById.values()]
-    .filter((trail) => !successById.has(trail.product.id))
-    .map((trail) => toFailureEntry(trail));
+  const successes = [...successAttempts.values()]
+    .map((attempt) => attempt.result)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  const offers = attempts
+    .flatMap((attempt) => attempt.offers || [])
+    .sort((a, b) => {
+      if (a.intent_id !== b.intent_id) return a.intent_id.localeCompare(b.intent_id);
+      if (a.store_id !== b.store_id) return a.store_id.localeCompare(b.store_id);
+      return Number(a.rank || 0) - Number(b.rank || 0);
+    });
+  const failures = activeProducts
+    .filter((product) => !successAttempts.has(product.id))
+    .map((product) => toFailureEntry(product, attemptsByProductId.get(product.id) || []));
   const carriedForward = await buildCarriedForwardResults({
     failures,
     generatedAt,
@@ -389,11 +374,7 @@ export async function runScrape({
     success_count: successes.length,
     failure_count: failures.length,
     run_duration_ms: Date.now() - startedAt,
-    engines: {
-      engine1_http: summarizeEngineAttempts(allAttempts, 'engine1_http'),
-      engine2_browser: summarizeEngineAttempts(allAttempts, 'engine2_browser'),
-      engine3_hardmode: summarizeEngineAttempts(allAttempts, 'engine3_hardmode'),
-    },
+    engines: buildEngineSummary(attempts),
   };
 
   await persistSuccessRun({
@@ -402,11 +383,12 @@ export async function runScrape({
     generatedAt,
     summary,
     successes: persistedResults,
+    offers,
     failures,
     status: failures.length > 0 ? 'partial' : 'success',
   });
 
-  baseLogger.summary('Scrape run completed', {
+  baseLogger.summary('Search scrape run completed', {
     run_id: runId,
     run_date: runDate,
     success_count: summary.success_count,

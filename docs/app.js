@@ -1,82 +1,6 @@
-const RUNS_LIMIT = 30;
 const ALL = '__all__';
-
 let resolvedDataRoot = null;
-let draftCounter = 1;
-
-let CATEGORY_PALETTE = [
-  '#58a6ff',
-  '#9e6a03',
-  '#238636',
-  '#afc6ff',
-  '#da3633',
-  '#76a1ff',
-  '#c1c7d0',
-  '#2ea043',
-  '#f0883e',
-];
-
-let CHART_THEME = {
-  axis: '#8b949e',
-  badgeBackground: '#0d1117',
-  canvasBackground: '#060f16',
-  centerText: '#c0c7d4',
-  chartAreaBackground: '#0b141c',
-  chartAreaBorder: '#30363d',
-  emptyText: '#8b949e',
-  grid: 'rgba(139, 148, 158, 0.24)',
-  hoverLine: '#8b949e',
-  border: '#30363d',
-  legendText: '#c0c7d4',
-  pointFill: '#060f16',
-  surface: '#060f16',
-  tooltip: '#21262d',
-  text: '#f0f6fc',
-  accent: '#58a6ff',
-  ok: '#238636',
-  warn: '#9e6a03',
-  danger: '#da3633',
-};
-
-function themeCssValue(name, fallback) {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-  return value || fallback;
-}
-
-function buildCategoryPaletteFromCss() {
-  return Array.from({ length: 9 }, (_, index) => themeCssValue(`--category-${index + 1}`, CATEGORY_PALETTE[index]));
-}
-
-function buildChartThemeFromCss() {
-  return {
-    axis: themeCssValue('--chart-axis', '#8b949e'),
-    badgeBackground: themeCssValue('--chart-badge-bg', '#0d1117'),
-    canvasBackground: themeCssValue('--chart-bg', '#060f16'),
-    centerText: themeCssValue('--chart-center', '#c0c7d4'),
-    chartAreaBackground: themeCssValue('--chart-area-bg', '#0b141c'),
-    chartAreaBorder: themeCssValue('--chart-border', '#30363d'),
-    emptyText: themeCssValue('--chart-empty', '#8b949e'),
-    grid: themeCssValue('--chart-grid', 'rgba(139, 148, 158, 0.24)'),
-    hoverLine: themeCssValue('--chart-hover', '#8b949e'),
-    border: themeCssValue('--chart-border', '#30363d'),
-    legendText: themeCssValue('--chart-legend', '#c0c7d4'),
-    pointFill: themeCssValue('--chart-point', '#060f16'),
-    surface: themeCssValue('--chart-bg', '#060f16'),
-    tooltip: themeCssValue('--chart-tooltip', '#21262d'),
-    text: themeCssValue('--chart-text', '#f0f6fc'),
-    accent: themeCssValue('--accent', '#58a6ff'),
-    ok: themeCssValue('--ok', '#238636'),
-    warn: themeCssValue('--warn', '#9e6a03'),
-    danger: themeCssValue('--danger', '#da3633'),
-  };
-}
-
-function refreshThemeTokens() {
-  CATEGORY_PALETTE = buildCategoryPaletteFromCss();
-  CHART_THEME = buildChartThemeFromCss();
-}
-
-refreshThemeTokens();
+let draftCounter = 0;
 
 const els = {
   generatedAt: document.getElementById('generated-at'),
@@ -100,26 +24,11 @@ const els = {
   historyCategoryFilter: document.getElementById('history-category-filter'),
   chartScope: document.getElementById('chart-scope'),
   productSelect: document.getElementById('product-select'),
-  productFilterCard: document.getElementById('product-filter-card'),
-  advancedFilters: document.getElementById('advanced-filters'),
-  hideLegacySeries: document.getElementById('hide-legacy-series'),
-  dashboardResetFilters: document.getElementById('dashboard-reset-filters'),
-  activeFilterPills: document.getElementById('active-filter-pills'),
-  toolbarFooter: document.querySelector('.history-toolbar-footer'),
-  toolbarInsights: document.getElementById('toolbar-insights'),
-  historyMain: document.getElementById('history-main'),
-  historyScroll: document.getElementById('history-scroll'),
-  historyStage: document.getElementById('history-stage'),
-  historyCanvas: document.getElementById('history-chart'),
-  historyHoverTooltip: document.getElementById('history-hover-tooltip'),
-  pieCanvas: document.getElementById('category-pie-chart'),
   detail: document.getElementById('history-detail'),
   runDrilldown: document.getElementById('history-run-drilldown'),
   categoryLegend: document.getElementById('category-legend'),
   tableFilterSummary: document.getElementById('table-filter-summary'),
-  zoomIn: document.getElementById('zoom-in'),
-  zoomOut: document.getElementById('zoom-out'),
-  zoomReset: document.getElementById('zoom-reset'),
+  latestJsonLink: document.getElementById('latest-json-link'),
   openModal: document.getElementById('open-add-modal'),
   closeModal: document.getElementById('close-add-modal'),
   modal: document.getElementById('add-modal'),
@@ -127,40 +36,13 @@ const els = {
   addItems: document.getElementById('ap-items'),
   addItemButton: document.getElementById('ap-add-item'),
   addCategoryList: document.getElementById('ap-category-list'),
-  latestJsonLink: document.getElementById('latest-json-link'),
 };
 
 const state = {
   latest: null,
-  runs: [],
-  runsManifest: {
-    files: [],
-    runs: [],
-    daily: [],
-  },
   products: [],
   productsById: new Map(),
-  categories: [],
-  colorsByCategory: new Map(),
-  historyByProduct: new Map(),
-  historyByCategory: new Map(),
-  latestItemsById: new Map(),
-  latestFailuresById: new Map(),
-  comparisonGroups: new Map(),
-  allDates: [],
-  chart: null,
-  pieChart: null,
-  storeChart: null,
-  engineChart: null,
-  failureChart: null,
-  viewport: {
-    startIndex: 0,
-    endIndex: 0,
-  },
-  isSyncingHistoryScroll: false,
-  pendingHistoryScrollFrame: null,
-  addDrafts: [],
-  selectedRunDate: '',
+  drafts: [],
 };
 
 function escapeHtml(value) {
@@ -172,62 +54,37 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function slugifyLoose(value, fallback = '') {
-  const normalized = String(value || '')
-    .trim()
+function splitLines(text) {
+  return String(text || '')
+    .split(/\r?\n|,/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
+function normalizeSearchText(value) {
+  return String(value || '')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
+    .toLowerCase();
+}
+
+function slugifyLoose(value, fallback = '') {
+  const normalized = normalizeSearchText(value)
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-
   return normalized || fallback;
 }
 
-function normalizeCategory(value) {
-  return slugifyLoose(value, 'sem-categoria');
-}
-
 function formatCategoryLabel(value) {
-  return normalizeCategory(value)
+  return slugifyLoose(value, 'sem-categoria')
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-function normalizeCategoryKey(value) {
-  return String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '');
-}
-
-function normalizeComparisonKey(value) {
-  return slugifyLoose(value);
-}
-
-function levenshteinDistance(a, b) {
-  const left = String(a || '');
-  const right = String(b || '');
-  if (!left) return right.length;
-  if (!right) return left.length;
-
-  const matrix = Array.from({ length: left.length + 1 }, () => []);
-  for (let i = 0; i <= left.length; i += 1) matrix[i][0] = i;
-  for (let j = 0; j <= right.length; j += 1) matrix[0][j] = j;
-
-  for (let i = 1; i <= left.length; i += 1) {
-    for (let j = 1; j <= right.length; j += 1) {
-      const cost = left[i - 1] === right[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,
-        matrix[i][j - 1] + 1,
-        matrix[i - 1][j - 1] + cost,
-      );
-    }
-  }
-
-  return matrix[left.length][right.length];
+function formatMoney(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric) || numeric <= 0) return '-';
+  return numeric.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
 function formatDateTime(iso) {
@@ -240,260 +97,49 @@ function formatDateTime(iso) {
   }).format(date);
 }
 
-function formatMoney(value) {
-  if (!isRenderablePrice(value)) return '-';
-  return Number(value).toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  });
-}
-
-function formatCompactNumber(value) {
-  const numericValue = Number(value);
-  if (!Number.isFinite(numericValue)) return '-';
-  return new Intl.NumberFormat('pt-BR', {
-    maximumFractionDigits: 1,
-  }).format(numericValue);
-}
-
-function percentOf(part, total) {
-  const numericTotal = Number(total);
-  if (!Number.isFinite(numericTotal) || numericTotal <= 0) return 0;
-  return Math.round((Number(part || 0) / numericTotal) * 100);
-}
-
-function isRenderablePrice(value) {
-  const numericValue = Number(value);
-  return Number.isFinite(numericValue) && numericValue > 0;
-}
-
-function splitLines(text) {
-  return String(text || '')
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean);
-}
-
-function containsHtmlSnippet(lines) {
-  return lines.some((line) => /<[^>]+>/.test(String(line || '')));
-}
-
-function clamp(value, min, max) {
-  return Math.min(max, Math.max(min, value));
-}
-
-function findCategoryMatch(rawValue) {
-  const typed = String(rawValue || '').trim();
-  if (!typed) return null;
-
-  const typedKey = normalizeCategoryKey(typed);
-  if (!typedKey) return null;
-
-  const exact = state.categories.find((category) => normalizeCategoryKey(category) === typedKey);
-  if (exact) {
-    return {
-      category: exact,
-      kind: 'exact',
-    };
-  }
-
-  let best = null;
-  for (const category of state.categories) {
-    const key = normalizeCategoryKey(category);
-    if (!key) continue;
-
-    const distance = levenshteinDistance(typedKey, key);
-    const maxLen = Math.max(typedKey.length, key.length);
-    const similarity = maxLen ? 1 - (distance / maxLen) : 0;
-
-    if (!best || similarity > best.similarity || (similarity === best.similarity && distance < best.distance)) {
-      best = {
-        category,
-        distance,
-        similarity,
-      };
-    }
-  }
-
-  if (best && best.distance <= 2 && best.similarity >= 0.82 && typedKey.length >= 4) {
-    return {
-      category: best.category,
-      kind: 'fuzzy',
-    };
-  }
-
-  return null;
-}
-
-async function fetchJson(path) {
-  const response = await fetch(path, { cache: 'no-store' });
-  if (!response.ok) {
-    throw new Error(`Falha ao carregar ${path}: HTTP ${response.status}`);
-  }
-  return response.json();
-}
-
 function addUniquePath(list, value) {
-  if (value && !list.includes(value)) {
-    list.push(value);
-  }
+  if (value && !list.includes(value)) list.push(value);
 }
 
 function dataRootCandidates() {
   const candidates = [];
   addUniquePath(candidates, './data');
   addUniquePath(candidates, '../data');
-
   const pathParts = window.location.pathname.split('/').filter(Boolean);
-  if (pathParts.length > 0) {
-    addUniquePath(candidates, `/${pathParts[0]}/data`);
-  }
-
+  if (pathParts.length > 0) addUniquePath(candidates, `/${pathParts[0]}/data`);
   addUniquePath(candidates, '/data');
   return candidates;
 }
 
-function setLatestJsonLink(dataRoot) {
-  if (els.latestJsonLink) {
-    els.latestJsonLink.href = `${dataRoot}/latest.json`;
-  }
-}
-
 async function detectDataRoot() {
   if (resolvedDataRoot) return resolvedDataRoot;
-
   for (const candidate of dataRootCandidates()) {
     try {
-      const response = await fetch(`${candidate}/latest.json`, { cache: 'no-store' });
+      const response = await fetch(`${candidate}/products.json`, { cache: 'no-store' });
       if (response.ok) {
         resolvedDataRoot = candidate;
-        setLatestJsonLink(candidate);
+        if (els.latestJsonLink) els.latestJsonLink.href = `${candidate}/latest.json`;
         return candidate;
       }
     } catch {
       // Try next candidate.
     }
   }
-
-  throw new Error('Não foi possível localizar os arquivos de dados em ./data ou ../data.');
+  throw new Error('Não foi possível localizar os arquivos de dados.');
 }
 
-async function fetchDataJson(path) {
+async function fetchDataJson(path, fallback = null) {
   const dataRoot = await detectDataRoot();
-  return fetchJson(`${dataRoot}/${path}`);
-}
-
-function normalizeRunId(value) {
-  return String(value || '').replace(/\.json$/i, '');
-}
-
-function normalizeRunPayload(run, fallbackFile = '') {
-  if (!run || typeof run !== 'object') return null;
-
-  const runId = normalizeRunId(run.run_id || fallbackFile);
-  const runDate = run.run_date || (run.generated_at ? run.generated_at.slice(0, 10) : runId.slice(0, 10));
-  if (!runId || !runDate) return null;
-
-  return {
-    ...run,
-    run_id: runId,
-    run_date: runDate,
-    run_file: run.run_file || (fallbackFile || `${runId}.json`),
-  };
-}
-
-function runSortKey(run) {
-  return String(run?.generated_at || run?.run_id || run?.run_file || run?.run_date || '');
-}
-
-function sortRunsDescending(runs) {
-  return [...runs].sort((left, right) => runSortKey(right).localeCompare(runSortKey(left)));
-}
-
-function manifestRunEntries() {
-  return Array.isArray(state.runsManifest?.runs) ? state.runsManifest.runs : [];
-}
-
-function manifestDailyEntries() {
-  return Array.isArray(state.runsManifest?.daily) ? state.runsManifest.daily : [];
-}
-
-function colorForCategory(category) {
-  return state.colorsByCategory.get(normalizeCategory(category)) || CHART_THEME.accent;
-}
-
-function setFilterOptions(select, categories) {
-  if (!select) return;
-
-  select.innerHTML = [
-    `<option value="${ALL}">Todas</option>`,
-    ...categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(formatCategoryLabel(category))}</option>`),
-  ].join('');
-}
-
-function buildCategoryColors(categories) {
-  state.colorsByCategory = new Map();
-  categories.forEach((category, index) => {
-    state.colorsByCategory.set(category, CATEGORY_PALETTE[index % CATEGORY_PALETTE.length]);
-  });
-}
-
-function siteLabelFromUrl(value) {
   try {
-    const hostname = new URL(value).hostname.replace(/^www\./i, '').toLowerCase();
-    const parts = hostname.split('.').filter(Boolean);
-    const core = parts.length > 1 ? parts[0] : hostname;
-    return core.replace(/[-_]+/g, ' ').trim();
+    const response = await fetch(`${dataRoot}/${path}`, { cache: 'no-store' });
+    if (!response.ok) return fallback;
+    return response.json();
   } catch {
-    return '';
+    return fallback;
   }
 }
 
-function formatSiteLabel(value) {
-  const raw = String(value || '').trim();
-  if (!raw) return 'Site';
-  return raw.replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function buildProductLabel(name, url) {
-  const trimmedName = String(name || 'Produto').trim() || 'Produto';
-  const site = formatSiteLabel(siteLabelFromUrl(url));
-  return site ? `${trimmedName} / ${site}` : trimmedName;
-}
-
-function humanizeErrorCode(value) {
-  return String(value || '')
-    .trim()
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function trimText(value, maxLength = 120) {
-  const text = String(value || '').trim();
-  if (!text) return '';
-  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
-}
-
-function failureSummary(failure) {
-  if (!failure) return '';
-
-  const code = humanizeErrorCode(failure.error_code || failure.last_error_code || '');
-  const detail = trimText(failure.error_detail || failure.last_error || failure.error || '');
-  if (code && detail && detail.toLowerCase() !== code.toLowerCase()) {
-    return `${code}: ${detail}`;
-  }
-  return code || detail || 'Falha sem classificacao';
-}
-
-function normalizeSearchText(value) {
-  return String(value || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim();
-}
-
-function currentSearchTerm() {
+function currentQuery() {
   return normalizeSearchText(els.dashboardSearch?.value || '');
 }
 
@@ -505,2249 +151,229 @@ function selectedStatus() {
   return els.statusFilter?.value || ALL;
 }
 
-function hideLegacySeriesEnabled() {
-  return Boolean(els.hideLegacySeries?.checked);
+function itemForProduct(product) {
+  return (state.latest?.items || []).find((item) => item.product_id === product.id);
 }
 
-function latestStatusForProductId(productId) {
-  const latest = state.latestItemsById.get(productId);
-  if (state.latestFailuresById.has(productId)) return 'failed';
-  if (latest) return 'ok';
-  return '';
+function failureForProduct(product) {
+  return (state.latest?.failures || []).find((item) => item.product_id === product.id);
 }
 
-function currentSiteLabelForProductId(productId, fallback = '') {
-  const success = state.latestItemsById.get(productId);
-  const failure = state.latestFailuresById.get(productId);
-  const product = state.productsById.get(productId);
-  return formatSiteLabel(siteLabelFromUrl(success?.url || failure?.url || product?.url || fallback));
+function offersForProduct(product) {
+  return (state.latest?.offers || []).filter((offer) => offer.intent_id === product.id || offer.product_id === product.id);
 }
 
-function matchesSearch(haystack) {
-  const query = currentSearchTerm();
-  if (!query) return true;
-  return normalizeSearchText(haystack).includes(query);
-}
-
-function currentScope() {
-  return els.chartScope?.value || 'all-products';
-}
-
-function selectedCategory() {
-  return els.historyCategoryFilter?.value || ALL;
-}
-
-function selectedProductId() {
-  return els.productSelect?.value || '';
-}
-
-function scopeUsesProductSelect(scope = currentScope()) {
-  return scope === 'single-product' || scope === 'comparison-group';
-}
-
-function syncControlAvailability() {
-  if (!els.productSelect) return;
-  const usesProductSelect = scopeUsesProductSelect();
-  const disabled = !usesProductSelect || els.productSelect.options.length === 0 || !els.productSelect.value;
-  els.productSelect.disabled = disabled;
-  if (els.productFilterCard) {
-    els.productFilterCard.hidden = !usesProductSelect;
-  }
-  if (els.advancedFilters && usesProductSelect) {
-    els.advancedFilters.open = true;
-  }
-}
-
-function buildCurrentSiteOptions() {
-  return [...new Set(buildCurrentRows()
-    .map((row) => row.site_label)
-    .filter(Boolean))]
-    .sort((a, b) => a.localeCompare(b));
-}
-
-function renderSiteFilterOptions() {
-  if (!els.siteFilter) return;
-
-  const previous = selectedSite();
-  const sites = buildCurrentSiteOptions();
-  els.siteFilter.innerHTML = [
-    `<option value="${ALL}">Todas</option>`,
-    ...sites.map((site) => `<option value="${escapeHtml(site)}">${escapeHtml(site)}</option>`),
-  ].join('');
-
-  els.siteFilter.value = sites.includes(previous) ? previous : ALL;
-}
-
-function historyEntryMatchesToolbarFilters(entry) {
-  if (!entry) return false;
-  if (hideLegacySeriesEnabled() && !state.productsById.has(entry.product_id)) {
-    return false;
-  }
-
-  const site = selectedSite();
-  if (site !== ALL && entry.site_label !== site) {
-    return false;
-  }
-
-  const status = selectedStatus();
-  const currentStatus = latestStatusForProductId(entry.product_id);
-  if (status !== ALL && currentStatus !== status) {
-    return false;
-  }
-
-  return matchesSearch([
-    entry.label,
-    entry.site_label,
-    formatCategoryLabel(entry.category),
-    entry.comparison_key,
-    entry.product_id,
-  ].join(' '));
-}
-
-function filteredHistoryProductEntries() {
-  const category = selectedCategory();
-  let entries = [...state.historyByProduct.values()];
-
-  if (category !== ALL) {
-    entries = entries.filter((entry) => entry.category === category);
-  }
-
-  return entries
-    .filter(historyEntryMatchesToolbarFilters)
-    .sort((a, b) => a.label.localeCompare(b.label));
-}
-
-function buildCategoryEntriesFromProducts(entries) {
-  const categories = [...new Set(entries.map((entry) => entry.category))].sort((a, b) => a.localeCompare(b));
-
-  return categories.map((category) => {
-    const categoryEntries = entries.filter((entry) => entry.category === category);
-    const pointMaps = categoryEntries.map((entry) => valueMap(entry.points));
-
+function buildCurrentRows() {
+  return state.products.map((product) => {
+    const item = itemForProduct(product);
+    const failure = failureForProduct(product);
     return {
-      category,
-      label: formatCategoryLabel(category),
-      points: state.allDates.map((date) => {
-        const values = pointMaps
-          .map((map) => map.get(date))
-          .filter((value) => Number.isFinite(value));
-
-        if (values.length === 0) {
-          return { date, price: null };
-        }
-
-        const average = values.reduce((sum, value) => sum + Number(value), 0) / values.length;
-        return {
-          date,
-          price: Math.round(average * 100) / 100,
-        };
-      }),
+      product,
+      item,
+      failure,
+      offers: offersForProduct(product),
+      site: item?.store || item?.store_id || '',
+      status: failure ? 'failed' : item?.status || '',
     };
+  }).filter((row) => {
+    const query = currentQuery();
+    if (query) {
+      const haystack = normalizeSearchText([
+        row.product.name,
+        row.product.characteristics,
+        row.product.category,
+        row.item?.title,
+        row.item?.store,
+        row.product.required_terms?.join(' '),
+        row.product.preferred_terms?.join(' '),
+      ].join(' '));
+      if (!haystack.includes(query)) return false;
+    }
+    if (selectedSite() !== ALL && row.site !== selectedSite()) return false;
+    if (selectedStatus() !== ALL && row.status !== selectedStatus()) return false;
+    return true;
   });
-}
-
-function buildLatestIndexes() {
-  const items = Array.isArray(state.latest?.items) ? state.latest.items : [];
-  const failures = Array.isArray(state.latest?.failures) ? state.latest.failures : [];
-
-  state.latestItemsById = new Map(items.map((item) => [item.product_id, item]));
-  state.latestFailuresById = new Map(failures.map((item) => [item.product_id, item]));
-}
-
-function buildComparisonGroups() {
-  const groups = new Map();
-
-  state.products.forEach((product) => {
-    const key = normalizeComparisonKey(product.comparison_key);
-    if (!key) return;
-
-    const list = groups.get(key) || [];
-    list.push(product.id);
-    groups.set(key, list);
-  });
-
-  state.comparisonGroups = groups;
 }
 
 function renderSummary() {
   const summary = state.latest?.summary || {};
-  const engines = summary.engines || {};
-  const items = Array.isArray(state.latest?.items) ? state.latest.items : [];
-  const carriedForwardCount = items.filter((item) => isCarriedForwardSnapshot(item)).length;
+  const generatedAt = state.latest?.generated_at;
+  if (els.generatedAt) els.generatedAt.textContent = generatedAt ? formatDateTime(generatedAt) : 'Sem execução';
+  if (els.overviewStatus) els.overviewStatus.textContent = `${summary.success_count || 0}/${summary.total_products || 0} com oferta`;
+  if (els.overallNarrative) {
+    els.overallNarrative.textContent = state.latest
+      ? `Última busca encontrou ${summary.success_count || 0} intenção(ões) com oferta e ${summary.failure_count || 0} falha(s).`
+      : 'Ainda não há snapshot de busca.';
+  }
 
-  const rows = [
-    ['Run ID', state.latest?.run_id || '-'],
-    ['Total ativos', summary.total_products ?? 0],
-    ['Sucesso', summary.success_count ?? 0],
+  const metrics = [
+    ['Intenções', summary.total_products ?? state.products.length],
+    ['Com oferta', summary.success_count ?? 0],
     ['Falhas', summary.failure_count ?? 0],
-    ['Reaproveitados', carriedForwardCount],
-    ['Duracao (ms)', summary.run_duration_ms ?? 0],
-    ['E1 ok/fail', `${engines.engine1_http?.success ?? 0}/${engines.engine1_http?.failed ?? 0}`],
-    ['E2 ok/fail', `${engines.engine2_browser?.success ?? 0}/${engines.engine2_browser?.failed ?? 0}`],
-    ['E3 ok/fail', `${engines.engine3_hardmode?.success ?? 0}/${engines.engine3_hardmode?.failed ?? 0}`],
+    ['Ofertas auditadas', (state.latest?.offers || []).length],
   ];
-
-  els.summaryGrid.innerHTML = rows
-    .map(([key, value]) => `<div class="summary-item"><span class="k">${escapeHtml(key)}</span><span class="v">${escapeHtml(value)}</span></div>`)
-    .join('');
-
-  els.generatedAt.textContent = state.latest?.generated_at
-    ? `Atualizado: ${formatDateTime(state.latest.generated_at)}`
-    : 'Sem execução registrada';
-}
-
-function renderHeroMetrics() {
-  if (!els.heroMetrics) return;
-
-  const summary = state.latest?.summary || {};
-  const total = Number(summary.total_products || 0);
-  const success = Number(summary.success_count || 0);
-  const failure = Number(summary.failure_count || 0);
-  const successRate = total > 0 ? Math.round((success / total) * 100) : 0;
-  const visibleSpan = state.allDates.length > 0
-    ? `${state.allDates[0]} até ${state.allDates[state.allDates.length - 1]}`
-    : 'sem histórico';
-
-  const cards = [
-    ['Ativos', total, `${state.categories.length} categorias monitoradas`],
-    ['Taxa de sucesso', `${successRate}%`, `${success} ok / ${failure} falhas na última execução`],
-    ['Lojas', buildCurrentSiteOptions().length, 'Canais com dados atuais no painel'],
-    ['Janela', state.allDates.length, visibleSpan],
-  ];
-
-  els.heroMetrics.innerHTML = cards.map(([label, value, note]) => `
-    <article class="hero-metric-card">
-      <span class="metric-label">${escapeHtml(label)}</span>
-      <strong class="metric-value">${escapeHtml(value)}</strong>
-      <small class="metric-note">${escapeHtml(note)}</small>
-    </article>
+  const html = metrics.map(([label, value]) => `
+    <div class="summary-item"><span class="k">${escapeHtml(label)}</span><span class="v">${escapeHtml(value)}</span></div>
   `).join('');
-}
+  if (els.summaryGrid) els.summaryGrid.innerHTML = html;
+  if (els.heroMetrics) els.heroMetrics.innerHTML = html;
 
-function renderCategoryLegend(categories) {
-  const html = categories.map((category) => `
-    <span class="category-chip">
-      <span class="category-chip-dot" style="background:${colorForCategory(category)}"></span>
-      ${escapeHtml(formatCategoryLabel(category))}
-    </span>
-  `).join('');
-
-  els.categoryLegend.innerHTML = html || '<span class="category-chip">Sem categorias</span>';
-}
-
-function renderPieChart() {
-  if (!els.pieCanvas) return;
-
-  if (state.pieChart) {
-    state.pieChart.destroy();
-    state.pieChart = null;
-  }
-
-  const counts = new Map();
-  state.products.forEach((product) => {
-    if (!product.is_active) return;
-    const category = normalizeCategory(product.category);
-    counts.set(category, (counts.get(category) || 0) + 1);
-  });
-
-  const labels = [...counts.keys()].sort((a, b) => a.localeCompare(b));
-  const values = labels.map((label) => counts.get(label));
-  const colors = labels.map((label) => colorForCategory(label));
-
-  state.pieChart = new window.Chart(els.pieCanvas, {
-    type: 'doughnut',
-    data: {
-      labels: labels.map(formatCategoryLabel),
-      datasets: [
-        {
-          label: 'Produtos por categoria',
-          data: values,
-          backgroundColor: colors,
-          borderColor: CHART_THEME.surface,
-          borderWidth: 2,
-          hoverOffset: 8,
-        },
-      ],
-    },
-    options: {
-      theme: CHART_THEME,
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '62%',
-      animation: {
-        duration: 520,
-        easing: 'easeOutQuart',
-      },
-      plugins: {
-        legend: {
-          position: 'right',
-          labels: {
-            boxWidth: 10,
-            boxHeight: 10,
-            color: CHART_THEME.axis,
-            font: {
-              size: 12,
-              weight: 650,
-            },
-          },
-        },
-        tooltip: {
-          callbacks: {
-            label(context) {
-              const label = context.label || '';
-              const value = context.parsed || 0;
-              return `${label}: ${value}`;
-            },
-          },
-        },
-      },
-    },
-  });
-}
-
-function destroyChart(key) {
-  if (state[key]) {
-    state[key].destroy();
-    state[key] = null;
+  const engines = Object.entries(summary.engines || {});
+  if (els.runHealthStrip) {
+    els.runHealthStrip.innerHTML = engines.map(([name, entry]) => `
+      <span class="stat-pill"><strong>${escapeHtml(entry.success || 0)}/${escapeHtml(entry.attempted || 0)}</strong> ${escapeHtml(name)}</span>
+    `).join('') || '<span class="stat-pill"><strong>0</strong> execuções</span>';
   }
 }
 
-function compactChartOptions({ stacked = false, indexAxis = 'x', legend = true } = {}) {
-  return {
-    theme: CHART_THEME,
-    responsive: true,
-    maintainAspectRatio: false,
-    indexAxis,
-    animation: {
-      duration: 520,
-      easing: 'easeOutQuart',
-    },
-    plugins: {
-      legend: {
-        display: legend,
-        position: 'bottom',
-        labels: {
-          boxWidth: 10,
-          boxHeight: 10,
-          color: CHART_THEME.axis,
-          font: {
-            size: 12,
-            weight: 650,
-          },
-        },
-      },
-      tooltip: {
-        backgroundColor: CHART_THEME.tooltip,
-        titleColor: CHART_THEME.text,
-        bodyColor: CHART_THEME.text,
-        padding: 10,
-        callbacks: {
-          label(context) {
-            const value = Number(context.raw || 0);
-            return `${context.dataset.label || context.label}: ${formatCompactNumber(value)}`;
-          },
-        },
-      },
-    },
-    scales: {
-      x: {
-        stacked,
-        grid: {
-          color: CHART_THEME.grid,
-        },
-        ticks: {
-          color: CHART_THEME.axis,
-          maxRotation: 0,
-          autoSkip: true,
-        },
-        border: {
-          color: CHART_THEME.border,
-        },
-      },
-      y: {
-        stacked,
-        grid: {
-          color: CHART_THEME.grid,
-        },
-        ticks: {
-          color: CHART_THEME.axis,
-          precision: 0,
-        },
-        border: {
-          color: CHART_THEME.border,
-        },
-      },
-    },
-  };
-}
-
-function buildStoreHealthRows() {
+function renderStoreHealth() {
   const rows = buildCurrentRows();
-  const groups = new Map();
-
-  rows.forEach((row) => {
-    const key = row.site_label || 'Site';
-    const group = groups.get(key) || {
-      site: key,
-      total: 0,
-      ok: 0,
-      failed: 0,
-      carried: 0,
-      real: 0,
-      prices: [],
-      adapters: new Set(),
-      supportLevels: new Set(),
-      failureCodes: new Map(),
-    };
-
-    group.total += 1;
-    if (row.status === 'failed') {
-      group.failed += 1;
-    } else {
-      group.ok += 1;
-    }
-
-    if (row.snapshot_status === 'carried_forward' || row.snapshot_status === 'historical_fallback' || row.carried_forward_from) {
-      group.carried += 1;
-    } else if (row.status === 'ok') {
-      group.real += 1;
-    }
-
-    if (Number.isFinite(row.current_price)) {
-      group.prices.push(Number(row.current_price));
-    }
-    if (row.adapter) group.adapters.add(row.adapter);
-    if (row.store_support_level) group.supportLevels.add(row.store_support_level);
-    if (row.error_code) {
-      group.failureCodes.set(row.error_code, (group.failureCodes.get(row.error_code) || 0) + 1);
-    }
-
-    groups.set(key, group);
-  });
-
-  return [...groups.values()]
-    .map((group) => {
-      const average = group.prices.length > 0
-        ? group.prices.reduce((sum, price) => sum + price, 0) / group.prices.length
-        : null;
-      const dominantFailure = [...group.failureCodes.entries()]
-        .sort((left, right) => right[1] - left[1])[0]?.[0] || '';
-
-      return {
-        ...group,
-        successRate: percentOf(group.ok, group.total),
-        realRate: percentOf(group.real, group.total),
-        averagePrice: average,
-        dominantFailure,
-      };
-    })
-    .sort((left, right) => {
-      if (right.failed !== left.failed) return right.failed - left.failed;
-      if (left.successRate !== right.successRate) return left.successRate - right.successRate;
-      return left.site.localeCompare(right.site);
-    });
-}
-
-function buildFailureBreakdown() {
-  const failures = Array.isArray(state.latest?.failures) ? state.latest.failures : [];
-  const counts = new Map();
-
-  failures.forEach((failure) => {
-    const code = humanizeErrorCode(failure.error_code || failure.last_error_code || 'Falha sem classificacao');
-    counts.set(code, (counts.get(code) || 0) + 1);
-  });
-
-  return [...counts.entries()]
-    .map(([label, value]) => ({ label, value }))
-    .sort((left, right) => right.value - left.value || left.label.localeCompare(right.label));
-}
-
-function renderOverallNarrative(storeRows) {
-  if (!els.overallNarrative) return;
-
-  const summary = state.latest?.summary || {};
-  const rows = buildCurrentRows();
-  const total = Number(summary.total_products ?? rows.length ?? 0);
-  const success = Number(summary.success_count ?? rows.filter((row) => row.status === 'ok').length ?? 0);
-  const failure = Number(summary.failure_count ?? rows.filter((row) => row.status === 'failed').length ?? 0);
-  const carried = rows.filter((row) => row.snapshot_status === 'carried_forward' || row.carried_forward_from).length;
-  const successRate = percentOf(success, total);
-  const failureBreakdown = buildFailureBreakdown();
-  const mainFailure = failureBreakdown[0]?.label || '';
-  const storesWithRisk = storeRows.filter((row) => row.failed > 0 || row.carried > 0).length;
-  const status = failure > 0 ? 'Atenção' : carried > 0 ? 'Monitorado' : 'Saudável';
-
-  if (els.overviewStatus) {
-    els.overviewStatus.textContent = status;
-    els.overviewStatus.dataset.state = failure > 0 ? 'danger' : carried > 0 ? 'warn' : 'ok';
+  const grouped = new Map();
+  for (const row of rows) {
+    if (!row.site) continue;
+    const entry = grouped.get(row.site) || { ok: 0, failed: 0 };
+    if (row.failure) entry.failed += 1;
+    else if (row.item) entry.ok += 1;
+    grouped.set(row.site, entry);
   }
 
-  const failureText = failure > 0
-    ? `A principal causa recente é ${mainFailure || 'falha sem classificação'}, com ${storesWithRisk} loja(s) exigindo revisão.`
-    : 'Nenhuma falha classificada apareceu na última execução.';
-  const carriedText = carried > 0
-    ? `${carried} preço(s) estão reaproveitados, então eles continuam visíveis mas não representam uma coleta nova.`
-    : 'Todos os preços exibidos como sucesso vieram da coleta mais recente.';
+  if (els.storeHealthList) {
+    els.storeHealthList.innerHTML = [...grouped.entries()].sort().map(([store, entry]) => `
+      <div class="store-health-row">
+        <strong>${escapeHtml(store)}</strong>
+        <span>${entry.ok} ok / ${entry.failed} falha(s)</span>
+      </div>
+    `).join('') || '<p class="section-note">Sem ofertas por loja ainda.</p>';
+  }
+}
 
-  els.overallNarrative.innerHTML = `
-    A última execução cobriu <strong>${escapeHtml(total)}</strong> produto(s), com
-    <strong>${escapeHtml(successRate)}%</strong> de sucesso e <strong>${escapeHtml(failure)}</strong>
-    falha(s). ${escapeHtml(failureText)} ${escapeHtml(carriedText)}
+function renderFilters() {
+  const previousSite = selectedSite();
+  const sites = [...new Set((state.latest?.items || []).map((item) => item.store || item.store_id).filter(Boolean))].sort();
+  if (els.siteFilter) {
+    els.siteFilter.innerHTML = [
+      `<option value="${ALL}">Todas</option>`,
+      ...sites.map((site) => `<option value="${escapeHtml(site)}">${escapeHtml(site)}</option>`),
+    ].join('');
+    els.siteFilter.value = sites.includes(previousSite) ? previousSite : ALL;
+  }
+
+  const categories = [...new Set(state.products.map((product) => slugifyLoose(product.category, 'sem-categoria')))].sort();
+  if (els.historyCategoryFilter) {
+    els.historyCategoryFilter.innerHTML = [
+      `<option value="${ALL}">Todas</option>`,
+      ...categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(formatCategoryLabel(category))}</option>`),
+    ].join('');
+  }
+  if (els.addCategoryList) {
+    els.addCategoryList.innerHTML = categories.map((category) => `<option value="${escapeHtml(category)}"></option>`).join('');
+  }
+}
+
+function renderOfferList(row) {
+  if (!row.offers.length) return '';
+  return `
+    <details class="offer-details">
+      <summary>${row.offers.length} oferta(s) auditada(s)</summary>
+      <div class="opportunity-list">
+        ${row.offers.map((offer) => `
+          <article class="opportunity-item">
+            <strong>${escapeHtml(offer.store || offer.store_id)}: ${escapeHtml(offer.title)}</strong>
+            <span>${formatMoney(offer.price)}${offer.unit_price ? ` / ${formatMoney(offer.unit_price)} por ${escapeHtml(offer.unit_basis || 'unidade')}` : ''}</span>
+            <small>score ${escapeHtml(offer.match_score ?? '-')} | prioridade ${escapeHtml(offer.priority_score ?? 0)}</small>
+            <a href="${escapeHtml(offer.url)}" target="_blank" rel="noopener noreferrer">Abrir oferta</a>
+          </article>
+        `).join('')}
+      </div>
+    </details>
   `;
 }
 
-function renderRunHealthStrip(storeRows) {
-  if (!els.runHealthStrip) return;
-
-  const summary = state.latest?.summary || {};
+function renderTable() {
   const rows = buildCurrentRows();
-  const total = Number(summary.total_products ?? rows.length ?? 0);
-  const success = Number(summary.success_count ?? rows.filter((row) => row.status === 'ok').length ?? 0);
-  const failure = Number(summary.failure_count ?? rows.filter((row) => row.status === 'failed').length ?? 0);
-  const carried = rows.filter((row) => row.snapshot_status === 'carried_forward' || row.carried_forward_from).length;
-  const realSuccess = Math.max(success - carried, 0);
-  const classifiedFailures = (Array.isArray(state.latest?.failures) ? state.latest.failures : [])
-    .filter((failureItem) => failureItem.error_code || failureItem.failure_stage).length;
-  const durationMs = Number(summary.run_duration_ms || 0);
+  if (els.tableFilterSummary) {
+    els.tableFilterSummary.textContent = `${rows.length} intenção(ões) no recorte atual.`;
+  }
+  if (!els.tbody) return;
 
-  const tiles = [
-    {
-      label: 'Cobertura',
-      value: `${percentOf(success, total)}%`,
-      note: `${success}/${total || 0} produtos com preço`,
-      state: failure > 0 ? 'warn' : 'ok',
-    },
-    {
-      label: 'Coleta real',
-      value: `${realSuccess}`,
-      note: `${carried} reaproveitado(s)`,
-      state: carried > 0 ? 'warn' : 'ok',
-    },
-    {
-      label: 'Falhas classificadas',
-      value: `${classifiedFailures}/${failure}`,
-      note: failure > 0 ? 'prontas para diagnóstico' : 'sem falhas recentes',
-      state: failure > 0 ? 'danger' : 'ok',
-    },
-    {
-      label: 'Lojas saudaveis',
-      value: `${storeRows.filter((row) => row.failed === 0 && row.carried === 0).length}/${storeRows.length}`,
-      note: durationMs > 0 ? `${formatCompactNumber(durationMs / 1000)}s de execução` : 'duração indisponível',
-      state: storeRows.some((row) => row.failed > 0 || row.carried > 0) ? 'warn' : 'ok',
-    },
-  ];
-
-  els.runHealthStrip.innerHTML = tiles.map((tile) => `
-    <article class="health-tile" data-state="${escapeHtml(tile.state)}">
-      <span class="metric-label">${escapeHtml(tile.label)}</span>
-      <strong class="metric-value">${escapeHtml(tile.value)}</strong>
-      <small class="metric-note">${escapeHtml(tile.note)}</small>
-    </article>
-  `).join('');
-}
-
-function renderStoreHealthList(storeRows) {
-  if (!els.storeHealthList) return;
-
-  if (storeRows.length === 0) {
-    els.storeHealthList.innerHTML = '<div class="empty-state">Sem lojas com dados atuais.</div>';
+  if (rows.length === 0) {
+    els.tbody.innerHTML = '<tr><td colspan="6">Nenhuma intenção encontrada para o filtro atual.</td></tr>';
     return;
   }
 
-  els.storeHealthList.innerHTML = storeRows.slice(0, 8).map((store) => {
-    const realPercent = percentOf(store.real, store.total);
-    const carriedPercent = percentOf(store.carried, store.total);
-    const failedPercent = percentOf(store.failed, store.total);
-    const statusClass = store.failed > 0 ? 'status-failed' : store.carried > 0 ? 'status-fallback' : 'status-ok';
-    const label = store.failed > 0 ? 'revisar' : store.carried > 0 ? 'fallback' : 'ok';
-    const adapter = [...store.adapters][0] || [...store.supportLevels][0] || 'adapter padrao';
-
+  els.tbody.innerHTML = rows.map((row) => {
+    const item = row.item;
+    const failure = row.failure;
+    const unitText = item?.unit_price
+      ? `${formatMoney(item.unit_price)} / ${escapeHtml(item.unit_basis || 'unidade')}`
+      : '-';
+    const status = failure
+      ? `Falha: ${escapeHtml(failure.error_code || 'erro')}`
+      : item
+        ? 'ok'
+        : 'sem execução';
     return `
-      <article class="store-health-row">
-        <div class="store-health-topline">
-          <strong>${escapeHtml(store.site)}</strong>
-          <span class="status-pill ${statusClass}">${escapeHtml(label)}</span>
-        </div>
-        <div class="store-progress" aria-hidden="true">
-          <span class="progress-ok" style="width:${realPercent}%"></span>
-          <span class="progress-warn" style="width:${carriedPercent}%"></span>
-          <span class="progress-danger" style="width:${failedPercent}%"></span>
-        </div>
-        <div class="store-health-meta">
-          <span>${escapeHtml(store.real)} real</span>
-          <span>${escapeHtml(store.carried)} fallback</span>
-          <span>${escapeHtml(store.failed)} falha(s)</span>
-        </div>
-        <small>${escapeHtml(store.dominantFailure ? humanizeErrorCode(store.dominantFailure) : adapter)}</small>
-      </article>
+      <tr data-product-id="${escapeHtml(row.product.id)}">
+        <td>
+          <strong>${escapeHtml(row.product.name)}</strong>
+          <span class="product-meta">${escapeHtml(row.product.characteristics || '')}</span>
+          ${renderOfferList(row)}
+        </td>
+        <td>${escapeHtml(item?.store || item?.store_id || '-')}</td>
+        <td>${item?.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${formatMoney(item.price)}</a>` : '-'}</td>
+        <td>${escapeHtml(item?.title || '-')}</td>
+        <td>${unitText}</td>
+        <td><span class="status-pill ${failure ? 'status-fallback' : 'status-ok'}">${status}</span></td>
+      </tr>
     `;
   }).join('');
 }
 
-function renderStoreHealthChart(storeRows) {
-  if (!els.storeHealthCanvas) return;
-  destroyChart('storeChart');
-
-  const rows = storeRows.length > 0 ? storeRows : [{ site: 'Sem dados', real: 0, carried: 0, failed: 0 }];
-  state.storeChart = new window.Chart(els.storeHealthCanvas, {
-    type: 'bar',
-    data: {
-      labels: rows.map((row) => row.site),
-      datasets: [
-        {
-          label: 'Coleta real',
-          data: rows.map((row) => row.real),
-          backgroundColor: CHART_THEME.ok,
-          borderRadius: 6,
-        },
-        {
-          label: 'Reaproveitado',
-          data: rows.map((row) => row.carried),
-          backgroundColor: CHART_THEME.warn,
-          borderRadius: 6,
-        },
-        {
-          label: 'Falha',
-          data: rows.map((row) => row.failed),
-          backgroundColor: CHART_THEME.danger,
-          borderRadius: 6,
-        },
-      ],
-    },
-    options: compactChartOptions({ stacked: true, indexAxis: 'y' }),
-  });
-}
-
-function renderEngineHealthChart() {
-  if (!els.engineHealthCanvas) return;
-  destroyChart('engineChart');
-
-  const engines = state.latest?.summary?.engines || {};
-  const entries = Object.entries(engines);
-  const rows = entries.length > 0
-    ? entries.map(([key, value]) => ({
-      label: key.replace(/^engine/i, 'E').replace(/_/g, ' ').toUpperCase(),
-      success: Number(value?.success || 0),
-      failed: Number(value?.failed || 0),
-    }))
-    : [{ label: 'Sem motores', success: 0, failed: 0 }];
-
-  state.engineChart = new window.Chart(els.engineHealthCanvas, {
-    type: 'bar',
-    data: {
-      labels: rows.map((row) => row.label),
-      datasets: [
-        {
-          label: 'Sucesso',
-          data: rows.map((row) => row.success),
-          backgroundColor: CHART_THEME.accent,
-          borderRadius: 6,
-        },
-        {
-          label: 'Falha',
-          data: rows.map((row) => row.failed),
-          backgroundColor: CHART_THEME.danger,
-          borderRadius: 6,
-        },
-      ],
-    },
-    options: compactChartOptions({ stacked: false }),
-  });
-}
-
-function renderFailureBreakdownChart() {
-  if (!els.failureBreakdownCanvas) return;
-  destroyChart('failureChart');
-
-  const failures = buildFailureBreakdown();
-  const hasFailures = failures.length > 0;
-  const rows = hasFailures ? failures.slice(0, 6) : [{ label: 'Sem falhas', value: 1 }];
-  const colors = hasFailures
-    ? [CHART_THEME.danger, CHART_THEME.warn, ...CATEGORY_PALETTE].slice(0, 6)
-    : [CHART_THEME.ok];
-
-  state.failureChart = new window.Chart(els.failureBreakdownCanvas, {
-    type: 'doughnut',
-    data: {
-      labels: rows.map((row) => row.label),
-      datasets: [
-        {
-          label: 'Ocorrencias',
-          data: rows.map((row) => row.value),
-          displayValues: hasFailures ? rows.map((row) => row.value) : [0],
-          backgroundColor: colors,
-          borderColor: CHART_THEME.surface,
-          borderWidth: 2,
-          hoverOffset: hasFailures ? 8 : 0,
-        },
-      ],
-    },
-    options: {
-      theme: CHART_THEME,
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '64%',
-      centerText: hasFailures
-        ? `Total: ${failures.reduce((sum, row) => sum + row.value, 0)}`
-        : 'Total: 0',
-      animation: {
-        duration: 520,
-        easing: 'easeOutQuart',
-      },
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            boxWidth: 10,
-            boxHeight: 10,
-            color: CHART_THEME.axis,
-            font: {
-              size: 12,
-              weight: 650,
-            },
-          },
-        },
-        tooltip: {
-          callbacks: {
-            label(context) {
-              if (!hasFailures) return 'Sem falhas recentes';
-              return `${context.label}: ${context.parsed}`;
-            },
-          },
-        },
-      },
-    },
-  });
-}
-
-function renderOpportunityItem(row, kind) {
-  const gap = Number(row.price_gap_30d);
-  const isFloor = Number.isFinite(gap) && gap <= 0.01;
-  const note = kind === 'risk'
-    ? rowStatusNote(row)
-    : (isFloor ? 'No menor nível dos últimos 30 dias' : `${formatMoney(gap)} acima do menor 30d`);
-  const value = kind === 'risk'
-    ? rowStatusLabel(row)
-    : formatMoney(row.current_price);
-  const modifier = kind === 'risk'
-    ? (row.status === 'failed' ? 'is-risk' : 'is-warn')
-    : (isFloor ? 'is-good' : 'is-neutral');
-
-  return `
-    <article class="opportunity-row ${modifier}">
-      <div>
-        <strong>${escapeHtml(row.name)}</strong>
-        <small>${escapeHtml(row.site_label)} / ${escapeHtml(formatCategoryLabel(row.category))}</small>
-      </div>
-      <div class="opportunity-value">
-        <strong>${escapeHtml(value)}</strong>
-        <small>${escapeHtml(note)}</small>
-      </div>
-    </article>
-  `;
-}
-
-function renderOpportunities() {
+function renderInsights() {
   const rows = buildCurrentRows();
-
+  const priced = rows.filter((row) => row.item).sort((a, b) => Number(a.item.price) - Number(b.item.price));
   if (els.priceOpportunities) {
-    const opportunities = rows
-      .filter((row) => row.status === 'ok' && Number.isFinite(row.current_price) && Number.isFinite(row.price_gap_30d))
-      .map((row) => ({
-        ...row,
-        opportunityScore: Number(row.price_gap_30d) / Math.max(Number(row.current_price), 1),
-      }))
-      .filter((row) => row.price_gap_30d <= Math.max(10, row.current_price * 0.05))
-      .sort((left, right) => left.opportunityScore - right.opportunityScore)
-      .slice(0, 6);
-
-    els.priceOpportunities.innerHTML = opportunities.length > 0
-      ? opportunities.map((row) => renderOpportunityItem(row, 'opportunity')).join('')
-      : '<div class="empty-state">Nenhum produto está perto do menor preço recente.</div>';
+    els.priceOpportunities.innerHTML = priced.slice(0, 6).map((row) => `
+      <article class="opportunity-item">
+        <strong>${escapeHtml(row.product.name)}</strong>
+        <span>${formatMoney(row.item.price)} em ${escapeHtml(row.item.store || row.item.store_id)}</span>
+        <small>${escapeHtml(row.item.title || '')}</small>
+      </article>
+    `).join('') || '<p class="section-note">Sem ofertas no último snapshot.</p>';
   }
-
   if (els.riskList) {
-    const risks = rows
-      .filter((row) => row.status === 'failed' || row.snapshot_status === 'carried_forward' || row.carried_forward_from)
-      .sort((left, right) => {
-        const leftScore = (left.status === 'failed' ? 2 : 0) + (left.carried_forward_from ? 1 : 0);
-        const rightScore = (right.status === 'failed' ? 2 : 0) + (right.carried_forward_from ? 1 : 0);
-        return rightScore - leftScore || left.name.localeCompare(right.name);
-      })
-      .slice(0, 6);
-
-    els.riskList.innerHTML = risks.length > 0
-      ? risks.map((row) => renderOpportunityItem(row, 'risk')).join('')
-      : '<div class="empty-state">Nenhum produto exige revisão agora.</div>';
+    const failures = rows.filter((row) => row.failure);
+    els.riskList.innerHTML = failures.map((row) => `
+      <article class="opportunity-item">
+        <strong>${escapeHtml(row.product.name)}</strong>
+        <span>${escapeHtml(row.failure.error_code || 'falha')}</span>
+        <small>${escapeHtml(row.failure.error_detail || '')}</small>
+      </article>
+    `).join('') || '<p class="section-note">Nenhuma falha no último snapshot.</p>';
+  }
+  if (els.detail) {
+    els.detail.innerHTML = priced.slice(0, 5).map((row) => `
+      <p><strong>${escapeHtml(row.product.name)}</strong>: ${formatMoney(row.item.price)}</p>
+    `).join('') || 'Sem dados para o recorte.';
+  }
+  if (els.runDrilldown) els.runDrilldown.textContent = state.latest?.run_id || 'Sem run.';
+  if (els.categoryLegend) {
+    const categories = [...new Set(rows.map((row) => slugifyLoose(row.product.category, 'sem-categoria')))].sort();
+    els.categoryLegend.innerHTML = categories.map((category) => `<span class="site-pill">${escapeHtml(formatCategoryLabel(category))}</span>`).join('');
   }
 }
 
-function renderDashboardOverview() {
-  const storeRows = buildStoreHealthRows();
-  renderOverallNarrative(storeRows);
-  renderRunHealthStrip(storeRows);
-  renderStoreHealthList(storeRows);
-  renderStoreHealthChart(storeRows);
-  renderEngineHealthChart();
-  renderFailureBreakdownChart();
-  renderOpportunities();
-}
-
-function valueMap(points) {
-  const map = new Map();
-  (points || []).forEach((point) => {
-    if (!isRenderablePrice(point?.price)) {
-      map.set(point.date, null);
-      return;
-    }
-    map.set(point.date, Number(point.price));
-  });
-  return map;
-}
-
-function buildHistories() {
-  const productMap = new Map();
-  const datesSet = new Set();
-  const dailyProductSnapshots = new Map();
-
-  sortRunsDescending(state.runs).reverse().forEach((run) => {
-    const dateLabel = run.run_date || (run.generated_at ? run.generated_at.slice(0, 10) : '-');
-    datesSet.add(dateLabel);
-
-    (run.results || []).forEach((result) => {
-      const key = `${result.product_id}::${dateLabel}`;
-      dailyProductSnapshots.set(key, {
-        run,
-        result,
-        date: dateLabel,
-      });
-    });
-  });
-
-  const categoryAggregation = new Map();
-  dailyProductSnapshots.forEach(({ run, result, date }) => {
-    if (!isRenderablePrice(result?.price)) {
-      return;
-    }
-
-    const product = state.productsById.get(result.product_id);
-    const category = normalizeCategory(product?.category);
-    const comparisonKey = normalizeComparisonKey(product?.comparison_key);
-    const url = product?.url || result.url;
-    const label = buildProductLabel(product?.name || result.name, url);
-
-    if (!productMap.has(result.product_id)) {
-      productMap.set(result.product_id, {
-        product_id: result.product_id,
-        name: product?.name || result.name,
-        label,
-        category,
-        comparison_key: comparisonKey,
-        site_label: formatSiteLabel(siteLabelFromUrl(url)),
-        points: [],
-      });
-    }
-
-    productMap.get(result.product_id).points.push({
-      date,
-      price: Number(result.price),
-      run_id: run.run_id || null,
-      generated_at: run.generated_at || null,
-    });
-
-    const categoryKey = `${category}::${date}`;
-    const prev = categoryAggregation.get(categoryKey) || { sum: 0, count: 0 };
-    prev.sum += Number(result.price);
-    prev.count += 1;
-    categoryAggregation.set(categoryKey, prev);
-  });
-
-  const allDates = [...datesSet].sort((a, b) => a.localeCompare(b));
-
-  productMap.forEach((entry) => {
-    entry.points.sort((a, b) => a.date.localeCompare(b.date));
-  });
-
-  const categoryMap = new Map();
-  state.categories.forEach((category) => {
-    const points = allDates.map((date) => {
-      const agg = categoryAggregation.get(`${category}::${date}`);
-      if (!agg || agg.count === 0) return { date, price: null };
-      return {
-        date,
-        price: Math.round((agg.sum / agg.count) * 100) / 100,
-      };
-    });
-
-    categoryMap.set(category, {
-      category,
-      label: formatCategoryLabel(category),
-      points,
-    });
-  });
-
-  state.historyByProduct = productMap;
-  state.historyByCategory = categoryMap;
-  state.allDates = allDates;
-  if (!state.selectedRunDate || !allDates.includes(state.selectedRunDate)) {
-    state.selectedRunDate = allDates[allDates.length - 1] || '';
-  }
-  resetViewport();
-}
-
-function productOptionsForFilter() {
-  return filteredHistoryProductEntries();
-}
-
-function renderProductSelect() {
-  const options = productOptionsForFilter();
-  const previous = els.productSelect.value;
-
-  if (options.length === 0) {
-    els.productSelect.innerHTML = '<option value="">Sem histórico</option>';
-    syncControlAvailability();
-    return;
-  }
-
-  els.productSelect.innerHTML = options
-    .map((item) => `<option value="${escapeHtml(item.product_id)}">${escapeHtml(item.label)}</option>`)
-    .join('');
-
-  const nextValue = options.some((item) => item.product_id === previous)
-    ? previous
-    : options[0].product_id;
-
-  els.productSelect.value = nextValue;
-  syncControlAvailability();
-}
-
-function currentComparisonGroupIds() {
-  const productId = selectedProductId();
-  if (!productId) return [];
-
-  const product = state.productsById.get(productId);
-  const comparisonKey = normalizeComparisonKey(product?.comparison_key);
-  if (!comparisonKey) return [productId];
-
-  return state.comparisonGroups.get(comparisonKey) || [productId];
-}
-
-function currentVisibleProductEntries() {
-  let entries = filteredHistoryProductEntries();
-
-  const scope = currentScope();
-  if (scope === 'single-product') {
-    return entries.filter((entry) => entry.product_id === selectedProductId());
-  }
-
-  if (scope === 'comparison-group') {
-    const allowedIds = new Set(currentComparisonGroupIds());
-    return entries.filter((entry) => allowedIds.has(entry.product_id));
-  }
-
-  return entries;
-}
-
-function datasetFromProduct(entry) {
-  const pointMap = valueMap(entry.points);
-  const color = colorForCategory(entry.category);
-
-  return {
-    kind: 'product',
-    productId: entry.product_id,
-    categoryKey: entry.category,
-    comparisonKey: entry.comparison_key,
-    siteLabel: entry.site_label,
-    label: entry.label,
-    data: state.allDates.map((date) => {
-      if (!pointMap.has(date)) return null;
-      const value = pointMap.get(date);
-      return Number.isFinite(value) ? value : null;
-    }),
-    borderColor: color,
-    backgroundColor: color,
-    borderWidth: 2.4,
-    pointRadius: 0,
-    pointHoverRadius: 6,
-    pointHitRadius: 20,
-    spanGaps: false,
-    tension: 0.24,
-    highlightLastPoint: true,
-  };
-}
-
-function datasetFromCategory(entry) {
-  const pointMap = valueMap(entry.points);
-  const color = colorForCategory(entry.category);
-
-  return {
-    kind: 'category',
-    categoryKey: entry.category,
-    label: entry.label,
-    data: state.allDates.map((date) => {
-      if (!pointMap.has(date)) return null;
-      const value = pointMap.get(date);
-      return Number.isFinite(value) ? value : null;
-    }),
-    borderColor: color,
-    backgroundColor: color,
-    borderWidth: 3,
-    pointRadius: 0,
-    pointHoverRadius: 6,
-    pointHitRadius: 20,
-    spanGaps: false,
-    tension: 0.22,
-    highlightLastPoint: true,
-  };
-}
-
-function chartDatasets() {
-  const scope = currentScope();
-  const category = selectedCategory();
-
-  if (scope === 'single-product') {
-    const product = state.historyByProduct.get(selectedProductId());
-    if (!product) return [];
-    return [datasetFromProduct(product)];
-  }
-
-  if (scope === 'comparison-group') {
-    return currentVisibleProductEntries().map(datasetFromProduct);
-  }
-
-  if (scope === 'by-category') {
-    const entries = filteredHistoryProductEntries();
-    return buildCategoryEntriesFromProducts(entries).map(datasetFromCategory);
-  }
-
-  return currentVisibleProductEntries().map(datasetFromProduct);
-}
-
-function styleHistoryDatasets(datasets) {
-  const singleSeries = datasets.length === 1;
-  const crowded = datasets.length >= 6;
-
-  return datasets.map((dataset, index) => ({
-    ...dataset,
-    borderWidth: singleSeries
-      ? 3.4
-      : dataset.kind === 'category'
-        ? 3
-        : 2.2,
-    tension: singleSeries ? 0.3 : dataset.tension || 0.22,
-    fillOpacity: singleSeries ? 0.18 : 0,
-    lastPointRadius: singleSeries ? 5.8 : 4.4,
-    lineOpacity: crowded ? 0.78 : 0.92,
-    showLatestPrice: singleSeries && index === 0,
-  }));
-}
-
-function resetViewport() {
-  const lastIndex = Math.max(state.allDates.length - 1, 0);
-  state.viewport = {
-    startIndex: 0,
-    endIndex: lastIndex,
-  };
-}
-
-function clampViewport() {
-  const total = state.allDates.length;
-  if (total === 0) {
-    state.viewport = { startIndex: 0, endIndex: 0 };
-    return;
-  }
-
-  let startIndex = Number.isInteger(state.viewport.startIndex) ? state.viewport.startIndex : 0;
-  let endIndex = Number.isInteger(state.viewport.endIndex) ? state.viewport.endIndex : total - 1;
-
-  startIndex = clamp(startIndex, 0, total - 1);
-  endIndex = clamp(endIndex, startIndex, total - 1);
-
-  state.viewport = { startIndex, endIndex };
-}
-
-function visibleRange() {
-  clampViewport();
-  const { startIndex, endIndex } = state.viewport;
-
-  return {
-    startIndex,
-    endIndex,
-    labels: state.allDates.slice(startIndex, endIndex + 1),
-  };
-}
-
-function zoomChart(direction) {
-  const total = state.allDates.length;
-  if (total <= 1) return;
-
-  clampViewport();
-
-  const currentSize = state.viewport.endIndex - state.viewport.startIndex + 1;
-  const targetSize = direction === 'in'
-    ? Math.max(2, Math.floor(currentSize * 0.72))
-    : Math.min(total, Math.ceil(currentSize * 1.35));
-
-  if (targetSize === currentSize) return;
-
-  const center = Math.round((state.viewport.startIndex + state.viewport.endIndex) / 2);
-  let startIndex = center - Math.floor(targetSize / 2);
-  let endIndex = startIndex + targetSize - 1;
-
-  if (startIndex < 0) {
-    endIndex += Math.abs(startIndex);
-    startIndex = 0;
-  }
-
-  if (endIndex >= total) {
-    const overflow = endIndex - total + 1;
-    startIndex = Math.max(0, startIndex - overflow);
-    endIndex = total - 1;
-  }
-
-  state.viewport = { startIndex, endIndex };
-  renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
-}
-
-function updateZoomButtons() {
-  const total = state.allDates.length;
-  const currentSize = total > 0 ? state.viewport.endIndex - state.viewport.startIndex + 1 : 0;
-
-  if (els.zoomIn) {
-    els.zoomIn.disabled = total <= 1 || currentSize <= 2;
-  }
-  if (els.zoomOut) {
-    els.zoomOut.disabled = total <= 1 || currentSize >= total;
-  }
-  if (els.zoomReset) {
-    els.zoomReset.disabled = total <= 1 || currentSize >= total;
-  }
-}
-
-function updateHistoryStageWidth() {
-  if (!els.historyScroll || !els.historyStage) return;
-
-  const total = state.allDates.length;
-  const visibleCount = total > 0 ? state.viewport.endIndex - state.viewport.startIndex + 1 : 0;
-  const containerWidth = els.historyScroll.clientWidth || els.historyScroll.offsetWidth || 0;
-
-  if (!containerWidth || total <= 1 || visibleCount >= total) {
-    els.historyStage.style.width = '100%';
-    return;
-  }
-
-  const zoomFactor = total / visibleCount;
-  const stageWidth = Math.max(containerWidth, Math.round(containerWidth * zoomFactor));
-  els.historyStage.style.width = `${stageWidth}px`;
-}
-
-function syncHistoryScrollPosition() {
-  if (!els.historyScroll) return;
-
-  const total = state.allDates.length;
-  const visibleCount = total > 0 ? state.viewport.endIndex - state.viewport.startIndex + 1 : 0;
-  if (total <= 1 || visibleCount >= total) {
-    state.isSyncingHistoryScroll = true;
-    els.historyScroll.scrollLeft = 0;
-    state.isSyncingHistoryScroll = false;
-    return;
-  }
-
-  const maxOffset = total - visibleCount;
-  const maxScrollLeft = Math.max(els.historyScroll.scrollWidth - els.historyScroll.clientWidth, 0);
-  const progress = maxOffset > 0 ? state.viewport.startIndex / maxOffset : 0;
-
-  state.isSyncingHistoryScroll = true;
-  els.historyScroll.scrollLeft = progress * maxScrollLeft;
-  state.isSyncingHistoryScroll = false;
-}
-
-function onHistoryScroll() {
-  if (state.isSyncingHistoryScroll || !els.historyScroll) return;
-  hideHistoryHoverTooltip();
-
-  if (state.pendingHistoryScrollFrame) {
-    window.cancelAnimationFrame(state.pendingHistoryScrollFrame);
-  }
-
-  state.pendingHistoryScrollFrame = window.requestAnimationFrame(() => {
-    state.pendingHistoryScrollFrame = null;
-
-    const total = state.allDates.length;
-    const visibleCount = total > 0 ? state.viewport.endIndex - state.viewport.startIndex + 1 : 0;
-    if (total <= 1 || visibleCount >= total) return;
-
-    const maxOffset = total - visibleCount;
-    const maxScrollLeft = Math.max(els.historyScroll.scrollWidth - els.historyScroll.clientWidth, 0);
-    if (maxOffset <= 0 || maxScrollLeft <= 0) return;
-
-    const progress = els.historyScroll.scrollLeft / maxScrollLeft;
-    const startIndex = clamp(Math.round(progress * maxOffset), 0, maxOffset);
-    const endIndex = startIndex + visibleCount - 1;
-
-    if (startIndex === state.viewport.startIndex && endIndex === state.viewport.endIndex) {
-      return;
-    }
-
-    state.viewport = { startIndex, endIndex };
-    renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
-  });
-}
-
-function projectPointOnSegment(point, start, end) {
-  const dx = end.x - start.x;
-  const dy = end.y - start.y;
-  const lengthSquared = (dx * dx) + (dy * dy);
-
-  if (lengthSquared === 0) {
-    const distance = Math.hypot(point.x - start.x, point.y - start.y);
-    return {
-      x: start.x,
-      y: start.y,
-      t: 0,
-      distance,
-    };
-  }
-
-  const rawT = (((point.x - start.x) * dx) + ((point.y - start.y) * dy)) / lengthSquared;
-  const t = clamp(rawT, 0, 1);
-  const x = start.x + (dx * t);
-  const y = start.y + (dy * t);
-
-  return {
-    x,
-    y,
-    t,
-    distance: Math.hypot(point.x - x, point.y - y),
-  };
-}
-
-function findNearestHistoryLineHit(chart, position) {
-  const chartArea = chart?.chartArea;
-  if (!chartArea) return null;
-  const chartData = chart.data || chart.config?.data || {};
-  const datasets = Array.isArray(chartData.datasets) ? chartData.datasets : [];
-  const labels = Array.isArray(chartData.labels) ? chartData.labels : [];
-  if (datasets.length === 0) return null;
-
-  const { x, y } = position;
-  if (x < chartArea.left || x > chartArea.right || y < chartArea.top || y > chartArea.bottom) {
-    return null;
-  }
-
-  const threshold = 14;
-  let best = null;
-
-  datasets.forEach((dataset, datasetIndex) => {
-    const meta = chart.getDatasetMeta(datasetIndex);
-    if (!meta || meta.hidden) return;
-
-    const points = meta.data || [];
-    const values = dataset.data || [];
-
-    for (let index = 0; index < points.length; index += 1) {
-      const pointValue = values[index];
-      const point = points[index];
-      if (!point || !isRenderablePrice(pointValue)) continue;
-
-      const distance = Math.hypot(x - point.x, y - point.y);
-      if (distance > threshold) continue;
-
-      if (!best || distance < best.distance) {
-        best = {
-          dataset,
-          datasetIndex,
-          distance,
-          price: pointValue,
-          label: labels[index],
-          anchorX: point.x,
-          anchorY: point.y,
-        };
-      }
-    }
-
-    for (let index = 0; index < points.length - 1; index += 1) {
-      const startPoint = points[index];
-      const endPoint = points[index + 1];
-      const startValue = values[index];
-      const endValue = values[index + 1];
-      if (!startPoint || !endPoint || !isRenderablePrice(startValue) || !isRenderablePrice(endValue)) continue;
-
-      const projection = projectPointOnSegment({ x, y }, startPoint, endPoint);
-      if (projection.distance > threshold) continue;
-
-      if (!best || projection.distance < best.distance) {
-        const price = Number(startValue) + ((Number(endValue) - Number(startValue)) * projection.t);
-        const labelIndex = projection.t < 0.5 ? index : index + 1;
-
-        best = {
-          dataset,
-          datasetIndex,
-          distance: projection.distance,
-          price,
-          label: labels[labelIndex],
-          anchorX: projection.x,
-          anchorY: projection.y,
-        };
-      }
-    }
-  });
-
-  return best;
-}
-
-function hideHistoryHoverTooltip() {
-  if (!els.historyHoverTooltip) return;
-  els.historyHoverTooltip.hidden = true;
-  if (state.chart?.setActiveHover) {
-    state.chart.setActiveHover(null);
-  }
-  if (els.historyCanvas) {
-    els.historyCanvas.style.cursor = 'default';
-  }
-}
-
-function showHistoryHoverTooltip(hit, mouseEvent) {
-  if (!els.historyHoverTooltip || !els.historyMain) return;
-
-  if (hit?.label && state.selectedRunDate !== hit.label) {
-    state.selectedRunDate = hit.label;
-    renderRunDrilldown();
-  }
-
-  els.historyHoverTooltip.innerHTML = `
-    <strong>${escapeHtml(hit.dataset.label)}</strong>
-    <span class="tooltip-price">${formatMoney(hit.price)}</span>
-    <small>${escapeHtml(hit.label || '')}</small>
-  `;
-
-  const mainRect = els.historyMain.getBoundingClientRect();
-  els.historyHoverTooltip.hidden = false;
-
-  const desiredLeft = mouseEvent.clientX - mainRect.left;
-  const desiredTop = mouseEvent.clientY - mainRect.top;
-  const tooltipWidth = els.historyHoverTooltip.offsetWidth;
-  const tooltipHeight = els.historyHoverTooltip.offsetHeight;
-  const left = clamp(desiredLeft, 8, Math.max(8, mainRect.width - tooltipWidth - 8));
-  const top = clamp(desiredTop, 8, Math.max(8, mainRect.height - tooltipHeight - 8));
-
-  els.historyHoverTooltip.style.left = `${left}px`;
-  els.historyHoverTooltip.style.top = `${top}px`;
-}
-
-function handleHistoryHover(event) {
-  if (!state.chart) {
-    hideHistoryHoverTooltip();
-    return;
-  }
-
-  const hit = findNearestHistoryLineHit(state.chart, {
-    x: event.offsetX,
-    y: event.offsetY,
-  });
-
-  if (!hit) {
-    els.historyCanvas.style.cursor = 'default';
-    hideHistoryHoverTooltip();
-    return;
-  }
-
-  els.historyCanvas.style.cursor = 'pointer';
-  if (state.chart?.setActiveHover) {
-    state.chart.setActiveHover({
-      datasetIndex: hit.datasetIndex,
-      x: hit.anchorX,
-      y: hit.anchorY,
-    });
-  }
-  showHistoryHoverTooltip(hit, event);
-}
-
-function last30DayMinimum(productId) {
-  const points = state.historyByProduct.get(productId)?.points || [];
-  const values = points
-    .slice(-30)
-    .map((point) => Number(point.price))
-    .filter((value) => isRenderablePrice(value));
-
-  return values.length > 0 ? Math.min(...values) : null;
-}
-
-function lastKnownHistoryPoint(productId) {
-  const points = state.historyByProduct.get(productId)?.points || [];
-  return [...points]
-    .reverse()
-    .find((point) => isRenderablePrice(point?.price)) || null;
-}
-
-function snapshotStatus(snapshot, failure) {
-  if (failure) return 'failed';
-  if (snapshot) return 'ok';
-  return '';
-}
-
-function isCarriedForwardSnapshot(snapshot) {
-  return snapshot?.status === 'carried_forward' && isRenderablePrice(snapshot?.price);
-}
-
-function fallbackLabel(snapshotLike) {
-  if (!snapshotLike) return '';
-  const status = snapshotLike?.status;
-
-  if (status !== 'carried_forward' && status !== 'historical_fallback') {
-    return '';
-  }
-
-  if (status === 'carried_forward' && snapshotLike?.carried_forward_from?.run_date) {
-    return `preço reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
-  }
-
-  if (status === 'historical_fallback' && snapshotLike?.carried_forward_from?.run_date) {
-    return `preço reaproveitado de ${snapshotLike.carried_forward_from.run_date}`;
-  }
-
-  return 'preço reaproveitado do último snapshot válido';
-}
-
-function rowStatusLabel(row) {
-  if (row.snapshot_status === 'carried_forward') return 'reaproveitado';
-  return row.status === 'ok' ? 'ok' : 'falhou';
-}
-
-function rowStatusNote(row) {
-  if (row.status === 'ok') {
-    return row.adapter ? `coleta validada via ${row.adapter}` : 'coleta validada';
-  }
-
-  const failure = failureSummary(row);
-  const carryLabel = fallbackLabel({
-    status: row.snapshot_status,
-    carried_forward_from: row.carried_forward_from,
-  });
-  if (failure && carryLabel) {
-    return `${failure}. ${carryLabel}`;
-  }
-  return carryLabel || failure || 'exige atenção';
-}
-
-function buildCurrentRows() {
-  const ids = new Set([
-    ...state.latestItemsById.keys(),
-    ...state.latestFailuresById.keys(),
-  ]);
-
-  const rows = [];
-  ids.forEach((productId) => {
-    const product = state.productsById.get(productId);
-    const success = state.latestItemsById.get(productId);
-    const failure = state.latestFailuresById.get(productId);
-    const base = success || failure || product || {};
-    const units = Number(product?.units_per_package);
-    const historyFallback = lastKnownHistoryPoint(productId);
-    const currentPrice = isRenderablePrice(success?.price)
-      ? Number(success.price)
-      : (historyFallback ? Number(historyFallback.price) : null);
-    const latestFloor = last30DayMinimum(productId);
-    const unitPrice = isRenderablePrice(success?.unit_price)
-      ? Number(success.unit_price)
-      : (currentPrice !== null && Number.isFinite(units) && units > 1 ? currentPrice / units : null);
-    const fallbackMeta = success?.carried_forward_from || (historyFallback ? {
-      run_id: historyFallback.run_id || null,
-      run_date: historyFallback.date || null,
-      fetched_at: historyFallback.generated_at || null,
-      source: 'history',
-      status: 'ok',
-    } : null);
-
-    rows.push({
-      product_id: productId,
-      category: normalizeCategory(product?.category),
-      name: product?.name || base.name || productId,
-      site_label: formatSiteLabel(siteLabelFromUrl(base.url || product?.url)),
-      current_price: currentPrice,
-      lowest_30d: latestFloor,
-      unit_price: isRenderablePrice(unitPrice) ? Number(unitPrice) : null,
-      price_gap_30d: currentPrice !== null && isRenderablePrice(latestFloor)
-        ? currentPrice - Number(latestFloor)
-        : null,
-      comparison_key: String(product?.comparison_key || '').trim(),
-      updated_at: success?.fetched_at || failure?.fetched_at || historyFallback?.generated_at || null,
-      status: snapshotStatus(success, failure),
-      snapshot_status: success?.status || (failure && historyFallback ? 'historical_fallback' : ''),
-      carried_forward_from: fallbackMeta,
-      error_code: failure?.error_code || '',
-      error_detail: failure?.error_detail || failure?.last_error || '',
-      artifact_dir: failure?.artifact_dir || '',
-      adapter: success?.adapter || failure?.adapter || '',
-      store_support_level: success?.store_support_level || failure?.store_support_level || '',
-    });
-  });
-
-  return rows.sort((a, b) => {
-    if (a.category !== b.category) return a.category.localeCompare(b.category);
-    if (a.name !== b.name) return a.name.localeCompare(b.name);
-    return a.site_label.localeCompare(b.site_label);
-  });
-}
-
-function rowMatchesSharedFilters(row) {
-  const site = selectedSite();
-  if (site !== ALL && row.site_label !== site) {
-    return false;
-  }
-
-  const status = selectedStatus();
-  if (status !== ALL && row.status !== status) {
-    return false;
-  }
-
-  if (!matchesSearch([
-    row.name,
-    row.site_label,
-    formatCategoryLabel(row.category),
-    row.comparison_key,
-    row.product_id,
-  ].join(' '))) {
-    return false;
-  }
-
-  const category = selectedCategory();
-  if (category !== ALL && row.category !== category) {
-    return false;
-  }
-
-  const scope = currentScope();
-  if (scope === 'single-product') {
-    return row.product_id === selectedProductId();
-  }
-
-  if (scope === 'comparison-group') {
-    const selected = state.productsById.get(selectedProductId());
-    if (!selected) return false;
-
-    const selectedComparisonKey = normalizeComparisonKey(selected.comparison_key);
-    if (!selectedComparisonKey) {
-      return row.product_id === selected.id;
-    }
-
-    return normalizeComparisonKey(row.comparison_key) === selectedComparisonKey;
-  }
-
-  return true;
-}
-
-function tableSummaryText(rowCount) {
-  const category = selectedCategory();
-  const scope = currentScope();
-  const categoryLabel = category === ALL ? 'todas as categorias' : formatCategoryLabel(category);
-
-  if (scope === 'single-product') {
-    const product = state.historyByProduct.get(selectedProductId());
-    return `${rowCount} linha(s) para ${product?.label || 'o produto selecionado'}, em ${categoryLabel}.`;
-  }
-
-  if (scope === 'comparison-group') {
-    const product = state.productsById.get(selectedProductId());
-    const comparisonKey = String(product?.comparison_key || '').trim() || 'sem grupo';
-    return `${rowCount} linha(s) do grupo de comparação "${comparisonKey}" em ${categoryLabel}.`;
-  }
-
-  if (scope === 'by-category') {
-    return `${rowCount} linha(s) sincronizadas com a visão por categoria em ${categoryLabel}.`;
-  }
-
-  return `${rowCount} linha(s) sincronizadas com o histórico em ${categoryLabel}.`;
-}
-
-function renderActiveFilterPills() {
-  if (!els.activeFilterPills) return;
-
-  const pills = [];
-  const query = els.dashboardSearch?.value.trim();
-
-  if (query) pills.push(`Busca: ${query}`);
-  if (selectedSite() !== ALL) pills.push(`Loja: ${selectedSite()}`);
-  if (selectedStatus() !== ALL) pills.push(`Status: ${selectedStatus()}`);
-  if (selectedCategory() !== ALL) pills.push(`Categoria: ${formatCategoryLabel(selectedCategory())}`);
-  if (currentScope() !== 'all-products') pills.push(`Modo: ${els.chartScope.selectedOptions[0]?.textContent || currentScope()}`);
-  if (!hideLegacySeriesEnabled()) pills.push('Séries legadas visíveis');
-
-  if (pills.length === 0) {
-    els.activeFilterPills.innerHTML = '';
-    if (els.toolbarFooter) els.toolbarFooter.hidden = true;
-    return;
-  }
-
-  if (els.toolbarFooter) els.toolbarFooter.hidden = false;
-  els.activeFilterPills.innerHTML = pills
-    .map((pill) => `<span class="filter-pill">${escapeHtml(pill)}</span>`)
-    .join('');
-}
-
-function renderToolbarInsights(datasets) {
-  if (!els.toolbarInsights) return;
-
-  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
-  const visibleSites = new Set(rows.map((row) => row.site_label).filter(Boolean)).size;
-  const range = visibleRange();
-  const rangeText = range.labels.length > 0
-    ? `${range.labels[0]} -> ${range.labels[range.labels.length - 1]}`
-    : 'sem janela';
-
-  const blocks = [
-    ['Itens visíveis', rows.length],
-    ['Series', datasets.length],
-    ['Lojas', visibleSites],
-    ['Janela', rangeText],
-  ];
-
-  els.toolbarInsights.innerHTML = blocks.map(([label, value]) => `
-    <span class="insight-chip">
-      <strong>${escapeHtml(value)}</strong>
-      <small>${escapeHtml(label)}</small>
-    </span>
-  `).join('');
-}
-
-function renderFocusMetrics(datasets) {
-  if (!els.focusMetrics) return;
-
-  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
-  const visiblePrices = rows.filter((row) => Number.isFinite(row.current_price));
-  const best = [...visiblePrices].sort((a, b) => a.current_price - b.current_price)[0];
-  const average = visiblePrices.length > 0
-    ? visiblePrices.reduce((sum, row) => sum + Number(row.current_price), 0) / visiblePrices.length
-    : null;
-  const range = visibleRange();
-  const snapshots = `${range.labels.length}/${state.allDates.length}`;
-
-  const cards = [
-    ['Melhor oferta', best ? `${formatMoney(best.current_price)} em ${best.site_label}` : '-', 'menor preço atual no recorte'],
-    ['Preço médio', Number.isFinite(average) ? formatMoney(average) : '-', 'média dos itens visíveis'],
-    ['Séries visíveis', datasets.length, `snapshots ${snapshots}`],
-    ['Falhas no recorte', rows.filter((row) => row.status === 'failed').length, 'coletas com falha ou preço reaproveitado'],
-  ];
-
-  els.focusMetrics.innerHTML = cards.map(([label, value, note]) => `
-    <article class="focus-card-item">
-      <span class="metric-label">${escapeHtml(label)}</span>
-      <strong class="metric-value">${escapeHtml(value)}</strong>
-      <small class="metric-note">${escapeHtml(note)}</small>
-    </article>
-  `).join('');
-}
-
-function renderProfessionalChrome(datasets) {
-  renderHeroMetrics();
-  renderActiveFilterPills();
-  renderToolbarInsights(datasets);
-  renderFocusMetrics(datasets);
-  renderDashboardOverview();
-}
-
-function renderTable() {
-  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
-  els.tableFilterSummary.textContent = tableSummaryText(rows.length);
-
-  if (rows.length === 0) {
-    els.tbody.innerHTML = '<tr><td colspan="6">Nenhum dado disponível para o filtro atual.</td></tr>';
-    return;
-  }
-
-  let lastCategory = '';
-  const html = [];
-
-  rows.forEach((row) => {
-    if (row.category !== lastCategory) {
-      html.push(`
-        <tr class="category-group-row" style="--category-color:${colorForCategory(row.category)}">
-          <td colspan="6">
-            <span class="category-row-dot"></span>
-            ${escapeHtml(formatCategoryLabel(row.category))}
-          </td>
-        </tr>
-      `);
-      lastCategory = row.category;
-    }
-
-    const statusClass = row.snapshot_status === 'carried_forward'
-      ? 'status-fallback'
-      : (row.status === 'ok' ? 'status-ok' : 'status-failed');
-
-    html.push(`
-      <tr class="table-product-row ${row.status === 'failed' ? 'is-failed' : ''} ${row.snapshot_status === 'carried_forward' ? 'is-carried-forward' : ''}" data-product-id="${escapeHtml(row.product_id)}">
-        <td>
-          <div class="product-name-cell">
-            <strong>${escapeHtml(row.name)}</strong>
-            <div class="product-tags">
-              ${row.comparison_key ? `<span class="table-micro-chip">Grupo ${escapeHtml(row.comparison_key)}</span>` : ''}
-              <span class="table-micro-chip">${escapeHtml(formatCategoryLabel(row.category))}</span>
-            </div>
-          </div>
-        </td>
-        <td>
-          <span class="site-pill">${escapeHtml(row.site_label)}</span>
-        </td>
-        <td>
-          <div class="table-value-stack">
-            <strong>${formatMoney(row.current_price)}</strong>
-            <small>${row.updated_at ? `Atualizado ${escapeHtml(formatDateTime(row.updated_at))}` : 'Sem horario'}</small>
-          </div>
-        </td>
-        <td>
-          <div class="table-value-stack">
-            <strong>${formatMoney(row.lowest_30d)}</strong>
-            <small>
-              ${Number.isFinite(row.price_gap_30d)
-                ? (row.price_gap_30d > 0 ? `+${formatMoney(row.price_gap_30d)} acima do piso` : 'No menor nível da janela')
-                : 'Sem referência'}
-            </small>
-          </div>
-        </td>
-        <td>${formatMoney(row.unit_price)}</td>
-        <td>
-          <div class="status-stack">
-            <span class="status-pill ${statusClass}">
-              ${rowStatusLabel(row)}
-            </span>
-            <small>${escapeHtml(rowStatusNote(row))}</small>
-            ${row.store_support_level ? `<small>${escapeHtml(row.store_support_level)}</small>` : ''}
-          </div>
-        </td>
-      </tr>
-    `);
-  });
-
-  els.tbody.innerHTML = html.join('');
-}
-
-function renderDetailPanel(datasets) {
-  const scope = currentScope();
-  const range = visibleRange();
-  const visibleSpan = range.labels.length > 0
-    ? `${range.labels[0]} até ${range.labels[range.labels.length - 1]}`
-    : 'sem dados';
-
-  if (datasets.length === 0) {
-    els.detail.innerHTML = 'Sem dados para o filtro atual.';
-    return;
-  }
-
-  if (scope === 'single-product') {
-    const productId = selectedProductId();
-    const entry = state.historyByProduct.get(productId);
-    const latest = state.latestItemsById.get(productId);
-    const latestFailure = state.latestFailuresById.get(productId);
-    const historyFallback = !latest ? lastKnownHistoryPoint(productId) : null;
-    const currentPrice = isRenderablePrice(latest?.price)
-      ? Number(latest.price)
-      : (historyFallback ? Number(historyFallback.price) : null);
-    const fallbackSnapshot = isCarriedForwardSnapshot(latest) ? latest : (historyFallback ? {
-      status: 'historical_fallback',
-      carried_forward_from: {
-        run_id: historyFallback.run_id || null,
-        run_date: historyFallback.date || null,
-        fetched_at: historyFallback.generated_at || null,
-      },
-    } : null);
-    const min30d = last30DayMinimum(productId);
-    const premiumVsFloor = isRenderablePrice(currentPrice) && isRenderablePrice(min30d)
-      ? Number(currentPrice) - Number(min30d)
-      : null;
-    const currentStatus = fallbackSnapshot
-      ? 'Fallback'
-      : latest
-        ? 'Ok'
-        : 'Falhou';
-
-    els.detail.innerHTML = `
-      <div class="detail-list">
-        <div class="detail-item"><span>Produto</span><strong>${escapeHtml(entry?.label || 'Produto')}</strong></div>
-        <div class="detail-item"><span>Status atual</span><strong>${escapeHtml(currentStatus)}</strong></div>
-        <div class="detail-item"><span>Preço atual</span><strong>${formatMoney(currentPrice)}</strong></div>
-        <div class="detail-item"><span>Menor preço 30d</span><strong>${formatMoney(min30d)}</strong></div>
-        <div class="detail-item"><span>Spread vs piso</span><strong>${formatMoney(premiumVsFloor)}</strong></div>
-        <div class="detail-item"><span>Atualizado</span><strong>${escapeHtml(formatDateTime(latest?.fetched_at || latestFailure?.fetched_at || historyFallback?.generated_at))}</strong></div>
-        ${fallbackSnapshot ? `<div class="detail-item"><span>Origem do preço</span><strong>${escapeHtml(fallbackLabel(fallbackSnapshot))}</strong></div>` : ''}
-        ${latestFailure ? `<div class="detail-item"><span>Falha classificada</span><strong>${escapeHtml(failureSummary(latestFailure))}</strong></div>` : ''}
-        <div class="detail-item"><span>Janela visível</span><strong>${escapeHtml(visibleSpan)}</strong></div>
-      </div>
-    `;
-    return;
-  }
-
-  if (scope === 'comparison-group') {
-    const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
-    const best = rows
-      .filter((row) => Number.isFinite(row.current_price))
-      .sort((a, b) => a.current_price - b.current_price)[0];
-    const worst = rows
-      .filter((row) => Number.isFinite(row.current_price))
-      .sort((a, b) => b.current_price - a.current_price)[0];
-    const selected = state.productsById.get(selectedProductId());
-
-    els.detail.innerHTML = `
-      <div class="detail-list">
-        <div class="detail-item"><span>Grupo</span><strong>${escapeHtml(String(selected?.comparison_key || 'Sem grupo'))}</strong></div>
-        <div class="detail-item"><span>Lojas visíveis</span><strong>${rows.length}</strong></div>
-        <div class="detail-item"><span>Melhor preço atual</span><strong>${best ? `${formatMoney(best.current_price)} (${escapeHtml(best.site_label)})` : '-'}</strong></div>
-        <div class="detail-item"><span>Maior preço atual</span><strong>${worst ? `${formatMoney(worst.current_price)} (${escapeHtml(worst.site_label)})` : '-'}</strong></div>
-        <div class="detail-item"><span>Janela visível</span><strong>${escapeHtml(visibleSpan)}</strong></div>
-      </div>
-    `;
-    return;
-  }
-
-  const scopeLabel = scope === 'by-category' ? 'Categorias' : 'Produtos';
-  const categoryLabel = selectedCategory() === ALL ? 'Todas' : formatCategoryLabel(selectedCategory());
-  const rows = buildCurrentRows().filter(rowMatchesSharedFilters);
-  const visibleSites = new Set(rows.map((row) => row.site_label).filter(Boolean)).size;
-
-  els.detail.innerHTML = `
-    <div class="detail-list">
-      <div class="detail-item"><span>Modo</span><strong>${escapeHtml(scopeLabel)}</strong></div>
-      <div class="detail-item"><span>Filtro de categoria</span><strong>${escapeHtml(categoryLabel)}</strong></div>
-      <div class="detail-item"><span>Séries ativas</span><strong>${datasets.length}</strong></div>
-      <div class="detail-item"><span>Lojas visíveis</span><strong>${visibleSites}</strong></div>
-      <div class="detail-item"><span>Janela visível</span><strong>${escapeHtml(visibleSpan)}</strong></div>
-      <div class="detail-item"><span>Snapshots</span><strong>${range.labels.length}/${state.allDates.length}</strong></div>
-    </div>
-  `;
-}
-
-function runEntriesForDate(runDate) {
-  if (!runDate) return [];
-  const loadedById = new Map(state.runs.map((run) => [normalizeRunId(run.run_id || run.run_file), run]));
-
-  return manifestRunEntries()
-    .filter((entry) => entry.run_date === runDate)
-    .map((entry) => ({
-      ...entry,
-      payload: loadedById.get(normalizeRunId(entry.run_id || entry.run_file)) || null,
-    }))
-    .sort((left, right) => runSortKey(right).localeCompare(runSortKey(left)));
-}
-
-function selectedRunEntries() {
-  const runDate = state.selectedRunDate;
-  const manifestEntries = runEntriesForDate(runDate);
-  if (manifestEntries.length > 0) return manifestEntries;
-
-  return sortRunsDescending(state.runs)
-    .filter((run) => run.run_date === runDate)
-    .map((run) => ({
-      run_id: run.run_id,
-      run_date: run.run_date,
-      generated_at: run.generated_at,
-      run_file: run.run_file,
-      error_file: `${run.run_id}.json`,
-      success_count: Number(run.summary?.success_count || 0),
-      failure_count: Number(run.summary?.failure_count || 0),
-      status: Number(run.summary?.failure_count || 0) > 0 ? 'partial' : 'success',
-      payload: run,
-    }));
-}
-
-function runStatusClass(status) {
-  if (status === 'fatal') return 'status-fatal';
-  if (status === 'partial') return 'status-partial';
-  if (status === 'failed') return 'status-failed';
-  return 'status-success';
-}
-
-function renderRunDrilldown() {
-  if (!els.runDrilldown) return;
-
-  const visibleLabels = visibleRange().labels;
-  if (!state.selectedRunDate || !visibleLabels.includes(state.selectedRunDate)) {
-    state.selectedRunDate = visibleLabels[visibleLabels.length - 1] || state.allDates[state.allDates.length - 1] || '';
-  }
-
-  if (!state.selectedRunDate) {
-    els.runDrilldown.innerHTML = '';
-    return;
-  }
-
-  const runs = selectedRunEntries();
-  if (runs.length === 0) {
-    els.runDrilldown.innerHTML = `
-      <div class="run-drilldown-header">
-        <strong>Runs do dia</strong>
-        <small>${escapeHtml(state.selectedRunDate)}</small>
-      </div>
-      <div class="summary-item">
-        <span class="k">Sem runs carregados</span>
-        <span class="v">O manifesto não trouxe execuções para esta data.</span>
-      </div>
-    `;
-    return;
-  }
-
-  els.runDrilldown.innerHTML = `
-    <div class="run-drilldown-header">
-      <strong>Runs de ${escapeHtml(state.selectedRunDate)}</strong>
-      <small>${runs.length} execução(ões)</small>
-    </div>
-    <div class="run-drilldown-list">
-      ${runs.map((run) => {
-    const status = run.status || (Number(run.failure_count || 0) > 0 ? 'partial' : 'success');
-    const payload = run.payload;
-    const latestFailure = Array.isArray(payload?.failures) && payload.failures.length > 0
-      ? payload.failures[0]
-      : null;
-
-    return `
-          <article class="run-drilldown-item is-${escapeHtml(status)}">
-            <div class="run-drilldown-topline">
-              <strong>${escapeHtml(run.generated_at ? formatDateTime(run.generated_at) : (run.run_id || '-'))}</strong>
-              <span class="run-status-chip ${runStatusClass(status)}">${escapeHtml(status)}</span>
-            </div>
-            <div class="run-drilldown-meta">
-              <span>${escapeHtml(`${Number(run.success_count || 0)} ok / ${Number(run.failure_count || 0)} falhas`)}</span>
-              <span>${escapeHtml(run.run_id || '')}</span>
-            </div>
-            ${latestFailure ? `<div class="run-drilldown-meta"><span>${escapeHtml(failureSummary(latestFailure))}</span></div>` : ''}
-          </article>
-        `;
-  }).join('')}
-    </div>
-  `;
-}
-
-function focusProduct(productId) {
-  const historyEntry = state.historyByProduct.get(productId);
-  const product = state.productsById.get(productId);
-  if (!historyEntry && !product) return;
-
-  const category = normalizeCategory(historyEntry?.category || product?.category);
-  els.historyCategoryFilter.value = category || ALL;
-  els.chartScope.value = 'single-product';
-  renderProductSelect();
-  if ([...els.productSelect.options].some((option) => option.value === productId)) {
-    els.productSelect.value = productId;
-  }
-
-  syncControlAvailability();
-  resetViewport();
-  renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
-}
-
-function historyChartOptions() {
-  return {
-    theme: CHART_THEME,
-    responsive: true,
-    maintainAspectRatio: false,
-    interaction: {
-      mode: 'nearest',
-      intersect: false,
-    },
-    animation: {
-      duration: 420,
-      easing: 'easeOutQuart',
-    },
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: false,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: CHART_THEME.axis,
-          maxTicksLimit: 6,
-        },
-        border: {
-          color: CHART_THEME.border,
-        },
-      },
-      y: {
-        beginAtZero: false,
-        grid: {
-          color: CHART_THEME.grid,
-        },
-        ticks: {
-          color: CHART_THEME.axis,
-          maxTicksLimit: 5,
-          callback(value) {
-            return formatMoney(value);
-          },
-        },
-        border: {
-          color: CHART_THEME.border,
-        },
-      },
-    },
-    onClick(event, elements, chart) {
-      const hit = findNearestHistoryLineHit(chart, { x: event.x, y: event.y });
-      if (!hit) return;
-
-      const dataset = hit.dataset;
-      if (!dataset) return;
-
-      if (dataset.kind === 'product' && dataset.productId) {
-        focusProduct(dataset.productId);
-        return;
-      }
-
-      if (dataset.kind === 'category' && dataset.categoryKey) {
-        els.historyCategoryFilter.value = dataset.categoryKey;
-        resetViewport();
-        renderLinkedViews({ preserveZoom: true });
-      }
-    },
-  };
-}
-
-function renderHistoryChart() {
-  if (state.chart) {
-    state.chart.destroy();
-    state.chart = null;
-  }
-
-  hideHistoryHoverTooltip();
-
-  const range = visibleRange();
-  const datasets = styleHistoryDatasets(chartDatasets().map((dataset) => ({
-    ...dataset,
-    data: dataset.data.slice(range.startIndex, range.endIndex + 1),
-  })));
-
-  if (datasets.length === 0 || range.labels.length === 0) {
-    els.detail.textContent = 'Sem dados para o grafico.';
-    if (els.runDrilldown) {
-      els.runDrilldown.innerHTML = '';
-    }
-    updateHistoryStageWidth();
-    syncHistoryScrollPosition();
-    updateZoomButtons();
-    return [];
-  }
-
-  updateHistoryStageWidth();
-
-  state.chart = new window.Chart(els.historyCanvas, {
-    type: 'line',
-    data: {
-      labels: range.labels,
-      datasets,
-    },
-    options: historyChartOptions(),
-  });
-
-  renderDetailPanel(datasets);
-  renderRunDrilldown();
-  window.requestAnimationFrame(() => syncHistoryScrollPosition());
-  updateZoomButtons();
-  return datasets;
-}
-
-function buildFilterSummaryFromDraftValue(rawValue) {
-  const typed = String(rawValue || '').trim();
-  if (!typed) {
-    return {
-      text: '',
-      state: '',
-      value: '',
-    };
-  }
-
-  const match = findCategoryMatch(typed);
-  if (!match) {
-    return {
-      text: `Nova categoria: "${typed}".`,
-      state: 'new',
-      value: typed,
-    };
-  }
-
-  return {
-    text: match.kind === 'exact'
-      ? `Categoria existente: "${match.category}".`
-      : `Categoria parecida encontrada: "${match.category}".`,
-    state: 'ok',
-    value: match.category,
-  };
-}
-
-function updateCategoryHintForInput(input, { applyMatch = false } = {}) {
-  const card = input.closest('[data-draft-id]');
-  const hint = card?.querySelector('[data-role="category-hint"]');
-  const summary = buildFilterSummaryFromDraftValue(input.value);
-
-  if (applyMatch && summary.state === 'ok' && summary.value) {
-    input.value = summary.value;
-  }
-
-  if (hint) {
-    hint.textContent = summary.text;
-    hint.dataset.state = summary.state;
-  }
-
-  return applyMatch ? input.value.trim() : summary.value || input.value.trim();
-}
-
-function renderAddCategorySuggestions() {
-  if (!els.addCategoryList) return;
-  els.addCategoryList.innerHTML = state.categories
-    .map((category) => `<option value="${escapeHtml(category)}"></option>`)
-    .join('');
-}
-
-function createEmptyAddDraft(seed = {}) {
-  return {
-    draftId: `draft-${draftCounter += 1}`,
-    name: '',
-    url: '',
-    category: '',
-    comparison_key: '',
-    units: '',
-    active: 'true',
-    price_css: '',
-    jsonld: '',
-    regex: '',
-    notes: '',
-    ...seed,
-  };
-}
-
-function syncAddDraftsFromDom() {
-  const cards = [...els.addItems.querySelectorAll('.batch-item-card[data-draft-id]')];
-  if (cards.length === 0) return;
-
-  state.addDrafts = cards.map((card) => ({
-    draftId: card.dataset.draftId,
-    name: card.querySelector('[data-field="name"]')?.value || '',
-    url: card.querySelector('[data-field="url"]')?.value || '',
-    category: card.querySelector('[data-field="category"]')?.value || '',
-    comparison_key: card.querySelector('[data-field="comparison_key"]')?.value || '',
-    units: card.querySelector('[data-field="units"]')?.value || '',
-    active: card.querySelector('[data-field="active"]')?.value || 'true',
-    price_css: card.querySelector('[data-field="price_css"]')?.value || '',
-    jsonld: card.querySelector('[data-field="jsonld"]')?.value || '',
-    regex: card.querySelector('[data-field="regex"]')?.value || '',
-    notes: card.querySelector('[data-field="notes"]')?.value || '',
-  }));
-}
-
-function renderAddDrafts() {
-  if (!state.addDrafts.length) {
-    state.addDrafts = [createEmptyAddDraft()];
-  }
-
-  els.addItems.innerHTML = state.addDrafts.map((draft, index) => `
-    <section class="batch-item-card" data-draft-id="${escapeHtml(draft.draftId)}">
-      <div class="batch-item-header">
-        <div>
-          <h3>Produto ${index + 1}</h3>
-          <p class="section-note">Cadastre produtos equivalentes em lojas diferentes dentro do mesmo envio.</p>
-        </div>
-        <button
-          type="button"
-          class="btn btn-ghost"
-          data-action="remove-draft"
-          data-remove-draft-id="${escapeHtml(draft.draftId)}"
-          ${state.addDrafts.length === 1 ? 'disabled' : ''}
-        >Remover</button>
-      </div>
-
-      <div class="form-grid compact-form-grid">
-        <label>
-          Nome
-          <input type="text" data-field="name" value="${escapeHtml(draft.name)}" required>
-        </label>
-
-        <label>
-          URL
-          <input type="url" data-field="url" value="${escapeHtml(draft.url)}" required>
-        </label>
-
-        <label>
-          Categoria
-          <input
-            type="text"
-            list="ap-category-list"
-            autocomplete="off"
-            data-field="category"
-            value="${escapeHtml(draft.category)}"
-          >
-          <small class="field-hint" data-role="category-hint"></small>
-        </label>
-
-        <label>
-          Grupo de comparação
-          <input
-            type="text"
-            data-field="comparison_key"
-            value="${escapeHtml(draft.comparison_key)}"
-            placeholder="mouse-g203"
-          >
-        </label>
-
-        <label>
-          Unidades por pacote
-          <input type="number" data-field="units" min="1" step="1" value="${escapeHtml(draft.units)}">
-        </label>
-
-        <label>
-          Ativo
-          <select data-field="active">
-            <option value="true" ${draft.active === 'true' ? 'selected' : ''}>Sim</option>
-            <option value="false" ${draft.active === 'false' ? 'selected' : ''}>Não</option>
-          </select>
-        </label>
-
-        <details class="batch-item-advanced full-width">
-          <summary>Seletores e observações</summary>
-
-          <div class="form-grid compact-form-grid">
-            <label class="full-width">
-              Seletores CSS (um por linha)
-              <textarea data-field="price_css" rows="3" placeholder=".price&#10;[itemprop='price']">${escapeHtml(draft.price_css)}</textarea>
-              <small class="field-hint">Use apenas seletores CSS, não HTML completo.</small>
-            </label>
-
-            <label class="full-width">
-              JSON-LD paths (um por linha)
-              <textarea data-field="jsonld" rows="3" placeholder="offers.price&#10;offers[0].price">${escapeHtml(draft.jsonld)}</textarea>
-            </label>
-
-            <label class="full-width">
-              Regex hints (um por linha)
-              <textarea data-field="regex" rows="2" placeholder="R\\$\\s*\\d{1,4},\\d{2}">${escapeHtml(draft.regex)}</textarea>
-            </label>
-
-            <label class="full-width">
-              Observações
-              <textarea data-field="notes" rows="2">${escapeHtml(draft.notes)}</textarea>
-            </label>
-          </div>
-        </details>
-      </div>
-    </section>
-  `).join('');
-
-  renderAddCategorySuggestions();
-  els.addItems.querySelectorAll('[data-field="category"]').forEach((input) => {
-    updateCategoryHintForInput(input, { applyMatch: false });
-  });
-}
-
-function resetAddModal() {
-  state.addDrafts = [createEmptyAddDraft()];
-  els.addForm.reset();
-  renderAddDrafts();
+function renderLinkedViews() {
+  renderSummary();
+  renderFilters();
+  renderStoreHealth();
+  renderTable();
+  renderInsights();
 }
 
 function detectDefaultRepo() {
   const host = window.location.hostname;
   const pathParts = window.location.pathname.split('/').filter(Boolean);
-
   if (host.endsWith('.github.io')) {
     const owner = host.split('.')[0];
     const repo = pathParts[0] || '';
@@ -2757,18 +383,147 @@ function detectDefaultRepo() {
   return '';
 }
 
+function parseRepoInput(value) {
+  const cleaned = String(value || '')
+    .trim()
+    .replace(/^https?:\/\/github\.com\//i, '')
+    .replace(/^\/+|\/+$/g, '');
+  const parts = cleaned.split('/').filter(Boolean);
+  if (parts.length < 2) return null;
+  return `${parts[0]}/${parts[1]}`;
+}
+
+function createEmptyDraft(seed = {}) {
+  draftCounter += 1;
+  return {
+    draftId: `draft-${draftCounter}`,
+    name: '',
+    characteristics: '',
+    category: '',
+    stores: '',
+    required_terms: '',
+    preferred_terms: '',
+    excluded_terms: '',
+    required_attributes: '',
+    preferred_attributes: '',
+    unit_basis: '',
+    active: 'true',
+    notes: '',
+    ...seed,
+  };
+}
+
+function syncDraftsFromDom() {
+  if (!els.addItems) return;
+  const cards = [...els.addItems.querySelectorAll('[data-draft-id]')];
+  state.drafts = cards.map((card) => ({
+    draftId: card.dataset.draftId,
+    name: card.querySelector('[data-field="name"]')?.value || '',
+    characteristics: card.querySelector('[data-field="characteristics"]')?.value || '',
+    category: card.querySelector('[data-field="category"]')?.value || '',
+    stores: card.querySelector('[data-field="stores"]')?.value || '',
+    required_terms: card.querySelector('[data-field="required_terms"]')?.value || '',
+    preferred_terms: card.querySelector('[data-field="preferred_terms"]')?.value || '',
+    excluded_terms: card.querySelector('[data-field="excluded_terms"]')?.value || '',
+    required_attributes: card.querySelector('[data-field="required_attributes"]')?.value || '',
+    preferred_attributes: card.querySelector('[data-field="preferred_attributes"]')?.value || '',
+    unit_basis: card.querySelector('[data-field="unit_basis"]')?.value || '',
+    active: card.querySelector('[data-field="active"]')?.value || 'true',
+    notes: card.querySelector('[data-field="notes"]')?.value || '',
+  }));
+}
+
+function renderDrafts() {
+  if (!els.addItems) return;
+  if (!state.drafts.length) state.drafts = [createEmptyDraft()];
+  els.addItems.innerHTML = state.drafts.map((draft, index) => `
+    <section class="batch-item-card" data-draft-id="${escapeHtml(draft.draftId)}">
+      <div class="batch-item-header">
+        <div>
+          <h3>Intenção ${index + 1}</h3>
+          <p class="section-note">Cadastre o que procurar. URLs serão descobertas pelas lojas.</p>
+        </div>
+        <button type="button" class="btn btn-ghost" data-action="remove-draft" ${state.drafts.length === 1 ? 'disabled' : ''}>Remover</button>
+      </div>
+      <div class="form-grid compact-form-grid">
+        <label>Nome do produto<input type="text" data-field="name" value="${escapeHtml(draft.name)}" required></label>
+        <label>Características<input type="text" data-field="characteristics" value="${escapeHtml(draft.characteristics)}" placeholder="DDR4 16GB, tamanho G, 1kg..."></label>
+        <label>Categoria<input type="text" data-field="category" list="ap-category-list" value="${escapeHtml(draft.category)}"></label>
+        <label>Lojas<input type="text" data-field="stores" value="${escapeHtml(draft.stores)}" placeholder="vazio = todas; ou amazon,kabum"></label>
+        <label>Unidade-base<select data-field="unit_basis">
+          <option value="">Sem unitário</option>
+          <option value="unit" ${draft.unit_basis === 'unit' ? 'selected' : ''}>Unidade</option>
+          <option value="gb" ${draft.unit_basis === 'gb' ? 'selected' : ''}>GB</option>
+          <option value="kg" ${draft.unit_basis === 'kg' ? 'selected' : ''}>kg</option>
+          <option value="g" ${draft.unit_basis === 'g' ? 'selected' : ''}>g</option>
+          <option value="l" ${draft.unit_basis === 'l' ? 'selected' : ''}>l</option>
+          <option value="ml" ${draft.unit_basis === 'ml' ? 'selected' : ''}>ml</option>
+        </select></label>
+        <label>Ativo<select data-field="active"><option value="true" ${draft.active !== 'false' ? 'selected' : ''}>Sim</option><option value="false" ${draft.active === 'false' ? 'selected' : ''}>Não</option></select></label>
+        <details class="batch-item-advanced full-width">
+          <summary>Prioridades e restrições</summary>
+          <div class="form-grid compact-form-grid">
+            <label class="full-width">Termos obrigatórios<textarea data-field="required_terms" rows="2" placeholder="ddr4&#10;fralda">${escapeHtml(draft.required_terms)}</textarea></label>
+            <label class="full-width">Termos preferenciais<textarea data-field="preferred_terms" rows="2" placeholder="16gb&#10;bluetooth">${escapeHtml(draft.preferred_terms)}</textarea></label>
+            <label class="full-width">Termos banidos<textarea data-field="excluded_terms" rows="2" placeholder="usado&#10;reembalado">${escapeHtml(draft.excluded_terms)}</textarea></label>
+            <label class="full-width">Atributos obrigatórios JSON<textarea data-field="required_attributes" rows="2" placeholder='{"memory_type":"ddr4"} ou {"size":"G"}'>${escapeHtml(draft.required_attributes)}</textarea></label>
+            <label class="full-width">Atributos preferenciais JSON<textarea data-field="preferred_attributes" rows="2" placeholder='{"capacity_total_gb":16}'>${escapeHtml(draft.preferred_attributes)}</textarea></label>
+            <label class="full-width">Observações<textarea data-field="notes" rows="2">${escapeHtml(draft.notes)}</textarea></label>
+          </div>
+        </details>
+      </div>
+    </section>
+  `).join('');
+}
+
+function resetAddModal() {
+  state.drafts = [createEmptyDraft()];
+  renderDrafts();
+}
+
 function openModal() {
-  const currentRepo = document.getElementById('ap-repo').value.trim();
-  els.modal.setAttribute('aria-hidden', 'false');
-  resetAddModal();
   const repoInput = document.getElementById('ap-repo');
-  if (!repoInput.value.trim()) {
-    repoInput.value = currentRepo || detectDefaultRepo();
-  }
+  const previousRepo = repoInput?.value || '';
+  if (els.modal) els.modal.setAttribute('aria-hidden', 'false');
+  resetAddModal();
+  if (repoInput && !repoInput.value.trim()) repoInput.value = previousRepo || detectDefaultRepo();
 }
 
 function closeModal() {
-  els.modal.setAttribute('aria-hidden', 'true');
+  if (els.modal) els.modal.setAttribute('aria-hidden', 'true');
+}
+
+function parseJsonField(value, label) {
+  const text = String(value || '').trim();
+  if (!text) return undefined;
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(`${label}: JSON inválido.`);
+  }
+}
+
+function buildOperation(draft, index) {
+  const name = draft.name.trim();
+  const characteristics = draft.characteristics.trim();
+  const category = slugifyLoose(draft.category);
+  if (!name) throw new Error(`Intenção ${index + 1}: preencha o nome.`);
+
+  return {
+    action: 'add',
+    name,
+    ...(characteristics ? { characteristics } : {}),
+    ...(category ? { category } : {}),
+    ...(splitLines(draft.stores).length ? { stores: splitLines(draft.stores) } : {}),
+    ...(splitLines(draft.required_terms).length ? { required_terms: splitLines(draft.required_terms) } : {}),
+    ...(splitLines(draft.preferred_terms).length ? { preferred_terms: splitLines(draft.preferred_terms) } : {}),
+    ...(splitLines(draft.excluded_terms).length ? { excluded_terms: splitLines(draft.excluded_terms) } : {}),
+    ...(parseJsonField(draft.required_attributes, `Intenção ${index + 1} atributos obrigatórios`) ? { required_attributes: parseJsonField(draft.required_attributes, `Intenção ${index + 1} atributos obrigatórios`) } : {}),
+    ...(parseJsonField(draft.preferred_attributes, `Intenção ${index + 1} atributos preferenciais`) ? { preferred_attributes: parseJsonField(draft.preferred_attributes, `Intenção ${index + 1} atributos preferenciais`) } : {}),
+    ...(draft.unit_basis ? { unit_rule: { basis: draft.unit_basis } } : {}),
+    is_active: draft.active !== 'false',
+    ...(draft.notes.trim() ? { notes: draft.notes.trim() } : {}),
+  };
 }
 
 function buildIssueBody(payload) {
@@ -2783,85 +538,10 @@ function buildIssueBody(payload) {
   ].join('\n');
 }
 
-function parseRepoInput(value) {
-  const cleaned = String(value || '')
-    .trim()
-    .replace(/^https?:\/\/github\.com\//i, '')
-    .replace(/^\/+|\/+$/g, '');
-  const parts = cleaned.split('/').filter(Boolean);
-  if (parts.length < 2) return null;
-  return `${parts[0]}/${parts[1]}`;
-}
-
-function buildAddOperation(draft, index) {
-  const name = draft.name.trim();
-  const url = draft.url.trim();
-  const categoryRaw = String(draft.category || '').trim();
-  const category = categoryRaw ? normalizeCategory(categoryRaw) : '';
-  const comparisonKey = normalizeComparisonKey(draft.comparison_key);
-  const unitsRaw = String(draft.units || '').trim();
-  const priceCss = splitLines(draft.price_css);
-  const jsonldPaths = splitLines(draft.jsonld);
-  const regexHints = splitLines(draft.regex);
-  const isBlank = [
-    name,
-    url,
-    category,
-    comparisonKey,
-    unitsRaw,
-    draft.price_css,
-    draft.jsonld,
-    draft.regex,
-    draft.notes,
-  ].every((value) => !String(value || '').trim());
-
-  if (isBlank) return null;
-
-  if (!name || !url) {
-    throw new Error(`Produto ${index + 1}: preencha nome e URL.`);
-  }
-
-  if (containsHtmlSnippet(priceCss)) {
-    throw new Error(`Produto ${index + 1}: informe apenas seletores CSS, não HTML completo.`);
-  }
-
-  let units;
-  if (unitsRaw) {
-    units = Number(unitsRaw);
-    if (!Number.isFinite(units) || units <= 0) {
-      throw new Error(`Produto ${index + 1}: "Unidades por pacote" deve ser maior que zero.`);
-    }
-  }
-
-  const payload = {
-    action: 'add',
-    name,
-    url,
-    ...(category ? { category } : {}),
-    ...(comparisonKey ? { comparison_key: comparisonKey } : {}),
-    ...(Number.isFinite(units) ? { units_per_package: units } : {}),
-    is_active: draft.active !== 'false',
-    selectors: {
-      price_css: priceCss,
-      jsonld_paths: jsonldPaths,
-      regex_hints: regexHints,
-    },
-    ...(draft.notes.trim() ? { notes: draft.notes.trim() } : {}),
-  };
-
-  if (payload.selectors.price_css.length === 0) delete payload.selectors.price_css;
-  if (payload.selectors.jsonld_paths.length === 0) delete payload.selectors.jsonld_paths;
-  if (payload.selectors.regex_hints.length === 0) delete payload.selectors.regex_hints;
-  if (Object.keys(payload.selectors).length === 0) delete payload.selectors;
-
-  return payload;
-}
-
 function onSubmitAddProduct(event) {
   event.preventDefault();
-  syncAddDraftsFromDom();
-
-  const repo = parseRepoInput(document.getElementById('ap-repo').value);
+  syncDraftsFromDom();
+  const repo = parseRepoInput(document.getElementById('ap-repo')?.value);
   if (!repo) {
     alert('Informe o repositorio GitHub no formato owner/repo.');
     return;
@@ -2869,237 +549,74 @@ function onSubmitAddProduct(event) {
 
   let operations;
   try {
-    operations = state.addDrafts
-      .map((draft, index) => buildAddOperation(draft, index))
-      .filter(Boolean);
+    operations = state.drafts.map((draft, index) => buildOperation(draft, index));
   } catch (error) {
     alert(error instanceof Error ? error.message : String(error));
     return;
   }
 
-  if (operations.length === 0) {
-    alert('Adicione pelo menos um produto antes de abrir a issue.');
-    return;
-  }
-
-  const payload = operations.length === 1
-    ? operations[0]
-    : {
-      action: 'batch',
-      operations,
-    };
-
+  const payload = operations.length === 1 ? operations[0] : { action: 'batch', operations };
   const title = operations.length === 1
     ? `[MANAGE PRODUCT] ADD ${operations[0].name}`
-    : `[MANAGE PRODUCT] BATCH ADD ${operations.length} PRODUTOS`;
-
+    : `[MANAGE PRODUCT] BATCH ADD ${operations.length} INTENCOES`;
   const issueUrl = `https://github.com/${repo}/issues/new?labels=manage-product&title=${encodeURIComponent(title)}&body=${encodeURIComponent(buildIssueBody(payload))}`;
 
   window.open(issueUrl, '_blank', 'noopener,noreferrer');
   closeModal();
-  resetAddModal();
-}
-
-function onChartScopeChange() {
-  syncControlAvailability();
-  resetViewport();
-  renderLinkedViews({ preserveZoom: true });
-}
-
-function onDashboardFilterChange() {
-  if (els.globalDashboardSearch && document.activeElement !== els.globalDashboardSearch) {
-    els.globalDashboardSearch.value = els.dashboardSearch?.value || '';
-  }
-  renderLinkedViews({ preserveZoom: true });
-}
-
-function onGlobalDashboardSearch() {
-  if (!els.globalDashboardSearch || !els.dashboardSearch) return;
-  els.dashboardSearch.value = els.globalDashboardSearch.value;
-  renderLinkedViews({ preserveZoom: true });
-}
-
-function resetDashboardFilters() {
-  if (els.dashboardSearch) els.dashboardSearch.value = '';
-  if (els.globalDashboardSearch) els.globalDashboardSearch.value = '';
-  if (els.siteFilter) els.siteFilter.value = ALL;
-  if (els.statusFilter) els.statusFilter.value = ALL;
-  if (els.hideLegacySeries) els.hideLegacySeries.checked = true;
-  if (els.historyCategoryFilter) els.historyCategoryFilter.value = ALL;
-  if (els.chartScope) els.chartScope.value = 'all-products';
-  renderLinkedViews({ preserveZoom: true });
-}
-
-function onThemeChange() {
-  refreshThemeTokens();
-  buildCategoryColors(state.categories);
-  renderCategoryLegend(state.categories);
-  renderPieChart();
-  renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
-}
-
-function renderLinkedViews({ preserveZoom = false, preserveProductSelect = false } = {}) {
-  if (!preserveProductSelect) {
-    renderProductSelect();
-  }
-
-  syncControlAvailability();
-  if (!preserveZoom) {
-    resetViewport();
-  } else {
-    clampViewport();
-  }
-
-  const datasets = renderHistoryChart();
-  renderTable();
-  renderProfessionalChrome(datasets);
 }
 
 async function init() {
   try {
-    const [latest, runsIndex, products] = await Promise.all([
-      fetchDataJson('latest.json'),
-      fetchDataJson('runs/index.json').catch(() => ({ files: [], runs: [], daily: [] })),
-      fetchDataJson('products.json').catch(() => []),
+    const [products, latest] = await Promise.all([
+      fetchDataJson('products.json', []),
+      fetchDataJson('latest.json', null),
     ]);
 
-    const manifestRuns = Array.isArray(runsIndex?.runs) ? runsIndex.runs : [];
-    const runFiles = (manifestRuns.length > 0
-      ? manifestRuns.map((entry) => entry.run_file)
-      : (runsIndex.files || []))
-      .filter(Boolean)
-      .slice(0, RUNS_LIMIT);
-    const runPayloads = await Promise.all(
-      runFiles.map((file) => fetchDataJson(`runs/${file}`)
-        .then((run) => normalizeRunPayload(run, file))
-        .catch(() => null)),
-    );
-
-    state.latest = latest;
-    state.runsManifest = {
-      files: Array.isArray(runsIndex?.files) ? runsIndex.files : [],
-      runs: manifestRuns,
-      daily: Array.isArray(runsIndex?.daily) ? runsIndex.daily : [],
-    };
-    state.runs = sortRunsDescending(runPayloads.filter(Boolean));
     state.products = Array.isArray(products) ? products : [];
     state.productsById = new Map(state.products.map((product) => [product.id, product]));
-    state.categories = [...new Set(state.products.map((product) => normalizeCategory(product.category)))].sort();
-
-    buildCategoryColors(state.categories);
-    buildLatestIndexes();
-    buildComparisonGroups();
-    buildHistories();
-    setFilterOptions(els.historyCategoryFilter, state.categories);
-    renderSiteFilterOptions();
-    renderProductSelect();
-    els.chartScope.value = 'all-products';
-
-    renderSummary();
-    renderCategoryLegend(state.categories);
-    renderPieChart();
+    state.latest = latest;
+    renderDrafts();
     renderLinkedViews();
-    resetAddModal();
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    els.summaryGrid.innerHTML = `<div class="summary-item"><span class="k">Erro</span><span class="v">${escapeHtml(message)}</span></div>`;
-    els.tbody.innerHTML = '<tr><td colspan="6">Falha ao carregar dados.</td></tr>';
-    els.detail.textContent = `Erro: ${message}`;
+    if (els.summaryGrid) els.summaryGrid.innerHTML = `<div class="summary-item"><span class="k">Erro</span><span class="v">${escapeHtml(message)}</span></div>`;
+    if (els.tbody) els.tbody.innerHTML = '<tr><td colspan="6">Falha ao carregar dados.</td></tr>';
   }
 }
 
-els.dashboardSearch.addEventListener('input', onDashboardFilterChange);
-els.globalDashboardSearch?.addEventListener('input', onGlobalDashboardSearch);
-window.addEventListener('git-scraper-theme-change', onThemeChange);
-els.siteFilter.addEventListener('change', onDashboardFilterChange);
-els.statusFilter.addEventListener('change', onDashboardFilterChange);
-els.historyCategoryFilter.addEventListener('change', () => {
-  resetViewport();
-  renderLinkedViews({ preserveZoom: true });
-});
-els.chartScope.addEventListener('change', onChartScopeChange);
-els.productSelect.addEventListener('change', () => {
-  resetViewport();
-  renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
-});
-els.hideLegacySeries.addEventListener('change', onDashboardFilterChange);
-els.dashboardResetFilters.addEventListener('click', resetDashboardFilters);
-
-els.zoomIn.addEventListener('click', () => zoomChart('in'));
-els.zoomOut.addEventListener('click', () => zoomChart('out'));
-els.zoomReset.addEventListener('click', () => {
-  resetViewport();
-  renderLinkedViews({ preserveZoom: true, preserveProductSelect: true });
-});
-
-els.historyCanvas.addEventListener('wheel', (event) => {
-  event.preventDefault();
-  zoomChart(event.deltaY > 0 ? 'out' : 'in');
-}, { passive: false });
-els.historyCanvas.addEventListener('mousemove', handleHistoryHover);
-els.historyCanvas.addEventListener('mouseleave', hideHistoryHoverTooltip);
-els.historyScroll.addEventListener('scroll', onHistoryScroll);
-
-window.addEventListener('resize', () => {
-  updateHistoryStageWidth();
-  syncHistoryScrollPosition();
-});
-
-els.tbody.addEventListener('click', (event) => {
-  const row = event.target.closest('tr[data-product-id]');
-  if (!row) return;
-  focusProduct(row.dataset.productId);
-});
-
-els.openModal.addEventListener('click', openModal);
-document.querySelectorAll('[data-open-add-modal]').forEach((button) => {
-  button.addEventListener('click', openModal);
-});
-els.closeModal.addEventListener('click', closeModal);
-els.modal.addEventListener('click', (event) => {
-  if (event.target.dataset.closeModal === 'true') {
-    closeModal();
+[
+  els.dashboardSearch,
+  els.globalDashboardSearch,
+].forEach((input) => input?.addEventListener('input', () => {
+  if (els.dashboardSearch && els.globalDashboardSearch && document.activeElement === els.globalDashboardSearch) {
+    els.dashboardSearch.value = els.globalDashboardSearch.value;
   }
+  renderLinkedViews();
+}));
+els.siteFilter?.addEventListener('change', renderLinkedViews);
+els.statusFilter?.addEventListener('change', renderLinkedViews);
+els.openModal?.addEventListener('click', openModal);
+document.querySelectorAll('[data-open-add-modal]').forEach((button) => button.addEventListener('click', openModal));
+els.closeModal?.addEventListener('click', closeModal);
+els.modal?.addEventListener('click', (event) => {
+  if (event.target.dataset.closeModal === 'true') closeModal();
 });
-
-els.addItemButton.addEventListener('click', () => {
-  syncAddDraftsFromDom();
-  const lastDraft = state.addDrafts[state.addDrafts.length - 1] || createEmptyAddDraft();
-  state.addDrafts.push(createEmptyAddDraft({
-    category: lastDraft.category,
-    comparison_key: lastDraft.comparison_key,
-    active: lastDraft.active,
-  }));
-  renderAddDrafts();
+els.addItemButton?.addEventListener('click', () => {
+  syncDraftsFromDom();
+  state.drafts.push(createEmptyDraft());
+  renderDrafts();
 });
-
-els.addItems.addEventListener('click', (event) => {
-  const button = event.target.closest('button[data-action="remove-draft"][data-remove-draft-id]');
+els.addItems?.addEventListener('click', (event) => {
+  const button = event.target.closest('button[data-action="remove-draft"]');
   if (!button) return;
-
-  syncAddDraftsFromDom();
-  state.addDrafts = state.addDrafts.filter((draft) => draft.draftId !== button.dataset.removeDraftId);
-  renderAddDrafts();
+  const card = button.closest('[data-draft-id]');
+  syncDraftsFromDom();
+  state.drafts = state.drafts.filter((draft) => draft.draftId !== card?.dataset.draftId);
+  renderDrafts();
 });
-
-els.addItems.addEventListener('input', (event) => {
-  const input = event.target.closest('[data-field="category"]');
-  if (!input) return;
-  updateCategoryHintForInput(input);
-});
-
-els.addItems.addEventListener('focusout', (event) => {
-  const input = event.target.closest('[data-field="category"]');
-  if (!input) return;
-  updateCategoryHintForInput(input, { applyMatch: true });
-});
-
-els.addForm.addEventListener('submit', onSubmitAddProduct);
-
+els.addForm?.addEventListener('submit', onSubmitAddProduct);
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && els.modal.getAttribute('aria-hidden') === 'false') {
-    closeModal();
-  }
+  if (event.key === 'Escape') closeModal();
 });
 
 init();

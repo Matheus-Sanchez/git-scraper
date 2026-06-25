@@ -1,5 +1,3 @@
-import { getDomainFromUrl } from '../utils/url.js';
-
 function freezeEntry(entry) {
   return Object.freeze({
     ...entry,
@@ -8,10 +6,10 @@ function freezeEntry(entry) {
 }
 
 const fallbackStore = freezeEntry({
-  store: 'Outros dominios',
+  store: 'Loja desconhecida',
   domains: [],
-  adapter: 'generic',
-  support_level: 'generic_unvalidated',
+  adapter: 'unsupported',
+  support_level: 'unsupported',
   ci_regression: false,
   smoke_real: false,
 });
@@ -76,19 +74,23 @@ export const supportMatrix = Object.freeze([
   fallbackStore,
 ]);
 
-export function getStoreSupportByDomain(domain) {
-  const normalized = String(domain || '')
-    .trim()
-    .replace(/^www\./i, '')
-    .toLowerCase();
-
-  return supportMatrix.find((entry) => entry.domains.includes(normalized)) || fallbackStore;
-}
-
-export function getStoreSupportByUrl(url) {
-  return getStoreSupportByDomain(getDomainFromUrl(url));
-}
-
 export function listSmokeEnabledStores() {
   return supportMatrix.filter((entry) => entry.smoke_real);
+}
+
+export function listSearchEnabledStores() {
+  return supportMatrix.filter((entry) => entry.support_level === 'dedicated_validated');
+}
+
+export function listSearchEnabledStoreIds() {
+  return listSearchEnabledStores().map((entry) => entry.adapter);
+}
+
+export function getStoreSupportById(storeId) {
+  const normalized = String(storeId || '').trim().toLowerCase();
+  return supportMatrix.find((entry) => entry.adapter === normalized) || fallbackStore;
+}
+
+export function isSearchEnabledStoreId(storeId) {
+  return listSearchEnabledStoreIds().includes(String(storeId || '').trim().toLowerCase());
 }

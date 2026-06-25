@@ -35,10 +35,10 @@ jobs:
       - name: Run deterministic PR QA suite
         run: npm run test:ci
 
-      - name: Upload debug artifacts
+      - name: Upload cache artifacts
         if: failure()
         uses: actions/upload-artifact@v6
         with:
-          name: ci-debug-${{ github.run_id }}
-          path: .cache/debug
+          name: ci-cache-${{ github.run_id }}
+          path: .cache
           if-no-files-found: ignore

@@ -1,0 +1,142 @@
+{
+  "run_id": "2026-06-25T20-15-36-916Z",
+  "run_date": "2026-06-25",
+  "generated_at": "2026-06-25T20:15:36.916Z",
+  "engine_summary": {
+    "lightpanda_search": {
+      "attempted": 7,
+      "success": 0,
+      "failed": 7,
+      "avg_time_ms": 0
+    },
+    "chromium_search": {
+      "attempted": 7,
+      "success": 6,
+      "failed": 1,
+      "avg_time_ms": 23464
+    }
+  },
+  "errors": [
+    {
+      "product_id": "teclado-logitech-k835",
+      "intent_id": "teclado-logitech-k835",
+      "name": "Teclado Logitech K835 TKL",
+      "characteristics": "mecanico switch red ABNT2 branco",
+      "status": "failed",
+      "fetched_at": "2026-06-25T20:16:24.821Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 0,
+          "error": "browserType.connectOverCDP: WebSocket error: connect ECONNREFUSED 127.0.0.1:9222 Call log: \u001b[2m - <ws connecting> ws://127.0.0.1:9222/\u001b[22m \u001b[2m - <ws error> ws://127.0.0.1:9222/ error connect ECONNREFUSED 127.0.0.1:9222\u001b[22m \u001b[2m - <ws connect error> ws://127.0.0.1:9222/ connect ECONNREFUSED 127.0.0.1:9222\u001b[22m \u001b[2m - <ws disconnected> ws://127.0.0.1:9222/ code=1006 reason=\u001b[22m",
+          "error_code": "unexpected_error",
+          "error_detail": "browserType.connectOverCDP: WebSocket error: connect ECONNREFUSED 127.0.0.1:9222 Call log: \u001b[2m - <ws connecting> ws://127.0.0.1:9222/\u001b[22m \u001b[2m - <ws error> ws://127.0.0.1:9222/ error connect ECONNREFUSED 127.0.0.1:9222\u001b[22m \u001b[2m - <ws connect error> ws://127.0.0.1:9222/ connect ECONNREFUSED 127.0.0.1:9222\u001b[22m \u001b[2m - <ws disconnected> ws://127.0.0.1:9222/ code=1006 reason=\u001b[22m",
+          "stores_checked": null,
+          "offers_checked": null,
+          "rejected_offers": null
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 18299,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 7,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+            },
+            {
+              "error": "page.content: Unable to retrieve content because the page is navigating and changing the content.",
+              "error_code": "unexpected_error",
+              "error_detail": "page.content: Unable to retrieve content because the page is navigating and changing the content.",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 7,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+        },
+        {
+          "error": "page.content: Unable to retrieve content because the page is navigating and changing the content.",
+          "error_code": "unexpected_error",
+          "error_detail": "page.content: Unable to retrieve content because the page is navigating and changing the content.",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+          "final_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+          "failure_stage": "search_navigation"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        }
+      ]
+    }
+  ]
+}

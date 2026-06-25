@@ -1,4 +1,4 @@
-import { getStoreSupportByUrl, listSmokeEnabledStores } from '../config/support_matrix.js';
+import { listSmokeEnabledStores } from '../config/support_matrix.js';
 
 function normalizeProductIds(productIds) {
   return [...new Set((productIds || []).map((value) => String(value || '').trim()).filter(Boolean))];
@@ -7,8 +7,12 @@ function normalizeProductIds(productIds) {
 function buildSelectedProduct(product, support) {
   return {
     ...product,
+    id: `${product.id}-${support.adapter}`,
+    stores: [support.adapter],
     smoke_store: support.store,
+    smoke_store_id: support.adapter,
     smoke_support_level: support.support_level,
+    smoke_original_id: product.id,
   };
 }
 
@@ -21,18 +25,20 @@ export function selectSmokeProducts(products, { productIds = [], maxProductsPerS
   const smokeEnabledStores = listSmokeEnabledStores();
   const byStore = new Map(smokeEnabledStores.map((entry) => [entry.store, []]));
 
-  const eligibleProducts = (products || [])
-    .filter((product) => product?.is_active)
-    .map((product) => ({
-      product,
-      support: getStoreSupportByUrl(product.url),
-    }))
-    .filter(({ support }) => support.smoke_real);
+  const eligibleProducts = [];
+  for (const product of products || []) {
+    if (!product?.is_active) continue;
+    const productStores = new Set(product.stores || []);
+    for (const support of smokeEnabledStores) {
+      if (!productStores.has(support.adapter)) continue;
+      eligibleProducts.push({ product, support });
+    }
+  }
 
   if (explicitProductIds.length > 0) {
     const allowedIds = new Set(explicitProductIds);
     return eligibleProducts
-      .filter(({ product }) => allowedIds.has(product.id))
+      .filter(({ product, support }) => allowedIds.has(product.id) || allowedIds.has(`${product.id}-${support.adapter}`))
       .map(({ product, support }) => buildSelectedProduct(product, support));
   }
 
@@ -69,8 +75,8 @@ export function summarizeSmokeRun({ selectedProducts, latestPayload }) {
   const storeSummaries = new Map();
 
   for (const product of selectedProducts || []) {
-    const support = getStoreSupportByUrl(product.url);
-    const existing = storeSummaries.get(support.store) || createStoreSummary(support.store, support.support_level);
+    const existing = storeSummaries.get(product.smoke_store)
+      || createStoreSummary(product.smoke_store, product.smoke_support_level);
     existing.selected_count += 1;
     existing.selected_product_ids.push(product.id);
 
@@ -95,7 +101,7 @@ export function summarizeSmokeRun({ selectedProducts, latestPayload }) {
     }
 
     existing.status = existing.direct_success_count > 0 ? 'pass' : 'fail';
-    storeSummaries.set(support.store, existing);
+    storeSummaries.set(product.smoke_store, existing);
   }
 
   const stores = [...storeSummaries.values()].map((entry) => ({

@@ -33,12 +33,12 @@
         <nav class="side-nav-links" aria-label="Seções">
           <a class="is-active" href="#overview">Dashboard</a>
           <a href="#diagnostics">Analytics</a>
-          <a href="#inventory">Repositories</a>
-          <a href="#history-section">Operations</a>
+          <a href="#inventory">Intenções</a>
+          <a href="#history-section">Operações</a>
         </nav>
 
         <div class="side-nav-footer">
-          <button class="btn btn-primary side-cta" type="button" data-open-add-modal>+ New Scraper</button>
+          <button class="btn btn-primary side-cta" type="button" data-open-add-modal>+ Nova Busca</button>
           <a href="./manage.html">Settings</a>
           <a href="./data/latest.json" target="_blank" rel="noopener noreferrer">Documentation</a>
         </div>
@@ -344,7 +344,7 @@
         <div class="section-heading">
           <div>
             <p class="section-kicker">Operação</p>
-            <h2 id="table-title">Lista de Produtos (Atual)</h2>
+            <h2 id="table-title">Intenções e Melhor Oferta</h2>
             <p id="table-filter-summary" class="section-note"></p>
           </div>
         </div>
@@ -352,10 +352,10 @@
           <table>
             <thead>
               <tr>
-                <th>Produto</th>
+                <th>Intenção</th>
                 <th>Loja</th>
                 <th>Preço Atual</th>
-                <th>Menor 30d</th>
+                <th>Oferta Encontrada</th>
                 <th>Unitário</th>
                 <th>Status</th>
               </tr>
@@ -388,10 +388,10 @@
 
           <div class="batch-toolbar full-width">
             <div>
-              <strong>Lote de produtos</strong>
+              <strong>Lote de intenções</strong>
               <p class="section-note">
                 Um único envio abre uma única issue e o workflow aplica tudo no mesmo commit.
-                Use o mesmo grupo de comparação para produtos equivalentes em lojas diferentes.
+                Cadastre o que procurar; as URLs serão descobertas automaticamente por loja.
               </p>
             </div>
             <button id="ap-add-item" type="button" class="btn btn-ghost">Adicionar mais um</button>

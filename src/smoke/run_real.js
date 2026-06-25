@@ -35,15 +35,23 @@ async function prepareWorkspace(selectedProducts) {
   await mkdir(resolve(smokeWorkspace, 'docs', 'data'), { recursive: true });
   await writeJson(
     resolve(smokeWorkspace, 'data', 'products.json'),
-    selectedProducts.map(({ smoke_store: _smokeStore, smoke_support_level: _smokeSupportLevel, ...product }) => product),
+    selectedProducts.map(({
+      smoke_store: _smokeStore,
+      smoke_store_id: _smokeStoreId,
+      smoke_support_level: _smokeSupportLevel,
+      smoke_original_id: _smokeOriginalId,
+      ...product
+    }) => product),
   );
 }
 
 function buildSelectedProductsReport(selectedProducts) {
   return selectedProducts.map((product) => ({
     id: product.id,
+    original_id: product.smoke_original_id,
     name: product.name,
-    url: product.url,
+    characteristics: product.characteristics || '',
+    stores: product.stores,
     store: product.smoke_store,
     support_level: product.smoke_support_level,
   }));
@@ -84,7 +92,7 @@ async function main() {
         summary: runResult.summary,
       },
       store_results: smokeAssessment.store_results,
-      artifact_root: '.cache/smoke-real/workspace/.cache/debug',
+      workspace_root: '.cache/smoke-real/workspace',
     };
 
     await writeJson(resolve(smokeRoot, 'summary.json'), report);

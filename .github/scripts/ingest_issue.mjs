@@ -4,10 +4,12 @@ import { pathToFileURL } from 'node:url';
 import { ZodError } from 'zod';
 import { readProducts, writeProducts } from '../../src/io/products.js';
 import {
+  normalizeCatalogKey,
   parseStoredProduct,
   validateNormalizedMutation,
 } from '../../src/schema/catalog.js';
-import { isValidHttpUrl, normalizeUrl, urlsEqualNormalized } from '../../src/utils/url.js';
+
+const LEGACY_FIELDS = ['url', 'selectors', 'units_per_package', 'mode'];
 
 function normalizeHeading(text) {
   return String(text || '')
@@ -19,7 +21,7 @@ function normalizeHeading(text) {
 
 function splitLines(value) {
   return String(value || '')
-    .split(/\r?\n/)
+    .split(/\r?\n|,/)
     .map((line) => line.trim())
     .filter(Boolean);
 }
@@ -65,6 +67,26 @@ function parseIssueFormFields(body) {
   return out;
 }
 
+function parseJsonObject(value, fallback = undefined) {
+  if (value === undefined || value === null || String(value).trim() === '') return fallback;
+  try {
+    const parsed = JSON.parse(String(value));
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function parseUnitRule(value) {
+  if (!value) return undefined;
+  if (typeof value === 'object' && !Array.isArray(value)) return value;
+  const trimmed = String(value).trim();
+  if (!trimmed) return undefined;
+  const parsed = parseJsonObject(trimmed);
+  if (parsed) return parsed;
+  return { basis: trimmed.toLowerCase() };
+}
+
 export function parseIssuePayload(body) {
   const text = String(body || '').trim();
   if (!text) {
@@ -97,52 +119,40 @@ export function parseIssuePayload(body) {
     action: fields['acao'] || fields['acao desejada'] || fields.action,
     product_id: fields['id do produto'] || fields['product id'] || fields.product_id,
     name: fields['nome do produto'] || fields.nome || fields.name,
-    url: fields['url do produto'] || fields.url,
+    characteristics: fields.caracteristicas || fields['características'] || fields.characteristics,
     category: fields.categoria || fields.category,
-    comparison_key: fields['grupo de comparacao'] || fields['comparison key'] || fields.comparison_key,
-    units_per_package: fields['unidades por pacote'] || fields['units per package'],
+    stores: splitLines(fields.lojas || fields.stores),
+    required_terms: splitLines(fields['termos obrigatorios'] || fields['termos obrigatórios'] || fields.required_terms),
+    preferred_terms: splitLines(fields['termos preferenciais'] || fields.preferred_terms),
+    excluded_terms: splitLines(fields['termos banidos'] || fields.excluded_terms),
+    required_attributes: parseJsonObject(fields['atributos obrigatorios'] || fields['atributos obrigatórios']),
+    preferred_attributes: parseJsonObject(fields['atributos preferenciais']),
+    unit_rule: parseUnitRule(fields['unidade base'] || fields.unit_rule),
     is_active: fields['ativo para scraping?'] || fields.is_active,
     notes: fields.observacoes || fields.notas || fields.notes,
-    selectors: {
-      price_css: splitLines(fields['seletores css (um por linha)'] || fields['seletores css']),
-      jsonld_paths: splitLines(fields['json-ld paths (um por linha)'] || fields['json-ld paths']),
-      regex_hints: splitLines(fields['regex hints (um por linha)'] || fields['regex hints']),
-    },
   };
 
   return { ok: true, payload, source: 'issue_form_fields' };
 }
 
-function cleanArray(value) {
-  if (!value) return [];
-  if (Array.isArray(value)) {
-    return value.map((item) => String(item).trim()).filter(Boolean);
-  }
-  return splitLines(value);
-}
-
 function normalizeLooseKey(value) {
-  return String(value || '')
-    .trim()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+  return normalizeCatalogKey(value);
 }
 
 function slugify(text) {
-  return String(text || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 28);
+  return normalizeCatalogKey(text).slice(0, 36);
 }
 
 function shortHash(text) {
   return createHash('sha1').update(text).digest('hex').slice(0, 8);
+}
+
+function intentKey(payload) {
+  return [
+    normalizeLooseKey(payload.name),
+    normalizeLooseKey(payload.characteristics),
+    normalizeLooseKey(payload.category),
+  ].filter(Boolean).join('|');
 }
 
 export function normalizeAction(value) {
@@ -155,65 +165,77 @@ export function normalizeAction(value) {
   return 'invalid';
 }
 
+function normalizeMutationPayload(rawPayload, action) {
+  try {
+    return {
+      ok: true,
+      payload: validateNormalizedMutation({
+        action,
+        id: rawPayload.id,
+        product_id: rawPayload.product_id,
+        name: rawPayload.name !== undefined ? String(rawPayload.name).trim() : undefined,
+        characteristics: rawPayload.characteristics !== undefined
+          ? String(rawPayload.characteristics || '').trim()
+          : undefined,
+        category: rawPayload.category !== undefined ? normalizeLooseKey(rawPayload.category) : undefined,
+        stores: rawPayload.stores,
+        required_terms: rawPayload.required_terms,
+        preferred_terms: rawPayload.preferred_terms,
+        excluded_terms: rawPayload.excluded_terms,
+        required_attributes: rawPayload.required_attributes,
+        preferred_attributes: rawPayload.preferred_attributes,
+        unit_rule: parseUnitRule(rawPayload.unit_rule),
+        is_active: rawPayload.is_active !== undefined
+          ? parseBoolean(rawPayload.is_active, true)
+          : undefined,
+        notes: rawPayload.notes !== undefined ? String(rawPayload.notes || '').trim() : undefined,
+        default_action: rawPayload.default_action,
+      }),
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      error: schemaErrorToMessage(error),
+    };
+  }
+}
+
 export function validateAndBuildProduct(rawPayload) {
   if (!rawPayload || typeof rawPayload !== 'object') {
     return { ok: false, error: 'Payload must be an object' };
   }
-
-  const name = String(rawPayload.name || '').trim();
-  const url = String(rawPayload.url || '').trim();
-
-  if (!name) {
-    return { ok: false, error: 'Field "name" is required' };
-  }
-  if (!url || !isValidHttpUrl(url)) {
-    return { ok: false, error: 'Field "url" must be a valid HTTP/HTTPS URL' };
-  }
-
-  const normalizedUrl = normalizeUrl(url);
-  const unitsRaw = rawPayload.units_per_package;
-  let units;
-
-  if (unitsRaw !== undefined && unitsRaw !== null && String(unitsRaw).trim() !== '') {
-    units = Number(unitsRaw);
-    if (!Number.isFinite(units) || units <= 0) {
-      return { ok: false, error: 'Field "units_per_package" must be a number > 0 when provided' };
+  for (const legacyField of LEGACY_FIELDS) {
+    if (Object.prototype.hasOwnProperty.call(rawPayload, legacyField)) {
+      return { ok: false, error: `Field "${legacyField}" is not supported by search intents` };
     }
   }
 
-  const selectorsInput = rawPayload.selectors && typeof rawPayload.selectors === 'object'
-    ? rawPayload.selectors
-    : {};
+  const name = String(rawPayload.name || '').trim();
+  if (!name) {
+    return { ok: false, error: 'Field "name" is required' };
+  }
 
-  const selectors = {
-    price_css: cleanArray(selectorsInput.price_css),
-    jsonld_paths: cleanArray(selectorsInput.jsonld_paths),
-    regex_hints: cleanArray(selectorsInput.regex_hints),
-  };
-
-  const compactSelectors = {};
-  if (selectors.price_css.length > 0) compactSelectors.price_css = selectors.price_css;
-  if (selectors.jsonld_paths.length > 0) compactSelectors.jsonld_paths = selectors.jsonld_paths;
-  if (selectors.regex_hints.length > 0) compactSelectors.regex_hints = selectors.regex_hints;
-
+  const characteristics = String(rawPayload.characteristics || '').trim();
   const category = normalizeLooseKey(rawPayload.category) || undefined;
-  const comparisonKey = normalizeLooseKey(rawPayload.comparison_key) || undefined;
   const notes = String(rawPayload.notes || '').trim() || undefined;
   const active = parseBoolean(rawPayload.is_active, true);
-
-  const idBase = slugify(name) || 'produto';
-  const id = rawPayload.id || `${idBase}-${shortHash(normalizedUrl)}`;
+  const idBase = slugify(`${name} ${characteristics}`) || 'produto';
+  const id = rawPayload.id || `${idBase}-${shortHash(intentKey({ name, characteristics, category }))}`;
 
   try {
     const product = parseStoredProduct({
       id,
-      url: normalizedUrl,
       name,
+      characteristics,
       ...(category ? { category } : {}),
-      ...(comparisonKey ? { comparison_key: comparisonKey } : {}),
-      ...(units ? { units_per_package: units } : {}),
+      ...(rawPayload.stores !== undefined ? { stores: rawPayload.stores } : {}),
+      ...(rawPayload.required_terms !== undefined ? { required_terms: rawPayload.required_terms } : {}),
+      ...(rawPayload.preferred_terms !== undefined ? { preferred_terms: rawPayload.preferred_terms } : {}),
+      ...(rawPayload.excluded_terms !== undefined ? { excluded_terms: rawPayload.excluded_terms } : {}),
+      ...(rawPayload.required_attributes !== undefined ? { required_attributes: rawPayload.required_attributes } : {}),
+      ...(rawPayload.preferred_attributes !== undefined ? { preferred_attributes: rawPayload.preferred_attributes } : {}),
+      ...(rawPayload.unit_rule !== undefined ? { unit_rule: parseUnitRule(rawPayload.unit_rule) } : {}),
       is_active: active,
-      ...(Object.keys(compactSelectors).length > 0 ? { selectors: compactSelectors } : {}),
       ...(notes ? { notes } : {}),
     });
 
@@ -223,27 +245,9 @@ export function validateAndBuildProduct(rawPayload) {
   }
 }
 
-function setDefaultSelectorsIfMissing(product) {
-  if (!product.selectors) {
-    product.selectors = {
-      jsonld_paths: ['offers.price', 'offers[0].price', 'price'],
-      price_css: ['[itemprop="price"]', '.price', '.preco'],
-    };
-    return product;
-  }
-
-  if (!Array.isArray(product.selectors.jsonld_paths) || product.selectors.jsonld_paths.length === 0) {
-    product.selectors.jsonld_paths = ['offers.price', 'offers[0].price', 'price'];
-  }
-  if (!Array.isArray(product.selectors.price_css) || product.selectors.price_css.length === 0) {
-    product.selectors.price_css = ['[itemprop="price"]', '.price', '.preco'];
-  }
-
-  return product;
-}
-
 export function detectDuplicate(products, productToInsert) {
-  return products.find((existing) => urlsEqualNormalized(existing.url, productToInsert.url));
+  const candidateKey = intentKey(productToInsert);
+  return products.find((existing) => intentKey(existing) === candidateKey);
 }
 
 function decodeTitleFallback(title) {
@@ -258,120 +262,48 @@ function findProductIndex(products, payload) {
     return products.findIndex((item) => item.id === String(payload.product_id).trim());
   }
 
-  if (payload.url && isValidHttpUrl(payload.url)) {
-    const normalized = normalizeUrl(payload.url);
-    return products.findIndex((item) => urlsEqualNormalized(item.url, normalized));
+  if (payload.id) {
+    return products.findIndex((item) => item.id === String(payload.id).trim());
+  }
+
+  if (payload.name) {
+    const targetKey = intentKey(payload);
+    return products.findIndex((item) => intentKey(item) === targetKey);
   }
 
   return -1;
 }
 
-function sanitizeSelectors(selectors, fallbackSelectors) {
-  if (!selectors || typeof selectors !== 'object') return fallbackSelectors;
-
-  const priceCss = cleanArray(selectors.price_css);
-  const jsonldPaths = cleanArray(selectors.jsonld_paths);
-  const regexHints = cleanArray(selectors.regex_hints);
-
-  const out = {};
-  if (priceCss.length > 0) out.price_css = priceCss;
-  if (jsonldPaths.length > 0) out.jsonld_paths = jsonldPaths;
-  if (regexHints.length > 0) out.regex_hints = regexHints;
-
-  if (Object.keys(out).length === 0) return fallbackSelectors;
-  return out;
-}
-
-function normalizeMutationPayload(rawPayload, action) {
-  try {
-    return {
-      ok: true,
-      payload: validateNormalizedMutation({
-        action,
-        id: rawPayload.id,
-        product_id: rawPayload.product_id,
-        name: rawPayload.name !== undefined ? String(rawPayload.name).trim() : undefined,
-        url: rawPayload.url !== undefined ? String(rawPayload.url).trim() : undefined,
-        category: rawPayload.category !== undefined ? normalizeLooseKey(rawPayload.category) : undefined,
-        comparison_key: rawPayload.comparison_key !== undefined
-          ? normalizeLooseKey(rawPayload.comparison_key)
-          : undefined,
-        units_per_package: rawPayload.units_per_package,
-        is_active: rawPayload.is_active !== undefined
-          ? parseBoolean(rawPayload.is_active, true)
-          : undefined,
-        notes: rawPayload.notes !== undefined ? String(rawPayload.notes || '').trim() : undefined,
-        selectors: rawPayload.selectors !== undefined
-          ? sanitizeSelectors(rawPayload.selectors, undefined)
-          : undefined,
-        default_action: rawPayload.default_action,
-      }),
-    };
-  } catch (error) {
-    return {
-      ok: false,
-      error: schemaErrorToMessage(error),
-    };
-  }
-}
-
 function applyEdit(existing, payload) {
   const draft = { ...existing };
 
-  if (payload.name !== undefined) {
-    const name = String(payload.name).trim();
-    if (!name) return { ok: false, error: 'Field "name" cannot be empty for edit' };
-    draft.name = name;
-  }
-
-  if (payload.url !== undefined) {
-    const url = String(payload.url).trim();
-    if (!isValidHttpUrl(url)) return { ok: false, error: 'Field "url" must be valid for edit' };
-    draft.url = normalizeUrl(url);
-  }
-
-  if (payload.category !== undefined) {
-    const category = normalizeLooseKey(payload.category);
-    if (category) draft.category = category;
-    else delete draft.category;
-  }
-
-  if (payload.comparison_key !== undefined) {
-    const comparisonKey = normalizeLooseKey(payload.comparison_key);
-    if (comparisonKey) draft.comparison_key = comparisonKey;
-    else delete draft.comparison_key;
-  }
-
-  if (payload.units_per_package !== undefined) {
-    if (payload.units_per_package === null || String(payload.units_per_package).trim() === '') {
-      delete draft.units_per_package;
-    } else {
-      const units = Number(payload.units_per_package);
-      if (!Number.isFinite(units) || units <= 0) {
-        return { ok: false, error: 'Field "units_per_package" must be > 0 for edit' };
-      }
-      draft.units_per_package = units;
+  for (const field of [
+    'name',
+    'characteristics',
+    'category',
+    'stores',
+    'required_terms',
+    'preferred_terms',
+    'excluded_terms',
+    'required_attributes',
+    'preferred_attributes',
+    'unit_rule',
+    'is_active',
+    'notes',
+  ]) {
+    if (payload[field] !== undefined) {
+      draft[field] = payload[field];
     }
   }
 
-  if (payload.is_active !== undefined) {
-    draft.is_active = parseBoolean(payload.is_active, draft.is_active);
-  }
-
-  if (payload.notes !== undefined) {
-    const notes = String(payload.notes || '').trim();
-    if (notes) draft.notes = notes;
-    else delete draft.notes;
-  }
-
-  if (payload.selectors !== undefined) {
-    draft.selectors = sanitizeSelectors(payload.selectors, draft.selectors);
-  }
+  if (draft.category !== undefined) draft.category = normalizeLooseKey(draft.category);
+  if (draft.notes !== undefined && String(draft.notes || '').trim() === '') delete draft.notes;
+  if (draft.unit_rule !== undefined) draft.unit_rule = parseUnitRule(draft.unit_rule);
 
   try {
     return {
       ok: true,
-      product: setDefaultSelectorsIfMissing(parseStoredProduct({ ...draft, id: existing.id })),
+      product: parseStoredProduct({ ...draft, id: existing.id }),
     };
   } catch (error) {
     return { ok: false, error: schemaErrorToMessage(error) };
@@ -381,6 +313,16 @@ function applyEdit(existing, payload) {
 function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
   const payload = { ...(rawPayload || {}) };
   const action = normalizeAction(payload.action);
+
+  for (const legacyField of LEGACY_FIELDS) {
+    if (Object.prototype.hasOwnProperty.call(payload, legacyField)) {
+      return {
+        ok: false,
+        status: 'invalid',
+        message: `Field "${legacyField}" is not supported by search intents`,
+      };
+    }
+  }
 
   if (action === 'invalid' || action === 'batch') {
     return { ok: false, status: 'invalid', message: 'Field "action" must be add, edit or remove' };
@@ -403,23 +345,22 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
       return { ok: false, status: 'invalid', message: validated.error };
     }
 
-    const product = setDefaultSelectorsIfMissing(validated.product);
-    const duplicate = detectDuplicate(products, product);
+    const duplicate = detectDuplicate(products, validated.product);
     if (duplicate) {
       return {
         ok: false,
         status: 'duplicate',
-        message: `Produto ja existente para a URL informada (id: ${duplicate.id}).`,
+        message: `Intencao ja existente para o produto informado (id: ${duplicate.id}).`,
         product_id: duplicate.id,
       };
     }
 
-    const nextProducts = [...products, product].sort((a, b) => a.name.localeCompare(b.name));
+    const nextProducts = [...products, validated.product].sort((a, b) => a.name.localeCompare(b.name));
     return {
       ok: true,
       status: 'success',
-      message: `Produto adicionado com sucesso: ${product.name} (${product.id}).`,
-      product_id: product.id,
+      message: `Intencao adicionada com sucesso: ${validated.product.name} (${validated.product.id}).`,
+      product_id: validated.product.id,
       products: nextProducts,
     };
   }
@@ -429,7 +370,7 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
     return {
       ok: false,
       status: 'invalid',
-      message: 'Produto alvo nao encontrado. Informe product_id ou URL existente.',
+      message: 'Intencao alvo nao encontrada. Informe product_id ou os mesmos dados de nome/caracteristicas/categoria.',
     };
   }
 
@@ -440,7 +381,7 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
     return {
       ok: true,
       status: 'success',
-      message: `Produto removido com sucesso: ${target.name} (${target.id}).`,
+      message: `Intencao removida com sucesso: ${target.name} (${target.id}).`,
       product_id: target.id,
       products: nextProducts,
     };
@@ -451,12 +392,12 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
     return { ok: false, status: 'invalid', message: edited.error };
   }
 
-  const duplicate = products.find((item) => item.id !== target.id && urlsEqualNormalized(item.url, edited.product.url));
+  const duplicate = products.find((item) => item.id !== target.id && intentKey(item) === intentKey(edited.product));
   if (duplicate) {
     return {
       ok: false,
       status: 'duplicate',
-      message: `Ja existe outro produto com a mesma URL (id: ${duplicate.id}).`,
+      message: `Ja existe outra intencao equivalente (id: ${duplicate.id}).`,
       product_id: duplicate.id,
     };
   }
@@ -468,7 +409,7 @@ function mutateSingleProductAction(products, rawPayload, issueTitle = '') {
   return {
     ok: true,
     status: 'success',
-    message: `Produto atualizado com sucesso: ${edited.product.name} (${edited.product.id}).`,
+    message: `Intencao atualizada com sucesso: ${edited.product.name} (${edited.product.id}).`,
     product_id: edited.product.id,
     products: nextProducts,
   };
@@ -538,7 +479,7 @@ export function mutateProducts(products, rawPayload, issueTitle = '') {
     return {
       ok: true,
       status: 'success',
-      message: `Lote aplicado com sucesso: ${operations.length} operacao(oes), ${changedIds.length} produto(s) afetado(s).`,
+      message: `Lote aplicado com sucesso: ${operations.length} operacao(oes), ${changedIds.length} intencao(oes) afetada(s).`,
       product_id: changedIds.join(', '),
       products: nextProducts,
     };

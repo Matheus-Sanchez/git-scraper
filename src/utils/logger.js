@@ -63,8 +63,9 @@ export function createLogger({ debug = false, scope = 'app' } = {}) {
     product(level, product, message, meta = null) {
       const productMeta = {
         product_id: product?.id,
+        intent_id: product?.id,
         product_name: product?.name,
-        url: product?.url,
+        intent_name: product?.name,
         ...meta,
       };
       emit(level, message, productMeta);
