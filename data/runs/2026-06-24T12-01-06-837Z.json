@@ -1,0 +1,140 @@
+{
+  "run_id": "2026-06-24T12-01-06-837Z",
+  "run_date": "2026-06-24",
+  "generated_at": "2026-06-24T12:01:06.837Z",
+  "currency": "BRL",
+  "summary": {
+    "total_products": 7,
+    "success_count": 7,
+    "failure_count": 0,
+    "run_duration_ms": 27404,
+    "engines": {
+      "engine1_http": {
+        "attempted": 7,
+        "success": 5,
+        "failed": 2,
+        "avg_time_ms": 1277
+      },
+      "engine2_browser": {
+        "attempted": 2,
+        "success": 0,
+        "failed": 2,
+        "avg_time_ms": 2647
+      },
+      "engine3_hardmode": {
+        "attempted": 2,
+        "success": 2,
+        "failed": 0,
+        "avg_time_ms": 10689
+      }
+    }
+  },
+  "results": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "url": "https://www.amazon.com.br/dp/B09WXVH7WK?th=1",
+      "name": "Echo Pop",
+      "price": 0.07,
+      "currency": "BRL",
+      "unit_price": 0.07,
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-06-24T12:01:23.003Z",
+      "source": "regex",
+      "confidence": 0.58,
+      "status": "ok",
+      "adapter": "amazon",
+      "store_support_level": "dedicated_validated"
+    },
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "url": "https://www.amazon.com.br/dp/B0DCW6W5BK?colid=24E0XRSW7GQBE&coliid=I2WWQJE7GBF11G&psc=1",
+      "name": "Haiz Monitor Gamer 25'' 144hz 0.5ms 1920x1080 Adaptative Sync FHD HDMI/DP IPS VESA",
+      "price": 526.9,
+      "currency": "BRL",
+      "unit_price": 526.9,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-24T12:01:08.778Z",
+      "source": "adapter",
+      "confidence": 0.85,
+      "status": "ok",
+      "adapter": "amazon",
+      "store_support_level": "dedicated_validated"
+    },
+    {
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-driver-50mm-multi-plataforma-preto-519t1aa",
+      "name": "Headset HyperX Cloud Stinger 2",
+      "price": 169.99,
+      "currency": "BRL",
+      "unit_price": 169.99,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-24T12:01:08.573Z",
+      "source": "json-ld",
+      "confidence": 0.97,
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
+    },
+    {
+      "product_id": "mouse-logitech-g203",
+      "url": "https://www.kabum.com.br/produto/166771/mouse-gamer-logitech-g203-lightsync-rgb-6-botoes-8000-dpi-preto-910-005793",
+      "name": "Mouse Logitech G203 Lightsync",
+      "price": 143.04,
+      "currency": "BRL",
+      "unit_price": 143.04,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-24T12:01:08.827Z",
+      "source": "json-ld",
+      "confidence": 0.97,
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
+    },
+    {
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
+      "name": "Notebook Acer Aspire GO 15",
+      "price": 5829,
+      "currency": "BRL",
+      "unit_price": 5829,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-24T12:01:08.956Z",
+      "source": "json-ld",
+      "confidence": 0.97,
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
+    },
+    {
+      "product_id": "teclado-logitech-k835",
+      "url": "https://www.kabum.com.br/produto/341172/teclado-mecanico-gamer-logitech-k835-tkl-usb-switch-red-abnt2-branco-920-010085",
+      "name": "Teclado Logitech K835 TKL",
+      "price": 257.39,
+      "currency": "BRL",
+      "unit_price": 257.39,
+      "engine_used": "engine1_http",
+      "fetched_at": "2026-06-24T12:01:09.557Z",
+      "source": "json-ld",
+      "confidence": 0.97,
+      "status": "ok",
+      "adapter": "kabum",
+      "store_support_level": "dedicated_validated"
+    },
+    {
+      "product_id": "xiaomi-smart-band-9-active-v-b56deabe",
+      "url": "https://www.amazon.com.br/dp/B0DK6ZC5ZC/ref=twister_B0DNWSNRCJ?_encoding=UTF8&th=1",
+      "name": "Xiaomi Smart Band 9 Active (versão global) (preto)",
+      "price": 183.98,
+      "currency": "BRL",
+      "unit_price": 183.98,
+      "engine_used": "engine3_hardmode",
+      "fetched_at": "2026-06-24T12:01:34.191Z",
+      "source": "adapter",
+      "confidence": 0.85,
+      "status": "ok",
+      "adapter": "amazon",
+      "store_support_level": "dedicated_validated"
+    }
+  ],
+  "failures": []
+}
