@@ -53,6 +53,34 @@
     "excluded_terms": []
   },
   {
+    "id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+    "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
+    "characteristics": "GG",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "fralda",
+      "babysec",
+      "galinha",
+      "pintadinha",
+      "ultrasec"
+    ],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "unit"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
     "name": "Fralda Pom Pom Protek Proteção de Mãe",
     "characteristics": "GG",
