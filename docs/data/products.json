@@ -81,6 +81,33 @@
     "excluded_terms": []
   },
   {
+    "id": "fralda-pampers-confort-sec-g-5c5a56c0",
+    "name": "Fralda Pampers Confort Sec",
+    "characteristics": "G",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "fralda",
+      "pampers",
+      "confort",
+      "sec"
+    ],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "unit"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
     "name": "Fralda Pom Pom Protek Proteção de Mãe",
     "characteristics": "GG",
