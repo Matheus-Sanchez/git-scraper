@@ -53,6 +53,33 @@
     "excluded_terms": []
   },
   {
+    "id": "fralda-turma-da-monica-baby-gg-cb74838e",
+    "name": "Fralda Turma da Mônica Baby",
+    "characteristics": "GG",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "fralda",
+      "turma",
+      "monica",
+      "baby"
+    ],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "unit"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "headset-hyperx-cloud-stinger-2",
     "name": "Headset HyperX Cloud Stinger 2",
     "characteristics": "driver 50mm multiplataforma preto",
