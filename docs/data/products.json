@@ -269,30 +269,6 @@
     "excluded_terms": []
   },
   {
-    "id": "mouse-logitech-g203",
-    "name": "Mouse Logitech G203 Lightsync",
-    "characteristics": "RGB 6 botoes 8000 DPI preto",
-    "category": "perifericos",
-    "stores": [
-      "amazon",
-      "kabum",
-      "mercadolivre",
-      "magalu",
-      "shopee",
-      "pichau",
-      "petz"
-    ],
-    "required_terms": [
-      "logitech",
-      "g203"
-    ],
-    "preferred_terms": [
-      "lightsync"
-    ],
-    "is_active": true,
-    "excluded_terms": []
-  },
-  {
     "id": "notebook-acer-aspire-go-15-f27ed9a1",
     "name": "Notebook Acer Aspire GO 15",
     "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
