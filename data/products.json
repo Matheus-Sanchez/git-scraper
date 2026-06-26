@@ -188,6 +188,33 @@
     "excluded_terms": []
   },
   {
+    "id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+    "name": "Lenços Umedecidos Huggies Rosto e Corpo",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "lencos",
+      "umedecidos",
+      "huggies",
+      "rosto",
+      "corpo"
+    ],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "unit"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "exemplo-memoria-ram-ddr4-16gb",
     "name": "Memoria RAM",
     "characteristics": "DDR4 16GB",
