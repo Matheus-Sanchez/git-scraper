@@ -53,6 +53,34 @@
     "excluded_terms": []
   },
   {
+    "id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+    "name": "Fralda Pom Pom Protek Proteção de Mãe",
+    "characteristics": "GG",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "fralda",
+      "pom",
+      "protek",
+      "protecao",
+      "mae"
+    ],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "unit"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "fralda-turma-da-monica-baby-gg-cb74838e",
     "name": "Fralda Turma da Mônica Baby",
     "characteristics": "GG",
