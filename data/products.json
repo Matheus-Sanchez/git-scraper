@@ -393,32 +393,5 @@
     ],
     "is_active": true,
     "excluded_terms": []
-  },
-  {
-    "id": "xiaomi-smart-band-9-active-v-b56deabe",
-    "name": "Xiaomi Smart Band 9 Active",
-    "characteristics": "versao global preta",
-    "category": "hardware",
-    "stores": [
-      "amazon",
-      "kabum",
-      "mercadolivre",
-      "magalu",
-      "shopee",
-      "pichau",
-      "petz"
-    ],
-    "required_terms": [
-      "xiaomi",
-      "smart",
-      "band",
-      "9"
-    ],
-    "preferred_terms": [
-      "active",
-      "global"
-    ],
-    "is_active": true,
-    "excluded_terms": []
   }
 ]
