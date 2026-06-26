@@ -45,9 +45,9 @@
     },
     "unit_rule": {
       "basis": "unit",
-      "label": "fralda"
+      "label": "unit"
     },
-    "is_active": false,
+    "is_active": true,
     "notes": "Exemplo: tamanho G e obrigatorio; quantidade do pacote e usada para preco por unidade.",
     "preferred_terms": [],
     "excluded_terms": []
