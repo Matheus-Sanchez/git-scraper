@@ -295,6 +295,30 @@
     "excluded_terms": []
   },
   {
+    "id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+    "name": "Placa Mãe Asus TUF Gaming B760",
+    "characteristics": "DDR5",
+    "stores": [
+      "amazon",
+      "kabum",
+      "mercadolivre",
+      "magalu",
+      "shopee",
+      "pichau",
+      "petz"
+    ],
+    "required_terms": [
+      "intel lga 1700"
+    ],
+    "unit_rule": {
+      "basis": "unit",
+      "label": "unit"
+    },
+    "is_active": true,
+    "preferred_terms": [],
+    "excluded_terms": []
+  },
+  {
     "id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
     "name": "SanDisk Cartão de memória Ultra MicroSDXC",
     "characteristics": "Cartão Micro SD",
