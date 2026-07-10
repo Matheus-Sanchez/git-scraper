@@ -1,0 +1,20 @@
+{
+  "run_id": "2026-07-10T12-08-32-549Z",
+  "run_date": "2026-07-10",
+  "generated_at": "2026-07-10T12:08:32.549Z",
+  "engine_summary": {
+    "lightpanda_search": {
+      "attempted": 14,
+      "success": 0,
+      "failed": 14,
+      "avg_time_ms": 25
+    },
+    "chromium_search": {
+      "attempted": 14,
+      "success": 14,
+      "failed": 0,
+      "avg_time_ms": 18814
+    }
+  },
+  "errors": []
+}
