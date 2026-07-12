@@ -1,0 +1,993 @@
+{
+  "run_id": "2026-07-12T10-42-09-715Z",
+  "run_date": "2026-07-12",
+  "generated_at": "2026-07-12T10:42:09.715Z",
+  "engine_summary": {
+    "lightpanda_search": {
+      "attempted": 14,
+      "success": 0,
+      "failed": 14,
+      "avg_time_ms": 20
+    },
+    "chromium_search": {
+      "attempted": 14,
+      "success": 9,
+      "failed": 5,
+      "avg_time_ms": 15453
+    }
+  },
+  "errors": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "intent_id": "echo-pop-5f33e662",
+      "name": "Echo Pop",
+      "characteristics": "alto-falante inteligente com Alexa",
+      "status": "failed",
+      "fetched_at": "2026-07-12T10:43:06.578Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 43,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Emulation.setLocaleOverride): UnknownMethod",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Emulation.setLocaleOverride): UnknownMethod",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "final_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/echo-pop-alto-falante-inteligente-com-alexa",
+              "final_url": "https://www.kabum.com.br/busca/echo-pop-alto-falante-inteligente-com-alexa",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/echo-pop-alto-falante-inteligente-com-alexa",
+              "final_url": "https://lista.mercadolivre.com.br/echo-pop-alto-falante-inteligente-com-alexa",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Echo+Pop+alto-falante+inteligente+com+Alexa/",
+              "final_url": "https://www.magazineluiza.com.br/busca/Echo+Pop+alto-falante+inteligente+com+Alexa/",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "final_url": "https://shopee.com.br/search?keyword=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "final_url": "https://www.pichau.com.br/search?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "final_url": "https://www.petz.com.br/busca?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "failure_stage": "search_navigation"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 13741,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa Call log: - navigating to \"https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa\", waiting until \"domcontentloaded\"",
+              "error_code": "unexpected_error",
+              "error_detail": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa Call log: - navigating to \"https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa\", waiting until \"domcontentloaded\"",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "final_url": "about:blank",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/echo-pop-alto-falante-inteligente-com-alexa"
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "Mercado Livre search returned no products",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/echo-pop-alto-falante-inteligente-com-alexa"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Echo+Pop+alto-falante+inteligente+com+Alexa/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search did not return usable offers",
+      "error_code": "no_search_offers",
+      "error_detail": "Search did not return usable offers",
+      "stores_checked": 7,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa Call log: - navigating to \"https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa\", waiting until \"domcontentloaded\"",
+          "error_code": "unexpected_error",
+          "error_detail": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa Call log: - navigating to \"https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa\", waiting until \"domcontentloaded\"",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+          "final_url": "about:blank",
+          "failure_stage": "search_navigation"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/echo-pop-alto-falante-inteligente-com-alexa"
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "Mercado Livre search returned no products",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/echo-pop-alto-falante-inteligente-com-alexa"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Echo+Pop+alto-falante+inteligente+com+Alexa/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa"
+        }
+      ]
+    },
+    {
+      "product_id": "exemplo-fralda-tamanho-g",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "name": "Fralda",
+      "characteristics": "tamanho G",
+      "status": "failed",
+      "fetched_at": "2026-07-12T10:43:06.578Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 34,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
+              "final_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/fralda-tamanho-g",
+              "final_url": "https://lista.mercadolivre.com.br/fralda-tamanho-g",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Fralda+tamanho+G/",
+              "final_url": "https://www.magazineluiza.com.br/busca/Fralda+tamanho+G/",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Fralda%20tamanho%20G",
+              "final_url": "https://shopee.com.br/search?keyword=Fralda%20tamanho%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Fralda%20tamanho%20G",
+              "final_url": "https://www.pichau.com.br/search?q=Fralda%20tamanho%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Fralda%20tamanho%20G",
+              "final_url": "https://www.petz.com.br/busca?q=Fralda%20tamanho%20G",
+              "failure_stage": "search_navigation"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 13739,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20tamanho%20G Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20tamanho%20G\", waiting until \"domcontentloaded\"",
+              "error_code": "unexpected_error",
+              "error_detail": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20tamanho%20G Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20tamanho%20G\", waiting until \"domcontentloaded\"",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "final_url": "about:blank",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g"
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "Mercado Livre search returned no products",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/fralda-tamanho-g"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Fralda+tamanho+G/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Fralda%20tamanho%20G"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Fralda%20tamanho%20G"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Fralda%20tamanho%20G"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search did not return usable offers",
+      "error_code": "no_search_offers",
+      "error_detail": "Search did not return usable offers",
+      "stores_checked": 7,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20tamanho%20G Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20tamanho%20G\", waiting until \"domcontentloaded\"",
+          "error_code": "unexpected_error",
+          "error_detail": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20tamanho%20G Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20tamanho%20G\", waiting until \"domcontentloaded\"",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+          "final_url": "about:blank",
+          "failure_stage": "search_navigation"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g"
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "Mercado Livre search returned no products",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/fralda-tamanho-g"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Fralda+tamanho+G/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Fralda%20tamanho%20G"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Fralda%20tamanho%20G"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Fralda%20tamanho%20G"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "intent_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-07-12T10:43:06.579Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 36,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "final_url": "https://lista.mercadolivre.com.br/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Fralda+Babysec+Galinha+Pintadinha+Ultrasec+GG/",
+              "final_url": "https://www.magazineluiza.com.br/busca/Fralda+Babysec+Galinha+Pintadinha+Ultrasec+GG/",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://shopee.com.br/search?keyword=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://www.pichau.com.br/search?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://www.petz.com.br/busca?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 13738,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG\", waiting until \"domcontentloaded\"",
+              "error_code": "unexpected_error",
+              "error_detail": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG\", waiting until \"domcontentloaded\"",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "about:blank",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg"
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "Mercado Livre search returned no products",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/fralda-babysec-galinha-pintadinha-ultrasec-gg"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Fralda+Babysec+Galinha+Pintadinha+Ultrasec+GG/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search did not return usable offers",
+      "error_code": "no_search_offers",
+      "error_detail": "Search did not return usable offers",
+      "stores_checked": 7,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG\", waiting until \"domcontentloaded\"",
+          "error_code": "unexpected_error",
+          "error_detail": "page.goto: net::ERR_NETWORK_CHANGED at https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG\", waiting until \"domcontentloaded\"",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+          "final_url": "about:blank",
+          "failure_stage": "search_navigation"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg"
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "Mercado Livre search returned no products",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/fralda-babysec-galinha-pintadinha-ultrasec-gg"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Fralda+Babysec+Galinha+Pintadinha+Ultrasec+GG/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "name": "Fralda Pampers Confort Sec",
+      "characteristics": "G",
+      "status": "failed",
+      "fetched_at": "2026-07-12T10:43:06.579Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 37,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
+              "final_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/fralda-pampers-confort-sec-g",
+              "final_url": "https://lista.mercadolivre.com.br/fralda-pampers-confort-sec-g",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Fralda+Pampers+Confort+Sec+G/",
+              "final_url": "https://www.magazineluiza.com.br/busca/Fralda+Pampers+Confort+Sec+G/",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://shopee.com.br/search?keyword=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://www.pichau.com.br/search?q=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://www.petz.com.br/busca?q=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 37472,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "page.goto: Timeout 25000ms exceeded. Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G\", waiting until \"domcontentloaded\"",
+              "error_code": "navigation_timeout",
+              "error_detail": "page.goto: Timeout 25000ms exceeded. Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G\", waiting until \"domcontentloaded\"",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g"
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "Mercado Livre search returned no products",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/fralda-pampers-confort-sec-g"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Fralda+Pampers+Confort+Sec+G/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Fralda%20Pampers%20Confort%20Sec%20G"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Fralda%20Pampers%20Confort%20Sec%20G"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Fralda%20Pampers%20Confort%20Sec%20G"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search did not return usable offers",
+      "error_code": "no_search_offers",
+      "error_detail": "Search did not return usable offers",
+      "stores_checked": 7,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "page.goto: Timeout 25000ms exceeded. Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G\", waiting until \"domcontentloaded\"",
+          "error_code": "navigation_timeout",
+          "error_detail": "page.goto: Timeout 25000ms exceeded. Call log: - navigating to \"https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G\", waiting until \"domcontentloaded\"",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+          "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+          "failure_stage": "search_navigation"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g"
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "Mercado Livre search returned no products",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/fralda-pampers-confort-sec-g"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Fralda+Pampers+Confort+Sec+G/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Fralda%20Pampers%20Confort%20Sec%20G"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Fralda%20Pampers%20Confort%20Sec%20G"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Fralda%20Pampers%20Confort%20Sec%20G"
+        }
+      ]
+    },
+    {
+      "product_id": "teclado-logitech-k835",
+      "intent_id": "teclado-logitech-k835",
+      "name": "Teclado Logitech K835 TKL",
+      "characteristics": "mecanico switch red ABNT2 branco",
+      "status": "failed",
+      "fetched_at": "2026-07-12T10:43:06.579Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 11,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/",
+              "final_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 13298,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 7,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "Mercado Livre search returned no products",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 7,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "Mercado Livre search returned no products",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        }
+      ]
+    }
+  ]
+}
