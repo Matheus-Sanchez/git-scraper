@@ -1,0 +1,201 @@
+{
+  "run_id": "2026-07-18T10-40-13-751Z",
+  "run_date": "2026-07-18",
+  "generated_at": "2026-07-18T10:40:13.751Z",
+  "engine_summary": {
+    "lightpanda_search": {
+      "attempted": 14,
+      "success": 0,
+      "failed": 14,
+      "avg_time_ms": 23
+    },
+    "chromium_search": {
+      "attempted": 14,
+      "success": 13,
+      "failed": 1,
+      "avg_time_ms": 17692
+    }
+  },
+  "errors": [
+    {
+      "product_id": "teclado-logitech-k835",
+      "intent_id": "teclado-logitech-k835",
+      "name": "Teclado Logitech K835 TKL",
+      "characteristics": "mecanico switch red ABNT2 branco",
+      "status": "failed",
+      "fetched_at": "2026-07-18T10:41:22.538Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 10,
+          "error": "Search did not return usable offers",
+          "error_code": "no_search_offers",
+          "error_detail": "Search did not return usable offers",
+          "stores_checked": 7,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/",
+              "final_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "error_code": "unexpected_error",
+              "error_detail": "browser.newContext: Protocol error (Target.createBrowserContext): Cannot have more than one browser context at a time",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 12292,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 7,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "KaBuM search blocked or anti-bot page detected",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "Mercado Livre search returned no products",
+              "store_id": "mercadolivre",
+              "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Magalu search blocked or anti-bot page detected",
+              "store_id": "magalu",
+              "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Shopee search blocked or anti-bot page detected",
+              "store_id": "shopee",
+              "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Pichau search blocked or anti-bot page detected",
+              "store_id": "pichau",
+              "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            },
+            {
+              "error_code": "captcha_or_block",
+              "error_detail": "Petz search blocked or anti-bot page detected",
+              "store_id": "petz",
+              "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 7,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "KaBuM search blocked or anti-bot page detected",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "Mercado Livre search returned no products",
+          "store_id": "mercadolivre",
+          "search_url": "https://lista.mercadolivre.com.br/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Magalu search blocked or anti-bot page detected",
+          "store_id": "magalu",
+          "search_url": "https://www.magazineluiza.com.br/busca/Teclado+Logitech+K835+TKL+mecanico+switch+red+ABNT2+branco/"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Shopee search blocked or anti-bot page detected",
+          "store_id": "shopee",
+          "search_url": "https://shopee.com.br/search?keyword=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Pichau search blocked or anti-bot page detected",
+          "store_id": "pichau",
+          "search_url": "https://www.pichau.com.br/search?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        },
+        {
+          "error_code": "captcha_or_block",
+          "error_detail": "Petz search blocked or anti-bot page detected",
+          "store_id": "petz",
+          "search_url": "https://www.petz.com.br/busca?q=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco"
+        }
+      ]
+    }
+  ]
+}
