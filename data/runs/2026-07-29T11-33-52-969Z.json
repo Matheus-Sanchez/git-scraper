@@ -1,5 +1,6 @@
 {
   "run_id": "2026-07-29T11-33-52-969Z",
+  "run_date": "2026-07-29",
   "generated_at": "2026-07-29T11:33:52.969Z",
   "currency": "BRL",
   "summary": {
@@ -22,7 +23,7 @@
       }
     }
   },
-  "items": [
+  "results": [
     {
       "product_id": "echo-pop-5f33e662",
       "intent_id": "echo-pop-5f33e662",
@@ -3083,6 +3084,5 @@
         }
       ]
     }
-  ],
-  "run_file": "2026-07-29T11-33-52-969Z.json"
+  ]
 }
