@@ -20,11 +20,16 @@ const coverageAreas = [
     tests: ['test/storage_manifest.test.js', 'test/scrape_pipeline.test.js'],
   },
   {
+    name: 'search-engine',
+    thresholds: { lines: 80, branches: 70, functions: 80 },
+    includes: ['src/engines/engine_search.js'],
+    tests: ['test/search_engine.test.js'],
+  },
+  {
     name: 'scraping',
     thresholds: { lines: 60, branches: 50, functions: 60 },
     includes: [
       'src/scrape.js',
-      'src/engines/engine_search.js',
       'src/search/*.js',
     ],
     tests: [
@@ -32,6 +37,12 @@ const coverageAreas = [
       'test/search_ranking.test.js',
       'test/scrape_pipeline.test.js',
     ],
+  },
+  {
+    name: 'dashboard-model',
+    thresholds: { lines: 90, branches: 80, functions: 90 },
+    includes: ['docs/dashboard-model.js'],
+    tests: ['test/dashboard_model.test.js'],
   },
 ];
 

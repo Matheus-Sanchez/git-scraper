@@ -17,7 +17,7 @@
         }
       })();
     </script>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css?v=20260801a">
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -142,7 +142,7 @@
             </div>
           </div>
           <div class="chart-shell chart-shell-compact">
-            <canvas id="store-health-chart" width="640" height="300"></canvas>
+            <canvas id="store-health-chart" width="640" height="300" role="img" aria-label="Resultados de coleta por loja">Seu navegador não oferece suporte ao gráfico de resultados por loja.</canvas>
           </div>
         </article>
 
@@ -154,7 +154,7 @@
             </div>
           </div>
           <div class="chart-shell chart-shell-compact">
-            <canvas id="engine-health-chart" width="640" height="300"></canvas>
+            <canvas id="engine-health-chart" width="640" height="300" role="img" aria-label="Tentativas, sucessos e falhas por motor de captura">Seu navegador não oferece suporte ao gráfico de motores de captura.</canvas>
           </div>
         </article>
 
@@ -166,7 +166,7 @@
             </div>
           </div>
           <div class="chart-shell chart-shell-compact">
-            <canvas id="failure-breakdown-chart" width="640" height="300"></canvas>
+            <canvas id="failure-breakdown-chart" width="640" height="300" role="img" aria-label="Distribuição dos motivos de falha da última execução">Seu navegador não oferece suporte ao gráfico de falhas.</canvas>
           </div>
         </article>
       </section>
@@ -180,7 +180,7 @@
             </div>
           </div>
           <div class="chart-shell chart-shell-pie">
-            <canvas id="category-pie-chart" width="700" height="320"></canvas>
+            <canvas id="category-pie-chart" width="700" height="320" role="img" aria-label="Distribuição dos produtos ativos por categoria">Seu navegador não oferece suporte ao gráfico de categorias.</canvas>
           </div>
         </article>
 
@@ -263,8 +263,9 @@
               <span>Status</span>
               <select id="status-filter">
                 <option value="__all__">Todos</option>
-                <option value="ok">Somente ok</option>
-                <option value="failed">Somente falhas</option>
+                <option value="fresh_success">Coleta nova</option>
+                <option value="carried_forward">Reaproveitados</option>
+                <option value="hard_failure">Falhas definitivas</option>
               </select>
             </label>
 
@@ -297,6 +298,10 @@
                   <input id="hide-legacy-series" type="checkbox" checked>
                   Ocultar séries legadas
                 </label>
+                <label class="toggle-chip" for="include-suspicious-series">
+                  <input id="include-suspicious-series" type="checkbox">
+                  Mostrar suspeitos/não verificados para auditoria
+                </label>
               </div>
 
               <div class="zoom-tools compact-zoom-tools" aria-label="Controles de zoom">
@@ -316,10 +321,10 @@
         <div id="history-main" class="history-main">
           <div id="history-scroll" class="history-scroll">
             <div id="history-stage" class="history-stage">
-              <canvas id="history-chart" width="1200" height="420"></canvas>
+              <canvas id="history-chart" width="1200" height="420" role="img" aria-label="Histórico de preços do recorte atual">Seu navegador não oferece suporte ao gráfico histórico.</canvas>
             </div>
           </div>
-          <div id="history-hover-tooltip" class="chart-hover-tooltip" hidden></div>
+          <div id="history-hover-tooltip" class="chart-hover-tooltip" role="tooltip" aria-live="polite" hidden></div>
         </div>
 
         <div class="history-detail-grid">
@@ -354,8 +359,8 @@
               <tr>
                 <th>Intenção</th>
                 <th>Loja</th>
-                <th>Preço Atual</th>
-                <th>Oferta Encontrada</th>
+                <th>Valor exibido</th>
+                <th>Origem do valor</th>
                 <th>Unitário</th>
                 <th>Status</th>
               </tr>
@@ -407,8 +412,8 @@
       </div>
     </div>
 
-    <script src="./vendor/chart.umd.js"></script>
-    <script src="./theme.js"></script>
-    <script type="module" src="./app.js"></script>
+    <script src="./vendor/visuals-runtime.js?v=20260801a"></script>
+    <script src="./theme.js?v=20260801a"></script>
+    <script type="module" src="./app.js?v=20260801a"></script>
   </body>
 </html>

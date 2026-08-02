@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  isSearchEnabledStoreId,
+  isKnownStoreId,
   listSearchEnabledStoreIds,
 } from '../config/support_matrix.js';
 
@@ -110,7 +110,7 @@ const storedStoresField = z.union([
 ])
   .optional()
   .transform((value) => normalizeStores(value))
-  .pipe(z.array(z.string().refine((storeId) => isSearchEnabledStoreId(storeId), 'store is not search-enabled')));
+  .pipe(z.array(z.string().refine((storeId) => isKnownStoreId(storeId), 'store is not registered')));
 
 const mutationStoresField = z.union([
   z.array(z.string()),
@@ -121,7 +121,7 @@ const mutationStoresField = z.union([
     if (value === undefined || value === null || String(value).trim() === '') return undefined;
     return normalizeStores(value);
   })
-  .pipe(z.array(z.string().refine((storeId) => isSearchEnabledStoreId(storeId), 'store is not search-enabled')).optional());
+  .pipe(z.array(z.string().refine((storeId) => isKnownStoreId(storeId), 'store is not registered')).optional());
 
 const unitRuleSchema = z.object({
   basis: z.enum(['unit', 'gb', 'g', 'kg', 'ml', 'l']),
@@ -167,7 +167,7 @@ export const storedProductSchema = z.object({
   id: z.string().trim().min(1, 'id is required'),
   name: z.string().trim().min(1, 'name is required'),
   characteristics: z.string().trim().optional().default(''),
-  category: z.string().trim().optional(),
+  category: z.string().trim().min(1, 'category is required'),
   stores: storedStoresField,
   required_terms: stringArrayField('required_terms'),
   preferred_terms: stringArrayField('preferred_terms'),

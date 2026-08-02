@@ -8,6 +8,12 @@ import {
 
 const MATCH_THRESHOLD = 0.8;
 
+function positiveFiniteNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const numeric = Number(value);
+  return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+}
+
 function requiredTerms(intent) {
   if (Array.isArray(intent?.required_terms)) {
     return intent.required_terms;
@@ -91,7 +97,7 @@ function priorityScore(intent, rawOffer, attributes) {
 }
 
 export function decorateOfferForIntent(intent, rawOffer, { rank = 0 } = {}) {
-  const price = Number(rawOffer?.price);
+  const price = positiveFiniteNumber(rawOffer?.price);
   const attributes = extractOfferAttributes(rawOffer?.title);
   const unitPrice = computeUnitPrice(price, attributes, intent?.unit_rule);
   const normalizedQuantity = quantityForUnitRule(attributes, intent?.unit_rule);
@@ -104,10 +110,13 @@ export function decorateOfferForIntent(intent, rawOffer, { rank = 0 } = {}) {
 
   if (!rawOffer?.title) rejectedReasons.push('missing_title');
   if (!rawOffer?.url) rejectedReasons.push('missing_url');
-  if (!Number.isFinite(price) || price <= 0) rejectedReasons.push('missing_price');
+  if (price === null) rejectedReasons.push('missing_price');
   if (!hasAllRequiredTerms(rawOffer?.title, required)) rejectedReasons.push('missing_required_terms');
   if (requiredAttributesMissing.length > 0) rejectedReasons.push(`missing_required_attributes:${requiredAttributesMissing.join(',')}`);
   if (hasExcludedTerms(rawOffer?.title, excluded)) rejectedReasons.push('excluded_term');
+  if (attributes.is_accessory && intent?.required_attributes?.is_accessory === false) {
+    rejectedReasons.push('product_type_mismatch:accessory');
+  }
   if (matchScore < MATCH_THRESHOLD) rejectedReasons.push('low_match_score');
 
   return {
@@ -122,7 +131,7 @@ export function decorateOfferForIntent(intent, rawOffer, { rank = 0 } = {}) {
     currency: 'BRL',
     unit_price: unitPrice,
     unit_basis: intent?.unit_rule?.basis || null,
-    normalized_quantity: Number.isFinite(Number(normalizedQuantity)) ? Number(normalizedQuantity) : null,
+    normalized_quantity: positiveFiniteNumber(normalizedQuantity),
     attributes,
     match_score: matchScore,
     priority_score: offerPriorityScore,
@@ -138,22 +147,28 @@ export function decorateOfferForIntent(intent, rawOffer, { rank = 0 } = {}) {
 
 function compareOffers(intent) {
   return (left, right) => {
+    if (left.rejected !== right.rejected) return left.rejected ? 1 : -1;
+
     if (right.priority_score !== left.priority_score) {
       return right.priority_score - left.priority_score;
     }
 
+    if (right.match_score !== left.match_score) return right.match_score - left.match_score;
+
     const useUnitPrice = Boolean(intent?.unit_rule);
     if (useUnitPrice) {
-      const leftHasUnit = Number.isFinite(Number(left.unit_price));
-      const rightHasUnit = Number.isFinite(Number(right.unit_price));
+      const leftHasUnit = positiveFiniteNumber(left.unit_price) !== null;
+      const rightHasUnit = positiveFiniteNumber(right.unit_price) !== null;
       if (leftHasUnit !== rightHasUnit) return leftHasUnit ? -1 : 1;
       if (leftHasUnit && rightHasUnit && left.unit_price !== right.unit_price) {
         return left.unit_price - right.unit_price;
       }
     }
 
-    if (left.price !== right.price) return left.price - right.price;
-    if (right.match_score !== left.match_score) return right.match_score - left.match_score;
+    const leftPrice = positiveFiniteNumber(left.price);
+    const rightPrice = positiveFiniteNumber(right.price);
+    if (leftPrice !== null && rightPrice !== null && leftPrice !== rightPrice) return leftPrice - rightPrice;
+    if (leftPrice !== rightPrice) return leftPrice === null ? 1 : -1;
     return String(left.title || '').localeCompare(String(right.title || ''));
   };
 }

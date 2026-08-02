@@ -1,8 +1,10 @@
 import { env } from './config/env.js';
 import { pathToFileURL } from 'node:url';
 import { runSearchEngine } from './engines/engine_search.js';
+import { isSearchEnabledStoreId } from './config/support_matrix.js';
 import { readProducts, toSafeProductReadError } from './io/products.js';
 import { findLatestSuccessfulResults, persistRunOutputs } from './io/storage.js';
+import { decorateOfferForIntent } from './search/ranking.js';
 import { buildFatalFailure } from './utils/failure.js';
 import { createLogger } from './utils/logger.js';
 import { createRunId } from './utils/run_id.js';
@@ -62,6 +64,7 @@ function toFailureEntry(intent, attempts) {
       offers_checked: item.offers_checked || null,
       rejected_offers: item.rejected_offers || null,
       store_errors: Array.isArray(item.store_errors) ? item.store_errors : undefined,
+      store_outcomes: Array.isArray(item.store_outcomes) ? item.store_outcomes : undefined,
       result: item.ok ? item.result : undefined,
     })),
     engine: lastErrorAttempt?.engine || lastAttempt?.engine || null,
@@ -72,6 +75,7 @@ function toFailureEntry(intent, attempts) {
     offers_checked: lastErrorAttempt?.offers_checked || null,
     rejected_offers: lastErrorAttempt?.rejected_offers || null,
     store_errors: Array.isArray(lastErrorAttempt?.store_errors) ? lastErrorAttempt.store_errors : undefined,
+    store_outcomes: Array.isArray(lastErrorAttempt?.store_outcomes) ? lastErrorAttempt.store_outcomes : undefined,
   };
 }
 
@@ -124,10 +128,31 @@ function isUsablePrice(value) {
   return Number.isFinite(price) && price > 0;
 }
 
-function toCarriedForwardResult(failure, previousResult, generatedAt) {
+function validateCarriedForwardCandidate(intent, previousResult) {
+  if (!intent || !previousResult) return { ok: false, reasons: ['missing_candidate'] };
+  const storeId = String(previousResult.store_id || '').trim().toLowerCase();
+  if (!storeId || !isSearchEnabledStoreId(storeId) || !(intent.stores || []).includes(storeId)) {
+    return { ok: false, reasons: ['store_not_search_enabled_for_intent'] };
+  }
+
+  const offer = decorateOfferForIntent(intent, {
+    ...previousResult,
+    store_id: storeId,
+  });
+  return {
+    ok: !offer.rejected,
+    reasons: offer.rejected_reasons,
+    offer,
+  };
+}
+
+function toCarriedForwardResult(failure, previousResult, generatedAt, intent) {
   if (!failure || !previousResult || !isUsablePrice(previousResult.price)) {
     return null;
   }
+  const validation = validateCarriedForwardCandidate(intent, previousResult);
+  if (!validation.ok) return null;
+  const validatedOffer = validation.offer;
 
   return {
     product_id: failure.product_id,
@@ -138,18 +163,18 @@ function toCarriedForwardResult(failure, previousResult, generatedAt) {
     url: previousResult.url || null,
     store_id: previousResult.store_id || null,
     store: previousResult.store || null,
-    price: Number(previousResult.price),
+    price: validatedOffer.price,
     currency: previousResult.currency || 'BRL',
-    unit_price: isUsablePrice(previousResult.unit_price) ? Number(previousResult.unit_price) : null,
-    unit_basis: previousResult.unit_basis || null,
-    normalized_quantity: previousResult.normalized_quantity || null,
-    attributes: previousResult.attributes || {},
-    match_score: Number.isFinite(Number(previousResult.match_score)) ? Number(previousResult.match_score) : null,
-    priority_score: Number.isFinite(Number(previousResult.priority_score)) ? Number(previousResult.priority_score) : null,
+    unit_price: validatedOffer.unit_price,
+    unit_basis: validatedOffer.unit_basis,
+    normalized_quantity: validatedOffer.normalized_quantity,
+    attributes: validatedOffer.attributes,
+    match_score: validatedOffer.match_score,
+    priority_score: validatedOffer.priority_score,
     engine_used: 'carry_forward',
     fetched_at: failure.fetched_at || generatedAt,
     source: previousResult.source || 'carry_forward',
-    confidence: Number.isFinite(Number(previousResult.confidence)) ? Number(previousResult.confidence) : null,
+    confidence: validatedOffer.match_score,
     status: 'carried_forward',
     carried_forward_reason: failure.error_code || 'search_failed',
     carried_forward_from: {
@@ -160,17 +185,24 @@ function toCarriedForwardResult(failure, previousResult, generatedAt) {
       source: previousResult.source || null,
       status: previousResult.status || 'ok',
     },
+    store_outcomes: Array.isArray(failure.store_outcomes) ? failure.store_outcomes : [],
   };
 }
 
-async function buildCarriedForwardResults({ failures, generatedAt, lookupPreviousResults, baseLogger, runId }) {
+async function buildCarriedForwardResults({ failures, intents, generatedAt, lookupPreviousResults, baseLogger, runId }) {
   if (!Array.isArray(failures) || failures.length === 0) {
     return [];
   }
 
   const previousByProductId = await lookupPreviousResults(failures.map((failure) => failure.product_id));
+  const intentsByProductId = new Map((intents || []).map((intent) => [intent.id, intent]));
   const carriedForward = failures
-    .map((failure) => toCarriedForwardResult(failure, previousByProductId.get(failure.product_id), generatedAt))
+    .map((failure) => toCarriedForwardResult(
+      failure,
+      previousByProductId.get(failure.product_id),
+      generatedAt,
+      intentsByProductId.get(failure.product_id),
+    ))
     .filter(Boolean);
 
   if (carriedForward.length > 0) {
@@ -361,6 +393,7 @@ export async function runScrape({
     .map((product) => toFailureEntry(product, attemptsByProductId.get(product.id) || []));
   const carriedForward = await buildCarriedForwardResults({
     failures,
+    intents: activeProducts,
     generatedAt,
     lookupPreviousResults,
     baseLogger,
@@ -376,6 +409,7 @@ export async function runScrape({
     run_duration_ms: Date.now() - startedAt,
     engines: buildEngineSummary(attempts),
   };
+  const hasFreshResults = successes.length > 0;
 
   await persistSuccessRun({
     runId,
@@ -401,13 +435,18 @@ export async function runScrape({
     run_id: runId,
     run_date: runDate,
     summary,
-    success: true,
+    success: hasFreshResults,
     status: failures.length > 0 ? 'partial' : 'success',
+    ...(hasFreshResults ? {} : { failure_reason: 'no_fresh_results' }),
   };
 }
 
-export async function main() {
-  return runScrape();
+export async function main(options = {}) {
+  const result = await runScrape(options);
+  if (!result.success) {
+    throw new Error(`Scrape completed with no fresh successful results (run ${result.run_id})`);
+  }
+  return result;
 }
 
 const isDirectRun = process.argv[1]

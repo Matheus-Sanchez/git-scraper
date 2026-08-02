@@ -25,8 +25,10 @@ body:
     id: category
     attributes:
       label: Categoria
-      description: Opcional.
+      description: Obrigatória. Use uma categoria curta, por exemplo hardware, higiene ou armazenamento.
       placeholder: hardware
+    validations:
+      required: true
   - type: textarea
     id: stores
     attributes:

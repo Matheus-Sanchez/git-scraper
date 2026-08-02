@@ -217,6 +217,9 @@ export function validateAndBuildProduct(rawPayload) {
 
   const characteristics = String(rawPayload.characteristics || '').trim();
   const category = normalizeLooseKey(rawPayload.category) || undefined;
+  if (!category) {
+    return { ok: false, error: 'Field "category" is required' };
+  }
   const notes = String(rawPayload.notes || '').trim() || undefined;
   const active = parseBoolean(rawPayload.is_active, true);
   const idBase = slugify(`${name} ${characteristics}`) || 'produto';
@@ -227,7 +230,7 @@ export function validateAndBuildProduct(rawPayload) {
       id,
       name,
       characteristics,
-      ...(category ? { category } : {}),
+      category,
       ...(rawPayload.stores !== undefined ? { stores: rawPayload.stores } : {}),
       ...(rawPayload.required_terms !== undefined ? { required_terms: rawPayload.required_terms } : {}),
       ...(rawPayload.preferred_terms !== undefined ? { preferred_terms: rawPayload.preferred_terms } : {}),

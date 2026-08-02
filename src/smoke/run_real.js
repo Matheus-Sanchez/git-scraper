@@ -1,10 +1,13 @@
 import { dirname, resolve } from 'node:path';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { env } from '../config/env.js';
+import { runSearchEngine } from '../engines/engine_search.js';
 import { readProducts } from '../io/products.js';
 import { runScrape } from '../scrape.js';
 import {
+  assertSmokeSelectionCoverage,
   parseSmokeProductIds,
+  parseSmokeStoreIds,
   selectSmokeProducts,
   summarizeSmokeRun,
 } from './real.js';
@@ -40,6 +43,7 @@ async function prepareWorkspace(selectedProducts) {
       smoke_store_id: _smokeStoreId,
       smoke_support_level: _smokeSupportLevel,
       smoke_original_id: _smokeOriginalId,
+      smoke_case_id: _smokeCaseId,
       ...product
     }) => product),
   );
@@ -49,6 +53,7 @@ function buildSelectedProductsReport(selectedProducts) {
   return selectedProducts.map((product) => ({
     id: product.id,
     original_id: product.smoke_original_id,
+    case_id: product.smoke_case_id,
     name: product.name,
     characteristics: product.characteristics || '',
     stores: product.stores,
@@ -59,14 +64,18 @@ function buildSelectedProductsReport(selectedProducts) {
 
 async function main() {
   const products = await readProducts();
+  const productIds = parseSmokeProductIds(process.env.SMOKE_PRODUCT_IDS);
+  const storeIds = parseSmokeStoreIds(process.env.SMOKE_STORE_IDS);
   const selectedProducts = selectSmokeProducts(products, {
-    productIds: parseSmokeProductIds(process.env.SMOKE_PRODUCT_IDS),
+    productIds,
+    storeIds,
     maxProductsPerStore: parseMaxProductsPerStore(process.env.SMOKE_MAX_PRODUCTS_PER_STORE),
   });
 
   if (selectedProducts.length === 0) {
     throw new Error('No active smoke-eligible products found in data/products.json');
   }
+  assertSmokeSelectionCoverage(selectedProducts, { storeIds, productIds });
 
   await prepareWorkspace(selectedProducts);
 
@@ -74,7 +83,16 @@ async function main() {
   process.env.DATA_ROOT = smokeWorkspace;
 
   try {
-    const runResult = await runScrape({ runtimeEnv: env });
+    const allowedStoreIds = [...new Set(selectedProducts.map((product) => product.smoke_store_id))];
+    const runResult = await runScrape({
+      runtimeEnv: env,
+      engineRunners: {
+        runSearchEngine: (intents, options) => runSearchEngine(intents, {
+          ...options,
+          allowedStoreIds,
+        }),
+      },
+    });
     const latestPayload = await readJson(resolve(smokeWorkspace, 'data', 'latest.json'));
     const smokeAssessment = summarizeSmokeRun({
       selectedProducts,

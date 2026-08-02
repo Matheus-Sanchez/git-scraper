@@ -15,6 +15,7 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout
@@ -36,12 +37,31 @@ jobs:
         run: npm run test:ci
 
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
 
       - name: Start Lightpanda CDP server
+        continue-on-error: true
         run: docker run -d --name lightpanda -p 127.0.0.1:9222:9222 lightpanda/browser:nightly
 
+      - name: Probe Lightpanda readiness
+        shell: bash
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:9222/json/version >/dev/null; then
+              echo "Lightpanda CDP is ready"
+              exit 0
+            fi
+            if [ "$(docker inspect -f '{{.State.Running}}' lightpanda 2>/dev/null || true)" != "true" ]; then
+              break
+            fi
+            sleep 1
+          done
+          echo "::warning::Lightpanda readiness probe failed; scraper will report the degradation and fall back to Chromium"
+          docker logs lightpanda || true
+
       - name: Run scraper
+        id: scraper
+        continue-on-error: true
         env:
           DEBUG: ${{ vars.DEBUG }}
           HTTP_TIMEOUT_MS: ${{ vars.HTTP_TIMEOUT_MS }}
@@ -52,7 +72,13 @@ jobs:
           SEARCH_TOP_N_PER_STORE: ${{ vars.SEARCH_TOP_N_PER_STORE }}
         run: npm run scrape
 
+      - name: Validate generated history and mirror
+        id: validate_history
+        if: always()
+        run: npm run test:data
+
       - name: Commit data changes
+        if: always() && steps.validate_history.outcome == 'success'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -65,6 +91,14 @@ jobs:
           git commit -m "chore(data): daily scrape ${RUN_DATE}"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin HEAD:"${GITHUB_REF_NAME}"
+
+      - name: Mark collection or data validation failure
+        if: always() && (steps.scraper.outcome != 'success' || steps.validate_history.outcome != 'success')
+        shell: bash
+        run: |
+          echo "Scraper outcome: ${{ steps.scraper.outcome }}"
+          echo "History validation outcome: ${{ steps.validate_history.outcome }}"
+          exit 1
 
       - name: Upload cache artifacts
         if: failure()

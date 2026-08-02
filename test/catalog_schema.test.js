@@ -44,12 +44,32 @@ test('parseStoredProduct normalizes search intent defaults', () => {
   assert.deepEqual(product.excluded_terms, []);
   assert.ok(product.stores.includes('amazon'));
   assert.ok(product.stores.includes('kabum'));
+  assert.deepEqual(product.stores, ['amazon', 'kabum']);
+});
+
+test('catalog retains registered backlog stores but rejects unknown adapters', () => {
+  const product = parseStoredProduct({
+    id: 'produto-candidato',
+    name: 'Produto candidato',
+    category: 'teste',
+    stores: ['amazon', 'mercadolivre', 'petz'],
+    is_active: true,
+  });
+
+  assert.deepEqual(product.stores, ['amazon', 'mercadolivre', 'petz']);
+  assert.throws(() => parseStoredProduct({
+    id: 'produto-desconhecido',
+    name: 'Produto desconhecido',
+    stores: ['loja-inexistente'],
+    is_active: true,
+  }), ZodError);
 });
 
 test('parseStoredProduct accepts required and preferred attributes', () => {
   const product = parseStoredProduct({
     id: 'fralda-g',
     name: 'Fralda',
+    category: 'higiene',
     characteristics: 'tamanho G',
     required_attributes: { size: 'G' },
     unit_rule: { basis: 'unit', label: 'fralda' },
@@ -65,6 +85,7 @@ test('parseStoredProducts validates product arrays with normalized entries', () 
     {
       id: 'produto-a',
       name: 'Produto A',
+      category: 'teste',
       characteristics: 'Teste',
       stores: ['amazon', 'kabum'],
       is_active: true,
@@ -72,12 +93,21 @@ test('parseStoredProducts validates product arrays with normalized entries', () 
     {
       id: 'produto-b',
       name: 'Produto B',
+      category: 'teste',
       is_active: false,
     },
   ]);
 
   assert.equal(products.length, 2);
   assert.deepEqual(products[0].stores, ['amazon', 'kabum']);
+});
+
+test('parseStoredProduct requires a category for every catalog entry', () => {
+  assert.throws(() => parseStoredProduct({
+    id: 'produto-sem-categoria',
+    name: 'Produto sem categoria',
+    is_active: true,
+  }), ZodError);
 });
 
 test('validateNormalizedMutation rejects unexpected legacy fields', () => {

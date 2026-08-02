@@ -20,8 +20,16 @@
     "preferred_terms": [
       "alexa"
     ],
+    "required_attributes": {
+      "is_accessory": false
+    },
     "is_active": true,
-    "excluded_terms": []
+    "excluded_terms": [
+      "suporte",
+      "base de mesa",
+      "pedestal",
+      "capa"
+    ]
   },
   {
     "id": "exemplo-fralda-tamanho-g",
@@ -56,6 +64,7 @@
     "id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
     "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
     "characteristics": "GG",
+    "category": "higiene",
     "stores": [
       "amazon",
       "kabum",
@@ -72,6 +81,9 @@
       "pintadinha",
       "ultrasec"
     ],
+    "required_attributes": {
+      "size": "GG"
+    },
     "unit_rule": {
       "basis": "unit",
       "label": "unit"
@@ -84,6 +96,7 @@
     "id": "fralda-pampers-confort-sec-g-5c5a56c0",
     "name": "Fralda Pampers Confort Sec",
     "characteristics": "G",
+    "category": "higiene",
     "stores": [
       "amazon",
       "kabum",
@@ -99,6 +112,9 @@
       "confort",
       "sec"
     ],
+    "required_attributes": {
+      "size": "G"
+    },
     "unit_rule": {
       "basis": "unit",
       "label": "unit"
@@ -111,6 +127,7 @@
     "id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
     "name": "Fralda Pom Pom Protek Proteção de Mãe",
     "characteristics": "GG",
+    "category": "higiene",
     "stores": [
       "amazon",
       "kabum",
@@ -127,6 +144,9 @@
       "protecao",
       "mae"
     ],
+    "required_attributes": {
+      "size": "GG"
+    },
     "unit_rule": {
       "basis": "unit",
       "label": "unit"
@@ -139,6 +159,7 @@
     "id": "fralda-turma-da-monica-baby-gg-cb74838e",
     "name": "Fralda Turma da Mônica Baby",
     "characteristics": "GG",
+    "category": "higiene",
     "stores": [
       "amazon",
       "kabum",
@@ -154,6 +175,9 @@
       "monica",
       "baby"
     ],
+    "required_attributes": {
+      "size": "GG"
+    },
     "unit_rule": {
       "basis": "unit",
       "label": "unit"
@@ -179,17 +203,27 @@
     "required_terms": [
       "hyperx",
       "cloud",
-      "stinger"
+      "stinger 2"
     ],
     "preferred_terms": [
-      "2"
+      "multiplataforma",
+      "preto"
     ],
+    "required_attributes": {
+      "color": "preto",
+      "platform": "multiplataforma"
+    },
     "is_active": true,
-    "excluded_terms": []
+    "excluded_terms": [
+      "xbox",
+      "branco",
+      "white"
+    ]
   },
   {
     "id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
     "name": "Lenços Umedecidos Huggies Rosto e Corpo",
+    "category": "higiene",
     "stores": [
       "amazon",
       "kabum",
@@ -284,20 +318,34 @@
     ],
     "required_terms": [
       "notebook",
-      "acer"
+      "acer",
+      "aspire",
+      "go"
     ],
     "preferred_terms": [
       "aspire",
       "go",
       "15"
     ],
+    "required_attributes": {
+      "cpu_tier": "i7",
+      "storage_gb": 512
+    },
+    "preferred_attributes": {
+      "ram_gb": 8,
+      "memory_type": "ddr5"
+    },
     "is_active": true,
-    "excluded_terms": []
+    "excluded_terms": [
+      "core i3",
+      "256gb"
+    ]
   },
   {
     "id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
     "name": "Placa Mãe Asus TUF Gaming B760",
     "characteristics": "DDR5",
+    "category": "hardware",
     "stores": [
       "amazon",
       "kabum",
@@ -308,20 +356,25 @@
       "petz"
     ],
     "required_terms": [
-      "intel lga 1700"
+      "asus",
+      "tuf",
+      "b760"
     ],
-    "unit_rule": {
-      "basis": "unit",
-      "label": "unit"
+    "required_attributes": {
+      "chipset": "b760",
+      "memory_type": "ddr5"
     },
     "is_active": true,
     "preferred_terms": [],
-    "excluded_terms": []
+    "excluded_terms": [
+      "ddr4"
+    ]
   },
   {
     "id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
     "name": "SanDisk Cartão de memória Ultra MicroSDXC",
     "characteristics": "Cartão Micro SD",
+    "category": "armazenamento",
     "stores": [
       "amazon",
       "kabum",
@@ -350,6 +403,7 @@
     "id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
     "name": "SanDisk Flash Drive USB Tipo C Ultra Luxe",
     "characteristics": "tipo c",
+    "category": "armazenamento",
     "stores": [
       "amazon",
       "kabum",

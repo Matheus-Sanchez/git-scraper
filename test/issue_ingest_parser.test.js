@@ -63,6 +63,16 @@ test('validateAndBuildProduct rejects URL payloads', () => {
   assert.equal(result.ok, false);
 });
 
+test('validateAndBuildProduct requires a category for new intents', () => {
+  const result = validateAndBuildProduct({
+    name: 'Produto sem categoria',
+    is_active: true,
+  });
+
+  assert.equal(result.ok, false);
+  assert.match(result.error, /category.*required/i);
+});
+
 test('detectDuplicate identifies same search intent', () => {
   const existing = [
     {
@@ -173,6 +183,7 @@ test('mutateProducts aborts batch when one operation fails', () => {
       {
         action: 'add',
         name: 'Produto A',
+        category: 'hardware',
       },
       {
         action: 'add',

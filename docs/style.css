@@ -589,6 +589,58 @@ h3 {
   width: 100%;
 }
 
+.chart-runtime-state {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--chart-empty, #8b949e);
+  text-align: center;
+  border: 1px dashed var(--chart-border, #30363d);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--chart-bg, #060f16) 88%, transparent);
+}
+
+.chart-runtime-state[hidden] {
+  display: none;
+}
+
+.chart-runtime-state[data-state="error"],
+.chart-runtime-state[data-state="unavailable"] {
+  color: var(--danger, #da3633);
+}
+
+.chart-runtime-state[data-state="loading"]::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: dashboard-spin .8s linear infinite;
+}
+
+@keyframes dashboard-spin {
+  to { transform: rotate(360deg); }
+}
+
+.quality-warning {
+  display: block;
+  margin-top: 6px;
+  color: var(--warn, #9e6a03);
+  max-width: 30ch;
+}
+
+.is-audit-rejected {
+  opacity: .72;
+  border-left: 3px solid var(--danger, #da3633);
+}
+
+.offer-audit {
+  margin-top: 8px;
+}
+
 .chart-shell-pie {
   flex: 1 1 auto;
   min-height: clamp(280px, 31vw, 460px);
@@ -1274,6 +1326,15 @@ textarea::placeholder {
   z-index: 30;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
+.table-product-row:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: -3px;
+}
+
 .modal[aria-hidden='false'] {
   display: block;
 }
@@ -1505,7 +1566,24 @@ textarea::placeholder {
   }
 
   .filter-drawer-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .filter-drawer-grid > *,
+  .filter-drawer-grid .filter-field,
+  .filter-drawer-grid select {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .filter-drawer-grid .filter-tools {
+    flex-wrap: wrap;
+  }
+
+  .filter-drawer-grid .toggle-chip {
+    width: 100%;
+    white-space: normal;
   }
 
   .filter-search {
@@ -2329,6 +2407,50 @@ tbody tr:hover td {
   }
 }
 
+@media (min-width: 861px) and (max-width: 1500px) {
+  .history-toolbar-panel > .filter-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history-toolbar-panel > .filter-bar .filter-search {
+    grid-column: 1 / -1;
+  }
+
+  .history-toolbar-panel > .filter-bar .filter-reset {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .filter-drawer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .filter-drawer-grid > *,
+  .filter-drawer-grid .filter-field,
+  .filter-drawer-grid select {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .filter-drawer-grid .filter-tools {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filter-drawer-grid .toggle-chip {
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .compact-zoom-tools {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
 @media (max-height: 720px) and (min-width: 1181px) {
   .side-brand {
     padding: 16px 20px;
@@ -2539,11 +2661,11 @@ tbody tr:hover td {
   }
 
   #inventory .table-product-row td:nth-child(3)::before {
-    content: "Preço";
+    content: "Valor exibido";
   }
 
   #inventory .table-product-row td:nth-child(4)::before {
-    content: "Menor 30d";
+    content: "Origem do valor";
   }
 
   #inventory .table-product-row td:nth-child(5)::before {
@@ -2559,15 +2681,15 @@ tbody tr:hover td {
   }
 
   .card[aria-labelledby='manage-title'] tbody tr:not(.category-group-row) td:nth-child(2)::before {
-    content: "Loja";
-  }
-
-  .card[aria-labelledby='manage-title'] tbody tr:not(.category-group-row) td:nth-child(3)::before {
     content: "Categoria";
   }
 
+  .card[aria-labelledby='manage-title'] tbody tr:not(.category-group-row) td:nth-child(3)::before {
+    content: "Lojas";
+  }
+
   .card[aria-labelledby='manage-title'] tbody tr:not(.category-group-row) td:nth-child(4)::before {
-    content: "Grupo";
+    content: "Obrigatórios";
   }
 
   .card[aria-labelledby='manage-title'] tbody tr:not(.category-group-row) td:nth-child(5)::before {
