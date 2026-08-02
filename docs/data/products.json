@@ -272,7 +272,7 @@
     "preferred_attributes": {
       "capacity_total_gb": 16
     },
-    "is_active": false,
+    "is_active": true,
     "notes": "Exemplo: DDR4 e obrigatorio; 16GB e prioridade secundaria; velocidade em MHz fica neutra.",
     "preferred_terms": [],
     "excluded_terms": []
