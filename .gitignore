@@ -7,3 +7,7 @@ logs/
 *.log
 .DS_Store
 Thumbs.db
+data/.storage.lock
+data/.storage.lock.*
+data/**/*.tmp-*
+docs/data/**/*.tmp-*

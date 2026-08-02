@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { runScrape } from '../src/scrape.js';
+import { main, runScrape } from '../src/scrape.js';
 import { persistRunOutputs } from '../src/io/storage.js';
 import {
   makeTempDataRoot,
@@ -55,6 +55,7 @@ test('empty active intent set writes a successful empty snapshot', async () => {
       {
         id: 'produto-inativo',
         name: 'Produto Inativo',
+        category: 'teste',
         is_active: false,
       },
     ], null, 2));
@@ -79,6 +80,7 @@ test('search pipeline persists best item and top offers', async () => {
       {
         id: 'fralda-g',
         name: 'Fralda',
+        category: 'bebes',
         characteristics: 'tamanho G',
         required_terms: ['fralda'],
         required_attributes: { size: 'G' },
@@ -121,6 +123,15 @@ test('search pipeline persists best item and top offers', async () => {
               source: 'search-card',
               confidence: 1,
               status: 'ok',
+              store_outcomes: [{
+                store_id: 'magalu',
+                store: 'Magalu',
+                status: 'fresh_success',
+                engine_used: 'lightpanda_search',
+                offers_checked: 1,
+                accepted_offer_count: 1,
+                rejected_offer_count: 0,
+              }],
             },
             offers: [{
               product_id: product.id,
@@ -152,6 +163,7 @@ test('search pipeline persists best item and top offers', async () => {
     assert.equal(latest.summary.success_count, 1);
     assert.equal(latest.items[0].url, 'https://www.magazineluiza.com.br/fralda/p/abc');
     assert.equal(latest.items[0].unit_price, 1);
+    assert.equal(latest.items[0].store_outcomes[0].status, 'fresh_success');
     assert.equal(latest.offers.length, 1);
     assert.equal(currentRun.offers.length, 1);
   });
@@ -164,6 +176,7 @@ test('search pipeline persists rejected top offers when ranking finds no winner'
       {
         id: 'memoria-ddr4',
         name: 'Memoria RAM',
+        category: 'informatica',
         characteristics: 'DDR4',
         required_terms: ['memoria'],
         required_attributes: { memory_type: 'ddr4' },
@@ -189,6 +202,16 @@ test('search pipeline persists rejected top offers when ranking finds no winner'
             stores_checked: 1,
             offers_checked: 1,
             rejected_offers: 1,
+            store_outcomes: [{
+              store_id: 'kabum',
+              store: 'KaBuM',
+              status: 'hard_failure',
+              engine_used: 'lightpanda_search',
+              offers_checked: 1,
+              accepted_offer_count: 0,
+              rejected_offer_count: 1,
+              error_code: 'no_matching_offers',
+            }],
             offers: [{
               product_id: product.id,
               intent_id: product.id,
@@ -218,10 +241,14 @@ test('search pipeline persists rejected top offers when ranking finds no winner'
     const currentRun = await readJson(dataRoot, `data/runs/${latest.run_file}`);
 
     assert.equal(result.status, 'partial');
+    assert.equal(result.success, false);
+    assert.equal(result.failure_reason, 'no_fresh_results');
     assert.equal(latest.items.length, 0);
     assert.equal(latest.offers.length, 1);
     assert.equal(latest.offers[0].rejected, true);
     assert.deepEqual(latest.offers[0].rejected_reasons, ['missing_required_attributes:memory_type']);
+    assert.equal(latest.failures[0].store_outcomes[0].store_id, 'kabum');
+    assert.equal(latest.failures[0].attempts[0].store_outcomes[0].status, 'hard_failure');
     assert.equal(currentRun.offers.length, 1);
   });
 });
@@ -234,6 +261,7 @@ test('failed search carries forward the last valid offer into the current snapsh
       {
         id: 'produto-a',
         name: 'Produto A',
+        category: 'teste',
         stores: ['amazon'],
         is_active: true,
       },
@@ -336,8 +364,150 @@ test('failed search carries forward the last valid offer into the current snapsh
 
     const latest = await readJson(dataRoot, 'data/latest.json');
     assert.equal(result.status, 'partial');
+    assert.equal(result.success, false);
+    assert.equal(result.failure_reason, 'no_fresh_results');
     assert.equal(latest.items[0].status, 'carried_forward');
     assert.equal(latest.items[0].price, 199.9);
     assert.equal(latest.failures[0].error_code, 'no_search_offers');
+  });
+});
+
+test('carry-forward revalidates historical results against current identity and variant rules', async () => {
+  const dataRoot = await makeTempDataRoot();
+  const products = [
+    {
+      id: 'echo-pop',
+      name: 'Echo Pop',
+      category: 'eletronicos',
+      stores: ['amazon'],
+      required_terms: ['echo', 'pop'],
+      required_attributes: { is_accessory: false },
+      excluded_terms: ['suporte', 'base de mesa'],
+      is_active: true,
+    },
+    {
+      id: 'acer-i7-512',
+      name: 'Notebook Acer Aspire Go',
+      category: 'informatica',
+      stores: ['amazon'],
+      required_terms: ['notebook', 'acer', 'aspire', 'go'],
+      required_attributes: { cpu_tier: 'i7', storage_gb: 512 },
+      excluded_terms: ['core i3', '256gb'],
+      is_active: true,
+    },
+    {
+      id: 'hyperx-stinger-2',
+      name: 'Headset HyperX Cloud Stinger 2',
+      category: 'eletronicos',
+      stores: ['amazon'],
+      required_terms: ['hyperx', 'cloud', 'stinger 2'],
+      required_attributes: { color: 'preto', platform: 'multiplataforma' },
+      excluded_terms: ['xbox', 'branco', 'white'],
+      is_active: true,
+    },
+  ];
+  const historical = new Map([
+    ['echo-pop', {
+      product_id: 'echo-pop',
+      name: 'Echo Pop',
+      store_id: 'amazon',
+      store: 'Amazon',
+      title: 'Suporte de mesa para Echo Pop',
+      url: 'https://www.amazon.com.br/dp/STAND',
+      price: 29.99,
+      status: 'ok',
+    }],
+    ['acer-i7-512', {
+      product_id: 'acer-i7-512',
+      name: 'Notebook Acer Aspire Go',
+      store_id: 'amazon',
+      store: 'Amazon',
+      title: 'Notebook Acer Aspire Go Intel Core i3 8GB RAM SSD 256GB',
+      url: 'https://www.amazon.com.br/dp/I3',
+      price: 3419.1,
+      status: 'ok',
+    }],
+    ['hyperx-stinger-2', {
+      product_id: 'hyperx-stinger-2',
+      name: 'Headset HyperX Cloud Stinger 2',
+      store_id: 'amazon',
+      store: 'Amazon',
+      title: 'Headset HyperX Cloud Stinger 2 para Xbox branco',
+      url: 'https://www.amazon.com.br/dp/XBOX',
+      price: 299.9,
+      status: 'ok',
+    }],
+  ]);
+
+  await withDataRoot(dataRoot, async () => {
+    await writeProducts(dataRoot, JSON.stringify(products, null, 2));
+    const result = await runScrape({
+      runtimeEnv,
+      baseLogger: noopLogger,
+      lookupPreviousResults: async () => historical,
+      engineRunners: {
+        async runSearchEngine(intents) {
+          return intents.map((product) => ({
+            engine: 'chromium_search',
+            product,
+            ok: false,
+            elapsed_ms: 1,
+            error: 'Search did not return usable offers',
+            error_code: 'no_search_offers',
+            error_detail: 'Search did not return usable offers',
+            stores_checked: 1,
+            offers_checked: 0,
+          }));
+        },
+      },
+    });
+
+    const latest = await readJson(dataRoot, 'data/latest.json');
+    assert.equal(result.status, 'partial');
+    assert.deepEqual(latest.items, []);
+    assert.equal(latest.failures.length, 3);
+  });
+});
+
+test('main fails an all-failed run only after persisting its partial snapshot', async () => {
+  const dataRoot = await makeTempDataRoot();
+  await withDataRoot(dataRoot, async () => {
+    await writeProducts(dataRoot, JSON.stringify([{
+      id: 'produto-sem-oferta',
+      name: 'Produto sem oferta',
+      category: 'teste',
+      stores: ['amazon'],
+      is_active: true,
+    }], null, 2));
+
+    await assert.rejects(
+      () => main({
+        runtimeEnv,
+        baseLogger: noopLogger,
+        engineRunners: {
+          async runSearchEngine(products) {
+            return products.map((product) => ({
+              engine: 'chromium_search',
+              product,
+              ok: false,
+              elapsed_ms: 1,
+              error: 'Search did not return usable offers',
+              error_code: 'no_search_offers',
+              error_detail: 'Search did not return usable offers',
+              stores_checked: 1,
+              offers_checked: 0,
+            }));
+          },
+        },
+      }),
+      /no fresh successful results/,
+    );
+
+    const latest = await readJson(dataRoot, 'data/latest.json');
+    const manifest = await readJson(dataRoot, 'data/runs/index.json');
+    assert.equal(latest.summary.success_count, 0);
+    assert.equal(latest.summary.failure_count, 1);
+    assert.equal(latest.failures.length, 1);
+    assert.equal(manifest.runs[0].status, 'partial');
   });
 });

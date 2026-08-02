@@ -41,7 +41,7 @@ body:
     id: category
     attributes:
       label: Categoria
-      description: Opcional.
+      description: Obrigatória em add; opcional em edit quando não houver mudança.
       placeholder: hardware
   - type: textarea
     id: stores

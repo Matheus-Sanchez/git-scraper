@@ -35,41 +35,41 @@ export const supportMatrix = Object.freeze([
     store: 'Mercado Livre',
     domains: ['mercadolivre.com.br'],
     adapter: 'mercadolivre',
-    support_level: 'dedicated_validated',
+    support_level: 'backlog_unvalidated',
     ci_regression: true,
-    smoke_real: true,
+    smoke_real: false,
   }),
   freezeEntry({
     store: 'Magalu',
     domains: ['magazineluiza.com.br', 'magalu.com'],
     adapter: 'magalu',
-    support_level: 'dedicated_validated',
+    support_level: 'backlog_unvalidated',
     ci_regression: true,
-    smoke_real: true,
+    smoke_real: false,
   }),
   freezeEntry({
     store: 'Shopee',
     domains: ['shopee.com.br'],
     adapter: 'shopee',
-    support_level: 'dedicated_validated',
+    support_level: 'backlog_unvalidated',
     ci_regression: true,
-    smoke_real: true,
+    smoke_real: false,
   }),
   freezeEntry({
     store: 'Pichau',
     domains: ['pichau.com.br'],
     adapter: 'pichau',
-    support_level: 'dedicated_validated',
+    support_level: 'backlog_unvalidated',
     ci_regression: true,
-    smoke_real: true,
+    smoke_real: false,
   }),
   freezeEntry({
     store: 'Petz',
     domains: ['petz.com.br'],
     adapter: 'petz',
-    support_level: 'dedicated_validated',
+    support_level: 'backlog_unvalidated',
     ci_regression: true,
-    smoke_real: true,
+    smoke_real: false,
   }),
   fallbackStore,
 ]);
@@ -86,6 +86,12 @@ export function listSearchEnabledStoreIds() {
   return listSearchEnabledStores().map((entry) => entry.adapter);
 }
 
+export function listKnownStoreIds() {
+  return supportMatrix
+    .filter((entry) => entry.adapter !== 'unsupported')
+    .map((entry) => entry.adapter);
+}
+
 export function getStoreSupportById(storeId) {
   const normalized = String(storeId || '').trim().toLowerCase();
   return supportMatrix.find((entry) => entry.adapter === normalized) || fallbackStore;
@@ -93,4 +99,8 @@ export function getStoreSupportById(storeId) {
 
 export function isSearchEnabledStoreId(storeId) {
   return listSearchEnabledStoreIds().includes(String(storeId || '').trim().toLowerCase());
+}
+
+export function isKnownStoreId(storeId) {
+  return listKnownStoreIds().includes(String(storeId || '').trim().toLowerCase());
 }

@@ -2,13 +2,7 @@ name: CI
 
 on:
   push:
-    paths-ignore:
-      - 'data/**'
-      - 'docs/data/**'
   pull_request:
-    paths-ignore:
-      - 'data/**'
-      - 'docs/data/**'
 
 permissions:
   contents: read
@@ -41,4 +35,36 @@ jobs:
         with:
           name: ci-cache-${{ github.run_id }}
           path: .cache
+          if-no-files-found: ignore
+
+  ui-e2e:
+    name: ui-e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Run dashboard end-to-end suite
+        run: npm run test:dashboard:e2e
+
+      - name: Upload dashboard diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: dashboard-e2e-${{ github.run_id }}
+          path: .cache/dashboard-e2e
           if-no-files-found: ignore

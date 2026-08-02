@@ -20,6 +20,12 @@ function firstMatch(text, pattern) {
   return match || null;
 }
 
+function positiveFiniteNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const numeric = Number(value);
+  return Number.isFinite(numeric) && numeric > 0 ? numeric : null;
+}
+
 function extractRamAttributes(text) {
   const out = {};
   const kit = firstMatch(text, /(\d+)\s*x\s*(\d+(?:[,.]\d+)?)\s*gb\b/i);
@@ -54,10 +60,67 @@ function extractRamAttributes(text) {
   return out;
 }
 
+function extractVariantAttributes(text) {
+  const normalized = String(text || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const out = {};
+  const cpuTier = firstMatch(normalized, /\b(?:intel\s+)?core\s+(i[3579])\b|\b(i[3579])(?:[-\s]\d{4,5}[a-z]{0,2})?\b/i);
+  const storage = firstMatch(normalized, /\b(?:ssd|nvme)\s*(\d+(?:[,.]\d+)?)\s*(tb|gb)\b|\b(\d+(?:[,.]\d+)?)\s*(tb|gb)\s*(?:ssd|nvme)\b/i);
+  const ram = firstMatch(normalized, /\b(?:ram|memoria)\s*(?:de\s*)?(\d+(?:[,.]\d+)?)\s*gb\b|\b(\d+(?:[,.]\d+)?)\s*gb\s*(?:de\s*)?(?:ram|memoria)\b/i);
+  const chipset = firstMatch(normalized, /\bchipset\s*:?-?\s*([abhxz]\d{3}[a-z]?)\b/i)
+    || firstMatch(normalized, /\b([abhxz]\d{3}[a-z]?)\b/i);
+
+  if (cpuTier) out.cpu_tier = String(cpuTier[1] || cpuTier[2]).toLowerCase();
+  if (storage) {
+    const amount = parseDecimal(storage[1] || storage[3]);
+    const unit = String(storage[2] || storage[4]).toLowerCase();
+    if (Number.isFinite(amount)) out.storage_gb = unit === 'tb' ? roundTo2(amount * 1024) : amount;
+  }
+  if (ram) {
+    const amount = parseDecimal(ram[1] || ram[2]);
+    if (Number.isFinite(amount)) out.ram_gb = amount;
+  }
+  if (chipset) {
+    // Motherboard model suffixes such as B760M/B760I describe the board form
+    // factor, not a different Intel chipset. Keep real chipset suffixes such as
+    // X670E intact.
+    out.chipset = chipset[1].toLowerCase().replace(/^([abhxz]\d{3})[mi]$/, '$1');
+  }
+
+  if (/\b(?:preto|preta|black)\b/i.test(normalized)) out.color = 'preto';
+  if (/\b(?:branco|branca|white)\b/i.test(normalized)) out.color = 'branco';
+  const platformFamilies = [
+    /\b(?:pc|windows)\b/i.test(normalized) ? 'pc' : null,
+    /\b(?:playstation|ps[345])\b/i.test(normalized) ? 'playstation' : null,
+    /\bxbox\b/i.test(normalized) ? 'xbox' : null,
+    /\b(?:nintendo|switch)\b/i.test(normalized) ? 'nintendo' : null,
+  ].filter(Boolean);
+  const explicitlyMultiplatform = /\b(?:multiplataforma|multi plataforma|multi-platform|pc\s*\/\s*ps|pc\s+ps)\b/i.test(normalized);
+
+  if (explicitlyMultiplatform || new Set(platformFamilies).size >= 2) {
+    out.platform = 'multiplataforma';
+  } else if (platformFamilies[0] === 'xbox') {
+    out.platform = 'xbox';
+  } else if (platformFamilies[0] === 'playstation') {
+    out.platform = 'playstation';
+  } else if (platformFamilies[0] === 'pc') {
+    out.platform = 'pc';
+  } else if (platformFamilies[0] === 'nintendo') {
+    out.platform = 'nintendo';
+  }
+
+  const accessoryPattern = /\b(?:suporte|base de mesa|pedestal|capa|case|pelicula|carregador|cabo|adaptador|acessorio)\b/i;
+  out.is_accessory = accessoryPattern.test(normalized);
+
+  return out;
+}
+
 function extractPackageAttributes(text) {
   const out = {};
   const count = firstMatch(text, /(\d+)\s*(?:un|unid|unidade|unidades|fralda|fraldas|pe[cç]a|pe[cç]as|pcs?)\b/i);
-  const diaperSize = firstMatch(text, /\b(rn|xxgg|xxg|xg|g|m|p)\b/i);
+  const explicitSize = firstMatch(text, /\b(?:tamanho|tam\.?|size)\s*:?-?\s*(rn|xxgg|xxg|xg|gg|g|m|p)\b/i);
+  const diaperSize = explicitSize || (/\bfrald(?:a|as)\b/i.test(text)
+    ? firstMatch(text, /\b(rn|xxgg|xxg|xg|gg|g|m|p)\b/i)
+    : null);
 
   if (count) {
     out.package_count = Number(count[1]);
@@ -101,6 +164,7 @@ export function extractOfferAttributes(title) {
   const text = String(title || '');
   return {
     ...extractRamAttributes(text),
+    ...extractVariantAttributes(text),
     ...extractPackageAttributes(text),
     ...extractWeightAttributes(text),
     ...extractVolumeAttributes(text),
@@ -111,20 +175,19 @@ export function quantityForUnitRule(attributes, unitRule) {
   const basis = unitRule?.basis;
   if (!basis || !attributes) return null;
 
-  if (basis === 'gb') return attributes.capacity_total_gb || null;
-  if (basis === 'unit') return attributes.package_count || null;
-  if (basis === 'g') return attributes.weight_g || null;
-  if (basis === 'kg') return attributes.weight_kg || null;
-  if (basis === 'ml') return attributes.volume_ml || null;
-  if (basis === 'l') return attributes.volume_l || null;
+  if (basis === 'gb') return positiveFiniteNumber(attributes.capacity_total_gb);
+  if (basis === 'unit') return positiveFiniteNumber(attributes.package_count);
+  if (basis === 'g') return positiveFiniteNumber(attributes.weight_g);
+  if (basis === 'kg') return positiveFiniteNumber(attributes.weight_kg);
+  if (basis === 'ml') return positiveFiniteNumber(attributes.volume_ml);
+  if (basis === 'l') return positiveFiniteNumber(attributes.volume_l);
 
   return null;
 }
 
 export function computeUnitPrice(price, attributes, unitRule) {
-  const numericPrice = Number(price);
+  const numericPrice = positiveFiniteNumber(price);
   const quantity = quantityForUnitRule(attributes, unitRule);
-  if (!Number.isFinite(numericPrice) || numericPrice <= 0) return null;
-  if (!Number.isFinite(Number(quantity)) || Number(quantity) <= 0) return null;
-  return roundUnitPrice(numericPrice / Number(quantity), unitRule?.basis);
+  if (numericPrice === null || quantity === null) return null;
+  return roundUnitPrice(numericPrice / quantity, unitRule?.basis);
 }

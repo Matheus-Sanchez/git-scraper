@@ -34,6 +34,7 @@ const state = {
   products: [],
   categories: [],
   mode: 'add',
+  lastFocusedElement: null,
 };
 
 function escapeHtml(value) {
@@ -218,9 +219,27 @@ function setUnitBasisValue(product) {
   els.fieldUnitBasis.value = product?.unit_rule?.basis || '';
 }
 
-function openModal(mode, product = null) {
+function modalIsOpen() {
+  return els.modal?.getAttribute('aria-hidden') === 'false';
+}
+
+function modalFocusableElements() {
+  if (!els.modal) return [];
+  return [...els.modal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+    .filter((element) => !element.hidden && element.getAttribute('aria-hidden') !== 'true' && element.getClientRects().length > 0);
+}
+
+function setModalBackgroundInert(value) {
+  const shell = document.querySelector('.app-shell');
+  if (shell) shell.inert = value;
+  document.body.classList.toggle('modal-open', value);
+}
+
+function openModal(mode, product = null, trigger = null) {
   state.mode = mode;
+  state.lastFocusedElement = trigger instanceof HTMLElement ? trigger : document.activeElement;
   if (els.modal) els.modal.setAttribute('aria-hidden', 'false');
+  setModalBackgroundInert(true);
   if (els.modalTitle) els.modalTitle.textContent = mode === 'add' ? 'Nova Intenção' : 'Editar Intenção';
   renderCategorySuggestions();
 
@@ -238,10 +257,35 @@ function openModal(mode, product = null) {
   els.fieldActive.value = product?.is_active === false ? 'false' : 'true';
   els.fieldNotes.value = product?.notes || '';
   updateCategoryHint();
+  requestAnimationFrame(() => els.closeModal?.focus());
 }
 
 function closeModal() {
+  if (!modalIsOpen()) return;
   if (els.modal) els.modal.setAttribute('aria-hidden', 'true');
+  setModalBackgroundInert(false);
+  if (state.lastFocusedElement instanceof HTMLElement && state.lastFocusedElement.isConnected) {
+    state.lastFocusedElement.focus();
+  }
+  state.lastFocusedElement = null;
+}
+
+function trapModalFocus(event) {
+  if (event.key !== 'Tab' || !modalIsOpen()) return;
+  const focusable = modalFocusableElements();
+  if (!focusable.length) {
+    event.preventDefault();
+    return;
+  }
+  const first = focusable[0];
+  const last = focusable.at(-1);
+  if (event.shiftKey && (document.activeElement === first || !els.modal.contains(document.activeElement))) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !els.modal.contains(document.activeElement))) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 function parseJsonField(value, label) {
@@ -276,6 +320,7 @@ function buildIssueUrl({ title, payload }) {
 
 function buildPayloadFromForm() {
   const category = normalizeKey(els.fieldCategory.value);
+  if (!category) throw new Error('Categoria é obrigatória. Informe uma categoria para continuar.');
   const requiredAttributes = parseJsonField(els.fieldRequiredAttributes.value, 'Atributos obrigatórios');
   const preferredAttributes = parseJsonField(els.fieldPreferredAttributes.value, 'Atributos preferenciais');
   return {
@@ -283,7 +328,7 @@ function buildPayloadFromForm() {
     ...(state.mode === 'edit' ? { product_id: els.fieldId.value.trim() } : {}),
     name: els.fieldName.value.trim(),
     characteristics: els.fieldCharacteristics.value.trim(),
-    ...(category ? { category } : {}),
+    category,
     ...(splitLines(els.fieldStores.value).length ? { stores: splitLines(els.fieldStores.value) } : {}),
     ...(splitLines(els.fieldRequiredTerms.value).length ? { required_terms: splitLines(els.fieldRequiredTerms.value) } : {}),
     ...(splitLines(els.fieldPreferredTerms.value).length ? { preferred_terms: splitLines(els.fieldPreferredTerms.value) } : {}),
@@ -341,7 +386,7 @@ function bindTableActions() {
     if (!button) return;
     const product = state.products.find((item) => item.id === button.dataset.id);
     if (!product) return;
-    if (button.dataset.action === 'edit') openModal('edit', product);
+    if (button.dataset.action === 'edit') openModal('edit', product, button);
     if (button.dataset.action === 'remove') onRemoveProduct(product);
   });
 }
@@ -364,9 +409,9 @@ async function init() {
   }
 }
 
-els.openAdd?.addEventListener('click', () => openModal('add', null));
+els.openAdd?.addEventListener('click', (event) => openModal('add', null, event.currentTarget));
 document.querySelectorAll('[data-open-manage-add]').forEach((button) => {
-  button.addEventListener('click', () => openModal('add', null));
+  button.addEventListener('click', (event) => openModal('add', null, event.currentTarget));
 });
 els.closeModal?.addEventListener('click', closeModal);
 els.modal?.addEventListener('click', (event) => {
@@ -380,7 +425,8 @@ els.fieldCategory?.addEventListener('input', updateCategoryHint);
 bindTableActions();
 
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeModal();
+  trapModalFocus(event);
+  if (event.key === 'Escape' && modalIsOpen()) closeModal();
 });
 
 init();

@@ -16,15 +16,15 @@ Price tracker pessoal por intencao de compra, com busca em lojas suportadas, ran
 
 | Loja | Nivel | Validacao atual |
 | --- | --- | --- |
-| Amazon | Dedicated validated | Adapter de busca + smoke real |
-| KaBuM | Dedicated validated | Adapter de busca + smoke real |
-| Mercado Livre | Dedicated validated | Adapter de busca + smoke real |
-| Magalu | Dedicated validated | Adapter de busca + smoke real |
-| Shopee | Dedicated validated | Adapter de busca + smoke real |
-| Pichau | Dedicated validated | Adapter de busca + smoke real |
-| Petz | Dedicated validated | Adapter de busca + smoke real |
+| Amazon | `dedicated_validated` | Adapter, fixture e smoke real de release |
+| KaBuM | `dedicated_validated` | Adapter, fixture e smoke real de release |
+| Mercado Livre | `backlog_unvalidated` | Fixture e caso de smoke registrados; fora das buscas regulares |
+| Magalu | `backlog_unvalidated` | Fixture e caso de smoke registrados; fora das buscas regulares |
+| Shopee | `backlog_unvalidated` | Fixture e caso de smoke registrados; fora das buscas regulares |
+| Pichau | `backlog_unvalidated` | Fixture e caso de smoke registrados; fora das buscas regulares |
+| Petz | `backlog_unvalidated` | Fixture e caso de smoke registrados; fora das buscas regulares |
 
-`Dedicated validated` significa que a loja possui adapter de busca em `src/search/store_adapters.js`, fixture deterministica e smoke real habilitado.
+`dedicated_validated` significa que a loja pode participar das buscas regulares. Uma loja em `backlog_unvalidated` permanece desabilitada nesse fluxo mesmo que ja possua adapter, fixture e caso de smoke; sua promocao exige fixtures deterministicas verdes e tres smokes agendados consecutivos, diretos e corretos.
 
 Detalhes operacionais e criterio de aceite por loja:
 
@@ -41,7 +41,7 @@ Campos suportados por intencao:
 - `id`
 - `name`
 - `characteristics`
-- `category`
+- `category` (obrigatória; usada nos filtros e nas análises do dashboard)
 - `stores`
 - `required_terms`
 - `preferred_terms`
@@ -62,7 +62,7 @@ Fluxo atual:
 2. cria a URL de busca por loja;
 3. conecta no Lightpanda via `LIGHTPANDA_CDP_URL`;
 4. extrai ofertas da pagina de busca;
-5. usa Chromium/Playwright local como fallback quando Lightpanda falha;
+5. usa Chromium/Playwright local como fallback quando Lightpanda falha, registrando explicitamente a degradacao de engine;
 6. normaliza atributos encontrados no titulo;
 7. rejeita ofertas sem titulo, preco ou URL descoberta;
 8. aplica `required_terms`, `required_attributes` e `excluded_terms`;
@@ -98,9 +98,13 @@ Comandos principais:
 ```bash
 npm run lint
 npm run validate:catalog
+npm run validate:history
 npm run test:unit
 npm run test:fixtures
 npm run test:integration
+npm run test:data
+npm run test:dashboard:unit
+npm run test:dashboard:e2e
 npm run test:coverage:critical
 npm run test:ci
 npm run smoke:real
@@ -109,14 +113,18 @@ npm test
 
 Significado:
 
-- `npm run lint`: valida `src/`, `test/`, `.github/scripts/` e `scripts/`
+- `npm run lint`: valida backend, testes, scripts, workflows auxiliares e JavaScript do dashboard
 - `npm run validate:catalog`: valida `data/products.json` com o schema do catalogo
+- `npm run validate:history`: valida manifesto, runs, erros e espelhos historicos
 - `npm run test:unit`: parser, heuristicas, falhas, schema, ingest, adapters de busca, ranking e smoke
 - `npm run test:fixtures`: extracao legada e regressao por loja com fixtures deterministicas
 - `npm run test:integration`: pipeline de busca, persistencia, manifesto e continuidade de dados
+- `npm run test:data`: valida contratos dos dados, reconstrucao do manifesto e igualdade dos espelhos
+- `npm run test:dashboard:unit`: valida os transformadores ESM puros do dashboard
+- `npm run test:dashboard:e2e`: serve o site sob `/git-scraper/` e valida os cinco graficos e seus controles no Chromium
 - `npm run test:coverage:critical`: piso minimo de cobertura por area critica
-- `npm run test:ci`: suite oficial de pre-commit e CI
-- `npm run smoke:real`: smoke real para lojas suportadas, com artifactos em `.cache/smoke-real/`
+- `npm run test:ci`: suite deterministica oficial de pre-commit e CI, incluindo dados e unidade do dashboard
+- `npm run smoke:real`: smoke real para lojas selecionadas, com artefatos em `.cache/smoke-real/`
 - `npm test`: suite completa via `node --test`
 
 Documentacao complementar:
@@ -133,10 +141,10 @@ Workflow: `.github/workflows/ci.yml`
 
 Executa em `push` e `pull_request`:
 
-- `npm ci`
-- `npm run test:ci`
+- job `ci`: `npm ci` e `npm run test:ci`
+- job separado `ui-e2e`: instala Chromium e executa `npm run test:dashboard:e2e`
 
-Esse workflow ignora mudancas apenas em `data/**` e `docs/data/**`, evitando revalidacao desnecessaria quando o scrape agendado comita snapshots.
+O workflow nao ignora alteracoes em `data/**` ou `docs/data/**`: mudancas de snapshots tambem precisam passar pelos contratos de dados e pelos dois jobs.
 
 ### Smoke real
 
@@ -149,7 +157,9 @@ Executa em `workflow_dispatch` e `schedule`:
 - inicializacao do Lightpanda via Docker
 - `npm run smoke:real`
 
-O smoke real nao bloqueia PR. Ele gera `.cache/smoke-real/summary.json` e publica artifacts para analise quando ha drift real de DOM, captcha ou bloqueio.
+No agendamento, o workflow executa somente os casos das lojas validadas para smoke (Amazon e KaBuM). Na execucao manual, `store_ids` permite diagnosticar uma loja especifica, inclusive as que ainda estao em `backlog_unvalidated`. Se o readiness check do Lightpanda falhar, o Chromium assume como fallback e a degradacao fica explicita no resultado, sem fallback silencioso.
+
+O smoke real nao e um check deterministico de PR. Ele gera `.cache/smoke-real/summary.json` e publica artefatos para analise quando ha drift real de DOM, captcha ou bloqueio. Amazon e KaBuM precisam de sucesso real direto antes da publicacao; uma loja do backlog so pode ser promovida depois de fixtures verdes e tres smokes agendados consecutivos corretos.
 
 ### Daily scrape
 
@@ -165,7 +175,9 @@ Executa:
 - commit de `data/` e `docs/data/`
 - upload de artifacts de debug quando ha falha
 
-Para endurecer merge em producao, configure branch protection no GitHub para exigir sucesso do job `ci`.
+Quando uma execucao nao obtém nenhum resultado fresco, o snapshot de falha ainda é validado e publicado para que o dashboard exponha a degradacao; o job termina em erro depois disso para disparar o alerta operacional.
+
+Configure o ruleset/branch protection da branch principal para exigir sucesso dos jobs `ci` e `ui-e2e` antes do merge.
 
 ### Ingest de Issue
 
@@ -229,7 +241,7 @@ Copie `.env.example` para `.env` e preencha apenas as credenciais que voce realm
 - `LIGHTPANDA_CDP_URL`
 - `SEARCH_TOP_N_PER_STORE`
 
-`LIGHTPANDA_CDP_URL` usa `ws://127.0.0.1:9222` por padrao. O Chromium local e apenas fallback tecnico quando a conexao CDP ou a navegacao pelo Lightpanda falhar.
+`LIGHTPANDA_CDP_URL` usa `ws://127.0.0.1:9222` por padrao. Quando a conexao CDP ou a navegacao pelo Lightpanda falha, o Chromium local assume e a telemetria registra a degradacao de engine explicitamente.
 
 ## Estrutura resumida
 

@@ -1,3 +1,4 @@
+/* Runtime visual local. O nome neutro evita bloqueadores que interceptam assets com "chart" no caminho. */
 (function (globalScope) {
   function getContext(nodeOrContext) {
     if (!nodeOrContext) return null;
