@@ -1,0 +1,1193 @@
+{
+  "run_id": "2026-08-08T09-53-26-646Z",
+  "run_date": "2026-08-08",
+  "generated_at": "2026-08-08T09:53:26.646Z",
+  "engine_summary": {
+    "lightpanda_search": {
+      "attempted": 15,
+      "success": 1,
+      "failed": 14,
+      "avg_time_ms": 294
+    },
+    "chromium_search": {
+      "attempted": 14,
+      "success": 6,
+      "failed": 8,
+      "avg_time_ms": 9402
+    }
+  },
+  "errors": [
+    {
+      "product_id": "exemplo-fralda-tamanho-g",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "name": "Fralda",
+      "characteristics": "tamanho G",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 19,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
+              "final_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 9057,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 6,
+          "rejected_offers": 6,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 6,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 6,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 6,
+      "rejected_offers": 6,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 6,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 6,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "intent_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 19,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 10137,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 6,
+          "rejected_offers": 6,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 6,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 6,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 6,
+      "rejected_offers": 6,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 6,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 6,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "name": "Fralda Pampers Confort Sec",
+      "characteristics": "G",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 20,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
+              "final_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 10235,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 6,
+          "rejected_offers": 6,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 6,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 6,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 6,
+      "rejected_offers": 6,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 6,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 6,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "name": "Fralda Pom Pom Protek Proteção de Mãe",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 16,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 10156,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 46,
+          "rejected_offers": 46,
+          "store_errors": [],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 6,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 6,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 46,
+      "rejected_offers": 46,
+      "store_errors": [],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 6,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 6,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "name": "Fralda Turma da Mônica Baby",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 16,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 9110,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 6,
+          "rejected_offers": 6,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 6,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 6,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 6,
+      "rejected_offers": 6,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 6,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 6,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "name": "Headset HyperX Cloud Stinger 2",
+      "characteristics": "driver 50mm multiplataforma preto",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 15,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "final_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
+              "final_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 11616,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 47,
+          "rejected_offers": 47,
+          "store_errors": [],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 7,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 7,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 47,
+      "rejected_offers": 47,
+      "store_errors": [],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 7,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 7,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "name": "Lenços Umedecidos Huggies Rosto e Corpo",
+      "characteristics": "",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 5,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "final_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "final_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 9678,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "name": "SanDisk Cartão de memória Ultra MicroSDXC",
+      "characteristics": "Cartão Micro SD",
+      "status": "failed",
+      "fetched_at": "2026-08-08T09:54:07.597Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 4,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+              "final_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/sandisk-cartao-de-memoria-ultra-microsdxc-cartao-micro-sd",
+              "final_url": "https://www.kabum.com.br/busca/sandisk-cartao-de-memoria-ultra-microsdxc-cartao-micro-sd",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 8249,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    }
+  ]
+}
