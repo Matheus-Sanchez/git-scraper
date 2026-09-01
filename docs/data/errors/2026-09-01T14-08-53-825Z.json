@@ -1,0 +1,740 @@
+{
+  "run_id": "2026-09-01T14-08-53-825Z",
+  "run_date": "2026-09-01",
+  "generated_at": "2026-09-01T14:08:53.825Z",
+  "engine_summary": {
+    "lightpanda_search": {
+      "attempted": 15,
+      "success": 1,
+      "failed": 14,
+      "avg_time_ms": 383
+    },
+    "chromium_search": {
+      "attempted": 14,
+      "success": 9,
+      "failed": 5,
+      "avg_time_ms": 11805
+    }
+  },
+  "errors": [
+    {
+      "product_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "intent_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-09-01T14:09:44.652Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 16,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 14984,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "name": "Fralda Pom Pom Protek Proteção de Mãe",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-09-01T14:09:44.652Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 8,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 14994,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "name": "Fralda Turma da Mônica Baby",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-09-01T14:09:44.652Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 8,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 12285,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "name": "Headset HyperX Cloud Stinger 2",
+      "characteristics": "driver 50mm multiplataforma preto",
+      "status": "failed",
+      "fetched_at": "2026-09-01T14:09:44.652Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 11,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "final_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
+              "final_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 11226,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 52,
+          "rejected_offers": 52,
+          "store_errors": [],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 12,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 12,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 52,
+      "rejected_offers": 52,
+      "store_errors": [],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 12,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "teclado-logitech-k835",
+      "intent_id": "teclado-logitech-k835",
+      "name": "Teclado Logitech K835 TKL",
+      "characteristics": "mecanico switch red ABNT2 branco",
+      "status": "failed",
+      "fetched_at": "2026-09-01T14:09:44.652Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 3,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 7746,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 80,
+          "rejected_offers": 80,
+          "store_errors": [],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 80,
+      "rejected_offers": 80,
+      "store_errors": [],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    }
+  ]
+}
