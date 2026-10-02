@@ -1,24 +1,24 @@
 {
-  "run_id": "2026-10-01T16-26-33-383Z",
-  "generated_at": "2026-10-01T16:26:33.383Z",
+  "run_id": "2026-10-02T15-48-08-319Z",
+  "generated_at": "2026-10-02T15:48:08.319Z",
   "currency": "BRL",
   "summary": {
     "total_products": 15,
     "success_count": 6,
     "failure_count": 9,
-    "run_duration_ms": 33578,
+    "run_duration_ms": 31155,
     "engines": {
       "lightpanda_search": {
         "attempted": 15,
         "success": 1,
         "failed": 14,
-        "avg_time_ms": 299
+        "avg_time_ms": 267
       },
       "chromium_search": {
         "attempted": 14,
         "success": 5,
         "failed": 9,
-        "avg_time_ms": 7237
+        "avg_time_ms": 7248
       }
     }
   },
@@ -46,7 +46,7 @@
       "match_score": 0.88,
       "priority_score": 1,
       "engine_used": "lightpanda_search",
-      "fetched_at": "2026-10-01T16:26:34.497Z",
+      "fetched_at": "2026-10-02T15:48:09.513Z",
       "source": "search-next-data",
       "confidence": 0.88,
       "store_outcomes": [
@@ -95,10 +95,10 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "source": "search-card",
       "confidence": 1,
-      "carried_forward_reason": "no_search_offers",
+      "carried_forward_reason": "no_matching_offers",
       "carried_forward_from": {
         "run_id": "2026-09-30T15-54-40-882Z",
         "run_date": "2026-09-30",
@@ -124,11 +124,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -155,10 +155,10 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "source": "search-card",
       "confidence": 1,
-      "carried_forward_reason": "no_search_offers",
+      "carried_forward_reason": "no_matching_offers",
       "carried_forward_from": {
         "run_id": "2026-09-30T15-54-40-882Z",
         "run_date": "2026-09-30",
@@ -184,11 +184,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -214,7 +214,7 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "source": "search-card",
       "confidence": 1,
       "carried_forward_reason": "no_matching_offers",
@@ -280,7 +280,7 @@
       "match_score": 1,
       "priority_score": 1,
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.161Z",
+      "fetched_at": "2026-10-02T15:48:23.473Z",
       "source": "search-next-data",
       "confidence": 1,
       "store_outcomes": [
@@ -301,8 +301,8 @@
           "status": "fresh_success",
           "engine_used": "chromium_search",
           "offers_checked": 40,
-          "accepted_offer_count": 28,
-          "rejected_offer_count": 12
+          "accepted_offer_count": 27,
+          "rejected_offer_count": 13
         }
       ],
       "fallback_from": "lightpanda_search",
@@ -330,7 +330,7 @@
       "match_score": 0.95,
       "priority_score": 1,
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.555Z",
+      "fetched_at": "2026-10-02T15:48:24.791Z",
       "source": "search-next-data",
       "confidence": 0.95,
       "store_outcomes": [
@@ -387,7 +387,7 @@
       "match_score": 1,
       "priority_score": 1,
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:54.231Z",
+      "fetched_at": "2026-10-02T15:48:28.098Z",
       "source": "search-next-data",
       "confidence": 1,
       "store_outcomes": [
@@ -408,8 +408,8 @@
           "status": "fresh_success",
           "engine_used": "chromium_search",
           "offers_checked": 40,
-          "accepted_offer_count": 9,
-          "rejected_offer_count": 31
+          "accepted_offer_count": 8,
+          "rejected_offer_count": 32
         }
       ],
       "fallback_from": "lightpanda_search",
@@ -417,43 +417,40 @@
     },
     {
       "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
-      "price": 1050.99,
+      "price": 949.05,
       "unit_price": null,
       "status": "ok",
       "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
       "name": "Placa Mãe Asus TUF Gaming B760",
       "characteristics": "DDR5",
       "category": "hardware",
-      "store_id": "kabum",
-      "store": "KaBuM",
-      "title": "Placa-Mãe ASUS TUF GAMING B760M-PLUS WIFI II, Intel, DDR5, Preto - 90MB1HE0-M0EAY0",
-      "url": "https://www.kabum.com.br/produto/523144/placa-mae-asus-tuf-gaming-b760m-plus-wifi-ii-intel-ddr5-preto-90mb1he0-m0eay0",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Placa Mãe Asus TUF Gaming B760M-PLUS II, Chipset B760, Intel LGA 1700, mATX, DDR5, 90MB1HD0-M0EAY0",
+      "url": "https://www.amazon.com.br/Placa-Asus-GAMING-B760M-PLUS-4xDDR5/dp/B086ZSQNPP/ref=sr_1_1?dib=eyJ2IjoiMSJ9.0iYj0yEAJGxfThJ9xYgv50RqGs5OnL9WzwPTOLavIW7pUWJD8c4H4FV2b62YYOu1w8yqFg15rxu_mjtRoddap-Z8gYJdHNK1_QCtVp0gcsaQhXD5XHXXoANB406ZdBRmkN-JkuYUnFOaxC-QdvMU8u0E3UhSAmS8usS2ym4KjlPvr99FTwAB8WYYPUJ6PqOTPRqvLGnlP6Z4gAwxQZW-qx_gcH0kqcyG0eKduXgm8lj-hU5JG887csAb2XM8b85fF1iWQI92xWw7JPb2A-0r86eKx2gXNWnXTO5NQ8Umujg.iaTdV528-_ub6uzKuEl7SxNiD5EEOD-fxeVvHwlT3Rc&dib_tag=se&keywords=placa+mae+asus+tuf+gaming+b760+ddr5&qid=1790956107&sr=8-1&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
       "currency": "BRL",
       "unit_basis": null,
       "normalized_quantity": null,
       "attributes": {
         "memory_type": "ddr5",
         "chipset": "b760",
-        "color": "preto",
         "is_accessory": false
       },
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.405Z",
-      "source": "search-next-data",
+      "fetched_at": "2026-10-02T15:48:27.268Z",
+      "source": "search-card",
       "confidence": 1,
       "store_outcomes": [
         {
           "store_id": "amazon",
           "store": "Amazon",
-          "status": "hard_failure",
+          "status": "fresh_success",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
-          "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results"
+          "offers_checked": 40,
+          "accepted_offer_count": 3,
+          "rejected_offer_count": 37
         },
         {
           "store_id": "kabum",
@@ -495,7 +492,7 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "source": "search-card",
       "confidence": 1,
       "carried_forward_reason": "no_matching_offers",
@@ -559,7 +556,7 @@
       "match_score": 0.96,
       "priority_score": 0,
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:00.284Z",
+      "fetched_at": "2026-10-02T15:48:32.400Z",
       "source": "search-next-data",
       "confidence": 0.96,
       "store_outcomes": [
@@ -608,7 +605,7 @@
       "match_score": 0.89,
       "priority_score": 1,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "source": "search-next-data",
       "confidence": 0.89,
       "carried_forward_reason": "no_matching_offers",
@@ -653,12 +650,12 @@
       "name": "Fralda",
       "characteristics": "tamanho G",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 15,
+          "elapsed_ms": 17,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -713,13 +710,13 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 8162,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 7379,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
+          "offers_checked": 1,
+          "rejected_offers": 1,
           "store_errors": [
             {
               "error": "No usable offers were found in the search results",
@@ -727,14 +724,6 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
-              "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
               "http_status": 200
             }
           ],
@@ -755,22 +744,22 @@
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 1,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
+      "offers_checked": 1,
+      "rejected_offers": 1,
       "store_errors": [
         {
           "error": "No usable offers were found in the search results",
@@ -778,14 +767,6 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
-          "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
           "http_status": 200
         }
       ],
@@ -806,11 +787,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -820,12 +801,12 @@
       "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
       "characteristics": "GG",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 15,
+          "elapsed_ms": 17,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -880,13 +861,13 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 2536,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 6003,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
+          "offers_checked": 1,
+          "rejected_offers": 1,
           "store_errors": [
             {
               "error": "No usable offers were found in the search results",
@@ -894,15 +875,7 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
-              "http_status": 503
-            },
-            {
-              "error": "No usable offers were found in the search results",
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
-              "http_status": 429
+              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -922,22 +895,22 @@
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 1,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results"
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
+      "offers_checked": 1,
+      "rejected_offers": 1,
       "store_errors": [
         {
           "error": "No usable offers were found in the search results",
@@ -945,15 +918,7 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
-          "http_status": 503
-        },
-        {
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
-          "http_status": 429
+          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -973,11 +938,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -987,12 +952,12 @@
       "name": "Fralda Pampers Confort Sec",
       "characteristics": "G",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 15,
+          "elapsed_ms": 17,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1047,13 +1012,13 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 6160,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 7861,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
+          "offers_checked": 1,
+          "rejected_offers": 1,
           "store_errors": [
             {
               "error": "No usable offers were found in the search results",
@@ -1061,14 +1026,6 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
-              "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
               "http_status": 200
             }
           ],
@@ -1089,22 +1046,22 @@
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 1,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
+      "offers_checked": 1,
+      "rejected_offers": 1,
       "store_errors": [
         {
           "error": "No usable offers were found in the search results",
@@ -1112,14 +1069,6 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
-          "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
           "http_status": 200
         }
       ],
@@ -1140,11 +1089,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -1154,12 +1103,12 @@
       "name": "Fralda Pom Pom Protek Proteção de Mãe",
       "characteristics": "GG",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 11,
+          "elapsed_ms": 8,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1214,104 +1163,70 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 10316,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 9672,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
-          "store_errors": [
-            {
-              "error": "No usable offers were found in the search results",
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results",
-              "store_id": "amazon",
-              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
-              "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
-              "http_status": 200
-            }
-          ],
+          "offers_checked": 41,
+          "rejected_offers": 41,
+          "store_errors": [],
           "store_outcomes": [
             {
               "store_id": "amazon",
               "store": "Amazon",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 40,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results"
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             },
             {
               "store_id": "kabum",
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 1,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
-      "store_errors": [
-        {
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
-          "store_id": "amazon",
-          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
-          "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
-          "http_status": 200
-        }
-      ],
+      "offers_checked": 41,
+      "rejected_offers": 41,
+      "store_errors": [],
       "store_outcomes": [
         {
           "store_id": "amazon",
           "store": "Amazon",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 40,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results"
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         },
         {
           "store_id": "kabum",
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -1321,12 +1236,12 @@
       "name": "Fralda Turma da Mônica Baby",
       "characteristics": "GG",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 11,
+          "elapsed_ms": 8,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1381,13 +1296,13 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 7308,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 4890,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
+          "offers_checked": 1,
+          "rejected_offers": 1,
           "store_errors": [
             {
               "error": "No usable offers were found in the search results",
@@ -1395,14 +1310,6 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
-              "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
               "http_status": 200
             }
           ],
@@ -1423,22 +1330,22 @@
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 1,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
+      "offers_checked": 1,
+      "rejected_offers": 1,
       "store_errors": [
         {
           "error": "No usable offers were found in the search results",
@@ -1446,14 +1353,6 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
-          "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
           "http_status": 200
         }
       ],
@@ -1474,11 +1373,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 1,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -1488,12 +1387,12 @@
       "name": "Headset HyperX Cloud Stinger 2",
       "characteristics": "driver 50mm multiplataforma preto",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 11,
+          "elapsed_ms": 8,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1548,7 +1447,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 7711,
+          "elapsed_ms": 6955,
           "error": "Search returned offers, but none matched the required filters",
           "error_code": "no_matching_offers",
           "error_detail": "Search returned offers, but none matched the required filters",
@@ -1562,7 +1461,7 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
-              "http_status": 503
+              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -1605,7 +1504,7 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
-          "http_status": 503
+          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -1639,12 +1538,12 @@
       "name": "Lenços Umedecidos Huggies Rosto e Corpo",
       "characteristics": "",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 4,
+          "elapsed_ms": 9,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1699,7 +1598,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 8933,
+          "elapsed_ms": 6937,
           "error": "Search returned offers, but none matched the required filters",
           "error_code": "no_matching_offers",
           "error_detail": "Search returned offers, but none matched the required filters",
@@ -1713,7 +1612,7 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
-              "http_status": 503
+              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -1756,7 +1655,7 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
-          "http_status": 503
+          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -1790,7 +1689,7 @@
       "name": "SanDisk Cartão de memória Ultra MicroSDXC",
       "characteristics": "Cartão Micro SD",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
@@ -1850,7 +1749,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 6877,
+          "elapsed_ms": 6994,
           "error": "Search returned offers, but none matched the required filters",
           "error_code": "no_matching_offers",
           "error_detail": "Search returned offers, but none matched the required filters",
@@ -1864,7 +1763,7 @@
               "error_detail": "No usable offers were found in the search results",
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
-              "http_status": 503
+              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -1907,7 +1806,7 @@
           "error_detail": "No usable offers were found in the search results",
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
-          "http_status": 503
+          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -1941,12 +1840,12 @@
       "name": "Teclado Logitech K835 TKL",
       "characteristics": "mecanico switch red ABNT2 branco",
       "status": "failed",
-      "fetched_at": "2026-10-01T16:27:06.632Z",
+      "fetched_at": "2026-10-02T15:48:39.132Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 2,
+          "elapsed_ms": 3,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -2001,7 +1900,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 5901,
+          "elapsed_ms": 6178,
           "error": "Search returned offers, but none matched the required filters",
           "error_code": "no_matching_offers",
           "error_detail": "Search returned offers, but none matched the required filters",
@@ -2110,7 +2009,7 @@
       "position": 2,
       "source": "search-next-data",
       "engine_used": "lightpanda_search",
-      "fetched_at": "2026-10-01T16:26:34.497Z",
+      "fetched_at": "2026-10-02T15:48:09.513Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2137,7 +2036,7 @@
       "position": 3,
       "source": "search-next-data",
       "engine_used": "lightpanda_search",
-      "fetched_at": "2026-10-01T16:26:34.497Z",
+      "fetched_at": "2026-10-02T15:48:09.513Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2164,7 +2063,7 @@
       "position": 4,
       "source": "search-next-data",
       "engine_used": "lightpanda_search",
-      "fetched_at": "2026-10-01T16:26:34.497Z",
+      "fetched_at": "2026-10-02T15:48:09.513Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2191,7 +2090,7 @@
       "position": 5,
       "source": "search-next-data",
       "engine_used": "lightpanda_search",
-      "fetched_at": "2026-10-01T16:26:34.497Z",
+      "fetched_at": "2026-10-02T15:48:09.513Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2218,9 +2117,39 @@
       "position": 6,
       "source": "search-next-data",
       "engine_used": "lightpanda_search",
-      "fetched_at": "2026-10-01T16:26:34.497Z",
+      "fetched_at": "2026-10-02T15:48:09.513Z",
       "rejected": false,
       "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:63701396f4",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "product_id": "exemplo-fralda-tamanho-g",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Camera PDN Speed Dome Ip Giratoria HD Wifi Externa Segurança Noturna Resiste Agua",
+      "url": "https://www.kabum.com.br/produto/282243/camera-pdn-speed-dome-ip-giratoria-hd-wifi-externa-seguranca-noturna-resiste-agua",
+      "price": 292,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:13.932Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
     },
     {
       "offer_id": "kabum:ac6673cfd8",
@@ -2250,7 +2179,7 @@
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.161Z",
+      "fetched_at": "2026-10-02T15:48:23.473Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2279,11 +2208,11 @@
       },
       "match_score": 1,
       "priority_score": 1,
-      "rank": 5,
-      "position": 5,
+      "rank": 2,
+      "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.161Z",
+      "fetched_at": "2026-10-02T15:48:23.473Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2310,11 +2239,11 @@
       },
       "match_score": 1,
       "priority_score": 1,
-      "rank": 24,
-      "position": 24,
+      "rank": 21,
+      "position": 21,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.161Z",
+      "fetched_at": "2026-10-02T15:48:23.473Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2341,23 +2270,23 @@
       },
       "match_score": 1,
       "priority_score": 1,
-      "rank": 28,
-      "position": 28,
+      "rank": 39,
+      "position": 39,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.161Z",
+      "fetched_at": "2026-10-02T15:48:23.473Z",
       "rejected": false,
       "rejected_reasons": []
     },
     {
-      "offer_id": "kabum:453d7f501c",
+      "offer_id": "kabum:842b993ab5",
       "intent_id": "exemplo-memoria-ram-ddr4-16gb",
       "product_id": "exemplo-memoria-ram-ddr4-16gb",
       "store_id": "kabum",
       "store": "KaBuM",
-      "title": "Memória Ram 16gb Lo-dimm Ddr4 3200mhz Desktop Preta",
-      "url": "https://www.kabum.com.br/produto/1032270/memoria-ram-16gb-lo-dimm-ddr4-3200mhz-desktop-preta",
-      "price": 679.9,
+      "title": "Memória Ram Kingston Ddr4 16gb 2666mhz Sodimm - Notebook",
+      "url": "https://www.kabum.com.br/produto/1034897/memoria-ram-kingston-ddr4-16gb-2666mhz-sodimm-notebook",
+      "price": 732.75,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
@@ -2366,10 +2295,8 @@
         "capacity_total_gb": 16,
         "module_count": 1,
         "module_gb": 16,
-        "speed_mhz": 3200,
+        "speed_mhz": 2666,
         "memory_type": "ddr4",
-        "ram_gb": 16,
-        "color": "preto",
         "is_accessory": false
       },
       "match_score": 1,
@@ -2378,9 +2305,279 @@
       "position": 40,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.161Z",
+      "fetched_at": "2026-10-02T15:48:23.473Z",
       "rejected": false,
       "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:63701396f4",
+      "intent_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "product_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Camera PDN Speed Dome Ip Giratoria HD Wifi Externa Segurança Noturna Resiste Agua",
+      "url": "https://www.kabum.com.br/produto/282243/camera-pdn-speed-dome-ip-giratoria-hd-wifi-externa-seguranca-noturna-resiste-agua",
+      "price": 292,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:13.871Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:63701396f4",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Camera PDN Speed Dome Ip Giratoria HD Wifi Externa Segurança Noturna Resiste Agua",
+      "url": "https://www.kabum.com.br/produto/282243/camera-pdn-speed-dome-ip-giratoria-hd-wifi-externa-seguranca-noturna-resiste-agua",
+      "price": 292,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:13.994Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "amazon:56b4c21f41",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Fralda Pom Pom Protek Proteção de Mãe Hiper G 68 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pompom-Protek-68-unidades/dp/B0979VS2JH/ref=sr_1_1?dib=eyJ2IjoiMSJ9.gIeinvTW_HgBvSFyqd8h2BC88AwBxyJpUz5NiSQfHfJMkIZtUllOkupD81t5hReRDjX9Tg5I0uA2kyIDnFSNzaLmK7cVzZ8OkV8IU47czuJjPVTo0eUv95y0LmcFZtMrdO57Crkmn0I4O0DEEYo6LrH_bjbD6RqFAjJtEEJbYGt18SGgF9Mw4M2J7_S2f-CQZU1nx8JFeHqOyTPQbQo2ynuPUW_d22j8pwB_MqOrRb0dZ_Qqe4REnOf-qWnnHFGNVpVgI1axY30r-bZixzfGNo53TGLO47-bZIFKUIZPXS4.7CzJWtDxPjBO7gWPcOu3D1J0qgwI9XgUt7BLDyj7QSY&dib_tag=se&keywords=Fralda+Pom+Pom+Protek+Prote%C3%A7%C3%A3o+de+M%C3%A3e+GG&qid=1790956092&sr=8-1",
+      "price": 56.8,
+      "currency": "BRL",
+      "unit_price": 0.84,
+      "unit_basis": "unit",
+      "normalized_quantity": 68,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 68,
+        "size": "M"
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:12.467Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:size"
+      ]
+    },
+    {
+      "offer_id": "amazon:77f9b9c8bc",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Fralda Pom Pom Protek Proteção de Mãe Mega G 42 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pom-Protek-Laranja-Grande/dp/B093G9PSPP/ref=sr_1_2?dib=eyJ2IjoiMSJ9.gIeinvTW_HgBvSFyqd8h2BC88AwBxyJpUz5NiSQfHfJMkIZtUllOkupD81t5hReRDjX9Tg5I0uA2kyIDnFSNzaLmK7cVzZ8OkV8IU47czuJjPVTo0eUv95y0LmcFZtMrdO57Crkmn0I4O0DEEYo6LrH_bjbD6RqFAjJtEEJbYGt18SGgF9Mw4M2J7_S2f-CQZU1nx8JFeHqOyTPQbQo2ynuPUW_d22j8pwB_MqOrRb0dZ_Qqe4REnOf-qWnnHFGNVpVgI1axY30r-bZixzfGNo53TGLO47-bZIFKUIZPXS4.7CzJWtDxPjBO7gWPcOu3D1J0qgwI9XgUt7BLDyj7QSY&dib_tag=se&keywords=Fralda+Pom+Pom+Protek+Prote%C3%A7%C3%A3o+de+M%C3%A3e+GG&qid=1790956092&sr=8-2",
+      "price": 39.85,
+      "currency": "BRL",
+      "unit_price": 0.95,
+      "unit_basis": "unit",
+      "normalized_quantity": 42,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 42,
+        "size": "M"
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 2,
+      "position": 2,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:12.467Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:size"
+      ]
+    },
+    {
+      "offer_id": "amazon:cdbdd25346",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Fralda Pom Pom Protek Proteção de Mãe Mega P 54 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pom-Protek-Laranja-Pequeno/dp/B093GBK61Q/ref=sr_1_5?dib=eyJ2IjoiMSJ9.gIeinvTW_HgBvSFyqd8h2BC88AwBxyJpUz5NiSQfHfJMkIZtUllOkupD81t5hReRDjX9Tg5I0uA2kyIDnFSNzaLmK7cVzZ8OkV8IU47czuJjPVTo0eUv95y0LmcFZtMrdO57Crkmn0I4O0DEEYo6LrH_bjbD6RqFAjJtEEJbYGt18SGgF9Mw4M2J7_S2f-CQZU1nx8JFeHqOyTPQbQo2ynuPUW_d22j8pwB_MqOrRb0dZ_Qqe4REnOf-qWnnHFGNVpVgI1axY30r-bZixzfGNo53TGLO47-bZIFKUIZPXS4.7CzJWtDxPjBO7gWPcOu3D1J0qgwI9XgUt7BLDyj7QSY&dib_tag=se&keywords=Fralda+Pom+Pom+Protek+Prote%C3%A7%C3%A3o+de+M%C3%A3e+GG&qid=1790956092&sr=8-5",
+      "price": 45.56,
+      "currency": "BRL",
+      "unit_price": 0.84,
+      "unit_basis": "unit",
+      "normalized_quantity": 54,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 54,
+        "size": "M"
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 5,
+      "position": 5,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:12.467Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:size"
+      ]
+    },
+    {
+      "offer_id": "amazon:94a7d79512",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Fralda Pom Pom Protek Proteção de Mãe Hiper M 80 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pom-Protek-Prote%C3%A7%C3%A3o-Unidades/dp/B0H1JZFBS7/ref=sr_1_6?dib=eyJ2IjoiMSJ9.gIeinvTW_HgBvSFyqd8h2BC88AwBxyJpUz5NiSQfHfJMkIZtUllOkupD81t5hReRDjX9Tg5I0uA2kyIDnFSNzaLmK7cVzZ8OkV8IU47czuJjPVTo0eUv95y0LmcFZtMrdO57Crkmn0I4O0DEEYo6LrH_bjbD6RqFAjJtEEJbYGt18SGgF9Mw4M2J7_S2f-CQZU1nx8JFeHqOyTPQbQo2ynuPUW_d22j8pwB_MqOrRb0dZ_Qqe4REnOf-qWnnHFGNVpVgI1axY30r-bZixzfGNo53TGLO47-bZIFKUIZPXS4.7CzJWtDxPjBO7gWPcOu3D1J0qgwI9XgUt7BLDyj7QSY&dib_tag=se&keywords=Fralda+Pom+Pom+Protek+Prote%C3%A7%C3%A3o+de+M%C3%A3e+GG&qid=1790956092&sr=8-6&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9",
+      "price": 68.4,
+      "currency": "BRL",
+      "unit_price": 0.86,
+      "unit_basis": "unit",
+      "normalized_quantity": 80,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 80,
+        "size": "M"
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 6,
+      "position": 6,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:12.467Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:size"
+      ]
+    },
+    {
+      "offer_id": "amazon:75a334e143",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Fralda Pom Pom Protek Proteção de Mãe Jumbo P 180 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pom-Protek-Prote%C3%A7%C3%A3o-Unidades/dp/B0C31H5KBG/ref=sr_1_18_mod_primary_new?dib=eyJ2IjoiMSJ9.gIeinvTW_HgBvSFyqd8h2BC88AwBxyJpUz5NiSQfHfJMkIZtUllOkupD81t5hReRDjX9Tg5I0uA2kyIDnFSNzaLmK7cVzZ8OkV8IU47czuJjPVTo0eUv95y0LmcFZtMrdO57Crkmn0I4O0DEEYo6LrH_bjbD6RqFAjJtEEJbYGt18SGgF9Mw4M2J7_S2f-CQZU1nx8JFeHqOyTPQbQo2ynuPUW_d22j8pwB_MqOrRb0dZ_Qqe4REnOf-qWnnHFGNVpVgI1axY30r-bZixzfGNo53TGLO47-bZIFKUIZPXS4.7CzJWtDxPjBO7gWPcOu3D1J0qgwI9XgUt7BLDyj7QSY&dib_tag=se&keywords=Fralda+Pom+Pom+Protek+Prote%C3%A7%C3%A3o+de+M%C3%A3e+GG&qid=1790956092&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=8-18",
+      "price": 161.4,
+      "currency": "BRL",
+      "unit_price": 0.9,
+      "unit_basis": "unit",
+      "normalized_quantity": 180,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 180,
+        "size": "M"
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 18,
+      "position": 18,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:12.467Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:size"
+      ]
+    },
+    {
+      "offer_id": "kabum:63701396f4",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Camera PDN Speed Dome Ip Giratoria HD Wifi Externa Segurança Noturna Resiste Agua",
+      "url": "https://www.kabum.com.br/produto/282243/camera-pdn-speed-dome-ip-giratoria-hd-wifi-externa-seguranca-noturna-resiste-agua",
+      "price": 292,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 41,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:15.446Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:63701396f4",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Camera PDN Speed Dome Ip Giratoria HD Wifi Externa Segurança Noturna Resiste Agua",
+      "url": "https://www.kabum.com.br/produto/282243/camera-pdn-speed-dome-ip-giratoria-hd-wifi-externa-seguranca-noturna-resiste-agua",
+      "price": 292,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:19.871Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
     },
     {
       "offer_id": "kabum:bf83b29c36",
@@ -2404,7 +2601,7 @@
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.555Z",
+      "fetched_at": "2026-10-02T15:48:24.791Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2430,60 +2627,7 @@
       "position": 3,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.555Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "kabum:8e09e3ba15",
-      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "store_id": "kabum",
-      "store": "KaBuM",
-      "title": "Monitor Gamer Dell Alienware 25\", FHD, 320Hz, 0,5ms, IPS, DisplayPort e HDMI, FreeSync, Ajuste de Altura, Preto - AW2525HM",
-      "url": "https://www.kabum.com.br/produto/947297/monitor-gamer-dell-alienware-25-fhd-320hz-0-5ms-ips-displayport-e-hdmi-freesync-ajuste-de-altura-preto-aw2525hm",
-      "price": 1699.99,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "color": "preto",
-        "is_accessory": false
-      },
-      "match_score": 0.93,
-      "priority_score": 0.67,
-      "rank": 6,
-      "position": 6,
-      "source": "search-next-data",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.555Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "kabum:dd4dba4e78",
-      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
-      "store_id": "kabum",
-      "store": "KaBuM",
-      "title": "Monitor Gamer Aoc Agon G50 27\" Full Hd Ips 144hz 0,5ms G-sync HDMI/displayport - 27g50f/57",
-      "url": "https://www.kabum.com.br/produto/957889/monitor-gamer-aoc-agon-g50-27-full-hd-ips-144hz-0-5ms-g-sync-hdmi-displayport-27g50f-57",
-      "price": 799,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "is_accessory": false
-      },
-      "match_score": 0.9,
-      "priority_score": 0.67,
-      "rank": 11,
-      "position": 11,
-      "source": "search-next-data",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.555Z",
+      "fetched_at": "2026-10-02T15:48:24.791Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2506,11 +2650,65 @@
       },
       "match_score": 0.93,
       "priority_score": 0.67,
-      "rank": 23,
-      "position": 23,
+      "rank": 18,
+      "position": 18,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:50.555Z",
+      "fetched_at": "2026-10-02T15:48:24.791Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:35cad14a53",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer ASRock Challenger 24.5\", FHD, 144Hz, 1ms, IPS, FreeSync, HDMI e VGA, Preto - CL25FFB",
+      "url": "https://www.kabum.com.br/produto/911994/monitor-gamer-asrock-challenger-24-5-fhd-144hz-1ms-ips-freesync-hdmi-e-vga-preto-cl25ffb",
+      "price": 899.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 1,
+      "rank": 25,
+      "position": 25,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:24.791Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:8e09e3ba15",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer Dell Alienware 25\", FHD, 320Hz, 0,5ms, IPS, DisplayPort e HDMI, FreeSync, Ajuste de Altura, Preto - AW2525HM",
+      "url": "https://www.kabum.com.br/produto/947297/monitor-gamer-dell-alienware-25-fhd-320hz-0-5ms-ips-displayport-e-hdmi-freesync-ajuste-de-altura-preto-aw2525hm",
+      "price": 2499.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 0.67,
+      "rank": 27,
+      "position": 27,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:24.791Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2537,7 +2735,7 @@
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:46.866Z",
+      "fetched_at": "2026-10-02T15:48:21.134Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_attributes:platform"
@@ -2551,7 +2749,7 @@
       "store": "KaBuM",
       "title": "Headset Gamer HyperX Cloud Stinger 2 Core, Drivers 40mm, Preto - 683L9AA",
       "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-core-drivers-40mm-preto-683l9aa",
-      "price": 167.99,
+      "price": 276.81,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
@@ -2562,11 +2760,11 @@
       },
       "match_score": 0.94,
       "priority_score": 0.5,
-      "rank": 3,
-      "position": 3,
+      "rank": 4,
+      "position": 4,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:46.866Z",
+      "fetched_at": "2026-10-02T15:48:21.134Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_attributes:platform"
@@ -2592,11 +2790,11 @@
       },
       "match_score": 0.91,
       "priority_score": 0.5,
-      "rank": 10,
-      "position": 10,
+      "rank": 9,
+      "position": 9,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:46.866Z",
+      "fetched_at": "2026-10-02T15:48:21.134Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_attributes:platform",
@@ -2623,11 +2821,11 @@
       },
       "match_score": 0.16,
       "priority_score": 1,
-      "rank": 29,
-      "position": 29,
+      "rank": 30,
+      "position": 30,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:46.866Z",
+      "fetched_at": "2026-10-02T15:48:21.134Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2654,11 +2852,11 @@
       },
       "match_score": 0.16,
       "priority_score": 1,
-      "rank": 30,
-      "position": 30,
+      "rank": 31,
+      "position": 31,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:46.866Z",
+      "fetched_at": "2026-10-02T15:48:21.134Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2688,7 +2886,7 @@
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:49.000Z",
+      "fetched_at": "2026-10-02T15:48:21.657Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2717,7 +2915,7 @@
       "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:49.000Z",
+      "fetched_at": "2026-10-02T15:48:21.657Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2747,7 +2945,7 @@
       "position": 6,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:49.000Z",
+      "fetched_at": "2026-10-02T15:48:21.657Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2773,11 +2971,11 @@
       },
       "match_score": 0,
       "priority_score": 0,
-      "rank": 25,
-      "position": 25,
+      "rank": 26,
+      "position": 26,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:49.000Z",
+      "fetched_at": "2026-10-02T15:48:21.657Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2802,11 +3000,11 @@
       },
       "match_score": 0.2,
       "priority_score": 0,
-      "rank": 38,
-      "position": 38,
+      "rank": 39,
+      "position": 39,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:49.000Z",
+      "fetched_at": "2026-10-02T15:48:21.657Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2837,11 +3035,11 @@
       },
       "match_score": 0.98,
       "priority_score": 0.75,
-      "rank": 7,
-      "position": 7,
+      "rank": 5,
+      "position": 5,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:54.231Z",
+      "fetched_at": "2026-10-02T15:48:28.098Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2870,11 +3068,11 @@
       },
       "match_score": 1,
       "priority_score": 1,
-      "rank": 9,
-      "position": 9,
+      "rank": 8,
+      "position": 8,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:54.231Z",
+      "fetched_at": "2026-10-02T15:48:28.098Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2902,44 +3100,44 @@
       },
       "match_score": 0.92,
       "priority_score": 0.75,
-      "rank": 19,
-      "position": 19,
+      "rank": 20,
+      "position": 20,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:54.231Z",
+      "fetched_at": "2026-10-02T15:48:28.098Z",
       "rejected": false,
       "rejected_reasons": []
     },
     {
-      "offer_id": "kabum:e6fc5291ac",
+      "offer_id": "kabum:5410d8198b",
       "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "store_id": "kabum",
       "store": "KaBuM",
-      "title": "Notebook Acer Aspire Go 15 Core Intel I7 13ª 16gb Ddr5 512gb Nvme Windows 11 Trial - Verde",
-      "url": "https://www.kabum.com.br/produto/1075609/notebook-acer-aspire-go-15-core-intel-i7-13-16gb-ddr5-512gb-nvme-windows-11-trial-cinza-escuro",
-      "price": 6142.88,
+      "title": "Notebook Acer Aspire Go 15 Core Intel I7 13ª 48gb Ddr5 512gb Nvme Windows 11 Trial - Verde",
+      "url": "https://www.kabum.com.br/produto/1075583/notebook-acer-aspire-go-15-core-intel-i7-13-48gb-ddr5-512gb-nvme-windows-11-trial-cinza-escuro",
+      "price": 9192.87,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
       "normalized_quantity": null,
       "attributes": {
-        "capacity_total_gb": 16,
+        "capacity_total_gb": 48,
         "module_count": 1,
-        "module_gb": 16,
+        "module_gb": 48,
         "memory_type": "ddr5",
         "cpu_tier": "i7",
         "storage_gb": 512,
         "platform": "pc",
         "is_accessory": false
       },
-      "match_score": 0.91,
+      "match_score": 0.92,
       "priority_score": 0.75,
-      "rank": 30,
-      "position": 30,
+      "rank": 31,
+      "position": 31,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:54.231Z",
+      "fetched_at": "2026-10-02T15:48:28.098Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -2968,13 +3166,159 @@
       },
       "match_score": 0.92,
       "priority_score": 0.75,
-      "rank": 37,
-      "position": 37,
+      "rank": 32,
+      "position": 32,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:54.231Z",
+      "fetched_at": "2026-10-02T15:48:28.098Z",
       "rejected": false,
       "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:9ca6b052ca",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Placa Mãe Asus TUF Gaming B760M-PLUS II, Chipset B760, Intel LGA 1700, mATX, DDR5, 90MB1HD0-M0EAY0",
+      "url": "https://www.amazon.com.br/Placa-Asus-GAMING-B760M-PLUS-4xDDR5/dp/B086ZSQNPP/ref=sr_1_1?dib=eyJ2IjoiMSJ9.0iYj0yEAJGxfThJ9xYgv50RqGs5OnL9WzwPTOLavIW7pUWJD8c4H4FV2b62YYOu1w8yqFg15rxu_mjtRoddap-Z8gYJdHNK1_QCtVp0gcsaQhXD5XHXXoANB406ZdBRmkN-JkuYUnFOaxC-QdvMU8u0E3UhSAmS8usS2ym4KjlPvr99FTwAB8WYYPUJ6PqOTPRqvLGnlP6Z4gAwxQZW-qx_gcH0kqcyG0eKduXgm8lj-hU5JG887csAb2XM8b85fF1iWQI92xWw7JPb2A-0r86eKx2gXNWnXTO5NQ8Umujg.iaTdV528-_ub6uzKuEl7SxNiD5EEOD-fxeVvHwlT3Rc&dib_tag=se&keywords=placa+mae+asus+tuf+gaming+b760+ddr5&qid=1790956107&sr=8-1&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
+      "price": 949.05,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:27.268Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:3a588897a7",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Placa Mãe Asus TUF Gaming B760M-PLUS WI-FI II, Chipset B760, Intel LGA 1700, mATX, DDR5, 90MB1HE0-M0EAY0",
+      "url": "https://www.amazon.com.br/Placa-Asus-GAMING-B760M-PLUS-4xDDR5/dp/B086ZT15LJ/ref=sr_1_3?dib=eyJ2IjoiMSJ9.0iYj0yEAJGxfThJ9xYgv50RqGs5OnL9WzwPTOLavIW7pUWJD8c4H4FV2b62YYOu1w8yqFg15rxu_mjtRoddap-Z8gYJdHNK1_QCtVp0gcsaQhXD5XHXXoANB406ZdBRmkN-JkuYUnFOaxC-QdvMU8u0E3UhSAmS8usS2ym4KjlPvr99FTwAB8WYYPUJ6PqOTPRqvLGnlP6Z4gAwxQZW-qx_gcH0kqcyG0eKduXgm8lj-hU5JG887csAb2XM8b85fF1iWQI92xWw7JPb2A-0r86eKx2gXNWnXTO5NQ8Umujg.iaTdV528-_ub6uzKuEl7SxNiD5EEOD-fxeVvHwlT3Rc&dib_tag=se&keywords=placa+mae+asus+tuf+gaming+b760+ddr5&qid=1790956107&sr=8-3",
+      "price": 1410,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 3,
+      "position": 3,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:27.268Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:91a03d64e2",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "Placa Mãe Asus TUF Gaming B760M-E D4, Chipset B760, Intel LGA 1700, mATX, DDR4, 90MB1E90-M1EAY0",
+      "url": "https://www.amazon.com.br/Placa-Asus-GAMING-B760M-4xDDR4/dp/B0BSF3J1DC/ref=sr_1_4?dib=eyJ2IjoiMSJ9.0iYj0yEAJGxfThJ9xYgv50RqGs5OnL9WzwPTOLavIW7pUWJD8c4H4FV2b62YYOu1w8yqFg15rxu_mjtRoddap-Z8gYJdHNK1_QCtVp0gcsaQhXD5XHXXoANB406ZdBRmkN-JkuYUnFOaxC-QdvMU8u0E3UhSAmS8usS2ym4KjlPvr99FTwAB8WYYPUJ6PqOTPRqvLGnlP6Z4gAwxQZW-qx_gcH0kqcyG0eKduXgm8lj-hU5JG887csAb2XM8b85fF1iWQI92xWw7JPb2A-0r86eKx2gXNWnXTO5NQ8Umujg.iaTdV528-_ub6uzKuEl7SxNiD5EEOD-fxeVvHwlT3Rc&dib_tag=se&keywords=placa+mae+asus+tuf+gaming+b760+ddr5&qid=1790956107&sr=8-4&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
+      "price": 1134.7,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr4",
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 4,
+      "position": 4,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:27.268Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:memory_type",
+        "excluded_term"
+      ]
+    },
+    {
+      "offer_id": "amazon:23f555c449",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "ASUS Placa-mãe TUF GAMING B760-PLUS WIFI Intel B760 LGA 1700 ATX, pronta para CPU Intel® Core de 14ª, 13ª e 12ª geração, estágios 12+1+1, PCIe 5.0, 3x M.2, DDR5, 2.5G, USB 3.2 Type-C®, Thunderbolt 4™",
+      "url": "https://www.amazon.com.br/ASUS-Placa-m%C3%A3e-TUF-B760-PLUS-gera%C3%A7%C3%A3o/dp/B0BZT9KYNB/ref=sr_1_5?dib=eyJ2IjoiMSJ9.0iYj0yEAJGxfThJ9xYgv50RqGs5OnL9WzwPTOLavIW7pUWJD8c4H4FV2b62YYOu1w8yqFg15rxu_mjtRoddap-Z8gYJdHNK1_QCtVp0gcsaQhXD5XHXXoANB406ZdBRmkN-JkuYUnFOaxC-QdvMU8u0E3UhSAmS8usS2ym4KjlPvr99FTwAB8WYYPUJ6PqOTPRqvLGnlP6Z4gAwxQZW-qx_gcH0kqcyG0eKduXgm8lj-hU5JG887csAb2XM8b85fF1iWQI92xWw7JPb2A-0r86eKx2gXNWnXTO5NQ8Umujg.iaTdV528-_ub6uzKuEl7SxNiD5EEOD-fxeVvHwlT3Rc&dib_tag=se&keywords=placa+mae+asus+tuf+gaming+b760+ddr5&qid=1790956107&sr=8-5&ufe=app_do%3Aamzn1.fos.38059ce3-943c-48af-9fc9-22d85542b02c",
+      "price": 1589.42,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false,
+        "weight_g": 2.5,
+        "weight_kg": 0
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 5,
+      "position": 5,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:27.268Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:c05f58ed82",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "ASUS TUF GAMING B760-PLUS WIFI B760",
+      "url": "https://www.amazon.com.br/ASUS-GAMING-B760-PLUS-WIFI-B760/dp/B0BVKYWPFT/ref=sr_1_13?dib=eyJ2IjoiMSJ9.0iYj0yEAJGxfThJ9xYgv50RqGs5OnL9WzwPTOLavIW7pUWJD8c4H4FV2b62YYOu1w8yqFg15rxu_mjtRoddap-Z8gYJdHNK1_QCtVp0gcsaQhXD5XHXXoANB406ZdBRmkN-JkuYUnFOaxC-QdvMU8u0E3UhSAmS8usS2ym4KjlPvr99FTwAB8WYYPUJ6PqOTPRqvLGnlP6Z4gAwxQZW-qx_gcH0kqcyG0eKduXgm8lj-hU5JG887csAb2XM8b85fF1iWQI92xWw7JPb2A-0r86eKx2gXNWnXTO5NQ8Umujg.iaTdV528-_ub6uzKuEl7SxNiD5EEOD-fxeVvHwlT3Rc&dib_tag=se&keywords=placa+mae+asus+tuf+gaming+b760+ddr5&qid=1790956107&sr=8-13",
+      "price": 1692.21,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 0.89,
+      "priority_score": 0,
+      "rank": 13,
+      "position": 13,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:27.268Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:memory_type"
+      ]
     },
     {
       "offer_id": "kabum:bf44a6fd6d",
@@ -2984,7 +3328,7 @@
       "store": "KaBuM",
       "title": "Placa-Mãe ASUS TUF GAMING B760M-PLUS WIFI II, Intel, DDR5, Preto - 90MB1HE0-M0EAY0",
       "url": "https://www.kabum.com.br/produto/523144/placa-mae-asus-tuf-gaming-b760m-plus-wifi-ii-intel-ddr5-preto-90mb1he0-m0eay0",
-      "price": 1050.99,
+      "price": 1332.99,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
@@ -2997,11 +3341,11 @@
       },
       "match_score": 1,
       "priority_score": 0,
-      "rank": 1,
+      "rank": 41,
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.405Z",
+      "fetched_at": "2026-10-02T15:48:31.068Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3013,7 +3357,7 @@
       "store": "KaBuM",
       "title": "Placa Mãe ASUS TUF GAMING B760M-PLUS II, Intel LGA 1700, mATX, DDR5, Preto - 90MB1HD0-M0EAY0",
       "url": "https://www.kabum.com.br/produto/911810/placa-mae-asus-tuf-gaming-b760m-plus-ii-intel-lga-1700-matx-ddr5-preto-90mb1hd0-m0eay0",
-      "price": 1059.99,
+      "price": 1150.99,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
@@ -3026,11 +3370,11 @@
       },
       "match_score": 1,
       "priority_score": 0,
-      "rank": 2,
+      "rank": 42,
       "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.405Z",
+      "fetched_at": "2026-10-02T15:48:31.068Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3042,7 +3386,7 @@
       "store": "KaBuM",
       "title": "Placa-Mãe ASUS TUF GAMING B760-PLUS WIFI, INTEL, B760, ATX, DDR5, Preto - 90MB1ER0-M0EAY0",
       "url": "https://www.kabum.com.br/produto/521058/placa-mae-asus-tuf-gaming-b760-plus-wifi-intel-b760-atx-ddr5-preto-90mb1er0-m0eay0",
-      "price": 1499.99,
+      "price": 1522.99,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
@@ -3055,39 +3399,11 @@
       },
       "match_score": 1,
       "priority_score": 0,
-      "rank": 3,
-      "position": 3,
+      "rank": 44,
+      "position": 4,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.405Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "kabum:e6613ed71a",
-      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
-      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
-      "store_id": "kabum",
-      "store": "KaBuM",
-      "title": "Placa Mãe Asus Tuf Gaming B760m-plus Ii Matx LGA 1700 Ddr5 - 90mb1hd0-m0eay0",
-      "url": "https://www.kabum.com.br/produto/595278/placa-mae-asus-tuf-gaming-b760m-plus-ii-ddr5-lga-1700-micro-atx",
-      "price": 1564.99,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "memory_type": "ddr5",
-        "chipset": "b760",
-        "is_accessory": false
-      },
-      "match_score": 1,
-      "priority_score": 0,
-      "rank": 12,
-      "position": 12,
-      "source": "search-next-data",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.405Z",
+      "fetched_at": "2026-10-02T15:48:31.068Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3111,46 +3427,41 @@
       },
       "match_score": 1,
       "priority_score": 0,
-      "rank": 14,
-      "position": 14,
+      "rank": 52,
+      "position": 12,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.405Z",
+      "fetched_at": "2026-10-02T15:48:31.068Z",
       "rejected": false,
       "rejected_reasons": []
     },
     {
-      "offer_id": "kabum:0d151524c3",
-      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
-      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "offer_id": "kabum:e6613ed71a",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
       "store_id": "kabum",
       "store": "KaBuM",
-      "title": "Cartão De Memória Sandisk Box Ultra Micro SD, 128GB, Classe 10 - SDSQUNS-128G-GN6TA",
-      "url": "https://www.kabum.com.br/produto/246129/cartao-de-memoria-sandisk-box-ultra-micro-sd-128gb-classe-10-sdsquns-128g-gn6ta",
-      "price": 151.59,
+      "title": "Placa Mãe Asus Tuf Gaming B760m-plus Ii Matx LGA 1700 Ddr5 - 90mb1hd0-m0eay0",
+      "url": "https://www.kabum.com.br/produto/595278/placa-mae-asus-tuf-gaming-b760m-plus-ii-ddr5-lga-1700-micro-atx",
+      "price": 1564.99,
       "currency": "BRL",
-      "unit_price": 1.18,
-      "unit_basis": "gb",
-      "normalized_quantity": 128,
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
       "attributes": {
-        "capacity_total_gb": 128,
-        "module_count": 1,
-        "module_gb": 128,
-        "is_accessory": false,
-        "weight_g": 128,
-        "weight_kg": 0.13
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false
       },
-      "match_score": 0.81,
+      "match_score": 1,
       "priority_score": 0,
-      "rank": 1,
-      "position": 1,
+      "rank": 55,
+      "position": 15,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.789Z",
-      "rejected": true,
-      "rejected_reasons": [
-        "missing_required_terms"
-      ]
+      "fetched_at": "2026-10-02T15:48:31.068Z",
+      "rejected": false,
+      "rejected_reasons": []
     },
     {
       "offer_id": "kabum:c0f6a79bf0",
@@ -3179,7 +3490,40 @@
       "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.789Z",
+      "fetched_at": "2026-10-02T15:48:31.913Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms"
+      ]
+    },
+    {
+      "offer_id": "kabum:0d151524c3",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cartão De Memória Sandisk Box Ultra Micro SD, 128GB, Classe 10 - SDSQUNS-128G-GN6TA",
+      "url": "https://www.kabum.com.br/produto/246129/cartao-de-memoria-sandisk-box-ultra-micro-sd-128gb-classe-10-sdsquns-128g-gn6ta",
+      "price": 151.59,
+      "currency": "BRL",
+      "unit_price": 1.18,
+      "unit_basis": "gb",
+      "normalized_quantity": 128,
+      "attributes": {
+        "capacity_total_gb": 128,
+        "module_count": 1,
+        "module_gb": 128,
+        "is_accessory": false,
+        "weight_g": 128,
+        "weight_kg": 0.13
+      },
+      "match_score": 0.81,
+      "priority_score": 0,
+      "rank": 6,
+      "position": 6,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-02T15:48:31.913Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
@@ -3206,11 +3550,11 @@
       },
       "match_score": 0.81,
       "priority_score": 0,
-      "rank": 14,
-      "position": 14,
+      "rank": 22,
+      "position": 22,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.789Z",
+      "fetched_at": "2026-10-02T15:48:31.913Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
@@ -3237,11 +3581,11 @@
       },
       "match_score": 0.81,
       "priority_score": 0,
-      "rank": 18,
-      "position": 18,
+      "rank": 27,
+      "position": 27,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.789Z",
+      "fetched_at": "2026-10-02T15:48:31.913Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
@@ -3268,44 +3612,40 @@
       },
       "match_score": 0.81,
       "priority_score": 0,
-      "rank": 32,
-      "position": 32,
+      "rank": 36,
+      "position": 36,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:26:57.789Z",
+      "fetched_at": "2026-10-02T15:48:31.913Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
       ]
     },
     {
-      "offer_id": "kabum:81b1006194",
+      "offer_id": "kabum:2b1e60ff0d",
       "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
       "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
       "store_id": "kabum",
       "store": "KaBuM",
-      "title": "Pen Drive Sandisk - Unidade Flash Ultra Eco 256 Gb Usb 3.2 Gen 1 Tipo A - Verde-sdcz96-256g-a46",
-      "url": "https://www.kabum.com.br/produto/729017/pen-drive-sandisk-unidade-flash-ultra-eco-256-gb-usb-3-2-gen-1-tipo-a-verde-sdcz96-256g-a46",
-      "price": 727.95,
+      "title": "Pen Drive Sandisk 1TB Usb 3.2 Ultra Fit 400mbs Preto",
+      "url": "https://www.kabum.com.br/produto/887794/pen-drive-sandisk-1tb-usb-3-2-ultra-fit-400mbs-preto",
+      "price": 2224.89,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": "unit",
       "normalized_quantity": null,
       "attributes": {
-        "capacity_total_gb": 256,
-        "module_count": 1,
-        "module_gb": 256,
-        "is_accessory": false,
-        "weight_g": 256,
-        "weight_kg": 0.26
+        "color": "preto",
+        "is_accessory": false
       },
-      "match_score": 0.96,
+      "match_score": 0.89,
       "priority_score": 0,
-      "rank": 14,
-      "position": 14,
+      "rank": 9,
+      "position": 9,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:00.284Z",
+      "fetched_at": "2026-10-02T15:48:32.400Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3332,38 +3672,42 @@
       },
       "match_score": 0.89,
       "priority_score": 0,
-      "rank": 22,
-      "position": 22,
+      "rank": 13,
+      "position": 13,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:00.284Z",
+      "fetched_at": "2026-10-02T15:48:32.400Z",
       "rejected": false,
       "rejected_reasons": []
     },
     {
-      "offer_id": "kabum:2b1e60ff0d",
+      "offer_id": "kabum:81b1006194",
       "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
       "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
       "store_id": "kabum",
       "store": "KaBuM",
-      "title": "Pen Drive Sandisk 1TB Usb 3.2 Ultra Fit 400mbs Preto",
-      "url": "https://www.kabum.com.br/produto/887794/pen-drive-sandisk-1tb-usb-3-2-ultra-fit-400mbs-preto",
-      "price": 2224.89,
+      "title": "Pen Drive Sandisk - Unidade Flash Ultra Eco 256 Gb Usb 3.2 Gen 1 Tipo A - Verde-sdcz96-256g-a46",
+      "url": "https://www.kabum.com.br/produto/729017/pen-drive-sandisk-unidade-flash-ultra-eco-256-gb-usb-3-2-gen-1-tipo-a-verde-sdcz96-256g-a46",
+      "price": 727.95,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": "unit",
       "normalized_quantity": null,
       "attributes": {
-        "color": "preto",
-        "is_accessory": false
+        "capacity_total_gb": 256,
+        "module_count": 1,
+        "module_gb": 256,
+        "is_accessory": false,
+        "weight_g": 256,
+        "weight_kg": 0.26
       },
-      "match_score": 0.89,
+      "match_score": 0.96,
       "priority_score": 0,
-      "rank": 27,
-      "position": 27,
+      "rank": 22,
+      "position": 22,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:00.284Z",
+      "fetched_at": "2026-10-02T15:48:32.400Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3388,11 +3732,11 @@
       },
       "match_score": 0.89,
       "priority_score": 0,
-      "rank": 29,
-      "position": 29,
+      "rank": 34,
+      "position": 34,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:00.284Z",
+      "fetched_at": "2026-10-02T15:48:32.400Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3419,11 +3763,11 @@
       },
       "match_score": 0.89,
       "priority_score": 0,
-      "rank": 32,
-      "position": 32,
+      "rank": 38,
+      "position": 38,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:00.284Z",
+      "fetched_at": "2026-10-02T15:48:32.400Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3451,7 +3795,7 @@
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:01.861Z",
+      "fetched_at": "2026-10-02T15:48:34.051Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -3482,7 +3826,7 @@
       "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:01.861Z",
+      "fetched_at": "2026-10-02T15:48:34.051Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -3508,11 +3852,11 @@
       },
       "match_score": 0.51,
       "priority_score": 1,
-      "rank": 17,
-      "position": 17,
+      "rank": 16,
+      "position": 16,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:01.861Z",
+      "fetched_at": "2026-10-02T15:48:34.051Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -3542,7 +3886,7 @@
       "position": 21,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:01.861Z",
+      "fetched_at": "2026-10-02T15:48:34.051Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -3573,7 +3917,7 @@
       "position": 24,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-01T16:27:01.861Z",
+      "fetched_at": "2026-10-02T15:48:34.051Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -3581,5 +3925,5 @@
       ]
     }
   ],
-  "run_file": "2026-10-01T16-26-33-383Z.json"
+  "run_file": "2026-10-02T15-48-08-319Z.json"
 }
