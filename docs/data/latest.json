@@ -1,24 +1,24 @@
 {
-  "run_id": "2026-10-03T14-18-55-009Z",
-  "generated_at": "2026-10-03T14:18:55.009Z",
+  "run_id": "2026-10-04T14-47-19-103Z",
+  "generated_at": "2026-10-04T14:47:19.103Z",
   "currency": "BRL",
   "summary": {
     "total_products": 15,
-    "success_count": 3,
-    "failure_count": 12,
-    "run_duration_ms": 20019,
+    "success_count": 2,
+    "failure_count": 13,
+    "run_duration_ms": 29871,
     "engines": {
       "lightpanda_search": {
         "attempted": 15,
         "success": 0,
         "failed": 15,
-        "avg_time_ms": 204
+        "avg_time_ms": 289
       },
       "chromium_search": {
         "attempted": 15,
-        "success": 3,
-        "failed": 12,
-        "avg_time_ms": 4178
+        "success": 2,
+        "failed": 13,
+        "avg_time_ms": 6280
       }
     }
   },
@@ -45,7 +45,7 @@
       "match_score": 0.88,
       "priority_score": 1,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-next-data",
       "confidence": 0.88,
       "carried_forward_reason": "no_search_offers",
@@ -105,7 +105,7 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-card",
       "confidence": 1,
       "carried_forward_reason": "no_search_offers",
@@ -137,8 +137,8 @@
           "offers_checked": 0,
           "accepted_offer_count": 0,
           "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
         }
       ]
     },
@@ -165,7 +165,7 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-card",
       "confidence": 1,
       "carried_forward_reason": "no_search_offers",
@@ -206,15 +206,14 @@
       "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
       "price": 32.59,
       "unit_price": 0.68,
-      "status": "ok",
+      "status": "carried_forward",
       "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
       "name": "Lenços Umedecidos Huggies Rosto e Corpo",
       "characteristics": "",
-      "category": "higiene",
-      "store_id": "amazon",
-      "store": "Amazon",
       "title": "Lenços Umedecidos Huggies Rosto e Corpo Limpeza 4 x 48 Un",
       "url": "https://www.amazon.com.br/Huggies-Len%C3%A7os-Umedecidos-Limpeza-48-192/dp/B07MJ251Z8/ref=sr_1_1?dib=eyJ2IjoiMSJ9.u2rWKJFNKUKDw7Z-aZh3QXgB4usByuVyqH81GNBFFYbX9ySFrtx7JskJn7dPNhHffT1HDfq5fd0JUHwFgDWoq77_ea9fgdRqN6wZOUfle656DS9Uhojntyuvg6J-Mpr---ryME4voLBWbv4X7o_YfMQ2TaZPjRHFZ6GFxARXdcKsWNLhd-3SU10UWyrKw1_RLSzD3MfChCPOD5wVu19vVIiKrh18XWPEQPzRvgaapYjuNFhaP5_2G4bEfgUzBsOlakYvoP3pVEKykHsjjH-iORdYop4FwRYdbyfBXORGwEA.v7gyX3L0kropB1oCgJLdzv984zaij_gQBDzD3Q-AHGg&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1791037143&sr=8-1",
+      "store_id": "amazon",
+      "store": "Amazon",
       "currency": "BRL",
       "unit_basis": "unit",
       "normalized_quantity": 48,
@@ -224,34 +223,43 @@
       },
       "match_score": 1,
       "priority_score": 0,
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:03.266Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-card",
       "confidence": 1,
+      "carried_forward_reason": "no_matching_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-03T14-18-55-009Z",
+        "run_date": "2026-10-03",
+        "fetched_at": "2026-10-03T14:19:03.266Z",
+        "engine_used": "chromium_search",
+        "source": "search-card",
+        "status": "ok"
+      },
       "store_outcomes": [
         {
           "store_id": "amazon",
           "store": "Amazon",
-          "status": "fresh_success",
+          "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 40,
-          "accepted_offer_count": 2,
-          "rejected_offer_count": 38
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
         },
         {
           "store_id": "kabum",
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 12,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
-      ],
-      "fallback_from": "lightpanda_search",
-      "fallback_reason": "unexpected_error"
+      ]
     },
     {
       "product_id": "exemplo-memoria-ram-ddr4-16gb",
@@ -281,7 +289,7 @@
       "match_score": 1,
       "priority_score": 1,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-next-data",
       "confidence": 1,
       "carried_forward_reason": "no_matching_offers",
@@ -339,7 +347,7 @@
       "match_score": 0.95,
       "priority_score": 1,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-next-data",
       "confidence": 0.95,
       "carried_forward_reason": "no_search_offers",
@@ -380,15 +388,14 @@
       "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "price": 4179.9,
       "unit_price": null,
-      "status": "ok",
+      "status": "carried_forward",
       "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
       "name": "Notebook Acer Aspire GO 15",
       "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
-      "category": "hardware",
-      "store_id": "amazon",
-      "store": "Amazon",
       "title": "Notebook Acer Aspire Go 15, Intel Core i7-13620H, 15,6\" FHD, 8GB RAM, SSD 512GB, Linux, AG15-71P-72WL",
       "url": "https://www.amazon.com.br/Notebook-Acer-Aspire-i7-13620H-AG15-71P-72WL/dp/B0GXH179CL/ref=sr_1_3?dib=eyJ2IjoiMSJ9.8U7_jfLIcb-Q0W6w1IOTI34BOXVSZg6qD72vhnsGwSLOUlJUPZLhPpyPXf-VndjTxCksLDlqCGf9baQT_qDOJ3ZqhhY7J_k9NnBTfcMfeNMw48eWHiCKMrrKte7dMWO0Fc531VuAxOrUOtTzDph0SaLusJK0ZBB3A4VjwKxyTM8PHTOYaxVKtLe9dwUUvn1EZ2asAiUDskOMYzParsrtQQPSS3NSvSwVAya9obGWEsrnLvZIVG82MWG4CbKXW8FqMF7R6002MJm7JeDa5_pwTHW8FymscqZk9VbvkX0WD30.TbBXzxmdiTMtH2gAE4Zh1iPoIiPKXXzrHYQK8SUkqhw&dib_tag=se&keywords=Notebook+Acer+Aspire+GO+15+Intel+Core+i7+8GB+RAM+DDR5+SSD+512GB+tela+15.6+Full+HD&qid=1791037146&sr=8-3&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
+      "store_id": "amazon",
+      "store": "Amazon",
       "currency": "BRL",
       "unit_basis": null,
       "normalized_quantity": null,
@@ -403,19 +410,30 @@
       },
       "match_score": 0.95,
       "priority_score": 0.75,
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:06.481Z",
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-card",
       "confidence": 0.95,
+      "carried_forward_reason": "no_search_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-03T14-18-55-009Z",
+        "run_date": "2026-10-03",
+        "fetched_at": "2026-10-03T14:19:06.481Z",
+        "engine_used": "chromium_search",
+        "source": "search-card",
+        "status": "ok"
+      },
       "store_outcomes": [
         {
           "store_id": "amazon",
           "store": "Amazon",
-          "status": "fresh_success",
+          "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 40,
-          "accepted_offer_count": 7,
-          "rejected_offer_count": 33
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
         },
         {
           "store_id": "kabum",
@@ -428,9 +446,7 @@
           "error_code": "no_search_results",
           "error_detail": "KaBuM search returned no products (Não encontramos)"
         }
-      ],
-      "fallback_from": "lightpanda_search",
-      "fallback_reason": "unexpected_error"
+      ]
     },
     {
       "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
@@ -457,7 +473,7 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:09.715Z",
+      "fetched_at": "2026-10-04T14:47:38.923Z",
       "source": "search-next-data",
       "confidence": 1,
       "store_outcomes": [
@@ -512,7 +528,7 @@
       "match_score": 1,
       "priority_score": 0,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-card",
       "confidence": 1,
       "carried_forward_reason": "no_matching_offers",
@@ -551,53 +567,43 @@
     },
     {
       "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
-      "price": 727.95,
+      "price": 205.19,
       "unit_price": null,
-      "status": "carried_forward",
+      "status": "ok",
       "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
       "name": "SanDisk Flash Drive USB Tipo C Ultra Luxe",
       "characteristics": "tipo c",
-      "title": "Pen Drive Sandisk - Unidade Flash Ultra Eco 256 Gb Usb 3.2 Gen 1 Tipo A - Verde-sdcz96-256g-a46",
-      "url": "https://www.kabum.com.br/produto/729017/pen-drive-sandisk-unidade-flash-ultra-eco-256-gb-usb-3-2-gen-1-tipo-a-verde-sdcz96-256g-a46",
-      "store_id": "kabum",
-      "store": "KaBuM",
+      "category": "armazenamento",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "SanDisk Flash Drive USB Tipo C Ultra Luxe de 128 GB - Até 400 MB/s, USB 3.2 Geração 1, Design de Metal Premium - SDCZ75-128G-G46",
+      "url": "https://www.amazon.com.br/SanDisk-Flash-Drive-Tipo-Ultra/dp/B0CP43S98Z/ref=sr_1_2?dib=eyJ2IjoiMSJ9.GeeZXepEtTq6T_OinhCh1cR82RJSPc3zmhIyeyjj14aJni56HRygJB_PNOzKWns--_f9PUU0TAPWe73JRjxwvznJpOSqdmYezBwQ5aSY1tW8sVUSbmOm0Q577KT23UPucIfJEhKHG_yCZdxyBa-S-M1ALiM4tCbtqBbAl3f7sRelMaeDqIlDPADfJM6BAV4styTPUsT8DDQP7dMW9P03-iiYg-8k8hi0maHG3b8RWfDl3slumaiGJQr9NxpA8x8fcUh-7phTBuYn-YIEY-bxkLr5vDgNO3m8HItLE-BnwvE.x0I6pqLfSb9B1wq_CSxYJKgsv7vE0S2HQMC4A7_trYY&dib_tag=se&keywords=SanDisk+Flash+Drive+USB+Tipo+C+Ultra+Luxe+tipo+c&qid=1791125261&sr=8-2&ufe=app_do%3Aamzn1.fos.fcd6d665-32ba-4479-9f21-b774e276a678",
       "currency": "BRL",
       "unit_basis": "unit",
       "normalized_quantity": null,
       "attributes": {
-        "capacity_total_gb": 256,
+        "capacity_total_gb": 128,
         "module_count": 1,
-        "module_gb": 256,
+        "module_gb": 128,
         "is_accessory": false,
-        "weight_g": 256,
-        "weight_kg": 0.26
+        "weight_g": 128,
+        "weight_kg": 0.13
       },
-      "match_score": 0.96,
+      "match_score": 1,
       "priority_score": 0,
-      "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
-      "source": "search-next-data",
-      "confidence": 0.96,
-      "carried_forward_reason": "no_search_offers",
-      "carried_forward_from": {
-        "run_id": "2026-10-02T15-48-08-319Z",
-        "run_date": "2026-10-02",
-        "fetched_at": "2026-10-02T15:48:32.400Z",
-        "engine_used": "chromium_search",
-        "source": "search-next-data",
-        "status": "ok"
-      },
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:41.229Z",
+      "source": "search-card",
+      "confidence": 1,
       "store_outcomes": [
         {
           "store_id": "amazon",
           "store": "Amazon",
-          "status": "hard_failure",
+          "status": "fresh_success",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
-          "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results"
+          "offers_checked": 40,
+          "accepted_offer_count": 12,
+          "rejected_offer_count": 28
         },
         {
           "store_id": "kabum",
@@ -610,7 +616,9 @@
           "error_code": "no_search_results",
           "error_detail": "KaBuM search returned no products (Não encontramos)"
         }
-      ]
+      ],
+      "fallback_from": "lightpanda_search",
+      "fallback_reason": "unexpected_error"
     },
     {
       "product_id": "teclado-logitech-k835",
@@ -633,7 +641,7 @@
       "match_score": 0.89,
       "priority_score": 1,
       "engine_used": "carry_forward",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "source": "search-next-data",
       "confidence": 0.89,
       "carried_forward_reason": "no_search_offers",
@@ -678,12 +686,12 @@
       "name": "Echo Pop",
       "characteristics": "alto-falante inteligente com Alexa",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 3011,
+          "elapsed_ms": 4203,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -736,7 +744,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 5049,
+          "elapsed_ms": 3478,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -843,12 +851,12 @@
       "name": "Fralda",
       "characteristics": "tamanho G",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 7,
+          "elapsed_ms": 17,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -903,7 +911,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 3055,
+          "elapsed_ms": 2450,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -920,12 +928,12 @@
               "http_status": 503
             },
             {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
               "store_id": "kabum",
               "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
-              "http_status": 200
+              "http_status": 429
             }
           ],
           "store_outcomes": [
@@ -948,8 +956,8 @@
               "offers_checked": 0,
               "accepted_offer_count": 0,
               "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
             }
           ]
         }
@@ -971,12 +979,12 @@
           "http_status": 503
         },
         {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
           "store_id": "kabum",
           "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
-          "http_status": 200
+          "http_status": 429
         }
       ],
       "store_outcomes": [
@@ -999,8 +1007,8 @@
           "offers_checked": 0,
           "accepted_offer_count": 0,
           "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
         }
       ]
     },
@@ -1010,12 +1018,12 @@
       "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
       "characteristics": "GG",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 7,
+          "elapsed_ms": 17,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1070,7 +1078,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 2168,
+          "elapsed_ms": 7322,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -1087,12 +1095,12 @@
               "http_status": 503
             },
             {
-              "error": "No usable offers were found in the search results",
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results",
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
               "store_id": "kabum",
               "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
-              "http_status": 429
+              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -1115,8 +1123,8 @@
               "offers_checked": 0,
               "accepted_offer_count": 0,
               "rejected_offer_count": 0,
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results"
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
             }
           ]
         }
@@ -1138,12 +1146,12 @@
           "http_status": 503
         },
         {
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
           "store_id": "kabum",
           "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
-          "http_status": 429
+          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -1166,8 +1174,8 @@
           "offers_checked": 0,
           "accepted_offer_count": 0,
           "rejected_offer_count": 0,
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results"
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
         }
       ]
     },
@@ -1177,12 +1185,12 @@
       "name": "Fralda Pampers Confort Sec",
       "characteristics": "G",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 7,
+          "elapsed_ms": 18,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1237,7 +1245,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 4407,
+          "elapsed_ms": 5844,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -1344,12 +1352,12 @@
       "name": "Fralda Pom Pom Protek Proteção de Mãe",
       "characteristics": "GG",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 6,
+          "elapsed_ms": 12,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1404,7 +1412,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 4341,
+          "elapsed_ms": 6642,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -1511,12 +1519,12 @@
       "name": "Fralda Turma da Mônica Baby",
       "characteristics": "GG",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 7,
+          "elapsed_ms": 13,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1571,13 +1579,13 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 4575,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 7316,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
+          "offers_checked": 12,
+          "rejected_offers": 12,
           "store_errors": [
             {
               "error": "No usable offers were found in the search results",
@@ -1586,14 +1594,6 @@
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
               "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
-              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -1613,22 +1613,22 @@
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 12,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "rejected_offer_count": 12,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
+      "offers_checked": 12,
+      "rejected_offers": 12,
       "store_errors": [
         {
           "error": "No usable offers were found in the search results",
@@ -1637,14 +1637,6 @@
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
           "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
-          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -1664,11 +1656,11 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
-          "offers_checked": 0,
+          "offers_checked": 12,
           "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -1678,12 +1670,12 @@
       "name": "Headset HyperX Cloud Stinger 2",
       "characteristics": "driver 50mm multiplataforma preto",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 7,
+          "elapsed_ms": 13,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1738,13 +1730,13 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 3857,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
+          "elapsed_ms": 6364,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
           "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
+          "offers_checked": 12,
+          "rejected_offers": 12,
           "store_errors": [
             {
               "error": "No usable offers were found in the search results",
@@ -1753,14 +1745,6 @@
               "store_id": "amazon",
               "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
               "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
-              "http_status": 200
             }
           ],
           "store_outcomes": [
@@ -1780,22 +1764,22 @@
               "store": "KaBuM",
               "status": "hard_failure",
               "engine_used": "chromium_search",
-              "offers_checked": 0,
+              "offers_checked": 12,
               "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
+              "rejected_offer_count": 12,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
             }
           ]
         }
       ],
       "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
       "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
+      "offers_checked": 12,
+      "rejected_offers": 12,
       "store_errors": [
         {
           "error": "No usable offers were found in the search results",
@@ -1804,14 +1788,6 @@
           "store_id": "amazon",
           "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
           "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
-          "http_status": 200
         }
       ],
       "store_outcomes": [
@@ -1831,11 +1807,162 @@
           "store": "KaBuM",
           "status": "hard_failure",
           "engine_used": "chromium_search",
+          "offers_checked": 12,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "name": "Lenços Umedecidos Huggies Rosto e Corpo",
+      "characteristics": "",
+      "status": "failed",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 5,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "final_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "final_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 6771,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 12,
+          "rejected_offers": 12,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 12,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 12,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 12,
+      "rejected_offers": 12,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
           "offers_checked": 0,
           "accepted_offer_count": 0,
           "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 12,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
         }
       ]
     },
@@ -1845,12 +1972,12 @@
       "name": "Memoria RAM",
       "characteristics": "DDR4 16GB",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 2,
+          "elapsed_ms": 4,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -1905,7 +2032,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 4654,
+          "elapsed_ms": 8586,
           "error": "Search returned offers, but none matched the required filters",
           "error_code": "no_matching_offers",
           "error_detail": "Search returned offers, but none matched the required filters",
@@ -1996,12 +2123,12 @@
       "name": "Monitor gamer",
       "characteristics": "25 polegadas 144Hz IPS FHD HDMI DisplayPort VESA",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 2,
+          "elapsed_ms": 4,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -2056,7 +2183,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 3863,
+          "elapsed_ms": 6461,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -2158,17 +2285,184 @@
       ]
     },
     {
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "name": "Notebook Acer Aspire GO 15",
+      "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
+      "status": "failed",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 5,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Notebook%20Acer%20Aspire%20GO%2015%20Intel%20Core%20i7%208GB%20RAM%20DDR5%20SSD%20512GB%20tela%2015.6%20Full%20HD",
+              "final_url": "https://www.amazon.com.br/s?k=Notebook%20Acer%20Aspire%20GO%2015%20Intel%20Core%20i7%208GB%20RAM%20DDR5%20SSD%20512GB%20tela%2015.6%20Full%20HD",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/notebook-acer-aspire-go-15-intel-core-i7-8gb-ram-ddr5-ssd-512gb-tela-15-6-full-hd",
+              "final_url": "https://www.kabum.com.br/busca/notebook-acer-aspire-go-15-intel-core-i7-8gb-ram-ddr5-ssd-512gb-tela-15-6-full-hd",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 7117,
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Notebook%20Acer%20Aspire%20GO%2015%20Intel%20Core%20i7%208GB%20RAM%20DDR5%20SSD%20512GB%20tela%2015.6%20Full%20HD",
+              "http_status": 503
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/notebook-acer-aspire-go-15-intel-core-i7-8gb-ram-ddr5-ssd-512gb-tela-15-6-full-hd",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "No usable offers were found in the search results",
+      "error_code": "no_search_offers",
+      "error_detail": "No usable offers were found in the search results",
+      "stores_checked": 2,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Notebook%20Acer%20Aspire%20GO%2015%20Intel%20Core%20i7%208GB%20RAM%20DDR5%20SSD%20512GB%20tela%2015.6%20Full%20HD",
+          "http_status": 503
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/notebook-acer-aspire-go-15-intel-core-i7-8gb-ram-ddr5-ssd-512gb-tela-15-6-full-hd",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
       "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
       "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
       "name": "SanDisk Cartão de memória Ultra MicroSDXC",
       "characteristics": "Cartão Micro SD",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 2,
+          "elapsed_ms": 5,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -2223,7 +2517,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 4271,
+          "elapsed_ms": 5680,
           "error": "Search returned offers, but none matched the required filters",
           "error_code": "no_matching_offers",
           "error_detail": "Search returned offers, but none matched the required filters",
@@ -2309,184 +2603,17 @@
       ]
     },
     {
-      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
-      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
-      "name": "SanDisk Flash Drive USB Tipo C Ultra Luxe",
-      "characteristics": "tipo c",
-      "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
-      "attempts": [
-        {
-          "engine": "lightpanda_search",
-          "ok": false,
-          "elapsed_ms": 1,
-          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
-          "error_code": "unexpected_error",
-          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
-          "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
-          "store_errors": [
-            {
-              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
-              "error_code": "unexpected_error",
-              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
-              "store_id": "amazon",
-              "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Flash%20Drive%20USB%20Tipo%20C%20Ultra%20Luxe%20tipo%20c",
-              "final_url": "https://www.amazon.com.br/s?k=SanDisk%20Flash%20Drive%20USB%20Tipo%20C%20Ultra%20Luxe%20tipo%20c",
-              "failure_stage": "search_navigation"
-            },
-            {
-              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
-              "error_code": "unexpected_error",
-              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/sandisk-flash-drive-usb-tipo-c-ultra-luxe-tipo-c",
-              "final_url": "https://www.kabum.com.br/busca/sandisk-flash-drive-usb-tipo-c-ultra-luxe-tipo-c",
-              "failure_stage": "search_navigation"
-            }
-          ],
-          "store_outcomes": [
-            {
-              "store_id": "amazon",
-              "store": "Amazon",
-              "status": "hard_failure",
-              "engine_used": "lightpanda_search",
-              "offers_checked": 0,
-              "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "unexpected_error",
-              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
-            },
-            {
-              "store_id": "kabum",
-              "store": "KaBuM",
-              "status": "hard_failure",
-              "engine_used": "lightpanda_search",
-              "offers_checked": 0,
-              "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "unexpected_error",
-              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
-            }
-          ]
-        },
-        {
-          "engine": "chromium_search",
-          "ok": false,
-          "elapsed_ms": 4790,
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
-          "stores_checked": 2,
-          "offers_checked": null,
-          "rejected_offers": null,
-          "store_errors": [
-            {
-              "error": "No usable offers were found in the search results",
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results",
-              "store_id": "amazon",
-              "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Flash%20Drive%20USB%20Tipo%20C%20Ultra%20Luxe%20tipo%20c",
-              "http_status": 503
-            },
-            {
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)",
-              "empty_result_marker": "não encontramos",
-              "store_id": "kabum",
-              "search_url": "https://www.kabum.com.br/busca/sandisk-flash-drive-usb-tipo-c-ultra-luxe-tipo-c",
-              "http_status": 200
-            }
-          ],
-          "store_outcomes": [
-            {
-              "store_id": "amazon",
-              "store": "Amazon",
-              "status": "hard_failure",
-              "engine_used": "chromium_search",
-              "offers_checked": 0,
-              "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_offers",
-              "error_detail": "No usable offers were found in the search results"
-            },
-            {
-              "store_id": "kabum",
-              "store": "KaBuM",
-              "status": "hard_failure",
-              "engine_used": "chromium_search",
-              "offers_checked": 0,
-              "accepted_offer_count": 0,
-              "rejected_offer_count": 0,
-              "error_code": "no_search_results",
-              "error_detail": "KaBuM search returned no products (Não encontramos)"
-            }
-          ]
-        }
-      ],
-      "engine": "chromium_search",
-      "last_error": "No usable offers were found in the search results",
-      "error_code": "no_search_offers",
-      "error_detail": "No usable offers were found in the search results",
-      "stores_checked": 2,
-      "offers_checked": null,
-      "rejected_offers": null,
-      "store_errors": [
-        {
-          "error": "No usable offers were found in the search results",
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results",
-          "store_id": "amazon",
-          "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Flash%20Drive%20USB%20Tipo%20C%20Ultra%20Luxe%20tipo%20c",
-          "http_status": 503
-        },
-        {
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)",
-          "empty_result_marker": "não encontramos",
-          "store_id": "kabum",
-          "search_url": "https://www.kabum.com.br/busca/sandisk-flash-drive-usb-tipo-c-ultra-luxe-tipo-c",
-          "http_status": 200
-        }
-      ],
-      "store_outcomes": [
-        {
-          "store_id": "amazon",
-          "store": "Amazon",
-          "status": "hard_failure",
-          "engine_used": "chromium_search",
-          "offers_checked": 0,
-          "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_offers",
-          "error_detail": "No usable offers were found in the search results"
-        },
-        {
-          "store_id": "kabum",
-          "store": "KaBuM",
-          "status": "hard_failure",
-          "engine_used": "chromium_search",
-          "offers_checked": 0,
-          "accepted_offer_count": 0,
-          "rejected_offer_count": 0,
-          "error_code": "no_search_results",
-          "error_detail": "KaBuM search returned no products (Não encontramos)"
-        }
-      ]
-    },
-    {
       "product_id": "teclado-logitech-k835",
       "intent_id": "teclado-logitech-k835",
       "name": "Teclado Logitech K835 TKL",
       "characteristics": "mecanico switch red ABNT2 branco",
       "status": "failed",
-      "fetched_at": "2026-10-03T14:19:14.846Z",
+      "fetched_at": "2026-10-04T14:47:48.627Z",
       "attempts": [
         {
           "engine": "lightpanda_search",
           "ok": false,
-          "elapsed_ms": 1,
+          "elapsed_ms": 4,
           "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
           "error_code": "unexpected_error",
           "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
@@ -2541,7 +2668,7 @@
         {
           "engine": "chromium_search",
           "ok": false,
-          "elapsed_ms": 3414,
+          "elapsed_ms": 5717,
           "error": "No usable offers were found in the search results",
           "error_code": "no_search_offers",
           "error_detail": "No usable offers were found in the search results",
@@ -2645,40 +2772,6 @@
   ],
   "offers": [
     {
-      "offer_id": "kabum:509501a69b",
-      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
-      "product_id": "exemplo-memoria-ram-ddr4-16gb",
-      "store_id": "kabum",
-      "store": "KaBuM",
-      "title": "Kit Memória Kingston Fury Beast 16gb RGB (2x8GB) Ddr4 3200mhz Cl16",
-      "url": "https://www.kabum.com.br/produto/1067182/kit-memoria-kingston-fury-beast-16gb-rgb-2x8gb-ddr4-3200mhz-cl16",
-      "price": 1438.2,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "module_count": 2,
-        "module_gb": 8,
-        "capacity_total_gb": 16,
-        "speed_mhz": 3200,
-        "memory_type": "ddr4",
-        "is_accessory": false
-      },
-      "match_score": 0.56,
-      "priority_score": 1,
-      "rank": 2,
-      "position": 2,
-      "source": "search-next-data",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:05.910Z",
-      "rejected": true,
-      "rejected_reasons": [
-        "missing_required_terms",
-        "low_match_score"
-      ]
-    },
-    {
       "offer_id": "kabum:67287c579c",
       "intent_id": "exemplo-memoria-ram-ddr4-16gb",
       "product_id": "exemplo-memoria-ram-ddr4-16gb",
@@ -2706,7 +2799,7 @@
       "position": 3,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:05.910Z",
+      "fetched_at": "2026-10-04T14:47:33.915Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2737,11 +2830,11 @@
       },
       "match_score": 0.94,
       "priority_score": 1,
-      "rank": 14,
-      "position": 14,
+      "rank": 9,
+      "position": 9,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:05.910Z",
+      "fetched_at": "2026-10-04T14:47:33.915Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_attributes:memory_type"
@@ -2772,11 +2865,11 @@
       },
       "match_score": 0.94,
       "priority_score": 1,
-      "rank": 15,
-      "position": 15,
+      "rank": 10,
+      "position": 10,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:05.910Z",
+      "fetched_at": "2026-10-04T14:47:33.915Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_attributes:memory_type"
@@ -2807,11 +2900,11 @@
       },
       "match_score": 0.56,
       "priority_score": 1,
-      "rank": 20,
-      "position": 20,
+      "rank": 14,
+      "position": 14,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:05.910Z",
+      "fetched_at": "2026-10-04T14:47:33.915Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms",
@@ -2819,187 +2912,14 @@
       ]
     },
     {
-      "offer_id": "amazon:1c9e97b2bc",
-      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Lenços Umedecidos Huggies Rosto e Corpo Limpeza 4 x 48 Un",
-      "url": "https://www.amazon.com.br/Huggies-Len%C3%A7os-Umedecidos-Limpeza-48-192/dp/B07MJ251Z8/ref=sr_1_1?dib=eyJ2IjoiMSJ9.u2rWKJFNKUKDw7Z-aZh3QXgB4usByuVyqH81GNBFFYbX9ySFrtx7JskJn7dPNhHffT1HDfq5fd0JUHwFgDWoq77_ea9fgdRqN6wZOUfle656DS9Uhojntyuvg6J-Mpr---ryME4voLBWbv4X7o_YfMQ2TaZPjRHFZ6GFxARXdcKsWNLhd-3SU10UWyrKw1_RLSzD3MfChCPOD5wVu19vVIiKrh18XWPEQPzRvgaapYjuNFhaP5_2G4bEfgUzBsOlakYvoP3pVEKykHsjjH-iORdYop4FwRYdbyfBXORGwEA.v7gyX3L0kropB1oCgJLdzv984zaij_gQBDzD3Q-AHGg&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1791037143&sr=8-1",
-      "price": 32.59,
-      "currency": "BRL",
-      "unit_price": 0.68,
-      "unit_basis": "unit",
-      "normalized_quantity": 48,
-      "attributes": {
-        "is_accessory": false,
-        "package_count": 48
-      },
-      "match_score": 1,
-      "priority_score": 0,
-      "rank": 1,
-      "position": 1,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:03.266Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "amazon:ad8b5cd818",
-      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Huggies Lenços Umedecidos Huggies Rosto e Corpo Hipoalergênico - 48 Lenços",
-      "url": "https://www.amazon.com.br/Len%C3%A7os-Umedecidos-Huggies-Done-toalhas/dp/B07FSVQZZ6/ref=sr_1_2?dib=eyJ2IjoiMSJ9.u2rWKJFNKUKDw7Z-aZh3QXgB4usByuVyqH81GNBFFYbX9ySFrtx7JskJn7dPNhHffT1HDfq5fd0JUHwFgDWoq77_ea9fgdRqN6wZOUfle656DS9Uhojntyuvg6J-Mpr---ryME4voLBWbv4X7o_YfMQ2TaZPjRHFZ6GFxARXdcKsWNLhd-3SU10UWyrKw1_RLSzD3MfChCPOD5wVu19vVIiKrh18XWPEQPzRvgaapYjuNFhaP5_2G4bEfgUzBsOlakYvoP3pVEKykHsjjH-iORdYop4FwRYdbyfBXORGwEA.v7gyX3L0kropB1oCgJLdzv984zaij_gQBDzD3Q-AHGg&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1791037143&sr=8-2",
-      "price": 8.99,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": "unit",
-      "normalized_quantity": null,
-      "attributes": {
-        "is_accessory": false
-      },
-      "match_score": 1,
-      "priority_score": 0,
-      "rank": 2,
-      "position": 2,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:03.266Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "amazon:ab3abdac9a",
-      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Huggies Lenços Umedecidos Higiene Diária Rendem 2x Mais 88 Un",
-      "url": "https://www.amazon.com.br/Huggies-Umedecido-Prote%C3%A7%C3%A3o-Regular-unidades/dp/B0C8PT9NBZ/ref=sr_1_7?dib=eyJ2IjoiMSJ9.u2rWKJFNKUKDw7Z-aZh3QXgB4usByuVyqH81GNBFFYbX9ySFrtx7JskJn7dPNhHffT1HDfq5fd0JUHwFgDWoq77_ea9fgdRqN6wZOUfle656DS9Uhojntyuvg6J-Mpr---ryME4voLBWbv4X7o_YfMQ2TaZPjRHFZ6GFxARXdcKsWNLhd-3SU10UWyrKw1_RLSzD3MfChCPOD5wVu19vVIiKrh18XWPEQPzRvgaapYjuNFhaP5_2G4bEfgUzBsOlakYvoP3pVEKykHsjjH-iORdYop4FwRYdbyfBXORGwEA.v7gyX3L0kropB1oCgJLdzv984zaij_gQBDzD3Q-AHGg&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1791037143&sr=8-7",
-      "price": 9.29,
-      "currency": "BRL",
-      "unit_price": 0.11,
-      "unit_basis": "unit",
-      "normalized_quantity": 88,
-      "attributes": {
-        "is_accessory": false,
-        "package_count": 88
-      },
-      "match_score": 0.6,
-      "priority_score": 0,
-      "rank": 7,
-      "position": 7,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:03.266Z",
-      "rejected": true,
-      "rejected_reasons": [
-        "missing_required_terms",
-        "low_match_score"
-      ]
-    },
-    {
-      "offer_id": "amazon:ed7569eb15",
-      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Lenços Umedecidos Recém-Nascido 240 Un Aloe Vera Rosto e Corpo Flip Top",
-      "url": "https://www.amazon.com.br/Len%C3%A7os-Umedecidos-Nascido-Agride-Unidades/dp/B0GR2SXVTL/ref=sr_1_23?dib=eyJ2IjoiMSJ9.u2rWKJFNKUKDw7Z-aZh3QXgB4usByuVyqH81GNBFFYbX9ySFrtx7JskJn7dPNhHffT1HDfq5fd0JUHwFgDWoq77_ea9fgdRqN6wZOUfle656DS9Uhojntyuvg6J-Mpr---ryME4voLBWbv4X7o_YfMQ2TaZPjRHFZ6GFxARXdcKsWNLhd-3SU10UWyrKw1_RLSzD3MfChCPOD5wVu19vVIiKrh18XWPEQPzRvgaapYjuNFhaP5_2G4bEfgUzBsOlakYvoP3pVEKykHsjjH-iORdYop4FwRYdbyfBXORGwEA.v7gyX3L0kropB1oCgJLdzv984zaij_gQBDzD3Q-AHGg&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1791037143&sr=8-23",
-      "price": 35.9,
-      "currency": "BRL",
-      "unit_price": 0.15,
-      "unit_basis": "unit",
-      "normalized_quantity": 240,
-      "attributes": {
-        "is_accessory": false,
-        "package_count": 240
-      },
-      "match_score": 0.8,
-      "priority_score": 0,
-      "rank": 23,
-      "position": 23,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:03.266Z",
-      "rejected": true,
-      "rejected_reasons": [
-        "missing_required_terms"
-      ]
-    },
-    {
-      "offer_id": "amazon:8616904cdc",
-      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Kit 2 Lenços Umedecidos Bebê 192 Un Aloe Vera para Rosto e Corpo",
-      "url": "https://www.amazon.com.br/Len%C3%A7os-Umedecidos-Nascido-Agride-Unidades/dp/B0GJCCKHBH/ref=sr_1_27?dib=eyJ2IjoiMSJ9.u2rWKJFNKUKDw7Z-aZh3QXgB4usByuVyqH81GNBFFYbX9ySFrtx7JskJn7dPNhHffT1HDfq5fd0JUHwFgDWoq77_ea9fgdRqN6wZOUfle656DS9Uhojntyuvg6J-Mpr---ryME4voLBWbv4X7o_YfMQ2TaZPjRHFZ6GFxARXdcKsWNLhd-3SU10UWyrKw1_RLSzD3MfChCPOD5wVu19vVIiKrh18XWPEQPzRvgaapYjuNFhaP5_2G4bEfgUzBsOlakYvoP3pVEKykHsjjH-iORdYop4FwRYdbyfBXORGwEA.v7gyX3L0kropB1oCgJLdzv984zaij_gQBDzD3Q-AHGg&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1791037143&sr=8-27",
-      "price": 32.9,
-      "currency": "BRL",
-      "unit_price": 0.17,
-      "unit_basis": "unit",
-      "normalized_quantity": 192,
-      "attributes": {
-        "is_accessory": false,
-        "package_count": 192
-      },
-      "match_score": 0.8,
-      "priority_score": 0,
-      "rank": 27,
-      "position": 27,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:03.266Z",
-      "rejected": true,
-      "rejected_reasons": [
-        "missing_required_terms"
-      ]
-    },
-    {
-      "offer_id": "amazon:aa80f4b3a3",
-      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Notebook Acer Aspire Go 15, Intel Core i7-13620H, 15,6\" FHD, 8GB RAM, SSD 512GB, Linux, AG15-71P-72WL",
-      "url": "https://www.amazon.com.br/Notebook-Acer-Aspire-i7-13620H-AG15-71P-72WL/dp/B0GXH179CL/ref=sr_1_3?dib=eyJ2IjoiMSJ9.8U7_jfLIcb-Q0W6w1IOTI34BOXVSZg6qD72vhnsGwSLOUlJUPZLhPpyPXf-VndjTxCksLDlqCGf9baQT_qDOJ3ZqhhY7J_k9NnBTfcMfeNMw48eWHiCKMrrKte7dMWO0Fc531VuAxOrUOtTzDph0SaLusJK0ZBB3A4VjwKxyTM8PHTOYaxVKtLe9dwUUvn1EZ2asAiUDskOMYzParsrtQQPSS3NSvSwVAya9obGWEsrnLvZIVG82MWG4CbKXW8FqMF7R6002MJm7JeDa5_pwTHW8FymscqZk9VbvkX0WD30.TbBXzxmdiTMtH2gAE4Zh1iPoIiPKXXzrHYQK8SUkqhw&dib_tag=se&keywords=Notebook+Acer+Aspire+GO+15+Intel+Core+i7+8GB+RAM+DDR5+SSD+512GB+tela+15.6+Full+HD&qid=1791037146&sr=8-3&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
-      "price": 4179.9,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "capacity_total_gb": 8,
-        "module_count": 1,
-        "module_gb": 8,
-        "cpu_tier": "i7",
-        "storage_gb": 512,
-        "ram_gb": 8,
-        "is_accessory": false
-      },
-      "match_score": 0.95,
-      "priority_score": 0.75,
-      "rank": 3,
-      "position": 3,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:06.481Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "amazon:eee3e12100",
-      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Notebook Acer Aspire 15 Go 13ª Geração Intel Core I7-13620h 16 GB de Memoria 512 GB SSD Tela 15,6\" Full HD Windows 11 Professional",
-      "url": "https://www.amazon.com.br/Notebook-Gera%C3%A7%C3%A3o-I7-13620h-Memoria-Professional/dp/B0GGJWQP8V/ref=sr_1_7?dib=eyJ2IjoiMSJ9.8U7_jfLIcb-Q0W6w1IOTI34BOXVSZg6qD72vhnsGwSLOUlJUPZLhPpyPXf-VndjTxCksLDlqCGf9baQT_qDOJ3ZqhhY7J_k9NnBTfcMfeNMw48eWHiCKMrrKte7dMWO0Fc531VuAxOrUOtTzDph0SaLusJK0ZBB3A4VjwKxyTM8PHTOYaxVKtLe9dwUUvn1EZ2asAiUDskOMYzParsrtQQPSS3NSvSwVAya9obGWEsrnLvZIVG82MWG4CbKXW8FqMF7R6002MJm7JeDa5_pwTHW8FymscqZk9VbvkX0WD30.TbBXzxmdiTMtH2gAE4Zh1iPoIiPKXXzrHYQK8SUkqhw&dib_tag=se&keywords=Notebook+Acer+Aspire+GO+15+Intel+Core+i7+8GB+RAM+DDR5+SSD+512GB+tela+15.6+Full+HD&qid=1791037146&sr=8-7&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
-      "price": 6934.05,
+      "offer_id": "kabum:7fd228b809",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Kit Upgrade Intel Core I3 Placa Mãe H61 Memória Ram 16gb Ddr3",
+      "url": "https://www.kabum.com.br/produto/651295/kit-upgrade-intel-core-i3-placa-mae-h61-memoria-ram-16gb-ddr3",
+      "price": 699.9,
       "currency": "BRL",
       "unit_price": null,
       "unit_basis": null,
@@ -3008,118 +2928,509 @@
         "capacity_total_gb": 16,
         "module_count": 1,
         "module_gb": 16,
-        "cpu_tier": "i7",
-        "storage_gb": 512,
+        "memory_type": "ddr3",
+        "cpu_tier": "i3",
         "ram_gb": 16,
-        "platform": "pc",
         "is_accessory": false
       },
       "match_score": 0.94,
+      "priority_score": 1,
+      "rank": 35,
+      "position": 35,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:33.915Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:memory_type"
+      ]
+    },
+    {
+      "offer_id": "kabum:24421c9f53",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTASuporte de Mesa Articulado para Monitor de 17\" a 32\", North Bayou, Ajuste de altura com Pistão a Gás - F160 NBR$ 368,41R$199,99Desconto: -42%No PIX ou 8x de R$ 26,31Restam 19 Unid.",
+      "url": "https://www.kabum.com.br/produto/480098/suporte-de-mesa-articulado-para-monitor-de-17-a-32-north-bayou-ajuste-de-altura-com-pistao-a-gas-f160-nb",
+      "price": 199.99,
+      "currency": "BRL",
+      "unit_price": 10.53,
+      "unit_basis": "unit",
+      "normalized_quantity": 19,
+      "attributes": {
+        "is_accessory": true,
+        "package_count": 19
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 2,
+      "position": 2,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:28.110Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:0459373922",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTAMicrofone Sem Fio JBL PartyBox Wireless Mic, Kit com 2 Unidades, Conexão UHF - 28913769R$ 1.033,32R$508,90Desconto: -45%No PIX ou 10x de R$ 56,54Restam 24 Unid.",
+      "url": "https://www.kabum.com.br/produto/876272/microfone-sem-fio-jbl-partybox-wireless-mic-kit-com-2-unidades-conexao-uhf-28913769",
+      "price": 508.9,
+      "currency": "BRL",
+      "unit_price": 254.45,
+      "unit_basis": "unit",
+      "normalized_quantity": 2,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 2
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 4,
+      "position": 4,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:28.110Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:2b27bdd104",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTAMouse Gamer Sem Fio Redragon ST4R Pro, 26000 DPI, 6 Botões, Bluetooth, Preto - M917GB-PROR$ 352,93R$187,99Desconto: -37%No PIX ou 8x de R$ 27,64Restam 18 Unid.",
+      "url": "https://www.kabum.com.br/produto/597062/mouse-gamer-sem-fio-redragon-st4r-pro-26000-dpi-6-botoes-bluetooth-preto-m917gb-pro",
+      "price": 187.99,
+      "currency": "BRL",
+      "unit_price": 10.44,
+      "unit_basis": "unit",
+      "normalized_quantity": 18,
+      "attributes": {
+        "capacity_total_gb": 917,
+        "module_count": 1,
+        "module_gb": 917,
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 18
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 6,
+      "position": 6,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:28.110Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:a160b7e933",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 4.2 de 5.0Placa de Vídeo Gigabyte RTX 5050 WINDFORCE OC 8G NVIDIA GeForce, 8GB GDDR6, 128bits, RGB,DLSS, Ray Tracing - GV-N5050WF20CV2-8GDR$ 2.727,26R$2.199,99Desconto: -8%No PIX ou 10x de R$ 249,99Restam 3 Unid.",
+      "url": "https://www.kabum.com.br/produto/887251/placa-de-video-gigabyte-rtx-5050-windforce-oc-8g-nvidia-geforce-8gb-gddr6-128bits-rgb-dlss-ray-tracing-gv-n5050wf20cv2-8gd",
+      "price": 2199.99,
+      "currency": "BRL",
+      "unit_price": 733.33,
+      "unit_basis": "unit",
+      "normalized_quantity": 3,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "is_accessory": false,
+        "package_count": 3,
+        "weight_g": 8,
+        "weight_kg": 0.01
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 8,
+      "position": 8,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:28.110Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:f22b7be7c1",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Kit com 3 Ventoinha Asus TUF Gaming TR120 Reverse , 120mm, ARGB, Preto - 90DA00D0-B00020R$ 399,99R$285,99Desconto: -15%No PIX ou 10x de R$ 33,64Restam 29 Unid.",
+      "url": "https://www.kabum.com.br/produto/847754/kit-com-3-ventoinha-asus-tuf-gaming-tr120-reverse-120mm-argb-preto-90da00d0-b00020",
+      "price": 285.99,
+      "currency": "BRL",
+      "unit_price": 9.86,
+      "unit_basis": "unit",
+      "normalized_quantity": 29,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 29
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 10,
+      "position": 10,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:28.110Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:2b27bdd104",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTAMouse Gamer Sem Fio Redragon ST4R Pro, 26000 DPI, 6 Botões, Bluetooth, Preto - M917GB-PROR$ 352,93R$187,99Desconto: -37%No PIX ou 8x de R$ 27,64Restam 18 Unid.",
+      "url": "https://www.kabum.com.br/produto/597062/mouse-gamer-sem-fio-redragon-st4r-pro-26000-dpi-6-botoes-bluetooth-preto-m917gb-pro",
+      "price": 187.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 917,
+        "module_count": 1,
+        "module_gb": 917,
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 18
+      },
+      "match_score": 0.03,
       "priority_score": 0.5,
+      "rank": 5,
+      "position": 5,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:30.677Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:platform",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:73df0afe45",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Kaspersky Antivírus Plus 1 Dispositivo 1 Ano, Digital para Download - KL1042KDAFSR$ 120,99R$39,99Desconto: -66%No PIX ou 1x de R$ 39,99",
+      "url": "https://www.kabum.com.br/produto/398456/kaspersky-antivirus-plus-1-dispositivo-1-ano-digital-para-download-kl1042kdafs",
+      "price": 39.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 6,
+      "position": 6,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:30.677Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:color,platform",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:7743f4152d",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Mouse Gamer sem Fio Attack Shark X11 com Base de Carregamento Magnético RGB, Tri-Mode, 22.000 DPI, Sensor Óptico PAW3311, 5 Botões - PretoR$ 333,32R$159,99Desconto: -46%No PIX ou 7x de R$ 25,39",
+      "url": "https://www.kabum.com.br/produto/904345/mouse-gamer-sem-fio-attack-shark-x11-com-base-de-carregamento-magnetico-rgb-tri-mode-22-000-dpi-sensor-optico-paw3311-5-botoes-preto",
+      "price": 159.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.03,
+      "priority_score": 0.5,
+      "rank": 8,
+      "position": 8,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:30.677Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:color,platform",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:f22b7be7c1",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Kit com 3 Ventoinha Asus TUF Gaming TR120 Reverse , 120mm, ARGB, Preto - 90DA00D0-B00020R$ 399,99R$285,99Desconto: -15%No PIX ou 10x de R$ 33,64Restam 29 Unid.",
+      "url": "https://www.kabum.com.br/produto/847754/kit-com-3-ventoinha-asus-tuf-gaming-tr120-reverse-120mm-argb-preto-90da00d0-b00020",
+      "price": 285.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 29
+      },
+      "match_score": 0.03,
+      "priority_score": 0.5,
+      "rank": 9,
+      "position": 9,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:30.677Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:platform",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:5b1487cd1d",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Console Nintendo Switch 2, 256GB, Preto, Azul e VermelhoR$ 4.499,00R$4.299,00Desconto: -4%No PIX ou 10x de R$ 429,90",
+      "url": "https://www.kabum.com.br/produto/777177/console-nintendo-switch-2-256gb-preto-azul-e-vermelho",
+      "price": 4299,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 256,
+        "module_count": 1,
+        "module_gb": 256,
+        "color": "preto",
+        "platform": "nintendo",
+        "is_accessory": false
+      },
+      "match_score": 0.03,
+      "priority_score": 0.5,
+      "rank": 11,
+      "position": 11,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:30.677Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:platform",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:24421c9f53",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTASuporte de Mesa Articulado para Monitor de 17\" a 32\", North Bayou, Ajuste de altura com Pistão a Gás - F160 NBR$ 368,41R$199,99Desconto: -42%No PIX ou 8x de R$ 26,31Restam 19 Unid.",
+      "url": "https://www.kabum.com.br/produto/480098/suporte-de-mesa-articulado-para-monitor-de-17-a-32-north-bayou-ajuste-de-altura-com-pistao-a-gas-f160-nb",
+      "price": 199.99,
+      "currency": "BRL",
+      "unit_price": 10.53,
+      "unit_basis": "unit",
+      "normalized_quantity": 19,
+      "attributes": {
+        "is_accessory": true,
+        "package_count": 19
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:32.167Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:0459373922",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTAMicrofone Sem Fio JBL PartyBox Wireless Mic, Kit com 2 Unidades, Conexão UHF - 28913769R$ 1.033,32R$508,90Desconto: -45%No PIX ou 10x de R$ 56,54Restam 24 Unid.",
+      "url": "https://www.kabum.com.br/produto/876272/microfone-sem-fio-jbl-partybox-wireless-mic-kit-com-2-unidades-conexao-uhf-28913769",
+      "price": 508.9,
+      "currency": "BRL",
+      "unit_price": 254.45,
+      "unit_basis": "unit",
+      "normalized_quantity": 2,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 2
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 3,
+      "position": 3,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:32.167Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:2b27bdd104",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Selo: CUPOM ESQUENTAMouse Gamer Sem Fio Redragon ST4R Pro, 26000 DPI, 6 Botões, Bluetooth, Preto - M917GB-PROR$ 352,93R$187,99Desconto: -37%No PIX ou 8x de R$ 27,64Restam 18 Unid.",
+      "url": "https://www.kabum.com.br/produto/597062/mouse-gamer-sem-fio-redragon-st4r-pro-26000-dpi-6-botoes-bluetooth-preto-m917gb-pro",
+      "price": 187.99,
+      "currency": "BRL",
+      "unit_price": 10.44,
+      "unit_basis": "unit",
+      "normalized_quantity": 18,
+      "attributes": {
+        "capacity_total_gb": 917,
+        "module_count": 1,
+        "module_gb": 917,
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 18
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 5,
+      "position": 5,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:32.167Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:a160b7e933",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 4.2 de 5.0Placa de Vídeo Gigabyte RTX 5050 WINDFORCE OC 8G NVIDIA GeForce, 8GB GDDR6, 128bits, RGB,DLSS, Ray Tracing - GV-N5050WF20CV2-8GDR$ 2.727,26R$2.199,99Desconto: -8%No PIX ou 10x de R$ 249,99Restam 3 Unid.",
+      "url": "https://www.kabum.com.br/produto/887251/placa-de-video-gigabyte-rtx-5050-windforce-oc-8g-nvidia-geforce-8gb-gddr6-128bits-rgb-dlss-ray-tracing-gv-n5050wf20cv2-8gd",
+      "price": 2199.99,
+      "currency": "BRL",
+      "unit_price": 733.33,
+      "unit_basis": "unit",
+      "normalized_quantity": 3,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "is_accessory": false,
+        "package_count": 3,
+        "weight_g": 8,
+        "weight_kg": 0.01
+      },
+      "match_score": 0,
+      "priority_score": 0,
       "rank": 7,
       "position": 7,
-      "source": "search-card",
+      "source": "search-anchor",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:06.481Z",
-      "rejected": false,
-      "rejected_reasons": []
+      "fetched_at": "2026-10-04T14:47:32.167Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
     },
     {
-      "offer_id": "amazon:5636b5fd53",
-      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Notebook Acer Aspire 15 Go 13ª Geração Intel Core I7-13620h 8 GB de Memoria 512 GB SSD Tela 15,6\" Full HD Windows 11 Professional",
-      "url": "https://www.amazon.com.br/Notebook-Gera%C3%A7%C3%A3o-I7-13620h-Memoria-Professional/dp/B0GGJRHTPW/ref=sr_1_18?dib=eyJ2IjoiMSJ9.8U7_jfLIcb-Q0W6w1IOTI34BOXVSZg6qD72vhnsGwSLOUlJUPZLhPpyPXf-VndjTxCksLDlqCGf9baQT_qDOJ3ZqhhY7J_k9NnBTfcMfeNMw48eWHiCKMrrKte7dMWO0Fc531VuAxOrUOtTzDph0SaLusJK0ZBB3A4VjwKxyTM8PHTOYaxVKtLe9dwUUvn1EZ2asAiUDskOMYzParsrtQQPSS3NSvSwVAya9obGWEsrnLvZIVG82MWG4CbKXW8FqMF7R6002MJm7JeDa5_pwTHW8FymscqZk9VbvkX0WD30.TbBXzxmdiTMtH2gAE4Zh1iPoIiPKXXzrHYQK8SUkqhw&dib_tag=se&keywords=Notebook+Acer+Aspire+GO+15+Intel+Core+i7+8GB+RAM+DDR5+SSD+512GB+tela+15.6+Full+HD&qid=1791037146&sr=8-18&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
-      "price": 6031.55,
+      "offer_id": "kabum:f22b7be7c1",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Kit com 3 Ventoinha Asus TUF Gaming TR120 Reverse , 120mm, ARGB, Preto - 90DA00D0-B00020R$ 399,99R$285,99Desconto: -15%No PIX ou 10x de R$ 33,64Restam 29 Unid.",
+      "url": "https://www.kabum.com.br/produto/847754/kit-com-3-ventoinha-asus-tuf-gaming-tr120-reverse-120mm-argb-preto-90da00d0-b00020",
+      "price": 285.99,
       "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
+      "unit_price": 9.86,
+      "unit_basis": "unit",
+      "normalized_quantity": 29,
       "attributes": {
-        "capacity_total_gb": 8,
-        "module_count": 1,
-        "module_gb": 8,
-        "cpu_tier": "i7",
-        "storage_gb": 512,
-        "ram_gb": 8,
-        "platform": "pc",
-        "is_accessory": false
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 29
       },
-      "match_score": 0.94,
-      "priority_score": 0.75,
-      "rank": 19,
-      "position": 19,
-      "source": "search-card",
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 9,
+      "position": 9,
+      "source": "search-anchor",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:06.481Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "amazon:173acba151",
-      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Notebook Acer Aspire Go 15.6'' FHD Core I7-13620H 8GB DDR5 SSD 512GB Linux - AG15-71P-72WL",
-      "url": "https://www.amazon.com.br/Notebook-Acer-Aspire-I7-13620H-512GB/dp/B083LKVQXN/ref=sr_1_20?dib=eyJ2IjoiMSJ9.8U7_jfLIcb-Q0W6w1IOTI34BOXVSZg6qD72vhnsGwSLOUlJUPZLhPpyPXf-VndjTxCksLDlqCGf9baQT_qDOJ3ZqhhY7J_k9NnBTfcMfeNMw48eWHiCKMrrKte7dMWO0Fc531VuAxOrUOtTzDph0SaLusJK0ZBB3A4VjwKxyTM8PHTOYaxVKtLe9dwUUvn1EZ2asAiUDskOMYzParsrtQQPSS3NSvSwVAya9obGWEsrnLvZIVG82MWG4CbKXW8FqMF7R6002MJm7JeDa5_pwTHW8FymscqZk9VbvkX0WD30.TbBXzxmdiTMtH2gAE4Zh1iPoIiPKXXzrHYQK8SUkqhw&dib_tag=se&keywords=Notebook+Acer+Aspire+GO+15+Intel+Core+i7+8GB+RAM+DDR5+SSD+512GB+tela+15.6+Full+HD&qid=1791037146&sr=8-20&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751",
-      "price": 5065.6,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "capacity_total_gb": 8,
-        "module_count": 1,
-        "module_gb": 8,
-        "memory_type": "ddr5",
-        "cpu_tier": "i7",
-        "storage_gb": 512,
-        "is_accessory": false
-      },
-      "match_score": 0.94,
-      "priority_score": 0.75,
-      "rank": 21,
-      "position": 21,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:06.481Z",
-      "rejected": false,
-      "rejected_reasons": []
-    },
-    {
-      "offer_id": "amazon:fec7762c63",
-      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
-      "store_id": "amazon",
-      "store": "Amazon",
-      "title": "Notebook Acer Aspire Go 15 AG15-71P-76A7 Intel Core i7-13620H 15.6\" FHD TN UHD Intel 512GB SSD 32GB RAM Linux 64 Bits - Verde Escuro",
-      "url": "https://www.amazon.com.br/Notebook-Acer-Aspire-AG15-71P-76A7-i7-13620H/dp/B08293P48M/ref=sr_1_26?dib=eyJ2IjoiMSJ9.8U7_jfLIcb-Q0W6w1IOTI34BOXVSZg6qD72vhnsGwSLOUlJUPZLhPpyPXf-VndjTxCksLDlqCGf9baQT_qDOJ3ZqhhY7J_k9NnBTfcMfeNMw48eWHiCKMrrKte7dMWO0Fc531VuAxOrUOtTzDph0SaLusJK0ZBB3A4VjwKxyTM8PHTOYaxVKtLe9dwUUvn1EZ2asAiUDskOMYzParsrtQQPSS3NSvSwVAya9obGWEsrnLvZIVG82MWG4CbKXW8FqMF7R6002MJm7JeDa5_pwTHW8FymscqZk9VbvkX0WD30.TbBXzxmdiTMtH2gAE4Zh1iPoIiPKXXzrHYQK8SUkqhw&dib_tag=se&keywords=Notebook+Acer+Aspire+GO+15+Intel+Core+i7+8GB+RAM+DDR5+SSD+512GB+tela+15.6+Full+HD&qid=1791037146&sr=8-26",
-      "price": 6887.78,
-      "currency": "BRL",
-      "unit_price": null,
-      "unit_basis": null,
-      "normalized_quantity": null,
-      "attributes": {
-        "capacity_total_gb": 512,
-        "module_count": 1,
-        "module_gb": 512,
-        "cpu_tier": "i7",
-        "storage_gb": 512,
-        "ram_gb": 32,
-        "is_accessory": false
-      },
-      "match_score": 0.94,
-      "priority_score": 0.5,
-      "rank": 27,
-      "position": 27,
-      "source": "search-card",
-      "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:06.481Z",
-      "rejected": false,
-      "rejected_reasons": []
+      "fetched_at": "2026-10-04T14:47:32.167Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
     },
     {
       "offer_id": "kabum:bf44a6fd6d",
@@ -3146,7 +3457,7 @@
       "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:09.715Z",
+      "fetched_at": "2026-10-04T14:47:38.923Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3175,7 +3486,7 @@
       "position": 3,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:09.715Z",
+      "fetched_at": "2026-10-04T14:47:38.923Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3204,7 +3515,7 @@
       "position": 5,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:09.715Z",
+      "fetched_at": "2026-10-04T14:47:38.923Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3232,7 +3543,7 @@
       "position": 6,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:09.715Z",
+      "fetched_at": "2026-10-04T14:47:38.923Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3260,7 +3571,7 @@
       "position": 8,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:09.715Z",
+      "fetched_at": "2026-10-04T14:47:38.923Z",
       "rejected": false,
       "rejected_reasons": []
     },
@@ -3289,7 +3600,7 @@
       "position": 1,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:10.584Z",
+      "fetched_at": "2026-10-04T14:47:42.427Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
@@ -3320,7 +3631,7 @@
       "position": 2,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:10.584Z",
+      "fetched_at": "2026-10-04T14:47:42.427Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
@@ -3351,12 +3662,157 @@
       "position": 3,
       "source": "search-next-data",
       "engine_used": "chromium_search",
-      "fetched_at": "2026-10-03T14:19:10.584Z",
+      "fetched_at": "2026-10-04T14:47:42.427Z",
       "rejected": true,
       "rejected_reasons": [
         "missing_required_terms"
       ]
+    },
+    {
+      "offer_id": "amazon:866010b8b9",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "SanDisk Flash Drive USB Tipo C Ultra Luxe de 128 GB - Até 400 MB/s, USB 3.2 Geração 1, Design de Metal Premium - SDCZ75-128G-G46",
+      "url": "https://www.amazon.com.br/SanDisk-Flash-Drive-Tipo-Ultra/dp/B0CP43S98Z/ref=sr_1_2?dib=eyJ2IjoiMSJ9.GeeZXepEtTq6T_OinhCh1cR82RJSPc3zmhIyeyjj14aJni56HRygJB_PNOzKWns--_f9PUU0TAPWe73JRjxwvznJpOSqdmYezBwQ5aSY1tW8sVUSbmOm0Q577KT23UPucIfJEhKHG_yCZdxyBa-S-M1ALiM4tCbtqBbAl3f7sRelMaeDqIlDPADfJM6BAV4styTPUsT8DDQP7dMW9P03-iiYg-8k8hi0maHG3b8RWfDl3slumaiGJQr9NxpA8x8fcUh-7phTBuYn-YIEY-bxkLr5vDgNO3m8HItLE-BnwvE.x0I6pqLfSb9B1wq_CSxYJKgsv7vE0S2HQMC4A7_trYY&dib_tag=se&keywords=SanDisk+Flash+Drive+USB+Tipo+C+Ultra+Luxe+tipo+c&qid=1791125261&sr=8-2&ufe=app_do%3Aamzn1.fos.fcd6d665-32ba-4479-9f21-b774e276a678",
+      "price": 205.19,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 128,
+        "module_count": 1,
+        "module_gb": 128,
+        "is_accessory": false,
+        "weight_g": 128,
+        "weight_kg": 0.13
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 2,
+      "position": 2,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:41.229Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:6fe63f7b6a",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "SanDisk Flash Drive USB Tipo C Ultra Luxe de 256 GB - Até 400 MB/s, USB 3.2 Geração 1, Design de Metal Premium - SDCZ75-256G-G46",
+      "url": "https://www.amazon.com.br/SanDisk-Flash-Drive-Tipo-Ultra/dp/B0CP43532G/ref=sr_1_3?dib=eyJ2IjoiMSJ9.GeeZXepEtTq6T_OinhCh1cR82RJSPc3zmhIyeyjj14aJni56HRygJB_PNOzKWns--_f9PUU0TAPWe73JRjxwvznJpOSqdmYezBwQ5aSY1tW8sVUSbmOm0Q577KT23UPucIfJEhKHG_yCZdxyBa-S-M1ALiM4tCbtqBbAl3f7sRelMaeDqIlDPADfJM6BAV4styTPUsT8DDQP7dMW9P03-iiYg-8k8hi0maHG3b8RWfDl3slumaiGJQr9NxpA8x8fcUh-7phTBuYn-YIEY-bxkLr5vDgNO3m8HItLE-BnwvE.x0I6pqLfSb9B1wq_CSxYJKgsv7vE0S2HQMC4A7_trYY&dib_tag=se&keywords=SanDisk+Flash+Drive+USB+Tipo+C+Ultra+Luxe+tipo+c&qid=1791125261&sr=8-3&ufe=app_do%3Aamzn1.fos.5e49d35c-ea42-48bc-ada8-50731a0357a6",
+      "price": 361.2,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 256,
+        "module_count": 1,
+        "module_gb": 256,
+        "is_accessory": false,
+        "weight_g": 256,
+        "weight_kg": 0.26
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 3,
+      "position": 3,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:41.229Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:933e404fab",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "SanDisk Flash Drive USB tipo C ultra deslizante de 256 GB - até 400 MB/s, USB 3.2 geração 1, conector retrátil - SDCZ480-256G-G46",
+      "url": "https://www.amazon.com.br/SanDisk-Flash-Drive-ultra-deslizante/dp/B0CP62S615/ref=sr_1_10_mod_primary_new?dib=eyJ2IjoiMSJ9.GeeZXepEtTq6T_OinhCh1cR82RJSPc3zmhIyeyjj14aJni56HRygJB_PNOzKWns--_f9PUU0TAPWe73JRjxwvznJpOSqdmYezBwQ5aSY1tW8sVUSbmOm0Q577KT23UPucIfJEhKHG_yCZdxyBa-S-M1ALiM4tCbtqBbAl3f7sRelMaeDqIlDPADfJM6BAV4styTPUsT8DDQP7dMW9P03-iiYg-8k8hi0maHG3b8RWfDl3slumaiGJQr9NxpA8x8fcUh-7phTBuYn-YIEY-bxkLr5vDgNO3m8HItLE-BnwvE.x0I6pqLfSb9B1wq_CSxYJKgsv7vE0S2HQMC4A7_trYY&dib_tag=se&keywords=SanDisk+Flash+Drive+USB+Tipo+C+Ultra+Luxe+tipo+c&qid=1791125261&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=8-10",
+      "price": 302.56,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 256,
+        "module_count": 1,
+        "module_gb": 256,
+        "is_accessory": false,
+        "weight_g": 256,
+        "weight_kg": 0.26
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 10,
+      "position": 10,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:41.229Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:2f808d5934",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "SanDisk® Ultra Shift™ USB 3.2 Flash Drive, Bachelor Button",
+      "url": "https://www.amazon.com.br/SanDisk%C2%AE-Ultra-ShiftTM-Bachelor-Button/dp/B0CN2RB532/ref=sr_1_26?dib=eyJ2IjoiMSJ9.GeeZXepEtTq6T_OinhCh1cR82RJSPc3zmhIyeyjj14aJni56HRygJB_PNOzKWns--_f9PUU0TAPWe73JRjxwvznJpOSqdmYezBwQ5aSY1tW8sVUSbmOm0Q577KT23UPucIfJEhKHG_yCZdxyBa-S-M1ALiM4tCbtqBbAl3f7sRelMaeDqIlDPADfJM6BAV4styTPUsT8DDQP7dMW9P03-iiYg-8k8hi0maHG3b8RWfDl3slumaiGJQr9NxpA8x8fcUh-7phTBuYn-YIEY-bxkLr5vDgNO3m8HItLE-BnwvE.x0I6pqLfSb9B1wq_CSxYJKgsv7vE0S2HQMC4A7_trYY&dib_tag=se&keywords=SanDisk+Flash+Drive+USB+Tipo+C+Ultra+Luxe+tipo+c&qid=1791125261&sr=8-26&ufe=app_do%3Aamzn1.fos.6d798eae-cadf-45de-946a-f477d47705b9",
+      "price": 78.01,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 0,
+      "rank": 26,
+      "position": 26,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:41.229Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "amazon:c6ee723fb5",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "title": "SanDisk Flash Drive USB tipo C ultra luxuoso de 1 TB - até 400 MB/s, USB 3.2 geração 1, design de metal premium - SDCZ75-1T00-G46",
+      "url": "https://www.amazon.com.br/SanDisk-Flash-Drive-ultra-luxuoso/dp/B0DDQFM999/ref=sr_1_27?dib=eyJ2IjoiMSJ9.GeeZXepEtTq6T_OinhCh1cR82RJSPc3zmhIyeyjj14aJni56HRygJB_PNOzKWns--_f9PUU0TAPWe73JRjxwvznJpOSqdmYezBwQ5aSY1tW8sVUSbmOm0Q577KT23UPucIfJEhKHG_yCZdxyBa-S-M1ALiM4tCbtqBbAl3f7sRelMaeDqIlDPADfJM6BAV4styTPUsT8DDQP7dMW9P03-iiYg-8k8hi0maHG3b8RWfDl3slumaiGJQr9NxpA8x8fcUh-7phTBuYn-YIEY-bxkLr5vDgNO3m8HItLE-BnwvE.x0I6pqLfSb9B1wq_CSxYJKgsv7vE0S2HQMC4A7_trYY&dib_tag=se&keywords=SanDisk+Flash+Drive+USB+Tipo+C+Ultra+Luxe+tipo+c&qid=1791125261&sr=8-27&ufe=app_do%3Aamzn1.fos.38059ce3-943c-48af-9fc9-22d85542b02c",
+      "price": 1694.4,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 27,
+      "position": 27,
+      "source": "search-card",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-04T14:47:41.229Z",
+      "rejected": false,
+      "rejected_reasons": []
     }
   ],
-  "run_file": "2026-10-03T14-18-55-009Z.json"
+  "run_file": "2026-10-04T14-47-19-103Z.json"
 }
