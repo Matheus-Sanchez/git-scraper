@@ -1,0 +1,3960 @@
+{
+  "run_id": "2026-10-27T15-20-47-338Z",
+  "run_date": "2026-10-27",
+  "generated_at": "2026-10-27T15:20:47.338Z",
+  "currency": "BRL",
+  "summary": {
+    "total_products": 15,
+    "success_count": 5,
+    "failure_count": 10,
+    "run_duration_ms": 31948,
+    "engines": {
+      "lightpanda_search": {
+        "attempted": 15,
+        "success": 0,
+        "failed": 15,
+        "avg_time_ms": 274
+      },
+      "chromium_search": {
+        "attempted": 15,
+        "success": 5,
+        "failed": 10,
+        "avg_time_ms": 6866
+      }
+    }
+  },
+  "results": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "price": 539.9,
+      "unit_price": null,
+      "status": "carried_forward",
+      "intent_id": "echo-pop-5f33e662",
+      "name": "Echo Pop",
+      "characteristics": "alto-falante inteligente com Alexa",
+      "title": "Echo Pop Amazon, Com Alexa, Bluetooth, Wi-fi, Smart Speaker, Preto - C2h4r9.",
+      "url": "https://www.kabum.com.br/produto/502523/echo-pop-amazon-com-alexa-bluetooth-wi-fi-smart-speaker-preto-c2h4r9",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "currency": "BRL",
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.88,
+      "priority_score": 1,
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "source": "search-next-data",
+      "confidence": 0.88,
+      "carried_forward_reason": "no_matching_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-02T15-48-08-319Z",
+        "run_date": "2026-10-02",
+        "fetched_at": "2026-10-02T15:48:09.513Z",
+        "engine_used": "lightpanda_search",
+        "source": "search-next-data",
+        "status": "ok"
+      },
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 1,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "exemplo-fralda-tamanho-g",
+      "price": 102.37,
+      "unit_price": 1.11,
+      "status": "carried_forward",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "name": "Fralda",
+      "characteristics": "tamanho G",
+      "title": "Fralda Pampers Confort Sec Tamanho G, 92 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pampers-Confort-Tamanho-Unidades/dp/B0GW48RBS7/ref=sr_1_9?dib=eyJ2IjoiMSJ9.M6h5ImVCAag_iZsXRcHDXxOQCK5i3wrlLZljKnPkSj07SwX_gMpoYnvDzgUuWhyrZaipkUoSoR9X4TOf4pXc4hVAcuqK3iIrhViqSVLUDhLEY8YohGOilqvKg7dvQSy0SlffQypQ0u1mSQHABGjNopJRKBRRsGIJUxfbcAjIvRKK-h4qjVvBs3VGKxVpdnyCwSqh4zTCkbfyjPBoEQ5TZ_Raxk0o1jPl92penWTJ1TKd9Ytv2n3xaj-uNuc6KF5hs1fPbOsP8zmjzYFzrsdbC_0wkQasbubpPyZmIJskalI.WiAv6Mf-WbD804HnoTb21ePEaG9pKNdCGPHDA2I-FWA&dib_tag=se&keywords=Fralda+tamanho+G&qid=1793030813&sr=8-9",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "currency": "BRL",
+      "unit_basis": "unit",
+      "normalized_quantity": 92,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 92,
+        "size": "G"
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "source": "search-card",
+      "confidence": 1,
+      "carried_forward_reason": "no_matching_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-26T16-06-47-712Z",
+        "run_date": "2026-10-26",
+        "fetched_at": "2026-10-26T16:06:53.460Z",
+        "engine_used": "chromium_search",
+        "source": "search-card",
+        "status": "ok"
+      },
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 21,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 21,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "price": 102.37,
+      "unit_price": 1.11,
+      "status": "carried_forward",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "name": "Fralda Pampers Confort Sec",
+      "characteristics": "G",
+      "title": "Fralda Pampers Confort Sec Tamanho G, 92 Unidades",
+      "url": "https://www.amazon.com.br/Fralda-Pampers-Confort-Tamanho-Unidades/dp/B0GW48RBS7/ref=sr_1_1?dib=eyJ2IjoiMSJ9.nqDUNx2NpG_ADJsRXlA2VhbYe9Y26qcRfWGz3WO5q28v39REecPlcKel498_yg93NRf_VeTxlEuYQKW2JLI17GOR8wppCZcnfIKhkNRlQB4PZOqBn5vOAkUNGPnUfTxSjca4dTQMmu53SgXVtdSNYRKnRKXr1AFw4f8EKQX40hmTQKI_fr6CFEHBTkSIyZfhPeoK3DtyrAtXT1lhj7U9rqf2EW6i8ujk06XwBE_wldZ2R2nXRptFTDWI26SvrcYoNFnDZt9wBoxsHLmyYcAVvWIwJ7zaVkQ2nWHEGDRNhjY.jQJlJmycPUKMQFwAR1LbMVE09o7FwgoQ1FBd5EMXc5g&dib_tag=se&keywords=Fralda+Pampers+Confort+Sec+G&qid=1793030813&sr=8-1",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "currency": "BRL",
+      "unit_basis": "unit",
+      "normalized_quantity": 92,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 92,
+        "size": "G"
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "source": "search-card",
+      "confidence": 1,
+      "carried_forward_reason": "no_matching_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-26T16-06-47-712Z",
+        "run_date": "2026-10-26",
+        "fetched_at": "2026-10-26T16:06:53.460Z",
+        "engine_used": "chromium_search",
+        "source": "search-card",
+        "status": "ok"
+      },
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 12,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "price": 13.49,
+      "unit_price": 0.28,
+      "status": "carried_forward",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "name": "Lenços Umedecidos Huggies Rosto e Corpo",
+      "characteristics": "",
+      "title": "Lenços Umedecidos Huggies, Rosto e Corpo, 48 Unidades",
+      "url": "https://www.amazon.com.br/Len%C3%A7os-Umedecidos-Huggies-Done-toalhas/dp/B07FSVQZZ6/ref=sr_1_8?dib=eyJ2IjoiMSJ9.FS6o6z8gDPZLCFqw-sFEVTPnrCK-PZU3EbVVOFVyZkuzFKZYJ4MfK0jdttdvnvC1WWoMOV8RF--NGKn9apzN8lBOow3dBgXSmhBJtgAiCmxcWb2k9EsMjRjWlo_LqKREVvkS9hkQ8eK1I7p6rEdOGhWm833HKAtgotKxeldVXFDf5Q4Y7orITgWoVwiaN-FrsNINl0HkUOfXrM-iCtvXeuvxcydcv7gkcVVWg907zPoZwT9k_zkwJxEt5O_j3yqKMpAEYDBM335ZrGhOgytlwV_9ATP8Hslbud4tzuT0Gi0.yATzvNt7FjjyEe8QP9D4DDaO92XOimHZ923wM3GY1E8&dib_tag=se&keywords=Len%C3%A7os+Umedecidos+Huggies+Rosto+e+Corpo&qid=1793030825&sr=8-8",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "currency": "BRL",
+      "unit_basis": "unit",
+      "normalized_quantity": 48,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 48
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "source": "search-card",
+      "confidence": 1,
+      "carried_forward_reason": "no_search_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-26T16-06-47-712Z",
+        "run_date": "2026-10-26",
+        "fetched_at": "2026-10-26T16:07:05.371Z",
+        "engine_used": "chromium_search",
+        "source": "search-card",
+        "status": "ok"
+      },
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "price": 726.24,
+      "unit_price": null,
+      "status": "ok",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "name": "Memoria RAM",
+      "characteristics": "DDR4 16GB",
+      "category": "hardware",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Memória Ram Kingston Ddr4 16gb 2666mhz Sodimm - Notebook",
+      "url": "https://www.kabum.com.br/produto/1034897/memoria-ram-kingston-ddr4-16gb-2666mhz-sodimm-notebook",
+      "currency": "BRL",
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 16,
+        "module_count": 1,
+        "module_gb": 16,
+        "speed_mhz": 2666,
+        "memory_type": "ddr4",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:04.387Z",
+      "source": "search-next-data",
+      "confidence": 1,
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "fresh_success",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 40,
+          "rejected_offer_count": 0
+        }
+      ],
+      "fallback_from": "lightpanda_search",
+      "fallback_reason": "unexpected_error"
+    },
+    {
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "price": 699.99,
+      "unit_price": null,
+      "status": "ok",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "name": "Monitor gamer",
+      "characteristics": "25 polegadas 144Hz IPS FHD HDMI DisplayPort VESA",
+      "category": "hardware",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer Husky Boreal 25\", FHD, 144Hz, IPS, Adaptive Sync, DisplayPort e HDMI, HDR - HMG00124PT",
+      "url": "https://www.kabum.com.br/produto/873587/monitor-gamer-husky-boreal-25-fhd-144hz-ips-adaptive-sync-displayport-e-hdmi-hdr-hmg00124pt",
+      "currency": "BRL",
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.95,
+      "priority_score": 1,
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:06.637Z",
+      "source": "search-next-data",
+      "confidence": 0.95,
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "fresh_success",
+          "engine_used": "chromium_search",
+          "offers_checked": 5,
+          "accepted_offer_count": 5,
+          "rejected_offer_count": 0
+        }
+      ],
+      "fallback_from": "lightpanda_search",
+      "fallback_reason": "unexpected_error"
+    },
+    {
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "price": 5979.99,
+      "unit_price": null,
+      "status": "ok",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "name": "Notebook Acer Aspire GO 15",
+      "characteristics": "Intel Core i7 8GB RAM DDR5 SSD 512GB tela 15.6 Full HD",
+      "category": "hardware",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Notebook Acer Aspire Go 15, Intel Core i7-13620H, 8GB RAM DDR5, SSD 512GB NVMe, Tela 15.6'' Full HD, Linux, Cinza - Ag15-71p-72w",
+      "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
+      "currency": "BRL",
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "memory_type": "ddr5",
+        "cpu_tier": "i7",
+        "storage_gb": 512,
+        "ram_gb": 8,
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:07.807Z",
+      "source": "search-next-data",
+      "confidence": 1,
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "fresh_success",
+          "engine_used": "chromium_search",
+          "offers_checked": 7,
+          "accepted_offer_count": 2,
+          "rejected_offer_count": 5
+        }
+      ],
+      "fallback_from": "lightpanda_search",
+      "fallback_reason": "unexpected_error"
+    },
+    {
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "price": 1399.99,
+      "unit_price": null,
+      "status": "ok",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "name": "Placa Mãe Asus TUF Gaming B760",
+      "characteristics": "DDR5",
+      "category": "hardware",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Placa Mãe ASUS TUF GAMING B760M-PLUS II, Intel LGA 1700, mATX, DDR5, Preto - 90MB1HD0-M0EAY0",
+      "url": "https://www.kabum.com.br/produto/911810/placa-mae-asus-tuf-gaming-b760m-plus-ii-intel-lga-1700-matx-ddr5-preto-90mb1hd0-m0eay0",
+      "currency": "BRL",
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:09.762Z",
+      "source": "search-next-data",
+      "confidence": 1,
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "fresh_success",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 6,
+          "rejected_offer_count": 34
+        }
+      ],
+      "fallback_from": "lightpanda_search",
+      "fallback_reason": "unexpected_error"
+    },
+    {
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "price": 149.15,
+      "unit_price": 1.17,
+      "status": "carried_forward",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "name": "SanDisk Cartão de memória Ultra MicroSDXC",
+      "characteristics": "Cartão Micro SD",
+      "title": "Cartão de Memoria Sandisk Ultra Microsdxc Uhs-I Card With Adapter – 128Gb",
+      "url": "https://www.amazon.com.br/Cart%C3%A3o-Memoria-Sandisk-Microsdxc-Adapter/dp/B08HVYK4KP/ref=sr_1_6?dib=eyJ2IjoiMSJ9.NyFOJEl6ucFCTKlv86WEJVXqN7D3-qVWMTZ7t4keu7oNmZSLWMcoaGy2t0qugefUUnxcfQaO1hjHEaBSVVkw5JgU3ZMZXLdN1hnEtkY-KiSZM06p6WNWMAeTaXVYmkDYDADfnF2Z3ILamhRCRkguF6mLwyDhTgqKU3MrmLHB3uhxwPzPBgso4bLt5pB9P6hG69oWJTlu6UIRu-n-LEr6Xe_ZL0P4SxlNhmlmlLwLX1b4EndbOTeGBAwx7f8yMc4d15G2SUuGP8uD8a_t_ywJTpqTOJva2ZftRONJs5LMEtk.mmAJOLy7YqciSm_-jz1gY5Rdq-w84B4ykMggiHhtqpE&dib_tag=se&keywords=SanDisk+Cart%C3%A3o+de+mem%C3%B3ria+Ultra+MicroSDXC+Cart%C3%A3o+Micro+SD&qid=1793030841&sr=8-6&ufe=app_do%3Aamzn1.fos.db68964d-7c0e-4bb2-a95c-e5cb9e32eb12",
+      "store_id": "amazon",
+      "store": "Amazon",
+      "currency": "BRL",
+      "unit_basis": "gb",
+      "normalized_quantity": 128,
+      "attributes": {
+        "capacity_total_gb": 128,
+        "module_count": 1,
+        "module_gb": 128,
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "source": "search-card",
+      "confidence": 1,
+      "carried_forward_reason": "no_matching_offers",
+      "carried_forward_from": {
+        "run_id": "2026-10-26T16-06-47-712Z",
+        "run_date": "2026-10-26",
+        "fetched_at": "2026-10-26T16:07:20.925Z",
+        "engine_used": "chromium_search",
+        "source": "search-card",
+        "status": "ok"
+      },
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "price": 694.85,
+      "unit_price": null,
+      "status": "ok",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "name": "SanDisk Flash Drive USB Tipo C Ultra Luxe",
+      "characteristics": "tipo c",
+      "category": "armazenamento",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Pen Drive Sandisk - Unidade Flash Ultra Eco 256 Gb Usb 3.2 Gen 1 Tipo A - Verde-sdcz96-256g-a46",
+      "url": "https://www.kabum.com.br/produto/729017/pen-drive-sandisk-unidade-flash-ultra-eco-256-gb-usb-3-2-gen-1-tipo-a-verde-sdcz96-256g-a46",
+      "currency": "BRL",
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 256,
+        "module_count": 1,
+        "module_gb": 256,
+        "is_accessory": false,
+        "weight_g": 256,
+        "weight_kg": 0.26
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:13.237Z",
+      "source": "search-next-data",
+      "confidence": 0.96,
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "fresh_success",
+          "engine_used": "chromium_search",
+          "offers_checked": 8,
+          "accepted_offer_count": 1,
+          "rejected_offer_count": 7
+        }
+      ],
+      "fallback_from": "lightpanda_search",
+      "fallback_reason": "unexpected_error"
+    },
+    {
+      "product_id": "teclado-logitech-k835",
+      "price": 499.9,
+      "unit_price": null,
+      "status": "carried_forward",
+      "intent_id": "teclado-logitech-k835",
+      "name": "Teclado Logitech K835 TKL",
+      "characteristics": "mecanico switch red ABNT2 branco",
+      "title": "Teclado Mecânico USB Logitech Cinza K835 TKL",
+      "url": "https://www.kabum.com.br/produto/979316/teclado-mecanico-usb-logitech-cinza-k835-tkl",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "currency": "BRL",
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.89,
+      "priority_score": 1,
+      "engine_used": "carry_forward",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "source": "search-next-data",
+      "confidence": 0.89,
+      "carried_forward_reason": "no_matching_offers",
+      "carried_forward_from": {
+        "run_id": "2026-08-11T10-09-53-514Z",
+        "run_date": "2026-08-11",
+        "fetched_at": "2026-08-11T10:10:26.929Z",
+        "engine_used": "chromium_search",
+        "source": "search-next-data",
+        "status": "ok"
+      },
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 25,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 25,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "product_id": "echo-pop-5f33e662",
+      "intent_id": "echo-pop-5f33e662",
+      "name": "Echo Pop",
+      "characteristics": "alto-falante inteligente com Alexa",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 4001,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 1,
+          "rejected_offers": 1,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 1,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 7775,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 1,
+          "rejected_offers": 1,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 1,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 1,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 1,
+      "rejected_offers": 1,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Echo%20Pop%20alto-falante%20inteligente%20com%20Alexa",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 1,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 1,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "exemplo-fralda-tamanho-g",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "name": "Fralda",
+      "characteristics": "tamanho G",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 18,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
+              "final_url": "https://www.kabum.com.br/busca/fralda-tamanho-g",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 6695,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 21,
+          "rejected_offers": 21,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 21,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 21,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 21,
+      "rejected_offers": 21,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20tamanho%20G",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 21,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 21,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "intent_id": "fralda-babysec-galinha-pintadinha-ul-10ff82c2",
+      "name": "Fralda Babysec Galinha Pintadinha Ultrasec",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 19,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 6164,
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+              "http_status": 200
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "No usable offers were found in the search results",
+      "error_code": "no_search_offers",
+      "error_detail": "No usable offers were found in the search results",
+      "stores_checked": 2,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Babysec%20Galinha%20Pintadinha%20Ultrasec%20GG",
+          "http_status": 200
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-babysec-galinha-pintadinha-ultrasec-gg",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "name": "Fralda Pampers Confort Sec",
+      "characteristics": "G",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 18,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
+              "final_url": "https://www.kabum.com.br/busca/fralda-pampers-confort-sec-g",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 8000,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 12,
+          "rejected_offers": 12,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 12,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 12,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 12,
+      "rejected_offers": 12,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pampers%20Confort%20Sec%20G",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 12,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "intent_id": "fralda-pom-pom-protek-protecao-de-ma-a559a2e1",
+      "name": "Fralda Pom Pom Protek Proteção de Mãe",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 8,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 4300,
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+              "http_status": 200
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "No usable offers were found in the search results",
+      "error_code": "no_search_offers",
+      "error_detail": "No usable offers were found in the search results",
+      "stores_checked": 2,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Pom%20Pom%20Protek%20Prote%C3%A7%C3%A3o%20de%20M%C3%A3e%20GG",
+          "http_status": 200
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/fralda-pom-pom-protek-protecao-de-mae-gg",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "name": "Fralda Turma da Mônica Baby",
+      "characteristics": "GG",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 7,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "final_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "final_url": "https://www.kabum.com.br/busca/fralda-turma-da-monica-baby-gg",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 6250,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 12,
+          "rejected_offers": 12,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 12,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 12,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 12,
+      "rejected_offers": 12,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Fralda%20Turma%20da%20M%C3%B4nica%20Baby%20GG",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 12,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 12,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "name": "Headset HyperX Cloud Stinger 2",
+      "characteristics": "driver 50mm multiplataforma preto",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 8,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "final_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
+              "final_url": "https://www.kabum.com.br/busca/headset-hyperx-cloud-stinger-2-driver-50mm-multiplataforma-preto",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 8859,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 8,
+          "rejected_offers": 8,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 8,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 8,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 8,
+      "rejected_offers": 8,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Headset%20HyperX%20Cloud%20Stinger%202%20driver%2050mm%20multiplataforma%20preto",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 8,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 8,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "intent_id": "lencos-umedecidos-huggies-rosto-e-co-253fd12e",
+      "name": "Lenços Umedecidos Huggies Rosto e Corpo",
+      "characteristics": "",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 5,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "final_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "final_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 6467,
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+              "http_status": 200
+            },
+            {
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)",
+              "empty_result_marker": "não encontramos",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_results",
+              "error_detail": "KaBuM search returned no products (Não encontramos)"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "No usable offers were found in the search results",
+      "error_code": "no_search_offers",
+      "error_detail": "No usable offers were found in the search results",
+      "stores_checked": 2,
+      "offers_checked": null,
+      "rejected_offers": null,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Len%C3%A7os%20Umedecidos%20Huggies%20Rosto%20e%20Corpo",
+          "http_status": 200
+        },
+        {
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)",
+          "empty_result_marker": "não encontramos",
+          "store_id": "kabum",
+          "search_url": "https://www.kabum.com.br/busca/lencos-umedecidos-huggies-rosto-e-corpo",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_results",
+          "error_detail": "KaBuM search returned no products (Não encontramos)"
+        }
+      ]
+    },
+    {
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "name": "SanDisk Cartão de memória Ultra MicroSDXC",
+      "characteristics": "Cartão Micro SD",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 3,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+              "final_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/sandisk-cartao-de-memoria-ultra-microsdxc-cartao-micro-sd",
+              "final_url": "https://www.kabum.com.br/busca/sandisk-cartao-de-memoria-ultra-microsdxc-cartao-micro-sd",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 7329,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 40,
+          "rejected_offers": 40,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+              "http_status": 200
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 40,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 40,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 40,
+      "rejected_offers": 40,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=SanDisk%20Cart%C3%A3o%20de%20mem%C3%B3ria%20Ultra%20MicroSDXC%20Cart%C3%A3o%20Micro%20SD",
+          "http_status": 200
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 40,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 40,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    },
+    {
+      "product_id": "teclado-logitech-k835",
+      "intent_id": "teclado-logitech-k835",
+      "name": "Teclado Logitech K835 TKL",
+      "characteristics": "mecanico switch red ABNT2 branco",
+      "status": "failed",
+      "fetched_at": "2026-10-27T15:21:18.833Z",
+      "attempts": [
+        {
+          "engine": "lightpanda_search",
+          "ok": false,
+          "elapsed_ms": 2,
+          "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "error_code": "unexpected_error",
+          "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+          "stores_checked": 2,
+          "offers_checked": null,
+          "rejected_offers": null,
+          "store_errors": [
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "final_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "failure_stage": "search_navigation"
+            },
+            {
+              "error": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded",
+              "store_id": "kabum",
+              "search_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "final_url": "https://www.kabum.com.br/busca/teclado-logitech-k835-tkl-mecanico-switch-red-abnt2-branco",
+              "failure_stage": "search_navigation"
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "lightpanda_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "unexpected_error",
+              "error_detail": "browserContext.newPage: Protocol error (Target.createTarget): TargetAlreadyLoaded"
+            }
+          ]
+        },
+        {
+          "engine": "chromium_search",
+          "ok": false,
+          "elapsed_ms": 6009,
+          "error": "Search returned offers, but none matched the required filters",
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters",
+          "stores_checked": 2,
+          "offers_checked": 25,
+          "rejected_offers": 25,
+          "store_errors": [
+            {
+              "error": "No usable offers were found in the search results",
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results",
+              "store_id": "amazon",
+              "search_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+              "http_status": 503
+            }
+          ],
+          "store_outcomes": [
+            {
+              "store_id": "amazon",
+              "store": "Amazon",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 0,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 0,
+              "error_code": "no_search_offers",
+              "error_detail": "No usable offers were found in the search results"
+            },
+            {
+              "store_id": "kabum",
+              "store": "KaBuM",
+              "status": "hard_failure",
+              "engine_used": "chromium_search",
+              "offers_checked": 25,
+              "accepted_offer_count": 0,
+              "rejected_offer_count": 25,
+              "error_code": "no_matching_offers",
+              "error_detail": "Search returned offers, but none matched the required filters"
+            }
+          ]
+        }
+      ],
+      "engine": "chromium_search",
+      "last_error": "Search returned offers, but none matched the required filters",
+      "error_code": "no_matching_offers",
+      "error_detail": "Search returned offers, but none matched the required filters",
+      "stores_checked": 2,
+      "offers_checked": 25,
+      "rejected_offers": 25,
+      "store_errors": [
+        {
+          "error": "No usable offers were found in the search results",
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results",
+          "store_id": "amazon",
+          "search_url": "https://www.amazon.com.br/s?k=Teclado%20Logitech%20K835%20TKL%20mecanico%20switch%20red%20ABNT2%20branco",
+          "http_status": 503
+        }
+      ],
+      "store_outcomes": [
+        {
+          "store_id": "amazon",
+          "store": "Amazon",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 0,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 0,
+          "error_code": "no_search_offers",
+          "error_detail": "No usable offers were found in the search results"
+        },
+        {
+          "store_id": "kabum",
+          "store": "KaBuM",
+          "status": "hard_failure",
+          "engine_used": "chromium_search",
+          "offers_checked": 25,
+          "accepted_offer_count": 0,
+          "rejected_offer_count": 25,
+          "error_code": "no_matching_offers",
+          "error_detail": "Search returned offers, but none matched the required filters"
+        }
+      ]
+    }
+  ],
+  "offers": [
+    {
+      "offer_id": "kabum:358cf39814",
+      "intent_id": "echo-pop-5f33e662",
+      "product_id": "echo-pop-5f33e662",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Echo Show 5 (3 Geração) Amazon, Com Alexa, Alto-falante De 44mm, Preto",
+      "url": "https://www.kabum.com.br/produto/545721/echo-show-5-3-geracao-amazon-com-alexa-alto-falante-de-44mm-preto",
+      "price": 999.9,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.54,
+      "priority_score": 1,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "lightpanda_search",
+      "fetched_at": "2026-10-27T15:20:48.708Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:358cf39814",
+      "intent_id": "echo-pop-5f33e662",
+      "product_id": "echo-pop-5f33e662",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Echo Show 5 (3 Geração) Amazon, Com Alexa, Alto-falante De 44mm, Preto",
+      "url": "https://www.kabum.com.br/produto/545721/echo-show-5-3-geracao-amazon-com-alexa-alto-falante-de-44mm-preto",
+      "price": 999.9,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.54,
+      "priority_score": 1,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.156Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:531e412fe2",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "product_id": "exemplo-fralda-tamanho-g",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Apple Watch SE 3 GPS, Caixa Meia-noite de Alumínio de 40 mm, Pulseira Esportiva Meia-noite, Tamanho M/G - MEHC4AM/A",
+      "url": "https://www.kabum.com.br/produto/926042/apple-watch-se-3-gps-caixa-meia-noite-de-aluminio-de-40-mm-pulseira-esportiva-meia-noite-tamanho-m-g-mehc4am-a",
+      "price": 2799.9,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false,
+        "size": "M"
+      },
+      "match_score": 0.13,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.418Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:afbd2b44b5",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "product_id": "exemplo-fralda-tamanho-g",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Apple Watch SE 3 GPS, Caixa Estelar de Alumínio de 44 mm, Pulseira Esportiva Estelar, Tamanho M/G - MEHJ4AM/A",
+      "url": "https://www.kabum.com.br/produto/926044/apple-watch-se-3-gps-caixa-estelar-de-aluminio-de-44-mm-pulseira-esportiva-estelar-tamanho-m-g-mehj4am-a",
+      "price": 3699,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false,
+        "size": "M"
+      },
+      "match_score": 0.13,
+      "priority_score": 0,
+      "rank": 4,
+      "position": 4,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.418Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:cb858a8b27",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "product_id": "exemplo-fralda-tamanho-g",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Camisa Lupo KaBuM! IDL Oficial 2025, Tamanho G, Laranja",
+      "url": "https://www.kabum.com.br/produto/904189/lupo-camisa-kabum-idl-oficial-2025-tamanho-g",
+      "price": 210,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false,
+        "size": "G"
+      },
+      "match_score": 0.13,
+      "priority_score": 0,
+      "rank": 16,
+      "position": 16,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.418Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:0d425e38ee",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "product_id": "exemplo-fralda-tamanho-g",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Porta Lente Alhva Tamanho G",
+      "url": "https://www.kabum.com.br/produto/396195/porta-lente-alhva-tamanho-g",
+      "price": 90,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false,
+        "size": "G"
+      },
+      "match_score": 0.13,
+      "priority_score": 0,
+      "rank": 17,
+      "position": 17,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.418Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:2e79058ead",
+      "intent_id": "exemplo-fralda-tamanho-g",
+      "product_id": "exemplo-fralda-tamanho-g",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Fones Borrachinha Wireless Pretos 3 Tamanhos P M G Ajuste Perfeito",
+      "url": "https://www.kabum.com.br/produto/925864/fones-borrachinha-wireless-pretos-3-tamanhos-p-m-g-ajuste-perfeito",
+      "price": 125.4,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.13,
+      "priority_score": 0,
+      "rank": 21,
+      "position": 21,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.418Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:5d5751635d",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Memória Ram Para Notebook Kingston 16gb Ddr4, 3200mhz, PC4-25600, Sodimm, 1.2v, 260-pin - Kvr32s22s8/16",
+      "url": "https://www.kabum.com.br/produto/1070325/memoria-ram-para-notebook-kingston-16gb-ddr4-3200mhz-pc4-25600-sodimm-1-2v-260-pin-kvr32s22s8-16",
+      "price": 813.69,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 16,
+        "module_count": 1,
+        "module_gb": 16,
+        "speed_mhz": 3200,
+        "memory_type": "ddr4",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "rank": 16,
+      "position": 16,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:04.387Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:40575ef761",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Memória Ram Para Notebook Kingston Valueram, 16GB, 2666Mhz, DDR4, Cl19 - Kvr26s19s8/16",
+      "url": "https://www.kabum.com.br/produto/398860/memoria-ram-para-notebook-kingston-valueram-16gb-2666mhz-ddr4-cl19-kvr26s19s8-16",
+      "price": 797.91,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 16,
+        "module_count": 1,
+        "module_gb": 16,
+        "speed_mhz": 2666,
+        "memory_type": "ddr4",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "rank": 23,
+      "position": 23,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:04.387Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:842b993ab5",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Memória Ram Kingston Ddr4 16gb 2666mhz Sodimm - Notebook",
+      "url": "https://www.kabum.com.br/produto/1034897/memoria-ram-kingston-ddr4-16gb-2666mhz-sodimm-notebook",
+      "price": 726.24,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 16,
+        "module_count": 1,
+        "module_gb": 16,
+        "speed_mhz": 2666,
+        "memory_type": "ddr4",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "rank": 24,
+      "position": 24,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:04.387Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:46fc39479b",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Memória Ram Kingston 16gb Ddr4 2666mhz Kvr26n19s8/16 Dimm – Desktop",
+      "url": "https://www.kabum.com.br/produto/1034896/memoria-ram-kingston-16gb-ddr4-2666mhz-kvr26n19s8-16-dimm-desktop",
+      "price": 808.08,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 16,
+        "module_count": 1,
+        "module_gb": 16,
+        "speed_mhz": 2666,
+        "memory_type": "ddr4",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "rank": 27,
+      "position": 27,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:04.387Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:14ac88e9a1",
+      "intent_id": "exemplo-memoria-ram-ddr4-16gb",
+      "product_id": "exemplo-memoria-ram-ddr4-16gb",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Memória Ram Crucial, 16GB, 2400Mhz, DDR4, Para Notebook",
+      "url": "https://www.kabum.com.br/produto/467737/memoria-ram-crucial-16gb-2400mhz-ddr4-para-notebook",
+      "price": 740.91,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 16,
+        "module_count": 1,
+        "module_gb": 16,
+        "speed_mhz": 2400,
+        "memory_type": "ddr4",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "rank": 32,
+      "position": 32,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:04.387Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:712ceca30a",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cupom LIQUIDA10Mousepad Gamer Xtrike-me MP-007, Superfície Soft, Tecido de Alta Densidade, 250x210x2 mm - MP-007R$ 22,21R$7,99Desconto: -60%No PIX ou 1x de R$ 7,99Restam 48 Unid.",
+      "url": "https://www.kabum.com.br/produto/1002510/mousepad-gamer-xtrike-me-mp-007-superficie-soft-tecido-de-alta-densidade-250x210x2-mm-mp-007",
+      "price": 7.99,
+      "currency": "BRL",
+      "unit_price": 0.17,
+      "unit_basis": "unit",
+      "normalized_quantity": 48,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 48
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 3,
+      "position": 3,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.060Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:b43cc91f41",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Water Cooler Gigabyte Eagle 360, ARGB, 360mm, AMD e Intel, Preto - GP-GIGABYTE EAGLE 360R$ 444,43R$329,99Desconto: -17%No PIX ou 10x de R$ 36,66Restam 59 Unid.",
+      "url": "https://www.kabum.com.br/produto/1019513/water-cooler-gigabyte-eagle-360-argb-360mm-amd-e-intel-preto-gp-gigabyte-eagle-360",
+      "price": 329.99,
+      "currency": "BRL",
+      "unit_price": 5.59,
+      "unit_basis": "unit",
+      "normalized_quantity": 59,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 59
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 5,
+      "position": 5,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.060Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:2eb970f554",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cupom LIQUIDA10Teclado Sem Fio Mecânico Gamer AJAZZ AK820 Pro, Gasket Mount, Tela TFT, RGB, Tri-Mode, Switch Gift, Amarelo - Ajazz-AK820-Pro-GY-giftR$ 466,66R$309,99Desconto: -26%No PIX ou 10x de R$ 34,44Restam 57 Unid.",
+      "url": "https://www.kabum.com.br/produto/949784/teclado-sem-fio-mecanico-gamer-ajazz-ak820-pro-gasket-mount-tela-tft-rgb-tri-mode-switch-gift-amarelo-ajazz-ak820-pro-gy-gift",
+      "price": 309.99,
+      "currency": "BRL",
+      "unit_price": 5.44,
+      "unit_basis": "unit",
+      "normalized_quantity": 57,
+      "attributes": {
+        "platform": "nintendo",
+        "is_accessory": false,
+        "package_count": 57
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 8,
+      "position": 8,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.060Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:80aed57bf4",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 4.7 de 5.0Cupom LIQUIDA10Controle Sony Dualsense Edge PS5, Sem Fio, Preto e Branco - CFI-ZCP1WYR$ 1.499,00R$1.099,00Desconto: -21%No PIX ou 10x de R$ 118,17Restam 90 Unid.",
+      "url": "https://www.kabum.com.br/produto/401293/controle-sony-dualsense-edge-ps5-sem-fio-preto-e-branco-cfi-zcp1wy",
+      "price": 1099,
+      "currency": "BRL",
+      "unit_price": 12.21,
+      "unit_basis": "unit",
+      "normalized_quantity": 90,
+      "attributes": {
+        "color": "branco",
+        "platform": "playstation",
+        "is_accessory": false,
+        "package_count": 90
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 10,
+      "position": 10,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.060Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:3ea2f90cb6",
+      "intent_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "product_id": "fralda-pampers-confort-sec-g-5c5a56c0",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 4.7 de 5.0Gabinete Gamer Redragon Wideload Extreme, Mid Tower, ATX, Lateral e Frontal em Vidro Temperado Curvo, Preto - CA-605BR$ 722,21R$579,99Desconto: -10%No PIX ou 10x de R$ 64,44Restam 6 Unid.",
+      "url": "https://www.kabum.com.br/produto/545902/gabinete-gamer-redragon-wideload-extreme-mid-tower-atx-lateral-e-frontal-em-vidro-temperado-curvo-preto-ca-605b",
+      "price": 579.99,
+      "currency": "BRL",
+      "unit_price": 96.67,
+      "unit_basis": "unit",
+      "normalized_quantity": 6,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 6
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 11,
+      "position": 11,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:53.060Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:712ceca30a",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cupom LIQUIDA10Mousepad Gamer Xtrike-me MP-007, Superfície Soft, Tecido de Alta Densidade, 250x210x2 mm - MP-007R$ 22,21R$7,99Desconto: -60%No PIX ou 1x de R$ 7,99Restam 48 Unid.",
+      "url": "https://www.kabum.com.br/produto/1002510/mousepad-gamer-xtrike-me-mp-007-superficie-soft-tecido-de-alta-densidade-250x210x2-mm-mp-007",
+      "price": 7.99,
+      "currency": "BRL",
+      "unit_price": 0.17,
+      "unit_basis": "unit",
+      "normalized_quantity": 48,
+      "attributes": {
+        "is_accessory": false,
+        "package_count": 48
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 3,
+      "position": 3,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:59.730Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:b43cc91f41",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 5.0 de 5.0Water Cooler Gigabyte Eagle 360, ARGB, 360mm, AMD e Intel, Preto - GP-GIGABYTE EAGLE 360R$ 444,43R$329,99Desconto: -17%No PIX ou 10x de R$ 36,66Restam 59 Unid.",
+      "url": "https://www.kabum.com.br/produto/1019513/water-cooler-gigabyte-eagle-360-argb-360mm-amd-e-intel-preto-gp-gigabyte-eagle-360",
+      "price": 329.99,
+      "currency": "BRL",
+      "unit_price": 5.59,
+      "unit_basis": "unit",
+      "normalized_quantity": 59,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 59
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 5,
+      "position": 5,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:59.730Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:2eb970f554",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cupom LIQUIDA10Teclado Sem Fio Mecânico Gamer AJAZZ AK820 Pro, Gasket Mount, Tela TFT, RGB, Tri-Mode, Switch Gift, Amarelo - Ajazz-AK820-Pro-GY-giftR$ 466,66R$309,99Desconto: -26%No PIX ou 10x de R$ 34,44Restam 57 Unid.",
+      "url": "https://www.kabum.com.br/produto/949784/teclado-sem-fio-mecanico-gamer-ajazz-ak820-pro-gasket-mount-tela-tft-rgb-tri-mode-switch-gift-amarelo-ajazz-ak820-pro-gy-gift",
+      "price": 309.99,
+      "currency": "BRL",
+      "unit_price": 5.44,
+      "unit_basis": "unit",
+      "normalized_quantity": 57,
+      "attributes": {
+        "platform": "nintendo",
+        "is_accessory": false,
+        "package_count": 57
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 8,
+      "position": 8,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:59.730Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:80aed57bf4",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 4.7 de 5.0Cupom LIQUIDA10Controle Sony Dualsense Edge PS5, Sem Fio, Preto e Branco - CFI-ZCP1WYR$ 1.499,00R$1.099,00Desconto: -21%No PIX ou 10x de R$ 118,17Restam 90 Unid.",
+      "url": "https://www.kabum.com.br/produto/401293/controle-sony-dualsense-edge-ps5-sem-fio-preto-e-branco-cfi-zcp1wy",
+      "price": 1099,
+      "currency": "BRL",
+      "unit_price": 12.21,
+      "unit_basis": "unit",
+      "normalized_quantity": 90,
+      "attributes": {
+        "color": "branco",
+        "platform": "playstation",
+        "is_accessory": false,
+        "package_count": 90
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 10,
+      "position": 10,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:59.730Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:3ea2f90cb6",
+      "intent_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "product_id": "fralda-turma-da-monica-baby-gg-cb74838e",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Avaliação 4.7 de 5.0Gabinete Gamer Redragon Wideload Extreme, Mid Tower, ATX, Lateral e Frontal em Vidro Temperado Curvo, Preto - CA-605BR$ 722,21R$579,99Desconto: -10%No PIX ou 10x de R$ 64,44Restam 6 Unid.",
+      "url": "https://www.kabum.com.br/produto/545902/gabinete-gamer-redragon-wideload-extreme-mid-tower-atx-lateral-e-frontal-em-vidro-temperado-curvo-preto-ca-605b",
+      "price": 579.99,
+      "currency": "BRL",
+      "unit_price": 96.67,
+      "unit_basis": "unit",
+      "normalized_quantity": 6,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false,
+        "package_count": 6
+      },
+      "match_score": 0,
+      "priority_score": 0,
+      "rank": 11,
+      "position": 11,
+      "source": "search-anchor",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:20:59.730Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "missing_required_attributes:size",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:bf83b29c36",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer Husky Boreal 25\", FHD, 144Hz, IPS, Adaptive Sync, DisplayPort e HDMI, HDR - HMG00124PT",
+      "url": "https://www.kabum.com.br/produto/873587/monitor-gamer-husky-boreal-25-fhd-144hz-ips-adaptive-sync-displayport-e-hdmi-hdr-hmg00124pt",
+      "price": 699.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.95,
+      "priority_score": 1,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:06.637Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:e2a2985a38",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer Husky Boreal 25\", FHD, 200Hz, 1ms, IPS, Adaptive Sync, DisplayPort e HDMI, HDR - HMG00325PT",
+      "url": "https://www.kabum.com.br/produto/873588/monitor-gamer-husky-boreal-25-fhd-200hz-1ms-ips-adaptive-sync-displayport-e-hdmi-hdr-hmg00325pt",
+      "price": 799.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 0.67,
+      "rank": 2,
+      "position": 2,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:06.637Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:8e09e3ba15",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer Dell Alienware 25\", FHD, 320Hz, 0,5ms, IPS, DisplayPort e HDMI, FreeSync, Ajuste de Altura, Preto - AW2525HM",
+      "url": "https://www.kabum.com.br/produto/947297/monitor-gamer-dell-alienware-25-fhd-320hz-0-5ms-ips-displayport-e-hdmi-freesync-ajuste-de-altura-preto-aw2525hm",
+      "price": 2499.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 0.67,
+      "rank": 3,
+      "position": 3,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:06.637Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:fe03aae151",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer ASRock Phantom 25\"\", FHD, 180Hz, 1ms, IPS, FreeSync Premium, DisplayPort e HDMI, Preto - PG25FFT",
+      "url": "https://www.kabum.com.br/produto/911993/monitor-gamer-asrock-phantom-25-fhd-180hz-1ms-ips-freesync-premium-displayport-e-hdmi-preto-pg25fft",
+      "price": 999.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 0.67,
+      "rank": 4,
+      "position": 4,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:06.637Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:fb3922a349",
+      "intent_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "product_id": "haiz-monitor-gamer-25-144hz--1ca0f11f",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Monitor Gamer LG UltraGear 25\", 200Hz, 1ms, IPS, FHD, HDR10, G-Sync, FreeSync, HDMI, DisplayPort, Preto - 25G523B",
+      "url": "https://www.kabum.com.br/produto/1071875/monitor-gamer-lg-ultragear-25-200hz-1ms-ips-fhd-hdr10-g-sync-freesync-hdmi-displayport-preto-25g523b",
+      "price": 999.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.93,
+      "priority_score": 0.67,
+      "rank": 5,
+      "position": 5,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:06.637Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:51a365667e",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Headset Gamer HyperX Cloud Stinger 2, Drivers 50mm, P3, Preto - 519T1AA",
+      "url": "https://www.kabum.com.br/produto/461160/headset-gamer-hyperx-cloud-stinger-2-drivers-50mm-p3-preto-519t1aa",
+      "price": 248.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.97,
+      "priority_score": 0.5,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:01.169Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:platform"
+      ]
+    },
+    {
+      "offer_id": "kabum:c442519a8c",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Headset Gamer HyperX Cloud Stinger 2 Core, Drivers 40mm, Preto - 683L9AA",
+      "url": "https://www.kabum.com.br/produto/461178/headset-gamer-hyperx-cloud-stinger-2-core-drivers-40mm-preto-683l9aa",
+      "price": 276.81,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.94,
+      "priority_score": 0.5,
+      "rank": 2,
+      "position": 2,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:01.169Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:platform"
+      ]
+    },
+    {
+      "offer_id": "kabum:c68d49a55f",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Fone Headset Gamer Hyperx Cloud Stinger, 2 Core, 3.5mm, Preto - 683l9aa",
+      "url": "https://www.kabum.com.br/produto/523555/fone-headset-gamer-hyperx-cloud-stinger-2-core-3-5mm-preto-683l9aa",
+      "price": 383.15,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.91,
+      "priority_score": 0.5,
+      "rank": 4,
+      "position": 4,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:01.169Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:platform"
+      ]
+    },
+    {
+      "offer_id": "kabum:559b2e1d8e",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Fone Headset Gamer Hyperx Cloud Stinger, 2 Core 3.5mm, Preto E Verde - 6h9b8aa",
+      "url": "https://www.kabum.com.br/produto/523547/fone-headset-gamer-hyperx-cloud-stinger-2-core-3-5mm-preto-e-verde-6h9b8aa",
+      "price": 281.48,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.91,
+      "priority_score": 0.5,
+      "rank": 6,
+      "position": 6,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:01.169Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:platform"
+      ]
+    },
+    {
+      "offer_id": "kabum:82d8bb5838",
+      "intent_id": "headset-hyperx-cloud-stinger-2",
+      "product_id": "headset-hyperx-cloud-stinger-2",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Headset Gamer Hyperx Cloud Stinger 2 Core, P3, Preto - 683l9aa",
+      "url": "https://www.kabum.com.br/produto/564046/headset-gamer-hyperx-cloud-stinger-2-core-p3-preto-683l9aa",
+      "price": 338.94,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 0.91,
+      "priority_score": 0.5,
+      "rank": 7,
+      "position": 7,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:01.169Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:platform"
+      ]
+    },
+    {
+      "offer_id": "kabum:7838250a08",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Notebook Acer Aspire Go 15 AG15-71P-753G, Intel Core i7-13620H, 8GB RAM, SSD 256GB, 15.6\" Full HD, Linux, Verde escuro - NX.JH6AL.008",
+      "url": "https://www.kabum.com.br/produto/1033627/notebook-acer-aspire-go-15-ag15-71p-753g-intel-core-i7-13620h-8gb-ram-ssd-256gb-15-6-full-hd-linux-verde-escuro-nx-jh6al-008",
+      "price": 6000,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "cpu_tier": "i7",
+        "storage_gb": 256,
+        "ram_gb": 8,
+        "is_accessory": false,
+        "weight_g": 753,
+        "weight_kg": 0.75
+      },
+      "match_score": 0.95,
+      "priority_score": 0.75,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:07.807Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:storage_gb",
+        "excluded_term"
+      ]
+    },
+    {
+      "offer_id": "kabum:451fbaba14",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Notebook Acer Aspire Go 15 AG15-51P-54EV, Intel Core i5-N305, 8GB RAM, SSD 256GB, Tela 15.6\" Full HD, Linux, Cinza - NX.JH3AL.001",
+      "url": "https://www.kabum.com.br/produto/1061723/notebook-acer-aspire-go-15-ag15-51p-54ev-intel-core-i5-n305-8gb-ram-ssd-256gb-tela-15-6-full-hd-linux-cinza-nx-jh3al-001",
+      "price": 4998.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "cpu_tier": "i5",
+        "storage_gb": 256,
+        "ram_gb": 8,
+        "is_accessory": false
+      },
+      "match_score": 0.95,
+      "priority_score": 0.75,
+      "rank": 2,
+      "position": 2,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:07.807Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:cpu_tier,storage_gb",
+        "excluded_term"
+      ]
+    },
+    {
+      "offer_id": "kabum:716f689db6",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Notebook Acer Aspire Go Ag15-71p-5939 Core i5-13420h Ram 8GB Ddr5 SSD 256 Tela 15,6'' Fhd WINDOWS 11 Home",
+      "url": "https://www.kabum.com.br/produto/953105/notebook-acer-asp15-ag15-71p-5939-ci5-8gb-ram-256-ssd-15-6-full-hd-twisted-nematic-ips-copilot-key-windows-11-home",
+      "price": 4129.65,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "memory_type": "ddr5",
+        "cpu_tier": "i5",
+        "ram_gb": 8,
+        "platform": "pc",
+        "is_accessory": false
+      },
+      "match_score": 0.94,
+      "priority_score": 1,
+      "rank": 3,
+      "position": 3,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:07.807Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_attributes:cpu_tier,storage_gb"
+      ]
+    },
+    {
+      "offer_id": "kabum:a4fb958ead",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Notebook Acer Aspire Go 15 AG15-71P-72WL, Intel Core i7-1355U, 8GB RAM, SSD 512GB, Tela 15.6\" Full HD, Linux, Prata - NX.JH7AL.005",
+      "url": "https://www.kabum.com.br/produto/1033626/notebook-acer-aspire-go-15-ag15-71p-72wl-intel-core-i7-1355u-8gb-ram-ssd-512gb-tela-15-6-full-hd-linux-prata-nx-jh7al-005",
+      "price": 5999,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "cpu_tier": "i7",
+        "storage_gb": 512,
+        "ram_gb": 8,
+        "is_accessory": false
+      },
+      "match_score": 0.98,
+      "priority_score": 0.75,
+      "rank": 4,
+      "position": 4,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:07.807Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:f27ed9a1af",
+      "intent_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "product_id": "notebook-acer-aspire-go-15-f27ed9a1",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Notebook Acer Aspire Go 15, Intel Core i7-13620H, 8GB RAM DDR5, SSD 512GB NVMe, Tela 15.6'' Full HD, Linux, Cinza - Ag15-71p-72w",
+      "url": "https://www.kabum.com.br/produto/943512/notebook-acer-aspire-go-15-intel-core-i7-13620h-8gb-ram-ddr5-ssd-512gb-nvme-tela-15-6-full-hd-linux-cinza-ag15-71p-72w",
+      "price": 5979.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 8,
+        "module_count": 1,
+        "module_gb": 8,
+        "memory_type": "ddr5",
+        "cpu_tier": "i7",
+        "storage_gb": 512,
+        "ram_gb": 8,
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 1,
+      "rank": 6,
+      "position": 6,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:07.807Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:38a4e61a7a",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Placa-Mãe Asus Tuf Gaming B760-Plus Wi-Fi, Intel LGA 1700, ATX, DDR5, Chipset B760 - Tuf Gaming B760-Plus Wifi",
+      "url": "https://www.kabum.com.br/produto/486832/placa-mae-asus-tuf-gaming-b760-plus-wi-fi-intel-lga-1700-atx-ddr5-chipset-b760-tuf-gaming-b760-plus-wifi",
+      "price": 1950,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:09.762Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:bf44a6fd6d",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Placa-Mãe ASUS TUF GAMING B760M-PLUS WIFI II, Intel, DDR5, Preto - 90MB1HE0-M0EAY0",
+      "url": "https://www.kabum.com.br/produto/523144/placa-mae-asus-tuf-gaming-b760m-plus-wifi-ii-intel-ddr5-preto-90mb1he0-m0eay0",
+      "price": 1599.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 4,
+      "position": 4,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:09.762Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:de2b87e9a1",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Placa Mãe ASUS TUF GAMING B760M-PLUS II, Intel LGA 1700, mATX, DDR5, Preto - 90MB1HD0-M0EAY0",
+      "url": "https://www.kabum.com.br/produto/911810/placa-mae-asus-tuf-gaming-b760m-plus-ii-intel-lga-1700-matx-ddr5-preto-90mb1hd0-m0eay0",
+      "price": 1399.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "color": "preto",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 6,
+      "position": 6,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:09.762Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:ae92e2e75b",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Placa Mãe Asus Tuf Gaming B760m-plus Wi-fi Ii LGA 1700 Ddr5 - 90mb1he0-m0eay0",
+      "url": "https://www.kabum.com.br/produto/647633/placa-mae-asus-tuf-gaming-b760m-plus-wifi-ii-ddr5-lga-1700-m-atx-chipset-intel-b760",
+      "price": 1779.9,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 9,
+      "position": 9,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:09.762Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:e6613ed71a",
+      "intent_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "product_id": "placa-mae-asus-tuf-gaming-b760-ddr5-1525c3b8",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Placa Mãe Asus Tuf Gaming B760m-plus Ii Matx LGA 1700 Ddr5 - 90mb1hd0-m0eay0",
+      "url": "https://www.kabum.com.br/produto/595278/placa-mae-asus-tuf-gaming-b760m-plus-ii-ddr5-lga-1700-micro-atx",
+      "price": 1999,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "memory_type": "ddr5",
+        "chipset": "b760",
+        "is_accessory": false
+      },
+      "match_score": 1,
+      "priority_score": 0,
+      "rank": 10,
+      "position": 10,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:09.762Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:db15955139",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Sandisk Cartão De Memória 128GB Ultra Hd 720p, Micro Sd, Classe 10 80mb/s",
+      "url": "https://www.kabum.com.br/produto/948956/sandisk-cartao-de-memoria-128gb-ultra-hd-720p-micro-sd-classe-10-80mb-s",
+      "price": 174.79,
+      "currency": "BRL",
+      "unit_price": 1.37,
+      "unit_basis": "gb",
+      "normalized_quantity": 128,
+      "attributes": {
+        "capacity_total_gb": 128,
+        "module_count": 1,
+        "module_gb": 128,
+        "ram_gb": 128,
+        "is_accessory": false
+      },
+      "match_score": 0.81,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:11.783Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms"
+      ]
+    },
+    {
+      "offer_id": "kabum:2cddb55d84",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cartão Memória Microsd Sandisk,512GB, Micro Sd Ultra, 100mbs",
+      "url": "https://www.kabum.com.br/produto/512032/cartao-memoria-microsd-sandisk-512gb-micro-sd-ultra-100mbs",
+      "price": 836.94,
+      "currency": "BRL",
+      "unit_price": 1.63,
+      "unit_basis": "gb",
+      "normalized_quantity": 512,
+      "attributes": {
+        "capacity_total_gb": 512,
+        "module_count": 1,
+        "module_gb": 512,
+        "is_accessory": false
+      },
+      "match_score": 0.81,
+      "priority_score": 0,
+      "rank": 3,
+      "position": 3,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:11.783Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms"
+      ]
+    },
+    {
+      "offer_id": "kabum:0d151524c3",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cartão De Memória Sandisk Box Ultra Micro SD, 128GB, Classe 10 - SDSQUNS-128G-GN6TA",
+      "url": "https://www.kabum.com.br/produto/246129/cartao-de-memoria-sandisk-box-ultra-micro-sd-128gb-classe-10-sdsquns-128g-gn6ta",
+      "price": 151.59,
+      "currency": "BRL",
+      "unit_price": 1.18,
+      "unit_basis": "gb",
+      "normalized_quantity": 128,
+      "attributes": {
+        "capacity_total_gb": 128,
+        "module_count": 1,
+        "module_gb": 128,
+        "is_accessory": false,
+        "weight_g": 128,
+        "weight_kg": 0.13
+      },
+      "match_score": 0.81,
+      "priority_score": 0,
+      "rank": 7,
+      "position": 7,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:11.783Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms"
+      ]
+    },
+    {
+      "offer_id": "kabum:a406108e6f",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cartão De Memória Sandisk Ultra 512GB, Micro SDXC, Classe 10, 150MB/s, UHS-I - Sdsquac-512g-Gn6ma",
+      "url": "https://www.kabum.com.br/produto/657515/cartao-de-memoria-sandisk-ultra-512gb-micro-sdxc-classe-10-150mb-s-uhs-i-sdsquac-512g-gn6ma",
+      "price": 805,
+      "currency": "BRL",
+      "unit_price": 1.57,
+      "unit_basis": "gb",
+      "normalized_quantity": 512,
+      "attributes": {
+        "capacity_total_gb": 512,
+        "module_count": 1,
+        "module_gb": 512,
+        "is_accessory": false,
+        "weight_g": 512,
+        "weight_kg": 0.51
+      },
+      "match_score": 0.81,
+      "priority_score": 0,
+      "rank": 18,
+      "position": 18,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:11.783Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms"
+      ]
+    },
+    {
+      "offer_id": "kabum:5088968ba0",
+      "intent_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "product_id": "sandisk-cartao-de-memoria-ultra-micr-7d44e36d",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Cartão Memória Micro Sdxc 128gb Ultra 100mbs Sandisk (2398_01).",
+      "url": "https://www.kabum.com.br/produto/340279/cartao-memoria-micro-sdxc-128gb-ultra-100mbs-sandisk-2398_01-",
+      "price": 189.75,
+      "currency": "BRL",
+      "unit_price": 1.48,
+      "unit_basis": "gb",
+      "normalized_quantity": 128,
+      "attributes": {
+        "capacity_total_gb": 128,
+        "module_count": 1,
+        "module_gb": 128,
+        "is_accessory": false
+      },
+      "match_score": 0.81,
+      "priority_score": 0,
+      "rank": 31,
+      "position": 31,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:11.783Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms"
+      ]
+    },
+    {
+      "offer_id": "kabum:7eb1df193a",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Pen Drive Sandisk, 64GB, Dual Drive Luxe 3.1, USB Tipo-C",
+      "url": "https://www.kabum.com.br/produto/515022/pen-drive-sandisk-64gb-dual-drive-luxe-3-1-usb-tipo-c",
+      "price": 212.43,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 64,
+        "module_count": 1,
+        "module_gb": 64,
+        "is_accessory": false
+      },
+      "match_score": 0.18,
+      "priority_score": 0,
+      "rank": 1,
+      "position": 1,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:13.237Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:fea96d6b9d",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Pen Drive Sandisk Ultra Go 64GB, USB 3.1, Tipo A P, Tipo C",
+      "url": "https://www.kabum.com.br/produto/512755/pen-drive-sandisk-ultra-go-64gb-usb-3-1-tipo-a-p-tipo-c",
+      "price": 119.99,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 64,
+        "module_count": 1,
+        "module_gb": 64,
+        "is_accessory": false
+      },
+      "match_score": 0.18,
+      "priority_score": 0,
+      "rank": 4,
+      "position": 4,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:13.237Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:20096e4c35",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Pen Drive Sandisk 64gb Usb C 3.2 Ultra Luxe 300mbs Prata",
+      "url": "https://www.kabum.com.br/produto/909365/pen-drive-sandisk-64gb-usb-c-3-2-ultra-luxe-300mbs-prata",
+      "price": 185.22,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 64,
+        "module_count": 1,
+        "module_gb": 64,
+        "is_accessory": false
+      },
+      "match_score": 0.18,
+      "priority_score": 0,
+      "rank": 5,
+      "position": 5,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:13.237Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:c79c3dccca",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Pen drive Sandisk Ultra Dual Drive, USB, Tipo C 64GB",
+      "url": "https://www.kabum.com.br/produto/512077/pen-drive-sandisk-ultra-dual-drive-usb-tipo-c-64gb",
+      "price": 202.79,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 64,
+        "module_count": 1,
+        "module_gb": 64,
+        "is_accessory": false
+      },
+      "match_score": 0.18,
+      "priority_score": 0,
+      "rank": 6,
+      "position": 6,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:13.237Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:81b1006194",
+      "intent_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "product_id": "sandisk-flash-drive-usb-tipo-c-ultra-b3f5853c",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Pen Drive Sandisk - Unidade Flash Ultra Eco 256 Gb Usb 3.2 Gen 1 Tipo A - Verde-sdcz96-256g-a46",
+      "url": "https://www.kabum.com.br/produto/729017/pen-drive-sandisk-unidade-flash-ultra-eco-256-gb-usb-3-2-gen-1-tipo-a-verde-sdcz96-256g-a46",
+      "price": 694.85,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": "unit",
+      "normalized_quantity": null,
+      "attributes": {
+        "capacity_total_gb": 256,
+        "module_count": 1,
+        "module_gb": 256,
+        "is_accessory": false,
+        "weight_g": 256,
+        "weight_kg": 0.26
+      },
+      "match_score": 0.96,
+      "priority_score": 0,
+      "rank": 7,
+      "position": 7,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:13.237Z",
+      "rejected": false,
+      "rejected_reasons": []
+    },
+    {
+      "offer_id": "kabum:ec4f67b794",
+      "intent_id": "teclado-logitech-k835",
+      "product_id": "teclado-logitech-k835",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Teclado Mecânico Gamer Redragon Dark Avenger, RGB, Switch Blue, Abnt2, Tkl, Branco E Rosa",
+      "url": "https://www.kabum.com.br/produto/659118/teclado-mecanico-gamer-redragon-dark-avenger-rgb-switch-blue-abnt2-tkl-branco-e-rosa-branco-unissex-unico",
+      "price": 219.78,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "branco",
+        "platform": "nintendo",
+        "is_accessory": false
+      },
+      "match_score": 0.19,
+      "priority_score": 1,
+      "rank": 12,
+      "position": 12,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:14.412Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:c1245b570c",
+      "intent_id": "teclado-logitech-k835",
+      "product_id": "teclado-logitech-k835",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Teclado Mecânico Gamer Sem Fio Logitech G915 X Lightspeed, Design TKL RGB Lightsync, USB ou Bluetooth e Switch GL Tactile, Branco - 920-012732",
+      "url": "https://www.kabum.com.br/produto/652582/teclado-mecanico-gamer-sem-fio-logitech-g915-x-lightspeed-design-tkl-rgb-lightsync-usb-ou-bluetooth-e-switch-gl-tactile-branco-920-012732",
+      "price": 1158.09,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "branco",
+        "platform": "nintendo",
+        "is_accessory": false
+      },
+      "match_score": 0.54,
+      "priority_score": 1,
+      "rank": 15,
+      "position": 15,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:14.412Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:4929219f31",
+      "intent_id": "teclado-logitech-k835",
+      "product_id": "teclado-logitech-k835",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Teclado Mecanico Gamer Sem Fio Logitech G515 Tkl RGB Switch Gl Brown Tactile Branco 920-012535",
+      "url": "https://www.kabum.com.br/produto/940612/teclado-mecanico-gamer-sem-fio-logitech-g515-tkl-rgb-switch-gl-brown-tactile-branco-920-012535",
+      "price": 768.32,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "branco",
+        "platform": "nintendo",
+        "is_accessory": false
+      },
+      "match_score": 0.54,
+      "priority_score": 1,
+      "rank": 17,
+      "position": 17,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:14.412Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:b7e782e645",
+      "intent_id": "teclado-logitech-k835",
+      "product_id": "teclado-logitech-k835",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Teclado Mecânico Gamer Redragon Dark Avenger, RGB, Switch Blue, Abnt2, Tkl, Rosa E Branco - Rosa - Unissex - Único.",
+      "url": "https://www.kabum.com.br/produto/659119/teclado-mecanico-gamer-redragon-dark-avenger-rgb-switch-blue-abnt2-tkl-rosa-e-branco-rosa-unissex-unico-",
+      "price": 200.48,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "branco",
+        "platform": "nintendo",
+        "is_accessory": false
+      },
+      "match_score": 0.19,
+      "priority_score": 1,
+      "rank": 20,
+      "position": 20,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:14.412Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    },
+    {
+      "offer_id": "kabum:b9fce0a25b",
+      "intent_id": "teclado-logitech-k835",
+      "product_id": "teclado-logitech-k835",
+      "store_id": "kabum",
+      "store": "KaBuM",
+      "title": "Teclado Mecânico Gamer Logitech G413 Tkl Se, Switch Tático, Anti-Ghosting, ABNT2, Preto - 920-010562",
+      "url": "https://www.kabum.com.br/produto/460207/teclado-mecanico-gamer-logitech-g413-tkl-se-switch-tatico-anti-ghosting-abnt2-preto-920-010562",
+      "price": 649.45,
+      "currency": "BRL",
+      "unit_price": null,
+      "unit_basis": null,
+      "normalized_quantity": null,
+      "attributes": {
+        "color": "preto",
+        "platform": "nintendo",
+        "is_accessory": false
+      },
+      "match_score": 0.54,
+      "priority_score": 1,
+      "rank": 24,
+      "position": 24,
+      "source": "search-next-data",
+      "engine_used": "chromium_search",
+      "fetched_at": "2026-10-27T15:21:14.412Z",
+      "rejected": true,
+      "rejected_reasons": [
+        "missing_required_terms",
+        "low_match_score"
+      ]
+    }
+  ]
+}
